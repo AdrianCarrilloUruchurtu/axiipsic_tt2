@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class PatHomePage extends StatefulWidget {
-  const PatHomePage({Key? key}) : super(key: key);
+class PsicHomePage extends StatefulWidget {
+  const PsicHomePage({Key? key}) : super(key: key);
 
   @override
-  State<PatHomePage> createState() => _PatHomePageState();
+  State<PsicHomePage> createState() => _PsicHomePageState();
 }
 
-class _PatHomePageState extends State<PatHomePage> {
+class _PsicHomePageState extends State<PsicHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,8 +62,8 @@ class _PatHomePageState extends State<PatHomePage> {
           children: [
             DrawerHeader(
                 child: Column(
-              children: [Icon((Icons.person_add_alt_1_outlined))],
-            )),
+                  children: [Icon((Icons.person_add_alt_1_outlined))],
+                )),
             ListTile(
               title: Text("Home"),
               onTap: () {},
@@ -84,7 +84,7 @@ class _PatHomePageState extends State<PatHomePage> {
           builder: (BuildContext context) {
             return DecoratedBox(
               decoration: const BoxDecoration(
-                shape: BoxShape.circle,
+                  shape: BoxShape.circle,
                   color: Colors.blueAccent
               ),
               child: IconButton(
@@ -121,7 +121,7 @@ class _PatHomePageState extends State<PatHomePage> {
         backgroundColor: Colors.blue.shade900,
         alignment: Alignment.center,
         shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -144,38 +144,23 @@ class _PatHomePageState extends State<PatHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Text(
-              "Hola Adrian",
+              "Hola Gerardo",
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             SizedBox.fromSize(
               size: Size.fromHeight(5),
             ),
-            _therapyBtn(),
+            _patList(),
             SizedBox.fromSize(
-              size: Size.fromHeight(20),
+              size: Size.fromHeight(15),
             ),
-            Expanded(
-              child: GridView.count(
-                childAspectRatio: (1 / .7),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                crossAxisSpacing: 7,
-                mainAxisSpacing: 7,
-                children: [
-                  _myButton('Línea de ayuda', Icon(FontAwesomeIcons.heartPulse,size: 60,)),
-                  _myButton('Notas',Icon(FontAwesomeIcons.noteSticky,size: 60,)),
-                  _myButton('Tareas', Icon(FontAwesomeIcons.listCheck,size: 60,)),
-                  _myButton('Próxima cita', Icon(FontAwesomeIcons.solidBell,size: 60,)),
-                ],
-              ),
-            ),
+            _dateBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(5),
+              size: Size.fromHeight(15),
             ),
             _calendarBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(22),
+              size: Size.fromHeight(20),
             ),
           ],
         ),
@@ -183,8 +168,106 @@ class _PatHomePageState extends State<PatHomePage> {
     );
   }
 
-  Widget _therapyBtn() {
-    return SizedBox(
+  Widget _patList() {
+    return Expanded(
+      child: SizedBox(
+          width: 370,
+          height: 90,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xff333333),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20))),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text.rich(TextSpan(
+                      text: "Lista de pacientes\n",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: "Aquí puedes ver tus pacientes",
+                            style: TextStyle(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal)),
+                      ])),
+                  Icon(
+                    FontAwesomeIcons.peopleGroup,
+                    size: 50,
+                  ),
+
+                ],
+              ),
+            ),
+            onPressed: () {},
+          )),
+    );
+  }
+
+  Widget _dateBtn() {
+    return Expanded(
+      child: SizedBox(
+          width: 370,
+          height: 90,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xff333333),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20))),
+            child: Padding(
+              padding: EdgeInsets.all(15),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Icon(
+                    FontAwesomeIcons.calendarDay,
+                    size: 70,
+                  ),
+                  Column(
+                    children:  [
+                      SizedBox(
+                        width: 50,
+                        height: 30,
+                        child: DecoratedBox(
+                            decoration:  BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                color: Colors.blueAccent,
+                              borderRadius: BorderRadius.circular(15)
+
+                            ),
+                            child: const Icon(FontAwesomeIcons.solidBell,size: 15,)),
+                      ),
+                      const Text.rich(TextSpan(
+                          text: "Próxima cita\n",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25
+
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text:
+                                    "Jueves 07/Enero/2060",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.normal,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.normal)),
+                          ])),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            onPressed: () {},
+          )),
+    );
+  }
+
+  Widget _calendarBtn() {
+    return Expanded(
+      child: SizedBox(
         width: 370,
         height: 90,
         child: ElevatedButton(
@@ -194,52 +277,20 @@ class _PatHomePageState extends State<PatHomePage> {
                   borderRadius: BorderRadius.circular(12))),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              Text.rich(TextSpan(
-                  text: "Progreso de Terapia\n",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: "Aquí puedes ver tus avances \n en la terapia",
-                        style: TextStyle(
-                            fontStyle: FontStyle.normal,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal)),
-                  ])),
+              Text("Calendario",style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold
+              ),),
               Icon(
-                FontAwesomeIcons.chartLine,
-                size: 50,
+                FontAwesomeIcons.calendarDay,
+                size: 60,
               )
             ],
           ),
           onPressed: () {},
-        ));
-  }
-
-  Widget _calendarBtn() {
-    return SizedBox(
-      width: 370,
-      height: 90,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xff078956),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text("Calendario",style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold
-            ),),
-            Icon(
-              FontAwesomeIcons.calendarDay,
-              size: 60,
-            )
-          ],
         ),
-        onPressed: () {},
       ),
     );
   }

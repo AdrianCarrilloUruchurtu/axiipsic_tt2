@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:axiipsic_tt2/login_state.dart';
 import 'package:axiipsic_tt2/ui/pages/home/patient_home_page.dart';
 
-class Login extends StatelessWidget {
-  Login({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
-  bool _loggedIn = true;
+  final bool _loggedIn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -15,11 +15,8 @@ class Login extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 70),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.transparent,
-            gradient:
-                LinearGradient(colors: [Colors.cyan[300]!, Colors.cyan[800]!]),
           ),
           child: Image.asset(
             "assets/logo/logo.png",
@@ -28,7 +25,7 @@ class Login extends StatelessWidget {
           ),
         ),
         Transform.translate(
-          offset: Offset(0, -40),
+          offset: const Offset(0, -40),
           child: Center(
             child: SingleChildScrollView(
               child: Card(
@@ -45,16 +42,40 @@ class Login extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(
-                        decoration:
-                            const InputDecoration(labelText: "Usuario: "),
+                        decoration: const InputDecoration(
+                            hintText: "Nombre: ",
+                            icon: Icon(
+                              Icons.person,
+                              color: Colors.blue,
+                            )),
                       ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 20),
                       TextFormField(
-                        decoration:
-                            const InputDecoration(labelText: "Contraseña: "),
+                        decoration: const InputDecoration(
+                            hintText:
+                                "Correo electrónico o nombre de usuario: ",
+                            icon: Icon(Icons.email)),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            hintText: "Tipo de usuario: ",
+                            icon: Icon(
+                              Icons.person_outline_outlined,
+                              color: Colors.blue,
+                            )),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        decoration: const InputDecoration(
+                            hintText: "Contraseña: ",
+                            icon: Icon(
+                              Icons.password,
+                              color: Colors.blue,
+                            )),
                         obscureText: true,
                       ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 20),
                       Theme(
                         data: Theme.of(context)
                             .copyWith(selectedRowColor: Colors.white),
@@ -66,23 +87,23 @@ class Login extends StatelessWidget {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              DecoratedBox(decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60)
-                              ),
-                              child: Text("Iniciar sesión")),
+                              const SizedBox(height: 20),
+                              DecoratedBox(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(60)),
+                                  child: const Text("Continuar")),
 
                               if (_loggedIn)
                                 Container(
                                   height: 20,
                                   width: 20,
                                   margin: const EdgeInsets.only(left: 20),
-                                  child: CircularProgressIndicator(),
+                                  child: const CircularProgressIndicator(),
                                 )
                             ],
                           ),
                           onPressed: () {
-                           // context.read<LoginState>().login();
-                          Navigator.of(context).pushNamed('/psicHome');
+                            Navigator.pushNamed(context, 'login');
                           },
                         ),
                       ),
@@ -92,11 +113,11 @@ class Login extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text("¿No estás registrado?"),
+                          const Text("¿Google?"),
                           TextButton(
-                            child: Text("Registrarse"),
+                            child: Text("Google"),
                             onPressed: () {
-                              _showRegister(context);
+                              context.read<LoginState>().login();
                             },
                           )
                         ],
@@ -112,7 +133,9 @@ class Login extends StatelessWidget {
     ));
   }
 
-  void _showRegister(BuildContext context) {Navigator.of(context).pushNamed(
-    '/register',
-  );}
+  void _showRegister(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      '/register',
+    );
+  }
 }
