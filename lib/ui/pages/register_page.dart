@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:axiipsic_tt2/login_state.dart';
-import 'package:axiipsic_tt2/ui/pages/home/patient_home_page.dart';
+import 'package:axiipsic_tt2/ui/pages/paciente/home/patient_home_page.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+   RegisterPage({super.key});
 
   final bool _loggedIn = true;
+
+  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _userFocusNode = FocusNode();
+  final FocusNode _typeFocuseNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -42,12 +47,23 @@ class RegisterPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(
+                        key: ValueKey('name'),
+                        validator: (value){
+                          if ((value!.isEmpty)) {
+                            return 'El nombre es requerido';
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                        onEditingComplete: ()=>FocusScope.of(context).requestFocus(_passwordFocusNode),
+                        keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                             hintText: "Nombre: ",
                             icon: Icon(
                               Icons.person,
                               color: Colors.blue,
                             )),
+
                       ),
                       const SizedBox(height: 20),
                       TextFormField(

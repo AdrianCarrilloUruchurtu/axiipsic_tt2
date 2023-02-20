@@ -1,5 +1,6 @@
-import 'package:axiipsic_tt2/ui/pages/home/patient_home_page.dart';
-import 'package:axiipsic_tt2/ui/pages/home/psic_home_page.dart';
+import 'package:axiipsic_tt2/ui/pages/paciente/home/patient_home_page.dart';
+import 'package:axiipsic_tt2/ui/pages/paciente/progress_page.dart';
+import 'package:axiipsic_tt2/ui/pages/psicologo/home/psic_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/login_page.dart';
 import 'package:axiipsic_tt2/ui/pages/register_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,7 +30,8 @@ class PageRouter extends StatelessWidget {
           },
           '/patHome': (BuildContext context) => const PatHomePage(),
           '/register': (BuildContext context) => RegisterPage(),
-          '/psicHome': (BuildContext context) => PsicHomePage()
+          '/psicHome': (BuildContext context) => PsicHomePage(),
+          '/progressPage': (BuildContext context) => ProgressPage(),
         },
       ),
     );

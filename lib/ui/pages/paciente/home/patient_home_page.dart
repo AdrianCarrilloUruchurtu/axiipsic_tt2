@@ -115,7 +115,7 @@ class _PatHomePageState extends State<PatHomePage> {
     );
   }
 
-  Widget _myButton(String texto, Icon icono) {
+  Widget _myButton(String texto, Icon icono, ruta) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.blue.shade900,
@@ -131,7 +131,7 @@ class _PatHomePageState extends State<PatHomePage> {
         ],
       ),
       onPressed: (){
-
+        Navigator.of(context).pushNamed(ruta);
       },
     );
   }
@@ -163,10 +163,10 @@ class _PatHomePageState extends State<PatHomePage> {
                 crossAxisSpacing: 7,
                 mainAxisSpacing: 7,
                 children: [
-                  _myButton('Línea de ayuda', Icon(FontAwesomeIcons.heartPulse,size: 60,)),
-                  _myButton('Notas',Icon(FontAwesomeIcons.noteSticky,size: 60,)),
-                  _myButton('Tareas', Icon(FontAwesomeIcons.listCheck,size: 60,)),
-                  _myButton('Próxima cita', Icon(FontAwesomeIcons.solidBell,size: 60,)),
+                  _myButton('Línea de ayuda', Icon(FontAwesomeIcons.heartPulse,size: 60,), '/progressPage'),
+                  _myButton('Notas',Icon(FontAwesomeIcons.noteSticky,size: 60,), '/notas'),
+                  _myButton('Tareas', Icon(FontAwesomeIcons.listCheck,size: 60,), '/tareas'),
+                  _myButton('Próxima cita', Icon(FontAwesomeIcons.solidBell,size: 60,), '/citas'),
                 ],
               ),
             ),

@@ -28,6 +28,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   heroTag: null,
                   onPressed: () {},
                   child: Icon(FontAwesomeIcons.house),
+                  backgroundColor: Color(0xffF5FA197),
                 ),
               ),
             ),
@@ -39,6 +40,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   heroTag: null,
                   onPressed: () {},
                   child: Icon(Icons.add),
+                  backgroundColor: Color(0xffF5FA197),
                 ),
               ),
             ),
@@ -50,6 +52,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   heroTag: null,
                   onPressed: () {},
                   child: Icon(FontAwesomeIcons.noteSticky),
+                  backgroundColor: Color(0xffF5FA197),
                 ),
               ),
             ),
@@ -83,8 +86,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
         leading: Builder(
           builder: (BuildContext context) {
             return DecoratedBox(
-              decoration: const BoxDecoration(
+              decoration:  BoxDecoration(
                   shape: BoxShape.circle,
+                 //borderRadius: BorderRadius.circular(30),
                   color: Colors.blueAccent
               ),
               child: IconButton(
@@ -175,7 +179,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
           height: 90,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff333333),
+                backgroundColor: Color(0xffC0EAE2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
             child: Padding(
@@ -185,7 +189,10 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 children: const [
                   Text.rich(TextSpan(
                       text: "Lista de pacientes\n",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.black),
                       children: <TextSpan>[
                         TextSpan(
                             text: "Aquí puedes ver tus pacientes",
@@ -197,8 +204,8 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   Icon(
                     FontAwesomeIcons.peopleGroup,
                     size: 50,
+                    color: Colors.black,
                   ),
-
                 ],
               ),
             ),
@@ -214,7 +221,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
           height: 90,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff333333),
+                backgroundColor: Color(0xffC0EAE2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
             child: Padding(
@@ -224,7 +231,8 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 children: [
                   const Icon(
                     FontAwesomeIcons.calendarDay,
-                    size: 70,
+                    size: 80,
+                    color: Colors.black,
                   ),
                   Column(
                     children:  [
@@ -232,28 +240,29 @@ class _PsicHomePageState extends State<PsicHomePage> {
                         width: 50,
                         height: 30,
                         child: DecoratedBox(
-                            decoration:  BoxDecoration(
+                            decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 color: Colors.blueAccent,
-                              borderRadius: BorderRadius.circular(15)
-
-                            ),
-                            child: const Icon(FontAwesomeIcons.solidBell,size: 15,)),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: const Icon(
+                              FontAwesomeIcons.solidBell,
+                              size: 15,
+                            )),
                       ),
                       const Text.rich(TextSpan(
                           text: "Próxima cita\n",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 25
-
-                          ),
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                              color: Colors.black),
                           children: <TextSpan>[
                             TextSpan(
-                                text:
-                                    "Jueves 07/Enero/2060",
+                                text: "Jueves 07/Enero/2060",
                                 style: TextStyle(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 16,
-                                    fontWeight: FontWeight.normal)),
+                                    fontWeight: FontWeight.normal,
+                                    color: Colors.black)),
                           ])),
                     ],
                   ),
@@ -272,20 +281,22 @@ class _PsicHomePageState extends State<PsicHomePage> {
         height: 90,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xff078956),
+              backgroundColor: Color(0xffC0EAE2),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12))),
+                  borderRadius: BorderRadius.circular(20))),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
               Text("Calendario",style: TextStyle(
                   fontSize: 30,
-                  fontWeight: FontWeight.bold
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black
               ),),
               Icon(
-                FontAwesomeIcons.calendarDay,
-                size: 60,
+                FontAwesomeIcons.calendarDays,
+                size: 80,
+                color: Colors.black,
               )
             ],
           ),

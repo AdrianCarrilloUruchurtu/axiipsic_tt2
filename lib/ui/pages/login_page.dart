@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:axiipsic_tt2/login_state.dart';
-import 'package:axiipsic_tt2/ui/pages/home/patient_home_page.dart';
+import 'package:axiipsic_tt2/ui/pages/paciente/home/patient_home_page.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   bool _loggedIn = true;
+
+  bool _obscureText = true;
+
+  String? _usuario = '';
+
+  String? _password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +56,54 @@ class Login extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(
-                        decoration:
-                            const InputDecoration(labelText: "Usuario: "),
+                        key: ValueKey('email'),
+                        validator: (value) {
+                          if (value!.isEmpty || !value.contains('@')) {
+                            return 'Usuario o contraseña invalidos';
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                            border: const UnderlineInputBorder(),
+                            filled: true,
+                            prefixIcon: Icon(Icons.email),
+                            labelText: "Usuario: "),
+                        onSaved: (value) {
+                          _usuario = value;
+                        },
                       ),
                       SizedBox(height: 40),
                       TextFormField(
-                        decoration:
-                            const InputDecoration(labelText: "Contraseña: "),
-                        obscureText: true,
+                        key: ValueKey('password'),
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 8) {
+                            return 'Usuario o contraseña invalidos';
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.visiblePassword,
+                        decoration: InputDecoration(
+                            border: const UnderlineInputBorder(),
+                            filled: true,
+                            prefixIcon: Icon(Icons.password),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                              child: Icon(_obscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off),
+                            ),
+                            labelText: "Contraseña: "),
+                        onSaved: (value) {
+                          _password = value;
+                        },
+                        obscureText: _obscureText,
                       ),
                       SizedBox(height: 40),
                       Theme(
