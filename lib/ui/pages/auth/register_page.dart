@@ -5,7 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:axiipsic_tt2/login_state.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -16,35 +16,27 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
 
+  //Variables para los forms
   final _formKey = GlobalKey<FormState>();
-
-
   final bool _loggedIn = true;
-
-  final FocusNode _passwordFocusNode = FocusNode();
-
-  final FocusNode _emailFocusNode = FocusNode();
-
-  final FocusNode _userFocusNode = FocusNode();
-
-  final FocusNode _typeFocusNode = FocusNode();
-
   bool _obscureText = true;
-
+  //FocusNodes
+  final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _userFocusNode = FocusNode();
+  final FocusNode _typeFocusNode = FocusNode();
+  //Campos
   String? _usuario = '';
-
   String? _email = '';
-
-  String? _type = '';
-
+  bool? _type = false;
   String? _password = '';
 
   GlobalMethod _globalMethod = GlobalMethod();
 
   bool _isLoading = false;
 
+  // Variables Firebase
   final FirebaseAuth _auth = FirebaseAuth.instance;
-
   final dbRef = FirebaseDatabase.instance.ref().child('users');
 
   void dispose() {
@@ -54,27 +46,47 @@ class _RegisterPageState extends State<RegisterPage> {
     _typeFocusNode.dispose();
   }
 
+  // Acción del botón
   void _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+
+
     if (isValid) {
       setState(() {
         _isLoading = true;
       });
       _formKey.currentState?.save();
+
+
+      // Authenticate and error handling
       try {
-        _auth.createUserWithEmailAndPassword(
-            email: _email!.toLowerCase().trim(), password: _password!.trim());
-      }catch (error){
+        _auth
+            .createUserWithEmailAndPassword(
+                email: _email!.toLowerCase().trim(),
+                password: _password!.trim())
+            .then((value) => Navigator.popAndPushNamed(context, '/login'));
+        // Añadir los detalles del usuario
+        addUserDetails(_usuario!, _type!, _email!);
+      } catch (error) {
         _globalMethod.authErrorHandle("Hola", context);
         print('error occured $error');
-      }finally{
+      } finally {
         setState(() {
           _isLoading = false;
         });
       }
     }
   }
+
+  Future addUserDetails(String nombre, bool tipo, String email) async{
+    await FirebaseFirestore.instance.collection('usuarios').add({
+      'nombre': nombre,
+      'tipo': tipo,
+      'email': email
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
           decoration: const BoxDecoration(
             color: Colors.transparent,
           ),
+          //Logo login
           child: Image.asset(
             "assets/logo/logo.png",
             color: Colors.black,
@@ -96,6 +109,7 @@ class _RegisterPageState extends State<RegisterPage> {
           offset: const Offset(0, -40),
           child: Center(
             child: SingleChildScrollView(
+              //Tarjeta para los forms
               child: Card(
                 color: Colors.white,
                 elevation: 2,
@@ -111,6 +125,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
+                        //nombre FormField
                         TextFormField(
                           key: ValueKey('name'),
                           focusNode: _userFocusNode,
@@ -135,6 +150,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                         ),
                         const SizedBox(height: 20),
+                        //email FormField
                         TextFormField(
                           key: ValueKey('email'),
                           focusNode: _emailFocusNode,
@@ -160,29 +176,49 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                         ),
                         const SizedBox(height: 20),
-                        TextFormField(
-                          key: ValueKey('utype'),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'El tipo de usuario es requerido';
-                            } else {
-                              return null;
-                            }
-                          },
-                          focusNode: _typeFocusNode,
-                          decoration: const InputDecoration(
-                              hintText: "Tipo de usuario: ",
-                              icon: Icon(
-                                Icons.person_outline_outlined,
-                                color: Colors.blue,
+                        //Tipo de usuario FormField
+                        FormField<bool>(
+                          builder: (FormFieldState<bool> state) {
+                            return  InputDecorator(
+                              decoration: const InputDecoration(
+                                  hintText: "Tipo de usuario",
+                                  errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16),
+                                  border: OutlineInputBorder(),
+                                  icon: Icon(
+                                    Icons.person_outline_outlined,
+                                    color: Colors.blue,
+                                  )),
+                              child: DropdownButtonHideUnderline(child: DropdownButton<bool>(
+                                value: _type,
+                                isDense: true,
+                                onChanged: (bool? newValue){
+                                  setState(() {
+                                    _type = newValue;
+                                    state.didChange(newValue);
+                                  });
+                                },
+                                isExpanded: true,
+                                items: [
+                                  DropdownMenuItem(
+                                    child: Text("Psicólogo"),
+                                    value: true,
+                                  ),
+                                  DropdownMenuItem(
+                                    child: Text("Paciente"),
+                                    value: false,
+                                  ),
+                                ],
                               )),
-                          onEditingComplete: () => FocusScope.of(context)
-                              .requestFocus(_passwordFocusNode),
+                            );
+                          },
+
+                          key: ValueKey('utype'),
                           onSaved: (value) {
                             _type = value;
                           },
                         ),
                         const SizedBox(height: 20),
+                        //Contraseña FormField
                         TextFormField(
                           focusNode: _passwordFocusNode,
                           decoration: const InputDecoration(
