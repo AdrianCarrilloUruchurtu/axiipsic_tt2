@@ -23,10 +23,11 @@ class _RegisterPageState extends State<RegisterPage> {
   //FocusNodes
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _userFocusNode = FocusNode();
-  final FocusNode _typeFocusNode = FocusNode();
+  final FocusNode _nombreFocusNode = FocusNode();
+  final FocusNode _apellidoFocusNode = FocusNode();
   //Campos
-  String? _usuario = '';
+  String? _nombre = '';
+  String? _apellido = '';
   String? _email = '';
   bool? _type = false;
   String? _password = '';
@@ -42,8 +43,8 @@ class _RegisterPageState extends State<RegisterPage> {
   void dispose() {
     _passwordFocusNode.dispose();
     _emailFocusNode.dispose();
-    _userFocusNode.dispose();
-    _typeFocusNode.dispose();
+    _nombreFocusNode.dispose();
+    _apellidoFocusNode.dispose();
   }
 
   // Acción del botón
@@ -61,13 +62,16 @@ class _RegisterPageState extends State<RegisterPage> {
 
       // Authenticate and error handling
       try {
+        if(_type==true){
+
+        }
         _auth
             .createUserWithEmailAndPassword(
                 email: _email!.toLowerCase().trim(),
                 password: _password!.trim())
             .then((value) => Navigator.popAndPushNamed(context, '/login'));
         // Añadir los detalles del usuario
-        addUserDetails(_usuario!, _type!, _email!);
+        addUserDetails(_nombre!,_apellido! ,_type!, _email!);
       } catch (error) {
         _globalMethod.authErrorHandle("Hola", context);
         print('error occured $error');
@@ -79,9 +83,10 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future addUserDetails(String nombre, bool tipo, String email) async{
+  Future addUserDetails(String nombre, String apellido, bool tipo, String email) async{
     await FirebaseFirestore.instance.collection('usuarios').add({
       'nombre': nombre,
+      'apellido': apellido,
       'tipo': tipo,
       'email': email
     });
@@ -98,7 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
           decoration: const BoxDecoration(
             color: Colors.transparent,
           ),
-          //Logo login
+          //Logo
           child: Image.asset(
             "assets/logo/logo.png",
             color: Colors.black,
@@ -127,8 +132,8 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: [
                         //nombre FormField
                         TextFormField(
-                          key: ValueKey('name'),
-                          focusNode: _userFocusNode,
+                          key: ValueKey('nombre'),
+                          focusNode: _nombreFocusNode,
                           validator: (value) {
                             if ((value!.isEmpty)) {
                               return 'El nombre es requerido';
@@ -137,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () => FocusScope.of(context)
-                              .requestFocus(_emailFocusNode),
+                              .requestFocus(_apellidoFocusNode),
                           keyboardType: TextInputType.text,
                           decoration: const InputDecoration(
                               hintText: "Nombre: ",
@@ -146,7 +151,32 @@ class _RegisterPageState extends State<RegisterPage> {
                                 color: Colors.blue,
                               )),
                           onSaved: (value) {
-                            _usuario = value;
+                            _nombre = value;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        // Apellido FormField
+                        TextFormField(
+                          key: ValueKey('apellido'),
+                          focusNode: _apellidoFocusNode,
+                          validator: (value) {
+                            if ((value!.isEmpty)) {
+                              return 'El apellido es requerido';
+                            }
+                            return null;
+                          },
+                          textInputAction: TextInputAction.next,
+                          onEditingComplete: () => FocusScope.of(context)
+                              .requestFocus(_emailFocusNode),
+                          keyboardType: TextInputType.text,
+                          decoration: const InputDecoration(
+                              hintText: "Apellido: ",
+                              icon: Icon(
+                                Icons.person,
+                                color: Colors.blue,
+                              )),
+                          onSaved: (value) {
+                            _apellido = value;
                           },
                         ),
                         const SizedBox(height: 20),
@@ -164,7 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () => FocusScope.of(context)
-                              .requestFocus(_typeFocusNode),
+                              .requestFocus(_apellidoFocusNode),
                           decoration: const InputDecoration(
                               icon: Icon(
                                 Icons.email,

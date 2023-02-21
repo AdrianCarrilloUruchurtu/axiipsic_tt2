@@ -1,4 +1,6 @@
 
+import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -65,8 +67,10 @@ class _PatHomePageState extends State<PatHomePage> {
               children: [Icon((Icons.person_add_alt_1_outlined))],
             )),
             ListTile(
-              title: Text("Home"),
-              onTap: () {},
+              title: Text("Salir"),
+              onTap: () {
+                  _signOut();
+              },
               selected: true,
             )
           ],
@@ -83,18 +87,26 @@ class _PatHomePageState extends State<PatHomePage> {
         leading: Builder(
           builder: (BuildContext context) {
             return DecoratedBox(
+
               decoration: const BoxDecoration(
+
                 shape: BoxShape.circle,
                   color: Colors.blueAccent
               ),
-              child: IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  )),
+              child: SizedBox(
+                width: 32,
+                height: 32,
+                child: Center(
+                  child: IconButton(
+                      onPressed: () {
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: Icon(
+                        Icons.menu,
+                        color: Colors.white,
+                      )),
+                ),
+              ),
             );
           },
         ),
@@ -152,11 +164,11 @@ class _PatHomePageState extends State<PatHomePage> {
             ),
             _therapyBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(20),
+              size: Size.fromHeight(30),
             ),
             Expanded(
               child: GridView.count(
-                childAspectRatio: (1 / .7),
+                childAspectRatio: (1 / 1),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 crossAxisCount: 2,
@@ -175,7 +187,7 @@ class _PatHomePageState extends State<PatHomePage> {
             ),
             _calendarBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(22),
+              size: Size.fromHeight(30),
             ),
           ],
         ),
@@ -183,6 +195,8 @@ class _PatHomePageState extends State<PatHomePage> {
     );
   }
 
+
+  //Widget para el botón del progreso de la terapia
   Widget _therapyBtn() {
     return SizedBox(
         width: 370,
@@ -216,6 +230,7 @@ class _PatHomePageState extends State<PatHomePage> {
         ));
   }
 
+  //Widget para el boton del calendario
   Widget _calendarBtn() {
     return SizedBox(
       width: 370,
@@ -244,6 +259,7 @@ class _PatHomePageState extends State<PatHomePage> {
     );
   }
 
+  //Deprecated bottom bar
   Widget _bottomAction(IconData icon, callback) {
     return Container(
       child: InkWell(
@@ -255,4 +271,13 @@ class _PatHomePageState extends State<PatHomePage> {
       ),
     );
   }
+
+  //Sign out function
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut().then((value) =>
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Login()), (
+            route) => false));
+  }
+
 }

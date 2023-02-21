@@ -1,0 +1,4 @@
+
+class AuthStore extends {
+
+}

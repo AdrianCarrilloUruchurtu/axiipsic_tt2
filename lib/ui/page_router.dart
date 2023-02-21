@@ -2,7 +2,7 @@ import 'package:axiipsic_tt2/ui/pages/auth/login_page.dart';
 import 'package:axiipsic_tt2/ui/pages/paciente/home/patient_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/paciente/progress_page.dart';
 import 'package:axiipsic_tt2/ui/pages/psicologo/home/psic_home_page.dart';
-import 'package:axiipsic_tt2/ui/pages/auth/register_page.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/view/register_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
