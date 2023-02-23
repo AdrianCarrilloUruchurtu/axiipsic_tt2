@@ -29,7 +29,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _nombre = '';
   String? _apellido = '';
   String? _email = '';
-  bool? _type = false;
+  String? _isPsic = " ";
   String? _password = '';
 
   GlobalMethod _globalMethod = GlobalMethod();
@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       // Authenticate and error handling
       try {
-        if(_type==true){
+        if(_isPsic=='Psicologo'){
 
         }
         _auth
@@ -71,7 +71,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 password: _password!.trim())
             .then((value) => Navigator.popAndPushNamed(context, '/login'));
         // Añadir los detalles del usuario
-        addUserDetails(_nombre!,_apellido! ,_type!, _email!);
+        addUserDetails(_nombre!,_apellido! ,_isPsic!, _email!);
       } catch (error) {
         _globalMethod.authErrorHandle("Hola", context);
         print('error occured $error');
@@ -83,15 +83,14 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future addUserDetails(String nombre, String apellido, bool tipo, String email) async{
+  Future addUserDetails(String nombre, String apellido, String isPsic, String email) async{
     await FirebaseFirestore.instance.collection('usuarios').add({
       'nombre': nombre,
       'apellido': apellido,
-      'tipo': tipo,
+      'ispsic': isPsic,
       'email': email
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -154,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             _nombre = value;
                           },
                         ),
-                        const SizedBox(height: 20),
+                         SizedBox(height: 20),
                         // Apellido FormField
                         TextFormField(
                           key: ValueKey('apellido'),
@@ -179,7 +178,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             _apellido = value;
                           },
                         ),
-                        const SizedBox(height: 20),
+                         SizedBox(height: 20),
                         //email FormField
                         TextFormField(
                           key: ValueKey('email'),
@@ -205,10 +204,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             _email = value;
                           },
                         ),
-                        const SizedBox(height: 20),
+                         SizedBox(height: 20),
                         //Tipo de usuario FormField
-                        FormField<bool>(
-                          builder: (FormFieldState<bool> state) {
+                        FormField<String>(
+                          builder: (FormFieldState<String> state) {
                             return  InputDecorator(
                               decoration: const InputDecoration(
                                   hintText: "Tipo de usuario",
@@ -218,47 +217,53 @@ class _RegisterPageState extends State<RegisterPage> {
                                     Icons.person_outline_outlined,
                                     color: Colors.blue,
                                   )),
-                              child: DropdownButtonHideUnderline(child: DropdownButton<bool>(
-                                value: _type,
+                              child: DropdownButtonHideUnderline(
+                               child: DropdownButton<String>(
+                                value: _isPsic,
                                 isDense: true,
-                                onChanged: (bool? newValue){
+                                onChanged: (String? newValue){
+                                  //setState, cambio con mobx?
                                   setState(() {
-                                    _type = newValue;
+                                    _isPsic = newValue;
                                     state.didChange(newValue);
                                   });
                                 },
+
                                 isExpanded: true,
-                                items: [
+                                items:  [
                                   DropdownMenuItem(
+                                    value: 'Psicologo',
                                     child: Text("Psicólogo"),
-                                    value: true,
                                   ),
                                   DropdownMenuItem(
+                                    value: 'Paciente',
                                     child: Text("Paciente"),
-                                    value: false,
                                   ),
                                 ],
                               )),
                             );
-                          },
-
-                          key: ValueKey('utype'),
-                          onSaved: (value) {
-                            _type = value;
-                          },
-                        ),
-                        const SizedBox(height: 20),
-                        //Contraseña FormField
-                        TextFormField(
-                          focusNode: _passwordFocusNode,
-                          decoration: const InputDecoration(
-                              hintText: "Contraseña: ",
-                              icon: Icon(
-                                Icons.password,
-                                color: Colors.blue,
-                              )),
-                          obscureText: false,
-                          onSaved: (value) {
+                          }, // builder
+                            validator: (value){
+                            if(value==""){
+                              print('Tipo de usuario requerido');
+                            };},
+                            key: const ValueKey('utype'),
+                            onSaved: (value) {
+                            _isPsic = value;
+                            },
+                            ),
+                             SizedBox(height: 20),
+                            //Contraseña FormField
+                            TextFormField(
+                            focusNode: _passwordFocusNode,
+                            decoration: const InputDecoration(
+                            hintText: "Contraseña: ",
+                            icon: Icon(
+                            Icons.password,
+                            color: Colors.blue,
+                            )),
+                            obscureText: false,
+                            onSaved: (value) {
                             _password = value;
                           },
                         ),

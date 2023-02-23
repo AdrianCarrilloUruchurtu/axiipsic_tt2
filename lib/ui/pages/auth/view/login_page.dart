@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:axiipsic_tt2/ui/pages/psicologo/home/psic_home_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -24,20 +27,45 @@ class _LoginState extends State<Login> {
 
   String? _email = '';
   String? _password = '';
+  String _isPsic = " ";
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  User? signedInUser = FirebaseAuth.instance.currentUser;
 
   GlobalMethod _globalMethod = GlobalMethod();
 
+//Query del tipo del usuario
+  void _routeUser(){
+    User? _currentUser = FirebaseAuth.instance.currentUser;
 
+    var _isUser = FirebaseFirestore.instance
+        .collection('usuarios')
+        .doc(_currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        if (documentSnapshot.get('_ispsic') == "Psicologo") {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  PsicHomePage(),
+            ),
+          );}else{
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>  PatHomePage(),
+            ),
+          );
+        }
+      } else {
+        print('Document does not exist on the database');
+      }
+    });
 
+  }
 
   void _submitForm() async {
-    FirebaseFirestore.instance
-        .collection('usuarios')
-        .where('email', isEqualTo: _email)
-        .get().then((value) => print('Document exists'));
-
-
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
@@ -47,11 +75,13 @@ class _LoginState extends State<Login> {
       _formKey.currentState?.save();
       try {
         _auth.signInWithEmailAndPassword(
-            email: _email!.toLowerCase().trim(), password: _password!.trim()).
-        then((value) => Navigator.popAndPushNamed(context, '/patHome'));
-      }catch (error){
-        _globalMethod.authErrorHandle("Hola", context);
-        print('error occured $error');
+            email: _email!.toLowerCase().trim(), password: _password!.trim());
+        _routeUser();
+      }on FirebaseAuthException catch (error){
+        if(error.code == 'user-not-found'){
+          _globalMethod.authErrorHandle("Usuario no encontrado", context);
+          print('error occured $error');
+        }
       }finally{
         setState(() {
           _isLoading = false;

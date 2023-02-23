@@ -1,4 +1,4 @@
-import 'package:axiipsic_tt2/ui/pages/auth/login_page.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
 import 'package:axiipsic_tt2/ui/pages/paciente/home/patient_home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class UserState extends StatelessWidget {
             }
           }else if (userSnapshot.hasError) {
             return Center(child: Text("Ocurrió un error"),);
-          }
+          } else return Placeholder();
         });
   }
 }
