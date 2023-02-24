@@ -1,7 +1,10 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../auth/view/login_page.dart';
 
 class PsicHomePage extends StatefulWidget {
   const PsicHomePage({Key? key}) : super(key: key);
@@ -69,7 +72,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 )),
             ListTile(
               title: Text("Home"),
-              onTap: () {},
+              onTap: () {
+                _sign
+              },
               selected: true,
             )
           ],
@@ -316,5 +321,13 @@ class _PsicHomePageState extends State<PsicHomePage> {
         onTap: callback,
       ),
     );
+  }
+
+  //Sign out function
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut().then((value) =>
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Login()), (
+            route) => false));
   }
 }

@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:axiipsic_tt2/login_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'login_page.dart';
+
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
 
@@ -29,7 +31,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _nombre = '';
   String? _apellido = '';
   String? _email = '';
-  String? _isPsic = " ";
+  String? _isPsic = "";
   String? _password = '';
 
   GlobalMethod _globalMethod = GlobalMethod();
@@ -51,27 +53,18 @@ class _RegisterPageState extends State<RegisterPage> {
   void _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-
-
     if (isValid) {
       setState(() {
         _isLoading = true;
       });
       _formKey.currentState?.save();
-
-
       // Authenticate and error handling
       try {
-        if(_isPsic=='Psicologo'){
-
-        }
         _auth
             .createUserWithEmailAndPassword(
                 email: _email!.toLowerCase().trim(),
                 password: _password!.trim())
-            .then((value) => Navigator.popAndPushNamed(context, '/login'));
-        // Añadir los detalles del usuario
-        addUserDetails(_nombre!,_apellido! ,_isPsic!, _email!);
+            .then((value) => {addUserDetails(_nombre!,_apellido! ,_isPsic!, _email!)});
       } catch (error) {
         _globalMethod.authErrorHandle("Hola", context);
         print('error occured $error');
@@ -84,12 +77,16 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future addUserDetails(String nombre, String apellido, String isPsic, String email) async{
-    await FirebaseFirestore.instance.collection('usuarios').add({
+    var user = _auth.currentUser;
+    await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
       'nombre': nombre,
       'apellido': apellido,
       'ispsic': isPsic,
       'email': email
     });
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Login()));
+
   }
 
   @override
@@ -205,7 +202,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           },
                         ),
                          SizedBox(height: 20),
-                        //Tipo de usuario FormField
+
+                        // Tipo de usuario FormField
                         FormField<String>(
                           builder: (FormFieldState<String> state) {
                             return  InputDecorator(
@@ -222,6 +220,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 value: _isPsic,
                                 isDense: true,
                                 onChanged: (String? newValue){
+
                                   //setState, cambio con mobx?
                                   setState(() {
                                     _isPsic = newValue;
@@ -232,11 +231,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                 isExpanded: true,
                                 items:  [
                                   DropdownMenuItem(
-                                    value: 'Psicologo',
+                                    value: "",
+                                    child: Text("Tipo de usuario"),
+                                  ),
+                                  DropdownMenuItem(
+                                    value: "Psicologo",
                                     child: Text("Psicólogo"),
                                   ),
                                   DropdownMenuItem(
-                                    value: 'Paciente',
+                                    value: "Paciente",
                                     child: Text("Paciente"),
                                   ),
                                 ],
@@ -247,13 +250,14 @@ class _RegisterPageState extends State<RegisterPage> {
                             if(value==""){
                               print('Tipo de usuario requerido');
                             };},
-                            key: const ValueKey('utype'),
+                            key:  ValueKey('utype'),
                             onSaved: (value) {
                             _isPsic = value;
                             },
                             ),
                              SizedBox(height: 20),
-                            //Contraseña FormField
+
+                            // Contraseña FormField
                             TextFormField(
                             focusNode: _passwordFocusNode,
                             decoration: const InputDecoration(

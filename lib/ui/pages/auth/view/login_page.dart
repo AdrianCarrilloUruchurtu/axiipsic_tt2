@@ -38,13 +38,13 @@ class _LoginState extends State<Login> {
   void _routeUser(){
     User? _currentUser = FirebaseAuth.instance.currentUser;
 
-    var _isUser = FirebaseFirestore.instance
-        .collection('usuarios')
+    var _isUser = FirebaseFirestore.instance  
+        .collection('users')
         .doc(_currentUser!.uid)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
-        if (documentSnapshot.get('_ispsic') == "Psicologo") {
+        if (documentSnapshot.get('ispsic') == "Psicologo") {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -74,7 +74,7 @@ class _LoginState extends State<Login> {
       });
       _formKey.currentState?.save();
       try {
-        _auth.signInWithEmailAndPassword(
+        UserCredential userCredential= await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: _email!.toLowerCase().trim(), password: _password!.trim());
         _routeUser();
       }on FirebaseAuthException catch (error){
