@@ -1,5 +1,6 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +15,9 @@ class PsicHomePage extends StatefulWidget {
 }
 
 class _PsicHomePageState extends State<PsicHomePage> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,9 +75,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   children: [Icon((Icons.person_add_alt_1_outlined))],
                 )),
             ListTile(
-              title: Text("Home"),
+              title: Text("Salir"),
               onTap: () {
-                _sign
+                _signOut();
               },
               selected: true,
             )
@@ -84,42 +88,46 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
-  PreferredSizeWidget _appbar(){
-    return PreferredSize(
-      preferredSize: Size.fromHeight(35),
-      child: AppBar(
+  AppBar _appbar(){
+    return AppBar(
         leading: Builder(
           builder: (BuildContext context) {
-            return DecoratedBox(
-              decoration:  BoxDecoration(
-                  shape: BoxShape.circle,
-                 //borderRadius: BorderRadius.circular(30),
-                  color: Colors.blueAccent
+            return Container(
+              margin: EdgeInsets.all(8),
+              child: DecoratedBox(
+                decoration:  BoxDecoration(
+                    shape: BoxShape.circle,
+                   //borderRadius: BorderRadius.circular(30),
+                    color: Colors.blueAccent
+                ),
+                child: IconButton(
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                    icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    )),
               ),
-              child: IconButton(
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                  icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  )),
             );
           },
         ),
         actions: [ _profileImage()],
         backgroundColor: Colors.transparent,
         elevation: 0,
-      ),
+
     );
   }
 
   Widget _profileImage(){
-    return CircleAvatar(
-      backgroundColor: Colors.grey.shade800,
-      child: TextButton(
-        onPressed: () {  },
-        child: Text(""),
+    return Container(
+      margin: EdgeInsets.all(8),
+      child: CircleAvatar(
+        backgroundColor: Colors.grey.shade800,
+        child: TextButton(
+          onPressed: () {  },
+          child: Text(""),
+        ),
       ),
     );
   }
@@ -146,30 +154,31 @@ class _PsicHomePageState extends State<PsicHomePage> {
   }
 
   Widget _body() {
+
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
+      child: Container(
+        margin: EdgeInsets.fromLTRB(32, 8, 32, 32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              "Hola Gerardo",
+             Text(
+              "Hola $name",
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             SizedBox.fromSize(
-              size: Size.fromHeight(5),
+              size: Size.fromHeight(16),
             ),
             _patList(),
             SizedBox.fromSize(
-              size: Size.fromHeight(15),
+              size: Size.fromHeight(16),
             ),
             _dateBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(15),
+              size: Size.fromHeight(16),
             ),
             _calendarBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(20),
+              size: Size.fromHeight(32),
             ),
           ],
         ),
@@ -187,32 +196,33 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 backgroundColor: Color(0xffC0EAE2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
-            child: Padding(
-              padding: EdgeInsets.all(10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text.rich(TextSpan(
-                      text: "Lista de pacientes\n",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                          color: Colors.black),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: "Aquí puedes ver tus pacientes",
-                            style: TextStyle(
-                                fontStyle: FontStyle.normal,
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal)),
-                      ])),
-                  Icon(
-                    FontAwesomeIcons.peopleGroup,
-                    size: 50,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text.rich(
+                    TextSpan(
+                    text: "Lista de pacientes\n",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Colors.black,),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: "Aquí puedes ver tus pacientes",
+                          style: TextStyle(
+                              fontStyle: FontStyle.normal,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal)),
+                    ]),
+                textAlign: TextAlign.center,),
+                Icon(
+                  FontAwesomeIcons.peopleGroup,
+                  size: 64,
+                  color: Colors.black,
+                ),
+                SizedBox(height: 16,)
+              ],
             ),
             onPressed: () {},
           )),
@@ -229,8 +239,8 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 backgroundColor: Color(0xffC0EAE2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
-            child: Padding(
-              padding: EdgeInsets.all(15),
+            child: Container(
+              margin: EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -251,14 +261,14 @@ class _PsicHomePageState extends State<PsicHomePage> {
                                 borderRadius: BorderRadius.circular(15)),
                             child: const Icon(
                               FontAwesomeIcons.solidBell,
-                              size: 15,
+                              size: 16,
                             )),
                       ),
                       const Text.rich(TextSpan(
                           text: "Próxima cita\n",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                              fontSize: 24,
                               color: Colors.black),
                           children: <TextSpan>[
                             TextSpan(

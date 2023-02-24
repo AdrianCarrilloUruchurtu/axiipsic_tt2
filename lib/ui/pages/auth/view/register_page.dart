@@ -65,6 +65,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 email: _email!.toLowerCase().trim(),
                 password: _password!.trim())
             .then((value) => {addUserDetails(_nombre!,_apellido! ,_isPsic!, _email!)});
+        await
       } catch (error) {
         _globalMethod.authErrorHandle("Hola", context);
         print('error occured $error');
