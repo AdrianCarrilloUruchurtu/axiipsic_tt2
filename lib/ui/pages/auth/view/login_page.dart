@@ -1,13 +1,9 @@
-import 'dart:async';
-
-import 'package:axiipsic_tt2/ui/pages/psicologo/home/psic_home_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:axiipsic_tt2/login_state.dart';
-import 'package:axiipsic_tt2/ui/pages/paciente/home/patient_home_page.dart';
 import '../../../../services/global_method.dart';
+import '../../usuarios/paciente/home/patient_home_page.dart';
+import '../../usuarios/psicologo/home/psic_home_page.dart';
 
 class Login extends StatefulWidget {
   Login({super.key});

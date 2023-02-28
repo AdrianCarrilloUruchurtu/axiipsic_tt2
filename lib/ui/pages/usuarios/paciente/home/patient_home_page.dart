@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../view_model/datos_usuario.dart';
+
 class PatHomePage extends StatefulWidget {
   const PatHomePage({Key? key}) : super(key: key);
 
@@ -13,6 +15,17 @@ class PatHomePage extends StatefulWidget {
 }
 
 class _PatHomePageState extends State<PatHomePage> {
+
+  final GetUserData _usuarioNombre = GetUserData();
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _usuarioNombre.usuario();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,16 +162,14 @@ class _PatHomePageState extends State<PatHomePage> {
   }
 
   Widget _body() {
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              "Hola Adrian",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
+            _usuarioNombre.usuario(),
             SizedBox.fromSize(
               size: Size.fromHeight(5),
             ),
@@ -175,8 +186,8 @@ class _PatHomePageState extends State<PatHomePage> {
                 crossAxisSpacing: 7,
                 mainAxisSpacing: 7,
                 children: [
-                  _myButton('Línea de ayuda', Icon(FontAwesomeIcons.heartPulse,size: 60,), '/progressPage'),
-                  _myButton('Notas',Icon(FontAwesomeIcons.noteSticky,size: 60,), '/notas'),
+                  _myButton('Línea de ayuda', const Icon(FontAwesomeIcons.heartPulse,size: 60,), '/progressPage'),
+                  _myButton('Notas',const Icon(FontAwesomeIcons.noteSticky,size: 60,), '/notas'),
                   _myButton('Tareas', Icon(FontAwesomeIcons.listCheck,size: 60,), '/tareas'),
                   _myButton('Próxima cita', Icon(FontAwesomeIcons.solidBell,size: 60,), '/citas'),
                 ],
@@ -197,6 +208,7 @@ class _PatHomePageState extends State<PatHomePage> {
 
 
   //Widget para el botón del progreso de la terapia
+
   Widget _therapyBtn() {
     return SizedBox(
         width: 370,

@@ -1,11 +1,10 @@
-
+import 'package:axiipsic_tt2/services/global_method.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view_model/datos_usuario.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../../auth/view/login_page.dart';
+import '../../../auth/view/login_page.dart';
 
 class PsicHomePage extends StatefulWidget {
   const PsicHomePage({Key? key}) : super(key: key);
@@ -15,27 +14,62 @@ class PsicHomePage extends StatefulWidget {
 }
 
 class _PsicHomePageState extends State<PsicHomePage> {
+  var nombre = '';
+
+// Obtener el nombre del usuario
+
+  Future getUserData() async {
+    final DocumentSnapshot userDoc = (await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get());
+
+    setState(() {
+      nombre = userDoc.get('nombre');
+    });
+  }
+
+  GetUserData _usuarioNombre = GetUserData();
 
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.fromLTRB(50, 20, 50, 20),
+      floatingActionButton: Container(
+        margin: EdgeInsets.all(24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
+            SizedBox(
               height: 40,
               width: 40,
               child: FittedBox(
                 child: FloatingActionButton(
                   heroTag: null,
                   onPressed: () {},
-                  child: Icon(FontAwesomeIcons.house),
+                  backgroundColor: const Color(0xfff5fa197),
+                  child: const Icon(FontAwesomeIcons.house, size: 24,),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 40,
+              width: 40,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  heroTag: null,
+                  onPressed: () {},
                   backgroundColor: Color(0xffF5FA197),
+                  child: const Icon(Icons.add, size: 32,),
                 ),
               ),
             ),
@@ -46,20 +80,8 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 child: FloatingActionButton(
                   heroTag: null,
                   onPressed: () {},
-                  child: Icon(Icons.add),
                   backgroundColor: Color(0xffF5FA197),
-                ),
-              ),
-            ),
-            Container(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () {},
-                  child: Icon(FontAwesomeIcons.noteSticky),
-                  backgroundColor: Color(0xffF5FA197),
+                  child: const Icon(FontAwesomeIcons.noteSticky, size: 32,),
                 ),
               ),
             ),
@@ -67,118 +89,128 @@ class _PsicHomePageState extends State<PsicHomePage> {
         ),
       ),
       appBar: _appbar(),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            DrawerHeader(
-                child: Column(
-                  children: [Icon((Icons.person_add_alt_1_outlined))],
-                )),
-            ListTile(
-              title: Text("Salir"),
-              onTap: () {
-                _signOut();
-              },
-              selected: true,
-            )
-          ],
-        ),
-      ),
+      drawer: _drawer(),
       body: _body(),
     );
   }
 
-  AppBar _appbar(){
-    return AppBar(
-        leading: Builder(
-          builder: (BuildContext context) {
-            return Container(
-              margin: EdgeInsets.all(8),
-              child: DecoratedBox(
-                decoration:  BoxDecoration(
-                    shape: BoxShape.circle,
-                   //borderRadius: BorderRadius.circular(30),
-                    color: Colors.blueAccent
-                ),
-                child: IconButton(
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                    )),
-              ),
-            );
-          },
-        ),
-        actions: [ _profileImage()],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
 
+  // Drawer
+  Widget _drawer(){
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+              child: Column(
+                children: const [Icon((Icons.person_add_alt_1_outlined))],
+              )),
+          ListTile(
+            title: const Text("Salir"),
+            onTap: () {
+              _signOut();
+            },
+            selected: true,
+          )
+        ],
+      ),
     );
   }
 
+  // Barra de navegación superior
+  AppBar _appbar() {
+    return AppBar(
+      leading: Builder(
+        builder: (BuildContext context) {
+          return Container(
+            margin: const EdgeInsets.all(8),
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  //borderRadius: BorderRadius.circular(30),
+                  color: Colors.blueAccent),
+              child: IconButton(
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  )),
+            ),
+          );
+        },
+      ),
+      actions: [_profileImage()],
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
+  }
+
+  // Botón del perfil en la parte superior derecha
   Widget _profileImage(){
     return Container(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: CircleAvatar(
         backgroundColor: Colors.grey.shade800,
         child: TextButton(
           onPressed: () {  },
-          child: Text(""),
+          child: const Text(""),
         ),
       ),
     );
   }
 
+
+  // Botón obsoleto
   Widget _myButton(String texto, Icon icono) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.blue.shade900,
         alignment: Alignment.center,
-        shape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Text(texto, style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+          Text(
+            texto,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          ),
           icono
         ],
       ),
-      onPressed: (){
-
-      },
+      onPressed: () {},
     );
   }
 
-  Widget _body() {
 
+  //Widget para el cuerpo del Scaffold
+  Widget _body() {
     return SafeArea(
       child: Container(
-        margin: EdgeInsets.fromLTRB(32, 8, 32, 32),
+        margin: const EdgeInsets.fromLTRB(32, 0, 32, 32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-             Text(
-              "Hola $name",
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            _usuarioNombre.usuario(),
+            Text(
+              "Hola $nombre",
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
             SizedBox.fromSize(
-              size: Size.fromHeight(16),
+              size: const Size.fromHeight(8),
             ),
             _patList(),
             SizedBox.fromSize(
-              size: Size.fromHeight(16),
+              size: const Size.fromHeight(16),
             ),
             _dateBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(16),
+              size: const Size.fromHeight(16),
             ),
             _calendarBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(32),
+              size: const Size.fromHeight(52),
             ),
           ],
         ),
@@ -186,6 +218,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
+  // Widget para el botón de lista de pacientes
   Widget _patList() {
     return Expanded(
       child: SizedBox(
@@ -201,27 +234,31 @@ class _PsicHomePageState extends State<PsicHomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
                 Text.rich(
-                    TextSpan(
-                    text: "Lista de pacientes\n",
-                    style: TextStyle(
+                  TextSpan(
+                      text: "Lista de pacientes\n",
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 24,
-                        color: Colors.black,),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: "Aquí puedes ver tus pacientes",
-                          style: TextStyle(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal)),
-                    ]),
-                textAlign: TextAlign.center,),
+                        color: Colors.black,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: "Aquí puedes ver tus pacientes",
+                            style: TextStyle(
+                                fontStyle: FontStyle.normal,
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal)),
+                      ]),
+                  textAlign: TextAlign.center,
+                ),
                 Icon(
                   FontAwesomeIcons.peopleGroup,
                   size: 64,
                   color: Colors.black,
                 ),
-                SizedBox(height: 16,)
+                SizedBox(
+                  height: 16,
+                )
               ],
             ),
             onPressed: () {},
@@ -229,6 +266,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
+  // Widget para el botón de próxima cita
   Widget _dateBtn() {
     return Expanded(
       child: SizedBox(
@@ -250,7 +288,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
                     color: Colors.black,
                   ),
                   Column(
-                    children:  [
+                    children: [
                       SizedBox(
                         width: 50,
                         height: 30,
@@ -289,6 +327,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
+  // Widget para el botón del calendario
   Widget _calendarBtn() {
     return Expanded(
       child: SizedBox(
@@ -321,6 +360,15 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
+  // Función para SignOut
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut().then((value) =>
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => Login()), (
+            route) => false));
+  }
+
+  // Obsoleto para la barra de navegación inferior
   Widget _bottomAction(IconData icon, callback) {
     return Container(
       child: InkWell(
@@ -333,11 +381,5 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
-  //Sign out function
-  void _signOut() async {
-    await FirebaseAuth.instance.signOut().then((value) =>
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Login()), (
-            route) => false));
-  }
+
 }

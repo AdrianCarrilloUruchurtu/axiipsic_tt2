@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class GlobalMethod{
   Future<void> authErrorHandle( String subtitle, BuildContext context) async {
     showDialog(

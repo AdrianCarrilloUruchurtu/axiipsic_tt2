@@ -1,5 +1,5 @@
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
-import 'package:axiipsic_tt2/ui/pages/paciente/home/patient_home_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/paciente/home/patient_home_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,16 +12,18 @@ class UserState extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, userSnapshot){
           if (userSnapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator(),);
+            return const Center(child: CircularProgressIndicator(),);
           }else if (userSnapshot.connectionState == ConnectionState.waiting){
             if (userSnapshot.hasData) {
-             return PatHomePage();
+             return const PatHomePage();
             }else{
              return Login();
             }
           }else if (userSnapshot.hasError) {
-            return Center(child: Text("Ocurrió un error"),);
-          } else return Placeholder();
+            return const Center(child: Text("Ocurrió un error"),);
+          } else {
+            return const Placeholder();
+          }
         });
   }
 }
