@@ -1,5 +1,6 @@
 
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/paciente/home/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -100,9 +101,7 @@ class _PatHomePageState extends State<PatHomePage> {
         leading: Builder(
           builder: (BuildContext context) {
             return DecoratedBox(
-
               decoration: const BoxDecoration(
-
                 shape: BoxShape.circle,
                   color: Colors.blueAccent
               ),
@@ -134,7 +133,9 @@ class _PatHomePageState extends State<PatHomePage> {
     return CircleAvatar(
       backgroundColor: Colors.grey.shade800,
       child: TextButton(
-        onPressed: () {  },
+        onPressed: () {
+          Navigator.of(context).pushNamed('/profilePage');
+        },
         child: Text(""),
       ),
     );
@@ -162,20 +163,20 @@ class _PatHomePageState extends State<PatHomePage> {
   }
 
   Widget _body() {
-
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
+      child: Container(
+        //padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
+        margin: EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _usuarioNombre.usuario(),
             SizedBox.fromSize(
-              size: Size.fromHeight(5),
+              size: Size.fromHeight(8),
             ),
             _therapyBtn(),
             SizedBox.fromSize(
-              size: Size.fromHeight(30),
+              size: Size.fromHeight(8),
             ),
             Expanded(
               child: GridView.count(
@@ -186,10 +187,34 @@ class _PatHomePageState extends State<PatHomePage> {
                 crossAxisSpacing: 7,
                 mainAxisSpacing: 7,
                 children: [
-                  _myButton('Línea de ayuda', const Icon(FontAwesomeIcons.heartPulse,size: 60,), '/progressPage'),
-                  _myButton('Notas',const Icon(FontAwesomeIcons.noteSticky,size: 60,), '/notas'),
-                  _myButton('Tareas', Icon(FontAwesomeIcons.listCheck,size: 60,), '/tareas'),
-                  _myButton('Próxima cita', Icon(FontAwesomeIcons.solidBell,size: 60,), '/citas'),
+                  _myButton(
+                      'Línea de ayuda',
+                      const Icon(
+                        FontAwesomeIcons.heartPulse,
+                        size: 60,
+                      ),
+                      '/progressPage'),
+                  _myButton(
+                      'Notas',
+                      const Icon(
+                        FontAwesomeIcons.noteSticky,
+                        size: 60,
+                      ),
+                      '/notas'),
+                  _myButton(
+                      'Tareas',
+                      Icon(
+                        FontAwesomeIcons.listCheck,
+                        size: 60,
+                      ),
+                      '/tareas'),
+                  _myButton(
+                      'Próxima cita',
+                      Icon(
+                        FontAwesomeIcons.solidBell,
+                        size: 60,
+                      ),
+                      '/citas'),
                 ],
               ),
             ),
@@ -205,7 +230,6 @@ class _PatHomePageState extends State<PatHomePage> {
       ),
     );
   }
-
 
   //Widget para el botón del progreso de la terapia
 

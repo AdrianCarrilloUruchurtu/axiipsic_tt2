@@ -153,7 +153,8 @@ class _PsicHomePageState extends State<PsicHomePage> {
       child: CircleAvatar(
         backgroundColor: Colors.grey.shade800,
         child: TextButton(
-          onPressed: () {  },
+          onPressed: () {
+            Navigator.of(context).pushNamed('/profilePage');  },
           child: const Text(""),
         ),
       ),
@@ -193,10 +194,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _usuarioNombre.usuario(),
-            Text(
-              "Hola $nombre",
-              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
+
             SizedBox.fromSize(
               size: const Size.fromHeight(8),
             ),
