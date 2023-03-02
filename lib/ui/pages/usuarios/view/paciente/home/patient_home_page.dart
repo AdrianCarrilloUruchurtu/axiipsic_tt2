@@ -1,12 +1,12 @@
 
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/paciente/home/profile_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/profile_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../view_model/datos_usuario.dart';
+import '../../../view_model/datos_usuario.dart';
 
 class PatHomePage extends StatefulWidget {
   const PatHomePage({Key? key}) : super(key: key);

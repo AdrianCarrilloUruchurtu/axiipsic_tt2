@@ -37,17 +37,33 @@ dependencies:
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.3.0
 
+  # Provider probable obsoleto
   provider: ^6.0.5
 
   # Firestore dependencies
-
   firebase_auth: ^4.2.5
   google_sign_in: ^5.4.2
   cloud_firestore: ^4.3.1
   firebase_core: ^2.4.1
   firebase_database: ^10.0.13
-  mobx: ^2.1.4
 
+  # Mobx
+  mobx: ^2.1.4
+  mobx_codegen: ^2.1.1
+
+  # Freezed
+  freezed_annotation: ^2.2.0
+
+  # Auto Route
+  auto_route: ^5.0.4
+
+  #Injectable
+  injectable: ^2.1.0
+  json_annotation: ^4.8.0
+
+  #Get_it
+  get_it: ^7.2.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -58,6 +74,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.3
+  freezed: ^2.3.2
+  json_serializable: ^6.6.1
+  auto_route_generator: ^5.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

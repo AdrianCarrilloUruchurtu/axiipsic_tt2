@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../../services/global_method.dart';
-import '../../usuarios/paciente/home/patient_home_page.dart';
-import '../../usuarios/psicologo/home/psic_home_page.dart';
+import '../../usuarios/view/paciente/home/patient_home_page.dart';
+import '../../usuarios/view/psicologo/home/psic_home_page.dart';
 
 class Login extends StatefulWidget {
-  Login({super.key});
+  const Login({super.key});
 
   @override
   State<Login> createState() => _LoginState();
@@ -15,7 +15,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
-
   bool _isLoading = false;
   bool _loggedIn = true;
 
@@ -23,20 +22,18 @@ class _LoginState extends State<Login> {
 
   String? _email = '';
   String? _password = '';
-  String _isPsic = " ";
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? signedInUser = FirebaseAuth.instance.currentUser;
 
   GlobalMethod _globalMethod = GlobalMethod();
 
 //Query del tipo del usuario
-  void _routeUser(){
-    User? _currentUser = FirebaseAuth.instance.currentUser;
+  void _routeUser() {
+    User? currentUser = FirebaseAuth.instance.currentUser;
 
-    var _isUser = FirebaseFirestore.instance  
+    var _isUser = FirebaseFirestore.instance
         .collection('users')
-        .doc(_currentUser!.uid)
+        .doc(currentUser!.uid)
         .get()
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
@@ -44,13 +41,14 @@ class _LoginState extends State<Login> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) =>  PsicHomePage(),
+              builder: (context) => PsicHomePage(),
             ),
-          );}else{
+          );
+        } else {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) =>  PatHomePage(),
+              builder: (context) => PatHomePage(),
             ),
           );
         }
@@ -58,7 +56,6 @@ class _LoginState extends State<Login> {
         print('Document does not exist on the database');
       }
     });
-
   }
 
   void _submitForm() async {
@@ -70,15 +67,17 @@ class _LoginState extends State<Login> {
       });
       _formKey.currentState?.save();
       try {
-        UserCredential userCredential= await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: _email!.toLowerCase().trim(), password: _password!.trim());
+        UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: _email!.toLowerCase().trim(),
+                password: _password!.trim());
         _routeUser();
-      }on FirebaseAuthException catch (error){
-        if(error.code == 'user-not-found'){
+      } on FirebaseAuthException catch (error) {
+        if (error.code == 'user-not-found') {
           _globalMethod.authErrorHandle("Usuario no encontrado", context);
           print('error occured $error');
         }
-      }finally{
+      } finally {
         setState(() {
           _isLoading = false;
         });
@@ -186,11 +185,11 @@ class _LoginState extends State<Login> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                DecoratedBox(decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(60)
-                                ),
-                                child: Text("Iniciar sesión")),
-
+                                DecoratedBox(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(60)),
+                                    child: Text("Iniciar sesión")),
                                 if (_loggedIn)
                                   Container(
                                     height: 20,
@@ -201,8 +200,8 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                             onPressed: () {
-                             // context.read<LoginState>().login();
-                            _submitForm();
+                              // context.read<LoginState>().login();
+                              _submitForm();
                             },
                           ),
                         ),
@@ -233,7 +232,9 @@ class _LoginState extends State<Login> {
     ));
   }
 
-  void _showRegister(BuildContext context) {Navigator.of(context).pushNamed(
-    '/register',
-  );}
+  void _showRegister(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      '/register',
+    );
+  }
 }

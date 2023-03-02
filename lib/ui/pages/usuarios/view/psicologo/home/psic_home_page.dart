@@ -4,7 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../auth/view/login_page.dart';
+
+import '../../../../auth/view/login_page.dart';
 
 class PsicHomePage extends StatefulWidget {
   const PsicHomePage({Key? key}) : super(key: key);
@@ -31,8 +32,6 @@ class _PsicHomePageState extends State<PsicHomePage> {
 
   GetUserData _usuarioNombre = GetUserData();
 
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -57,7 +56,10 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   heroTag: null,
                   onPressed: () {},
                   backgroundColor: const Color(0xfff5fa197),
-                  child: const Icon(FontAwesomeIcons.house, size: 24,),
+                  child: const Icon(
+                    FontAwesomeIcons.house,
+                    size: 24,
+                  ),
                 ),
               ),
             ),
@@ -69,7 +71,10 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   heroTag: null,
                   onPressed: () {},
                   backgroundColor: Color(0xffF5FA197),
-                  child: const Icon(Icons.add, size: 32,),
+                  child: const Icon(
+                    Icons.add,
+                    size: 32,
+                  ),
                 ),
               ),
             ),
@@ -81,7 +86,10 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   heroTag: null,
                   onPressed: () {},
                   backgroundColor: Color(0xffF5FA197),
-                  child: const Icon(FontAwesomeIcons.noteSticky, size: 32,),
+                  child: const Icon(
+                    FontAwesomeIcons.noteSticky,
+                    size: 32,
+                  ),
                 ),
               ),
             ),
@@ -94,16 +102,15 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
-
   // Drawer
-  Widget _drawer(){
+  Widget _drawer() {
     return Drawer(
       child: ListView(
         children: [
           DrawerHeader(
               child: Column(
-                children: const [Icon((Icons.person_add_alt_1_outlined))],
-              )),
+            children: const [Icon((Icons.person_add_alt_1_outlined))],
+          )),
           ListTile(
             title: const Text("Salir"),
             onTap: () {
@@ -147,20 +154,20 @@ class _PsicHomePageState extends State<PsicHomePage> {
   }
 
   // Botón del perfil en la parte superior derecha
-  Widget _profileImage(){
+  Widget _profileImage() {
     return Container(
       margin: const EdgeInsets.all(8),
       child: CircleAvatar(
         backgroundColor: Colors.grey.shade800,
         child: TextButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/profilePage');  },
+            Navigator.of(context).pushNamed('/profilePage');
+          },
           child: const Text(""),
         ),
       ),
     );
   }
-
 
   // Botón obsoleto
   Widget _myButton(String texto, Icon icono) {
@@ -184,7 +191,6 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
-
   //Widget para el cuerpo del Scaffold
   Widget _body() {
     return SafeArea(
@@ -194,7 +200,6 @@ class _PsicHomePageState extends State<PsicHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _usuarioNombre.usuario(),
-
             SizedBox.fromSize(
               size: const Size.fromHeight(8),
             ),
@@ -259,7 +264,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 )
               ],
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed('/listPage');
+            },
           )),
     );
   }
@@ -340,11 +347,13 @@ class _PsicHomePageState extends State<PsicHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              Text("Calendario",style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black
-              ),),
+              Text(
+                "Calendario",
+                style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
               Icon(
                 FontAwesomeIcons.calendarDays,
                 size: 80,
@@ -360,10 +369,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
 
   // Función para SignOut
   void _signOut() async {
-    await FirebaseAuth.instance.signOut().then((value) =>
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Login()), (
-            route) => false));
+    await FirebaseAuth.instance.signOut().then((value) => Navigator.of(context)
+        .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login()),
+            (route) => false));
   }
 
   // Obsoleto para la barra de navegación inferior
@@ -378,6 +386,4 @@ class _PsicHomePageState extends State<PsicHomePage> {
       ),
     );
   }
-
-
 }
