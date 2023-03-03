@@ -1,9 +1,11 @@
+import 'package:auto_route/annotations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../../services/global_method.dart';
 import '../../usuarios/view/paciente/home/patient_home_page.dart';
 import '../../usuarios/view/psicologo/home/psic_home_page.dart';
+import 'package:auto_route/auto_route.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -30,6 +32,7 @@ class _LoginState extends State<Login> {
 //Query del tipo del usuario
   void _routeUser() {
     User? currentUser = FirebaseAuth.instance.currentUser;
+    final router = Router.of(context);
 
     var _isUser = FirebaseFirestore.instance
         .collection('users')
@@ -38,12 +41,7 @@ class _LoginState extends State<Login> {
         .then((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         if (documentSnapshot.get('ispsic') == "Psicologo") {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PsicHomePage(),
-            ),
-          );
+          navigateToPsic();
         } else {
           Navigator.pushReplacement(
             context,
@@ -56,6 +54,11 @@ class _LoginState extends State<Login> {
         print('Document does not exist on the database');
       }
     });
+  }
+
+  void navigateToPsic(){
+    AutoRouter.of(context).pushNamed('/psic-home-page');
+      
   }
 
   void _submitForm() async {

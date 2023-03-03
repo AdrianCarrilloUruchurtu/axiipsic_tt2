@@ -1,6 +1,9 @@
 
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/profile_page.dart';
+import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -311,9 +314,7 @@ class _PatHomePageState extends State<PatHomePage> {
   //Sign out function
   void _signOut() async {
     await FirebaseAuth.instance.signOut().then((value) =>
-        Navigator.of(context).pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => Login()), (
-            route) => false));
+        AutoRouter.of(context).pushNamed('/'));
   }
 
 }

@@ -11,74 +11,86 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:flutter/material.dart' as _i7;
+import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:flutter/cupertino.dart' as _i9;
+import 'package:flutter/material.dart' as _i8;
 
-import 'pages/auth/view/login_page.dart' as _i1;
-import 'pages/auth/view/register_page.dart' as _i4;
-import 'pages/usuarios/view/paciente/home/patient_home_page.dart' as _i2;
-import 'pages/usuarios/view/profile_page.dart' as _i3;
-import 'pages/usuarios/view/psicologo/list_page.dart' as _i5;
+import '../pages/auth/view/login_page.dart' as _i1;
+import '../pages/auth/view/register_page.dart' as _i5;
+import '../pages/usuarios/view/paciente/home/patient_home_page.dart' as _i2;
+import '../pages/usuarios/view/profile_page.dart' as _i4;
+import '../pages/usuarios/view/psicologo/home/psic_home_page.dart' as _i3;
+import '../pages/usuarios/view/psicologo/list_page.dart' as _i6;
 
-class AppRouter extends _i6.RootStackRouter {
-  AppRouter([_i7.GlobalKey<_i7.NavigatorState>? navigatorKey])
+class AppRouter extends _i7.RootStackRouter {
+  AppRouter([_i8.GlobalKey<_i8.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i6.PageFactory> pagesMap = {
+  final Map<String, _i7.PageFactory> pagesMap = {
     Login.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.Login(),
       );
     },
     PatHomeRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.PatHomePage(),
       );
     },
-    ProfileRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+    PsicHomeRoute.name: (routeData) {
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.ProfilePage(),
+        child: const _i3.PsicHomePage(),
+      );
+    },
+    ProfileRoute.name: (routeData) {
+      return _i7.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i4.ProfilePage(),
       );
     },
     RegisterRoute.name: (routeData) {
       final args = routeData.argsAs<RegisterRouteArgs>(
           orElse: () => const RegisterRouteArgs());
-      return _i6.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i4.RegisterPage(key: args.key),
+        child: _i5.RegisterPage(key: args.key),
       );
     },
     ListRoute.name: (routeData) {
-      return _i6.MaterialPageX<dynamic>(
+      return _i7.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.ListPage(),
+        child: const _i6.ListPage(),
       );
     },
   };
 
   @override
-  List<_i6.RouteConfig> get routes => [
-        _i6.RouteConfig(
+  List<_i7.RouteConfig> get routes => [
+        _i7.RouteConfig(
           Login.name,
           path: '/',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           PatHomeRoute.name,
           path: '/pat-home-page',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
+          PsicHomeRoute.name,
+          path: '/psic-home-page',
+        ),
+        _i7.RouteConfig(
           ProfileRoute.name,
           path: '/profile-page',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           RegisterRoute.name,
           path: '/register-page',
         ),
-        _i6.RouteConfig(
+        _i7.RouteConfig(
           ListRoute.name,
           path: '/list-page',
         ),
@@ -87,7 +99,7 @@ class AppRouter extends _i6.RootStackRouter {
 
 /// generated route for
 /// [_i1.Login]
-class Login extends _i6.PageRouteInfo<void> {
+class Login extends _i7.PageRouteInfo<void> {
   const Login()
       : super(
           Login.name,
@@ -99,7 +111,7 @@ class Login extends _i6.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.PatHomePage]
-class PatHomeRoute extends _i6.PageRouteInfo<void> {
+class PatHomeRoute extends _i7.PageRouteInfo<void> {
   const PatHomeRoute()
       : super(
           PatHomeRoute.name,
@@ -110,8 +122,20 @@ class PatHomeRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.ProfilePage]
-class ProfileRoute extends _i6.PageRouteInfo<void> {
+/// [_i3.PsicHomePage]
+class PsicHomeRoute extends _i7.PageRouteInfo<void> {
+  const PsicHomeRoute()
+      : super(
+          PsicHomeRoute.name,
+          path: '/psic-home-page',
+        );
+
+  static const String name = 'PsicHomeRoute';
+}
+
+/// generated route for
+/// [_i4.ProfilePage]
+class ProfileRoute extends _i7.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
           ProfileRoute.name,
@@ -122,9 +146,9 @@ class ProfileRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.RegisterPage]
-class RegisterRoute extends _i6.PageRouteInfo<RegisterRouteArgs> {
-  RegisterRoute({_i7.Key? key})
+/// [_i5.RegisterPage]
+class RegisterRoute extends _i7.PageRouteInfo<RegisterRouteArgs> {
+  RegisterRoute({_i9.Key? key})
       : super(
           RegisterRoute.name,
           path: '/register-page',
@@ -137,7 +161,7 @@ class RegisterRoute extends _i6.PageRouteInfo<RegisterRouteArgs> {
 class RegisterRouteArgs {
   const RegisterRouteArgs({this.key});
 
-  final _i7.Key? key;
+  final _i9.Key? key;
 
   @override
   String toString() {
@@ -146,8 +170,8 @@ class RegisterRouteArgs {
 }
 
 /// generated route for
-/// [_i5.ListPage]
-class ListRoute extends _i6.PageRouteInfo<void> {
+/// [_i6.ListPage]
+class ListRoute extends _i7.PageRouteInfo<void> {
   const ListRoute()
       : super(
           ListRoute.name,

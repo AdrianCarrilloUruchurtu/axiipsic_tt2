@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/services/global_method.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view_model/datos_usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -368,10 +369,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
   }
 
   // Función para SignOut
-  void _signOut() async {
-    await FirebaseAuth.instance.signOut().then((value) => Navigator.of(context)
-        .pushAndRemoveUntil(MaterialPageRoute(builder: (context) => Login()),
-            (route) => false));
+   void _signOut() async {
+    await FirebaseAuth.instance.signOut().then((value) =>
+        AutoRouter.of(context).pushNamed('/'));
   }
 
   // Obsoleto para la barra de navegación inferior
