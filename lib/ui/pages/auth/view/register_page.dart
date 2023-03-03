@@ -10,7 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'login_page.dart';
 
 class RegisterPage extends StatefulWidget {
-  RegisterPage({super.key});
+  const RegisterPage({super.key});
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -21,7 +21,7 @@ class _RegisterPageState extends State<RegisterPage> {
   //Variables para los forms
   final _formKey = GlobalKey<FormState>();
   final bool _loggedIn = true;
-  bool _obscureText = true;
+  final bool _obscureText = true;
   //FocusNodes
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
@@ -34,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _isPsic = "";
   String? _password = '';
 
-  GlobalMethod _globalMethod = GlobalMethod();
+  final GlobalMethod _globalMethod = GlobalMethod();
 
   bool _isLoading = false;
 
@@ -42,6 +42,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final dbRef = FirebaseDatabase.instance.ref().child('users');
 
+  @override
   void dispose() {
     _passwordFocusNode.dispose();
     _emailFocusNode.dispose();
@@ -86,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
       'email': email
     });
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Login()));
+        context, MaterialPageRoute(builder: (context) => const LoginPage()));
 
   }
 
@@ -129,7 +130,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       children: [
                         //nombre FormField
                         TextFormField(
-                          key: ValueKey('nombre'),
+                          key: const ValueKey('nombre'),
                           focusNode: _nombreFocusNode,
                           validator: (value) {
                             if ((value!.isEmpty)) {
@@ -151,10 +152,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             _nombre = value;
                           },
                         ),
-                         SizedBox(height: 20),
+                         const SizedBox(height: 20),
                         // Apellido FormField
                         TextFormField(
-                          key: ValueKey('apellido'),
+                          key: const ValueKey('apellido'),
                           focusNode: _apellidoFocusNode,
                           validator: (value) {
                             if ((value!.isEmpty)) {
@@ -176,10 +177,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             _apellido = value;
                           },
                         ),
-                         SizedBox(height: 20),
+                         const SizedBox(height: 20),
                         //email FormField
                         TextFormField(
-                          key: ValueKey('email'),
+                          key: const ValueKey('email'),
                           focusNode: _emailFocusNode,
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -202,7 +203,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             _email = value;
                           },
                         ),
-                         SizedBox(height: 20),
+                         const SizedBox(height: 20),
 
                         // Tipo de usuario FormField
                         FormField<String>(
@@ -230,7 +231,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 },
 
                                 isExpanded: true,
-                                items:  [
+                                items:  const [
                                   DropdownMenuItem(
                                     value: "",
                                     child: Text("Tipo de usuario"),
@@ -250,13 +251,14 @@ class _RegisterPageState extends State<RegisterPage> {
                             validator: (value){
                             if(value==""){
                               print('Tipo de usuario requerido');
-                            };},
-                            key:  ValueKey('utype'),
+                            }
+return null;},
+                            key:  const ValueKey('utype'),
                             onSaved: (value) {
                             _isPsic = value;
                             },
                             ),
-                             SizedBox(height: 20),
+                             const SizedBox(height: 20),
 
                             // Contraseña FormField
                             TextFormField(
@@ -275,9 +277,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         const SizedBox(height: 20),
                         Theme(
                           data: Theme.of(context)
-                              .copyWith(selectedRowColor: Colors.white),
+                              .copyWith(),
                           child: _isLoading
-                              ? CircularProgressIndicator()
+                              ? const CircularProgressIndicator()
                               : ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor:
@@ -318,7 +320,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           children: [
                             const Text("¿Google?"),
                             TextButton(
-                              child: Text("Google"),
+                              child: const Text("Google"),
                               onPressed: () {
                                 context.read<LoginState>().login();
                               },

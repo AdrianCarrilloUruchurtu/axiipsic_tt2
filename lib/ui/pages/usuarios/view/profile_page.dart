@@ -1,7 +1,8 @@
+import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import '../../../routes/router.gr.dart';
 import '../../auth/view/login_page.dart';
 import '../../auth/view_model/auth_mobx.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
@@ -97,9 +98,6 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _signOut() async {
-    await FirebaseAuth.instance.signOut().then((value) => Navigator.of(context)
-        .pushAndRemoveUntil(
-            MaterialPageRoute(builder: (context) => const Login()),
-            (route) => false));
+   // await FirebaseAuth.instance.signOut().then((value) =>    (route) => false))
   }
 }

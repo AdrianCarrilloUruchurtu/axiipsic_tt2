@@ -3,22 +3,23 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../../services/global_method.dart';
+import '../../../routes/router.gr.dart';
 import '../../usuarios/view/paciente/home/patient_home_page.dart';
 import '../../usuarios/view/psicologo/home/psic_home_page.dart';
 import 'package:auto_route/auto_route.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginPage> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
-  bool _loggedIn = true;
+  final bool _loggedIn = true;
 
   bool _obscureText = true;
 
@@ -27,14 +28,14 @@ class _LoginState extends State<Login> {
 
   User? signedInUser = FirebaseAuth.instance.currentUser;
 
-  GlobalMethod _globalMethod = GlobalMethod();
+  final GlobalMethod _globalMethod = GlobalMethod();
 
 //Query del tipo del usuario
   void _routeUser() {
     User? currentUser = FirebaseAuth.instance.currentUser;
     final router = Router.of(context);
 
-    var _isUser = FirebaseFirestore.instance
+    var isUser = FirebaseFirestore.instance
         .collection('users')
         .doc(currentUser!.uid)
         .get()
@@ -46,7 +47,7 @@ class _LoginState extends State<Login> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => PatHomePage(),
+              builder: (context) => const PatHomePage(),
             ),
           );
         }
@@ -57,8 +58,8 @@ class _LoginState extends State<Login> {
   }
 
   void navigateToPsic(){
-    AutoRouter.of(context).pushNamed('/psic-home-page');
-      
+    AutoRouter.of(context).push(const PsicHomeRoute());
+    context.pushRoute( const PsicHomeRoute());
   }
 
   void _submitForm() async {
@@ -95,7 +96,7 @@ class _LoginState extends State<Login> {
       children: [
         Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 70),
+          padding: const EdgeInsets.symmetric(vertical: 70),
           decoration: BoxDecoration(
             color: Colors.transparent,
             gradient:
@@ -108,7 +109,7 @@ class _LoginState extends State<Login> {
           ),
         ),
         Transform.translate(
-          offset: Offset(0, -40),
+          offset: const Offset(0, -40),
           child: Center(
             child: SingleChildScrollView(
               child: Card(
@@ -127,7 +128,7 @@ class _LoginState extends State<Login> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         TextFormField(
-                          key: ValueKey('email'),
+                          key: const ValueKey('email'),
                           validator: (value) {
                             if (value!.isEmpty || !value.contains('@')) {
                               return 'Usuario o contraseña invalidos';
@@ -137,7 +138,7 @@ class _LoginState extends State<Login> {
                           },
                           keyboardType: TextInputType.emailAddress,
                           decoration: const InputDecoration(
-                              border: const UnderlineInputBorder(),
+                              border: UnderlineInputBorder(),
                               filled: true,
                               prefixIcon: Icon(Icons.email),
                               labelText: "email: "),
@@ -145,9 +146,9 @@ class _LoginState extends State<Login> {
                             _email = value;
                           },
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         TextFormField(
-                          key: ValueKey('password'),
+                          key: const ValueKey('password'),
                           validator: (value) {
                             if (value!.isEmpty || value.length < 7) {
                               return 'Usuario o contraseña invalidos';
@@ -159,7 +160,7 @@ class _LoginState extends State<Login> {
                           decoration: InputDecoration(
                               border: const UnderlineInputBorder(),
                               filled: true,
-                              prefixIcon: Icon(Icons.password),
+                              prefixIcon: const Icon(Icons.password),
                               suffixIcon: GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -176,10 +177,10 @@ class _LoginState extends State<Login> {
                           },
                           obscureText: _obscureText,
                         ),
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
                         Theme(
                           data: Theme.of(context)
-                              .copyWith(selectedRowColor: Colors.white),
+                              .copyWith(),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,
@@ -192,13 +193,13 @@ class _LoginState extends State<Login> {
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(60)),
-                                    child: Text("Iniciar sesión")),
+                                    child: const Text("Iniciar sesión")),
                                 if (_loggedIn)
                                   Container(
                                     height: 20,
                                     width: 20,
                                     margin: const EdgeInsets.only(left: 20),
-                                    child: CircularProgressIndicator(),
+                                    child: const CircularProgressIndicator(),
                                   )
                               ],
                             ),
@@ -216,7 +217,7 @@ class _LoginState extends State<Login> {
                           children: [
                             const Text("¿No estás registrado?"),
                             TextButton(
-                              child: Text("Registrarse"),
+                              child: const Text("Registrarse"),
                               onPressed: () {
                                 _showRegister(context);
                               },
