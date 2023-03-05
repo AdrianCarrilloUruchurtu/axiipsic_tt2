@@ -31,7 +31,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
     });
   }
 
-  GetUserData _usuarioNombre = GetUserData();
+  final GetUserData _usuarioNombre = GetUserData();
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
-        margin: EdgeInsets.all(24),
+        margin: const EdgeInsets.all(24),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -71,7 +71,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 child: FloatingActionButton(
                   heroTag: null,
                   onPressed: () {},
-                  backgroundColor: Color(0xffF5FA197),
+                  backgroundColor: const Color(0xfff5fa197),
                   child: const Icon(
                     Icons.add,
                     size: 32,
@@ -79,14 +79,14 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               height: 40,
               width: 40,
               child: FittedBox(
                 child: FloatingActionButton(
                   heroTag: null,
                   onPressed: () {},
-                  backgroundColor: Color(0xffF5FA197),
+                  backgroundColor: const Color(0xfff5fa197),
                   child: const Icon(
                     FontAwesomeIcons.noteSticky,
                     size: 32,
@@ -100,27 +100,6 @@ class _PsicHomePageState extends State<PsicHomePage> {
       appBar: _appbar(),
       drawer: _drawer(),
       body: _body(),
-    );
-  }
-
-  // Drawer
-  Widget _drawer() {
-    return Drawer(
-      child: ListView(
-        children: [
-          DrawerHeader(
-              child: Column(
-            children: const [Icon((Icons.person_add_alt_1_outlined))],
-          )),
-          ListTile(
-            title: const Text("Salir"),
-            onTap: () {
-              _signOut();
-            },
-            selected: true,
-          )
-        ],
-      ),
     );
   }
 
@@ -151,6 +130,27 @@ class _PsicHomePageState extends State<PsicHomePage> {
       actions: [_profileImage()],
       backgroundColor: Colors.transparent,
       elevation: 0,
+    );
+  }
+
+  // Drawer
+  Widget _drawer() {
+    return Drawer(
+      child: ListView(
+        children: [
+          DrawerHeader(
+              child: Column(
+            children: const [Icon((Icons.person_add_alt_1_outlined))],
+          )),
+          ListTile(
+            title: const Text("Salir"),
+            onTap: () {
+              _signOut();
+            },
+            selected: true,
+          )
+        ],
+      ),
     );
   }
 
@@ -230,7 +230,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
           height: 90,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xffC0EAE2),
+                backgroundColor: const Color(0xffC0EAE2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
             child: Column(
@@ -266,7 +266,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
               ],
             ),
             onPressed: () {
-              Navigator.of(context).pushNamed('/listPage');
+              AutoRouter.of(context).pushNamed('/ListRouter');
             },
           )),
     );
@@ -280,11 +280,11 @@ class _PsicHomePageState extends State<PsicHomePage> {
           height: 90,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xffC0EAE2),
+                backgroundColor: const Color(0xffC0EAE2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
             child: Container(
-              margin: EdgeInsets.all(8),
+              margin: const EdgeInsets.all(8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -341,7 +341,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
         height: 90,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xffC0EAE2),
+              backgroundColor: const Color(0xffC0EAE2),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20))),
           child: Row(
@@ -369,20 +369,21 @@ class _PsicHomePageState extends State<PsicHomePage> {
   }
 
   // Función para SignOut
-   void _signOut() async {
-    await FirebaseAuth.instance.signOut().then((value) =>
-        AutoRouter.of(context).pushNamed('/'));
+  void _signOut() async {
+    await FirebaseAuth.instance
+        .signOut()
+        .then((value) => AutoRouter.of(context).pushNamed('/'));
   }
 
   // Obsoleto para la barra de navegación inferior
   Widget _bottomAction(IconData icon, callback) {
     return Container(
       child: InkWell(
+        onTap: callback,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Icon(icon),
         ),
-        onTap: callback,
       ),
     );
   }

@@ -15,10 +15,11 @@ class LoginState with ChangeNotifier {
 
   void login() async {
     _user = (await _handleSignIn())!;
+    // ignore: unnecessary_null_comparison
     if (_user != null) {
       _loggedIn = true;
       notifyListeners();
-    }else {
+    } else {
       _loggedIn = false;
     }
     _loggedIn = true;
@@ -31,21 +32,19 @@ class LoginState with ChangeNotifier {
     notifyListeners();
   }
 
-
-  Future<User?> _handleSignIn() async{
+  Future<User?> _handleSignIn() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
-    ) ;
+    );
 
-    final UserCredential result = (await _auth.signInWithCredential(credential) );
+    final UserCredential result =
+        (await _auth.signInWithCredential(credential));
     User? user = result.user;
-    print(user?.displayName);
     return user;
-
   }
-
 }

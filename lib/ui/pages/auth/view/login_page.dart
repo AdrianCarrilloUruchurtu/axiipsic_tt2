@@ -1,11 +1,7 @@
-import 'package:auto_route/annotations.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../../services/global_method.dart';
 import '../../../routes/router.gr.dart';
-import '../../usuarios/view/paciente/home/patient_home_page.dart';
-import '../../usuarios/view/psicologo/home/psic_home_page.dart';
 import 'package:auto_route/auto_route.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,6 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginPage> {
+  // FormKey para el formulario
   final _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
@@ -30,38 +27,14 @@ class _LoginState extends State<LoginPage> {
 
   final GlobalMethod _globalMethod = GlobalMethod();
 
-//Query del tipo del usuario
+// Dirigir al usuario al home de psicologo para que se activen los guardias
   void _routeUser() {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    final router = Router.of(context);
-
-    var isUser = FirebaseFirestore.instance
-        .collection('users')
-        .doc(currentUser!.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        if (documentSnapshot.get('ispsic') == "Psicologo") {
-          navigateToPsic();
-        } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const PatHomePage(),
-            ),
-          );
-        }
-      } else {
-        print('Document does not exist on the database');
-      }
-    });
+    context
+        .pushRoute(const PsicHomeRoute())
+        .then((value) => context.pushRoute(const PatHomeRoute()));
   }
 
-  void navigateToPsic(){
-    AutoRouter.of(context).push(const PsicHomeRoute());
-    context.pushRoute( const PsicHomeRoute());
-  }
-
+// Acción del botón de login
   void _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -79,7 +52,6 @@ class _LoginState extends State<LoginPage> {
       } on FirebaseAuthException catch (error) {
         if (error.code == 'user-not-found') {
           _globalMethod.authErrorHandle("Usuario no encontrado", context);
-          print('error occured $error');
         }
       } finally {
         setState(() {
@@ -179,8 +151,7 @@ class _LoginState extends State<LoginPage> {
                         ),
                         const SizedBox(height: 40),
                         Theme(
-                          data: Theme.of(context)
-                              .copyWith(),
+                          data: Theme.of(context).copyWith(),
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,
@@ -237,8 +208,6 @@ class _LoginState extends State<LoginPage> {
   }
 
   void _showRegister(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      '/register',
-    );
+    AutoRouter.of(context).push(const RegisterRoute());
   }
 }

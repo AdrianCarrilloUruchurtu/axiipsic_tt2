@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 class GlobalMethod{
@@ -7,15 +8,11 @@ class GlobalMethod{
         builder: (BuildContext ctx) {
           return AlertDialog(
             title: Row(
-              children: [
+              children: const [
                 Padding(
-                    padding: const EdgeInsets.only(right: 6),
-                    child: Image.network(
-                      'https://image.flaticon.com/icons/png/128/564/564619.png',
-                      height: 20,
-                      width: 20,
-                    )),
-                const Padding(
+                    padding: EdgeInsets.only(right: 6),
+                    child: Icon(Icons.dangerous, size: 50,)),
+                Padding(
                   padding: EdgeInsets.all(8),
                   child: Text('Ocurrió un error'),
                 )
@@ -24,7 +21,7 @@ class GlobalMethod{
             content: Text(subtitle),
             actions: [
               TextButton(
-                  onPressed: () => Navigator.pop(context), child: const Text("OK"))
+                  onPressed: () =>  AutoRouter.of(context).pop(), child: const Text("OK"))
             ],
           );
         });

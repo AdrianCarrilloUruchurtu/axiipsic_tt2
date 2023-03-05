@@ -7,25 +7,26 @@ import 'package:flutter/material.dart';
 
 // Obtener el nombre del usuario
 
-
-
 class GetUserData {
-  var nombre='';
-  var apellido='';
-  var email='';
+  var nombre = '';
+  var apellido = '';
+  var email = '';
   Future getUserData() async {
     final DocumentSnapshot userDoc = (await FirebaseFirestore.instance
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .doc(FirebaseAuth.instance.currentUser?.uid)
         .get());
     nombre = userDoc.get('nombre');
     apellido = userDoc.get('apellido');
     email = userDoc.get('email');
   }
 
-  Widget usuario(){
-      getUserData();
-    return Text("Hola, $nombre", style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),);
+  Widget usuario() {
+    getUserData();
+    return Text(
+      "Hola, $nombre",
+      style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+    );
   }
 
   Widget nombreApellido() {
@@ -39,10 +40,10 @@ class GetUserData {
     );
   }
 
-  Widget correo(){
+  Widget correo() {
     getUserData();
-   return Text(
-      '$email',
+    return Text(
+      email,
       style: TextStyle(
         fontSize: 20,
         fontFamily: 'SourceSansPro',
@@ -51,5 +52,4 @@ class GetUserData {
       ),
     );
   }
-
 }

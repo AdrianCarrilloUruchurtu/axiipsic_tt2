@@ -10,7 +10,7 @@ part 'auth_mobx.g.dart';
 class AuthMobx = _AuthMobxBase with _$AuthMobx;
 
 abstract class _AuthMobxBase with Store {
-  final _userRepo = GetIt.instance.get<UserRepository>();
+  final _userRepo = GetIt.instance.get<UserRepo>();
 
   _AuthMobxBase() {
     FirebaseAuth.instance.authStateChanges().listen((event) async {

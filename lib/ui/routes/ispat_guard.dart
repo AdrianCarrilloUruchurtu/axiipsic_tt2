@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'router.gr.dart';
 
-class CheckIfUserIsPsic extends AutoRouteGuard {
+class CheckIfUserIsPat extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) async {
     final userRepo = getIt.get<UserRepo>();
@@ -18,11 +18,12 @@ class CheckIfUserIsPsic extends AutoRouteGuard {
         .get();
 
     if (userData!.ispsic == "Psicologo") {
-      resolver.next(true);
-      print("Hola psicologo");
-    } else if (userData.ispsic == "Paciente") {
       resolver.next(false);
+      print("Hola psicologo");
       router.push(const PsicHomeRoute());
+    } else if (userData.ispsic == "Paciente") {
+      resolver.next(true);
+      print("Hola paciente");
     } else {
       router.replace(const LoginRoute());
     }

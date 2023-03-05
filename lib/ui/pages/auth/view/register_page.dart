@@ -1,13 +1,13 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/services/global_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:axiipsic_tt2/login_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'login_page.dart';
+import '../../../routes/router.gr.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -17,16 +17,17 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   //Variables para los forms
   final _formKey = GlobalKey<FormState>();
   final bool _loggedIn = true;
   final bool _obscureText = true;
+
   //FocusNodes
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _nombreFocusNode = FocusNode();
   final FocusNode _apellidoFocusNode = FocusNode();
+
   //Campos
   String? _nombre = '';
   String? _apellido = '';
@@ -59,17 +60,16 @@ class _RegisterPageState extends State<RegisterPage> {
         _isLoading = true;
       });
       _formKey.currentState?.save();
-      // Authenticate and error handling
+      // Autenticar y manejo de errores
       try {
         _auth
             .createUserWithEmailAndPassword(
                 email: _email!.toLowerCase().trim(),
                 password: _password!.trim())
-            .then((value) => {addUserDetails(_nombre!,_apellido! ,_isPsic!, _email!)});
-
+            .then((value) =>
+                {addUserDetails(_nombre!, _apellido!, _isPsic!, _email!)});
       } catch (error) {
         _globalMethod.authErrorHandle("Hola", context);
-        print('error occured $error');
       } finally {
         setState(() {
           _isLoading = false;
@@ -78,7 +78,8 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future addUserDetails(String nombre, String apellido, String isPsic, String email) async{
+  Future addUserDetails(
+      String nombre, String apellido, String isPsic, String email) async {
     var user = _auth.currentUser;
     await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
       'nombre': nombre,
@@ -86,9 +87,8 @@ class _RegisterPageState extends State<RegisterPage> {
       'ispsic': isPsic,
       'email': email
     });
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const LoginPage()));
-
+    // ignore: use_build_context_synchronously
+    AutoRouter.of(context).push(const LoginRoute());
   }
 
   @override
@@ -128,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        //nombre FormField
+                        // Nombre FormField
                         TextFormField(
                           key: const ValueKey('nombre'),
                           focusNode: _nombreFocusNode,
@@ -152,7 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             _nombre = value;
                           },
                         ),
-                         const SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         // Apellido FormField
                         TextFormField(
                           key: const ValueKey('apellido'),
@@ -177,8 +177,8 @@ class _RegisterPageState extends State<RegisterPage> {
                             _apellido = value;
                           },
                         ),
-                         const SizedBox(height: 20),
-                        //email FormField
+                        const SizedBox(height: 20),
+                        // email FormField
                         TextFormField(
                           key: const ValueKey('email'),
                           focusNode: _emailFocusNode,
@@ -203,35 +203,34 @@ class _RegisterPageState extends State<RegisterPage> {
                             _email = value;
                           },
                         ),
-                         const SizedBox(height: 20),
+                        const SizedBox(height: 20),
 
                         // Tipo de usuario FormField
                         FormField<String>(
                           builder: (FormFieldState<String> state) {
-                            return  InputDecorator(
+                            return InputDecorator(
                               decoration: const InputDecoration(
                                   hintText: "Tipo de usuario",
-                                  errorStyle: TextStyle(color: Colors.redAccent, fontSize: 16),
+                                  errorStyle: TextStyle(
+                                      color: Colors.redAccent, fontSize: 16),
                                   border: OutlineInputBorder(),
                                   icon: Icon(
                                     Icons.person_outline_outlined,
                                     color: Colors.blue,
                                   )),
                               child: DropdownButtonHideUnderline(
-                               child: DropdownButton<String>(
+                                  child: DropdownButton<String>(
                                 value: _isPsic,
                                 isDense: true,
-                                onChanged: (String? newValue){
-
+                                onChanged: (String? newValue) {
                                   //setState, cambio con mobx?
                                   setState(() {
                                     _isPsic = newValue;
                                     state.didChange(newValue);
                                   });
                                 },
-
                                 isExpanded: true,
-                                items:  const [
+                                items: const [
                                   DropdownMenuItem(
                                     value: "",
                                     child: Text("Tipo de usuario"),
@@ -247,37 +246,39 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ],
                               )),
                             );
-                          }, // builder
-                            validator: (value){
-                            if(value==""){
-                              print('Tipo de usuario requerido');
+                          }, // Builder
+                          validator: (value) {
+                            if (value == "") {
+                              const SnackBar(
+                                content: Text("Tipo de usuario requerido"),
+                              );
                             }
-return null;},
-                            key:  const ValueKey('utype'),
-                            onSaved: (value) {
+                            return null;
+                          },
+                          key: const ValueKey('utype'),
+                          onSaved: (value) {
                             _isPsic = value;
-                            },
-                            ),
-                             const SizedBox(height: 20),
+                          },
+                        ),
+                        const SizedBox(height: 20),
 
-                            // Contraseña FormField
-                            TextFormField(
-                            focusNode: _passwordFocusNode,
-                            decoration: const InputDecoration(
-                            hintText: "Contraseña: ",
-                            icon: Icon(
-                            Icons.password,
-                            color: Colors.blue,
-                            )),
-                            obscureText: false,
-                            onSaved: (value) {
+                        // Contraseña FormField
+                        TextFormField(
+                          focusNode: _passwordFocusNode,
+                          decoration: const InputDecoration(
+                              hintText: "Contraseña: ",
+                              icon: Icon(
+                                Icons.password,
+                                color: Colors.blue,
+                              )),
+                          obscureText: false,
+                          onSaved: (value) {
                             _password = value;
                           },
                         ),
                         const SizedBox(height: 20),
                         Theme(
-                          data: Theme.of(context)
-                              .copyWith(),
+                          data: Theme.of(context).copyWith(),
                           child: _isLoading
                               ? const CircularProgressIndicator()
                               : ElevatedButton(
@@ -337,11 +338,5 @@ return null;},
         )
       ],
     ));
-  }
-
-  void _showRegister(BuildContext context) {
-    Navigator.of(context).pushNamed(
-      '/register',
-    );
   }
 }

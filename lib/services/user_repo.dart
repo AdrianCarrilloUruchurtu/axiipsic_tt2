@@ -1,11 +1,10 @@
 // Obtener uno, todos, crear uno
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
 @singleton
-class UserRepository {
+class UserRepo {
   final _firestore = FirebaseFirestore.instance;
 
   Future<UserData?> get(String id) async {
