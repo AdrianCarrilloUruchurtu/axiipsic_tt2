@@ -233,7 +233,7 @@ class _PatHomePageState extends State<PatHomePage> {
                       size: 56,
                       color: Colors.black,
                     ),
-                    '/notas'),
+                    context.pushRoute(const MainNotes())),
                 _myButton(
                     'Tareas',
                     const Icon(

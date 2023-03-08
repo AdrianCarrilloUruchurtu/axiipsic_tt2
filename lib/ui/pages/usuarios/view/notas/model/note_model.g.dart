@@ -7,7 +7,7 @@ part of 'note_model.dart';
 // **************************************************************************
 
 _$_NotaData _$$_NotaDataFromJson(Map<String, dynamic> json) => _$_NotaData(
-      json['colorId'] as String,
+      json['colorId'] as int,
       json['creationDate'] as String,
       json['id'] as String,
       json['noteContent'] as String,

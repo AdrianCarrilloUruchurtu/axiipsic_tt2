@@ -26,7 +26,7 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    gh.singleton<_i3.AuthMobx>(_i3.AuthMobx());
+    gh.factory<_i3.AuthMobx>(() => _i3.AuthMobx());
     gh.singleton<_i4.NotaRepo>(_i4.NotaRepo());
     gh.factory<_i5.NotaStore>(() => _i5.NotaStore());
     gh.singleton<_i6.UserRepo>(_i6.UserRepo());

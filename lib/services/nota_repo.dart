@@ -37,4 +37,21 @@ class NotaRepo {
       return event.docs.map((e) => NotaData.fromDocument(e)).toList();
     });
   }
+
+  Future<DocumentReference<Map<String, dynamic>>> notaEdit(
+      int colorId, String creationDate, String noteContent, String noteTitle) {
+    final currentUSer = _auth.currentUser;
+
+    return _firestore
+        .collection('users')
+        .doc(currentUSer!.uid)
+        .collection('notes')
+        .add({
+      'userId': currentUSer.uid,
+      'noteTitle': noteTitle,
+      "creationDate": creationDate,
+      "noteContent": noteContent,
+      "colorId": colorId,
+    });
+  }
 }

@@ -20,7 +20,7 @@ NotaData _$NotaDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NotaData {
-  String get colorId => throw _privateConstructorUsedError;
+  int get colorId => throw _privateConstructorUsedError;
   String get creationDate => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get noteContent => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $NotaDataCopyWith<$Res> {
       _$NotaDataCopyWithImpl<$Res, NotaData>;
   @useResult
   $Res call(
-      {String colorId,
+      {int colorId,
       String creationDate,
       String id,
       String noteContent,
@@ -71,7 +71,7 @@ class _$NotaDataCopyWithImpl<$Res, $Val extends NotaData>
       colorId: null == colorId
           ? _value.colorId
           : colorId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       creationDate: null == creationDate
           ? _value.creationDate
           : creationDate // ignore: cast_nullable_to_non_nullable
@@ -104,7 +104,7 @@ abstract class _$$_NotaDataCopyWith<$Res> implements $NotaDataCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String colorId,
+      {int colorId,
       String creationDate,
       String id,
       String noteContent,
@@ -134,7 +134,7 @@ class __$$_NotaDataCopyWithImpl<$Res>
       null == colorId
           ? _value.colorId
           : colorId // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       null == creationDate
           ? _value.creationDate
           : creationDate // ignore: cast_nullable_to_non_nullable
@@ -169,7 +169,7 @@ class _$_NotaData implements _NotaData {
       _$$_NotaDataFromJson(json);
 
   @override
-  final String colorId;
+  final int colorId;
   @override
   final String creationDate;
   @override
@@ -223,7 +223,7 @@ class _$_NotaData implements _NotaData {
 
 abstract class _NotaData implements NotaData {
   factory _NotaData(
-      final String colorId,
+      final int colorId,
       final String creationDate,
       final String id,
       final String noteContent,
@@ -233,7 +233,7 @@ abstract class _NotaData implements NotaData {
   factory _NotaData.fromJson(Map<String, dynamic> json) = _$_NotaData.fromJson;
 
   @override
-  String get colorId;
+  int get colorId;
   @override
   String get creationDate;
   @override

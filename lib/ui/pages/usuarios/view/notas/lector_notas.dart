@@ -1,12 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../style/app_style.dart';
+import 'model/note_model.dart';
 
 class LectorPage extends StatefulWidget {
   LectorPage(this.doc, {super.key});
-  QueryDocumentSnapshot doc;
+  NotaData doc;
   @override
   State<LectorPage> createState() => _LectorPageState();
 }
@@ -14,7 +14,7 @@ class LectorPage extends StatefulWidget {
 class _LectorPageState extends State<LectorPage> {
   @override
   Widget build(BuildContext context) {
-    int colorId = widget.doc['color_id'];
+    int colorId = widget.doc.colorId;
     return Scaffold(
       appBar: _appbar(),
       body: _body(),
@@ -51,7 +51,7 @@ class _LectorPageState extends State<LectorPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.doc['note_title'],
+            widget.doc.noteTitle,
             style: AppStyle.mainTitle,
           ),
           const Divider(
@@ -65,7 +65,7 @@ class _LectorPageState extends State<LectorPage> {
             height: 4.0,
           ),
           Text(
-            widget.doc['creation_date'],
+            widget.doc.creationDate,
             style: AppStyle.dateTitle,
           ),
           const Divider(
@@ -79,7 +79,7 @@ class _LectorPageState extends State<LectorPage> {
             height: 28.0,
           ),
           Text(
-            widget.doc['note_content'],
+            widget.doc.noteContent,
             style: AppStyle.mainContent,
             overflow: TextOverflow.ellipsis,
           ),

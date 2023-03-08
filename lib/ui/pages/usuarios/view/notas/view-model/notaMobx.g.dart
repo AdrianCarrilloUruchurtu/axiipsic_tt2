@@ -25,6 +25,21 @@ mixin _$NotaStore on _NotaStoreBase, Store {
     });
   }
 
+  late final _$_NotaStoreBaseActionController =
+      ActionController(name: '_NotaStoreBase', context: context);
+
+  @override
+  dynamic crearNota(
+      int colorId, String creationDate, String noteContent, String noteTitle) {
+    final _$actionInfo = _$_NotaStoreBaseActionController.startAction(
+        name: '_NotaStoreBase.crearNota');
+    try {
+      return super.crearNota(colorId, creationDate, noteContent, noteTitle);
+    } finally {
+      _$_NotaStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

@@ -11,137 +11,148 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i9;
-import 'package:flutter/material.dart' as _i10;
+import 'package:auto_route/auto_route.dart' as _i10;
+import 'package:flutter/material.dart' as _i11;
 
 import '../pages/auth/view/login_page.dart' as _i1;
-import '../pages/auth/view/register_page.dart' as _i7;
+import '../pages/auth/view/register_page.dart' as _i8;
+import '../pages/usuarios/view/notas/main_notas.dart' as _i7;
 import '../pages/usuarios/view/paciente/home/patient_home_page.dart' as _i3;
 import '../pages/usuarios/view/paciente/linea/view/ayuda_linea.dart' as _i6;
 import '../pages/usuarios/view/paciente/progress/progress_page.dart' as _i5;
 import '../pages/usuarios/view/profile_page.dart' as _i4;
 import '../pages/usuarios/view/psicologo/home/psic_home_page.dart' as _i2;
-import '../pages/usuarios/view/psicologo/list_page.dart' as _i8;
-import 'guest_guard.dart' as _i11;
-import 'ispat_guard.dart' as _i13;
-import 'ispsic_guard.dart' as _i12;
+import '../pages/usuarios/view/psicologo/list_page.dart' as _i9;
+import 'guest_guard.dart' as _i12;
+import 'ispat_guard.dart' as _i14;
+import 'ispsic_guard.dart' as _i13;
 
-class AppRouter extends _i9.RootStackRouter {
+class AppRouter extends _i10.RootStackRouter {
   AppRouter({
-    _i10.GlobalKey<_i10.NavigatorState>? navigatorKey,
+    _i11.GlobalKey<_i11.NavigatorState>? navigatorKey,
     required this.checkIfUserIsGuest,
     required this.checkIfUserIsPsic,
     required this.checkIfUserIsPat,
   }) : super(navigatorKey);
 
-  final _i11.CheckIfUserIsGuest checkIfUserIsGuest;
+  final _i12.CheckIfUserIsGuest checkIfUserIsGuest;
 
-  final _i12.CheckIfUserIsPsic checkIfUserIsPsic;
+  final _i13.CheckIfUserIsPsic checkIfUserIsPsic;
 
-  final _i13.CheckIfUserIsPat checkIfUserIsPat;
+  final _i14.CheckIfUserIsPat checkIfUserIsPat;
 
   @override
-  final Map<String, _i9.PageFactory> pagesMap = {
+  final Map<String, _i10.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.LoginPage(),
       );
     },
     PsicHomeRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.PsicHomePage(),
       );
     },
     PatHomeRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.PatHomePage(),
       );
     },
     ProfileRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.ProfilePage(),
       );
     },
     ProgressRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.ProgressPage(),
       );
     },
     AyudaRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i6.AyudaPage(),
       );
     },
-    RegisterRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+    MainNotes.name: (routeData) {
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.RegisterPage(),
+        child: const _i7.MainNotes(),
+      );
+    },
+    RegisterRoute.name: (routeData) {
+      return _i10.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i8.RegisterPage(),
       );
     },
     ListRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
+      return _i10.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.ListPage(),
+        child: const _i9.ListPage(),
       );
     },
   };
 
   @override
-  List<_i9.RouteConfig> get routes => [
-        _i9.RouteConfig(
+  List<_i10.RouteConfig> get routes => [
+        _i10.RouteConfig(
           LoginRoute.name,
           path: '/',
           guards: [checkIfUserIsGuest],
           children: [
-            _i9.RouteConfig(
+            _i10.RouteConfig(
               RegisterRoute.name,
               path: 'register-page',
               parent: LoginRoute.name,
             )
           ],
         ),
-        _i9.RouteConfig(
+        _i10.RouteConfig(
           PsicHomeRoute.name,
           path: '/psic-home-page',
           guards: [checkIfUserIsPsic],
           children: [
-            _i9.RouteConfig(
+            _i10.RouteConfig(
               ListRoute.name,
               path: 'list-page',
               parent: PsicHomeRoute.name,
             )
           ],
         ),
-        _i9.RouteConfig(
+        _i10.RouteConfig(
           PatHomeRoute.name,
           path: '/',
           guards: [checkIfUserIsPat],
         ),
-        _i9.RouteConfig(
+        _i10.RouteConfig(
           ProfileRoute.name,
           path: '/profile-page',
         ),
-        _i9.RouteConfig(
+        _i10.RouteConfig(
           ProgressRoute.name,
           path: '/progress-page',
         ),
-        _i9.RouteConfig(
+        _i10.RouteConfig(
           AyudaRoute.name,
           path: '/ayuda-page',
+        ),
+        _i10.RouteConfig(
+          MainNotes.name,
+          path: '/main-notes',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.LoginPage]
-class LoginRoute extends _i9.PageRouteInfo<void> {
-  const LoginRoute({List<_i9.PageRouteInfo>? children})
+class LoginRoute extends _i10.PageRouteInfo<void> {
+  const LoginRoute({List<_i10.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           path: '/',
@@ -153,8 +164,8 @@ class LoginRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.PsicHomePage]
-class PsicHomeRoute extends _i9.PageRouteInfo<void> {
-  const PsicHomeRoute({List<_i9.PageRouteInfo>? children})
+class PsicHomeRoute extends _i10.PageRouteInfo<void> {
+  const PsicHomeRoute({List<_i10.PageRouteInfo>? children})
       : super(
           PsicHomeRoute.name,
           path: '/psic-home-page',
@@ -166,7 +177,7 @@ class PsicHomeRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.PatHomePage]
-class PatHomeRoute extends _i9.PageRouteInfo<void> {
+class PatHomeRoute extends _i10.PageRouteInfo<void> {
   const PatHomeRoute()
       : super(
           PatHomeRoute.name,
@@ -178,7 +189,7 @@ class PatHomeRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.ProfilePage]
-class ProfileRoute extends _i9.PageRouteInfo<void> {
+class ProfileRoute extends _i10.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
           ProfileRoute.name,
@@ -190,7 +201,7 @@ class ProfileRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ProgressPage]
-class ProgressRoute extends _i9.PageRouteInfo<void> {
+class ProgressRoute extends _i10.PageRouteInfo<void> {
   const ProgressRoute()
       : super(
           ProgressRoute.name,
@@ -202,7 +213,7 @@ class ProgressRoute extends _i9.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.AyudaPage]
-class AyudaRoute extends _i9.PageRouteInfo<void> {
+class AyudaRoute extends _i10.PageRouteInfo<void> {
   const AyudaRoute()
       : super(
           AyudaRoute.name,
@@ -213,8 +224,20 @@ class AyudaRoute extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.RegisterPage]
-class RegisterRoute extends _i9.PageRouteInfo<void> {
+/// [_i7.MainNotes]
+class MainNotes extends _i10.PageRouteInfo<void> {
+  const MainNotes()
+      : super(
+          MainNotes.name,
+          path: '/main-notes',
+        );
+
+  static const String name = 'MainNotes';
+}
+
+/// generated route for
+/// [_i8.RegisterPage]
+class RegisterRoute extends _i10.PageRouteInfo<void> {
   const RegisterRoute()
       : super(
           RegisterRoute.name,
@@ -225,8 +248,8 @@ class RegisterRoute extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.ListPage]
-class ListRoute extends _i9.PageRouteInfo<void> {
+/// [_i9.ListPage]
+class ListRoute extends _i10.PageRouteInfo<void> {
   const ListRoute()
       : super(
           ListRoute.name,

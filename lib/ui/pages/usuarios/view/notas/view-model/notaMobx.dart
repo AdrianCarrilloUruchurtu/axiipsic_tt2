@@ -10,9 +10,19 @@ part 'notaMobx.g.dart';
 class NotaStore = _NotaStoreBase with _$NotaStore;
 
 abstract class _NotaStoreBase with Store {
-  final _NotaRepo = getIt.get<NotaRepo>();
+  final _notaRepo = getIt.get<NotaRepo>();
 
-  _NotaStoreBase();
+  _NotaStoreBase() {
+    _notaRepo.noteChanges().listen((event) {
+      notaList = event;
+    });
+  }
+
+  @action
+  crearNota(
+      int colorId, String creationDate, String noteContent, String noteTitle) {
+    _notaRepo.notaEdit(colorId, creationDate, noteContent, noteTitle);
+  }
 
   @observable
   List<NotaData>? notaList;

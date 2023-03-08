@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/style/app_style.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
+
+import 'package:axiipsic_tt2/lib/get_it.dart';
 
 class NotaEditPage extends StatefulWidget {
   const NotaEditPage({super.key});
@@ -15,6 +17,8 @@ class NotaEditPage extends StatefulWidget {
 class _NotaEditPageState extends State<NotaEditPage> {
   int color_id = Random().nextInt(AppStyle.cardsColor.length);
   String date = DateTime.now().toString();
+  final _notaMobx = getIt.get<NotaStore>();
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   @override
@@ -26,16 +30,9 @@ class _NotaEditPageState extends State<NotaEditPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           // Corregir
-          FirebaseFirestore.instance
-              .collection('users')
-              .add({
-                "note_title": _titleController.text,
-                "creation_date": date,
-                "note_content": _contentController.text,
-                "color_id": color_id,
-              })
-              .then((value) => context.popRoute())
-              .catchError((e) => print("Fallo x.x $e"));
+          _notaMobx.crearNota(
+              color_id, date, _contentController.text, _titleController.text);
+          context.popRoute();
         }),
         child: const Icon(Icons.save),
       ),

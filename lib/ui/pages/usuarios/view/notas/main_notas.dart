@@ -1,10 +1,9 @@
+import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/editor_nota.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/lector_notas.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/nota_card.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MainNotes extends StatefulWidget {
   const MainNotes({super.key});
@@ -14,6 +13,7 @@ class MainNotes extends StatefulWidget {
 }
 
 class _MainNotesState extends State<MainNotes> {
+  final _notaMobx = getIt.get<NotaStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,7 +83,25 @@ class _MainNotesState extends State<MainNotes> {
       ),
       appBar: _appbar(),
       drawer: _drawer(),
-      body: _body(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+                child: _notaMobx.notaList != null
+                    ? ListView.builder(
+                        itemBuilder: (context, index) =>
+                            NotaCard(_notaMobx.notaList![index]),
+                        itemCount: _notaMobx.notaList?.length,
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      ))
+          ],
+        ),
+      ),
       bottomNavigationBar: _bottomAppBar(),
     );
   }
@@ -197,49 +215,4 @@ class _MainNotesState extends State<MainNotes> {
           ]),
     );
   }
-}
-
-Widget _body() {
-  return Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: StreamBuilder<QuerySnapshot>(
-              stream:
-                  // Usar current user para acceder a las notas?
-                  FirebaseFirestore.instance.collection('users').snapshots(),
-              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (snapshot.hasData) {
-                  return GridView(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2),
-                    children: snapshot.data!.docs
-                        .map((nota) => noteCard(() {
-                              //Esto no es así, -> ¿como usar un builder en autoroute?
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => LectorPage(nota)));
-                            }, nota))
-                        .toList(),
-                  );
-                } else {
-                  return Text(
-                    "No hay existen notas",
-                    style: GoogleFonts.nunito(color: Colors.black),
-                  );
-                }
-              }),
-        )
-      ],
-    ),
-  );
 }

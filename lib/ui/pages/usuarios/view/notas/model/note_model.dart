@@ -7,7 +7,7 @@ part 'note_model.g.dart';
 @freezed
 class NotaData with _$NotaData {
   factory NotaData(
-    final String colorId,
+    final int colorId,
     final String creationDate,
     final String id,
     final String noteContent,
