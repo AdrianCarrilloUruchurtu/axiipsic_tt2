@@ -1,4 +1,5 @@
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/model/note_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 

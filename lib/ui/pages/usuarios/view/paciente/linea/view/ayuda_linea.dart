@@ -97,12 +97,12 @@ class AyudaPage extends StatelessWidget {
 }
 
 Widget _body() {
-  return SizedBox(
-    height: 100,
-    width: 100,
+  return SafeArea(
     child: Column(
       children: [
         ListView(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
           padding: const EdgeInsets.all(8),
           children: <Widget>[
             Container(

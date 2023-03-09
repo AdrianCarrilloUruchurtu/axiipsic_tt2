@@ -184,7 +184,7 @@ class _PatHomePageState extends State<PatHomePage> {
         ],
       ),
       onPressed: () {
-        context.pushRoute(const AyudaRoute());
+        ruta;
       },
     );
   }
@@ -225,7 +225,7 @@ class _PatHomePageState extends State<PatHomePage> {
                       size: 56,
                       color: Colors.black,
                     ),
-                    '/progressPage'),
+                    context.pushRoute(const AyudaRoute())),
                 _myButton(
                     'Notas',
                     const Icon(
@@ -334,7 +334,9 @@ class _PatHomePageState extends State<PatHomePage> {
             )
           ],
         ),
-        onPressed: () {},
+        onPressed: () {
+          context.pushRoute(const MainNotes());
+        },
       ),
     );
   }

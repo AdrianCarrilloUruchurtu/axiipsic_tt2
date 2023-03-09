@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/editor_nota.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/nota_card.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../../../routes/router.gr.dart';
 
 class MainNotes extends StatefulWidget {
   const MainNotes({super.key});
@@ -89,16 +92,17 @@ class _MainNotesState extends State<MainNotes> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-                child: _notaMobx.notaList != null
-                    ? ListView.builder(
-                        itemBuilder: (context, index) =>
-                            NotaCard(_notaMobx.notaList![index]),
-                        itemCount: _notaMobx.notaList?.length,
-                      )
-                    : const Center(
-                        child: CircularProgressIndicator(),
-                      ))
+            _notaMobx.notaList != null
+                ? GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2),
+                    itemBuilder: ((context, index) =>
+                        NotaCard(_notaMobx.notaList![index])),
+                    itemCount: _notaMobx.notaList?.length)
+                : const Center(
+                    child: CircularProgressIndicator(),
+                  )
           ],
         ),
       ),
@@ -178,7 +182,7 @@ class _MainNotesState extends State<MainNotes> {
         backgroundColor: Colors.grey.shade800,
         child: TextButton(
           onPressed: () {
-            // context.pushRoute(const ProfileRoute());
+            context.pushRoute(const ProfileRoute());
           },
           child: const Text(""),
         ),

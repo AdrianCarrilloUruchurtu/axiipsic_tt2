@@ -55,7 +55,7 @@ class _LectorPageState extends State<LectorPage> {
             style: AppStyle.mainTitle,
           ),
           const Divider(
-            height: 20,
+            height: 10,
             thickness: 5,
             indent: 20,
             endIndent: 50,
@@ -69,10 +69,10 @@ class _LectorPageState extends State<LectorPage> {
             style: AppStyle.dateTitle,
           ),
           const Divider(
-            height: 20,
-            thickness: 5,
+            height: 10,
+            thickness: 2,
             indent: 20,
-            endIndent: 50,
+            endIndent: 20,
             color: Colors.black,
           ),
           const SizedBox(
