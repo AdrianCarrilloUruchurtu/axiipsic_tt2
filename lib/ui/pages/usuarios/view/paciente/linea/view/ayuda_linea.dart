@@ -100,27 +100,92 @@ Widget _body() {
   return SafeArea(
     child: Column(
       children: [
-        ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(8),
-          children: <Widget>[
-            Container(
-              height: 50,
-              color: Colors.amber[600],
-              child: const Center(child: Text('Entry A')),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[500],
-              child: const Center(child: Text('Entry B')),
-            ),
-            Container(
-              height: 50,
-              color: Colors.amber[100],
-              child: const Center(child: Text('Entry C')),
-            ),
-          ],
+        Expanded(
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+              Container(
+                height: 50,
+                color: Colors.transparent,
+                child: const Center(
+                    child: Text(
+                        'En caso de necesitar ayuda inmediata por favor contacta con los siguientes medios:')),
+              ),
+              Container(
+                height: 50,
+                color: Colors.transparent,
+                child: const Center(child: Text('Línea de la vida:')),
+              ),
+              Container(
+                  height: 50,
+                  color: Colors.lightBlue.shade50,
+                  child: Column(
+                    children: const [
+                      Icon(Icons.phone),
+                      Center(child: Text('800 911 2000')),
+                    ],
+                  )),
+              Container(
+                  height: 50,
+                  color: Colors.lightBlue.shade50,
+                  child: Column(
+                    children: const [
+                      Icon(Icons.facebook),
+                      Center(child: Text('@LaLineaDeLaVidaMx')),
+                    ],
+                  )),
+              Container(
+                  height: 50,
+                  color: Colors.lightBlue.shade50,
+                  child: Column(
+                    children: const [
+                      Icon(
+                        FontAwesomeIcons.twitter,
+                      ),
+                      Center(child: Text('@LaLineaDe LaVida')),
+                    ],
+                  )),
+              Container(
+                  height: 50,
+                  color: Colors.lightBlue.shade50,
+                  child: Column(
+                    children: const [
+                      Icon(
+                        FontAwesomeIcons.calendarXmark,
+                      ),
+                      Center(child: Text('Lunes a domingo')),
+                    ],
+                  )),
+              Container(
+                  height: 50,
+                  color: Colors.lightBlue.shade50,
+                  child: Column(
+                    children: const [
+                      Icon(
+                        FontAwesomeIcons.clock,
+                      ),
+                      Center(child: Text('24 horas')),
+                    ],
+                  )),
+              Container(
+                  height: 150,
+                  color: Colors.lightBlue.shade50,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Icon(
+                        FontAwesomeIcons.userGroup,
+                      ),
+                      Center(
+                          child: Text(
+                              overflow: TextOverflow.clip,
+                              'Público general | Atención especialiazada sobre consumo de sustiancias | Riesgo suicida | Violencia')),
+                    ],
+                  )),
+            ],
+          ),
         )
       ],
     ),

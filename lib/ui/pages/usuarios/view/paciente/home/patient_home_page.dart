@@ -193,73 +193,79 @@ class _PatHomePageState extends State<PatHomePage> {
   Widget _body() {
     String nombre = _authMobx.user?.nombre ?? '';
     return SafeArea(
-      child: Container(
-        //padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Text(
-              "Hola, $nombre",
-              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-            SizedBox.fromSize(
-              size: const Size.fromHeight(0),
-            ),
-            _therapyBtn(),
-            SizedBox.fromSize(
-              size: const Size.fromHeight(0),
-            ),
-            GridView.count(
-              childAspectRatio: (1 / 0.7),
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              crossAxisCount: 2,
-              crossAxisSpacing: 7,
-              mainAxisSpacing: 7,
-              children: [
-                _myButton(
-                    'Línea de ayuda',
-                    const Icon(
-                      FontAwesomeIcons.heartPulse,
-                      size: 56,
-                      color: Colors.black,
-                    ),
-                    context.pushRoute(const AyudaRoute())),
-                _myButton(
-                    'Notas',
-                    const Icon(
-                      FontAwesomeIcons.noteSticky,
-                      size: 56,
-                      color: Colors.black,
-                    ),
-                    context.pushRoute(const MainNotes())),
-                _myButton(
-                    'Tareas',
-                    const Icon(
-                      FontAwesomeIcons.listCheck,
-                      size: 56,
-                      color: Colors.black,
-                    ),
-                    '/tareas'),
-                _myButton(
-                    'Próxima cita',
-                    const Icon(
-                      FontAwesomeIcons.solidBell,
-                      size: 56,
-                      color: Colors.black,
-                    ),
-                    '/citas'),
-              ],
-            ),
-            SizedBox.fromSize(
-              size: const Size.fromHeight(0),
-            ),
-            _calendarBtn(),
-            SizedBox.fromSize(
-              size: const Size.fromHeight(5),
-            ),
-          ],
+      child: Expanded(
+        flex: 1,
+        child: Container(
+          //padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
+          margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Hola, $nombre",
+                style:
+                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+              ),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(0),
+              ),
+              _therapyBtn(),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(0),
+              ),
+              GridView.count(
+                childAspectRatio: (1 / 0.7),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                crossAxisSpacing: 7,
+                mainAxisSpacing: 7,
+                children: [
+                  _myButton(
+                      'Línea de ayuda',
+                      const Icon(
+                        FontAwesomeIcons.heartPulse,
+                        size: 56,
+                        color: Colors.black,
+                      ),
+                      context.pushRoute(const AyudaRoute())),
+                  _myButton(
+                      'Notas',
+                      const Icon(
+                        FontAwesomeIcons.noteSticky,
+                        size: 56,
+                        color: Colors.black,
+                      ),
+                      ''
+                      //context.pushRoute(const MainNotes())
+                      ),
+                  _myButton(
+                      'Tareas',
+                      const Icon(
+                        FontAwesomeIcons.listCheck,
+                        size: 56,
+                        color: Colors.black,
+                      ),
+                      '/tareas'),
+                  _myButton(
+                      'Próxima cita',
+                      const Icon(
+                        FontAwesomeIcons.solidBell,
+                        size: 56,
+                        color: Colors.black,
+                      ),
+                      '/citas'),
+                ],
+              ),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(0),
+              ),
+              _calendarBtn(),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(5),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -335,7 +341,7 @@ class _PatHomePageState extends State<PatHomePage> {
           ],
         ),
         onPressed: () {
-          context.pushRoute(const MainNotes());
+          //context.pushRoute(const MainNotes());
         },
       ),
     );
