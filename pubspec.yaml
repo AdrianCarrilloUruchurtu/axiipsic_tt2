@@ -67,6 +67,10 @@ dependencies:
   # Charts
   fl_chart: ^0.61.0
   google_fonts: ^4.0.3
+
+  # Calendar
+  table_calendar: ^3.0.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
