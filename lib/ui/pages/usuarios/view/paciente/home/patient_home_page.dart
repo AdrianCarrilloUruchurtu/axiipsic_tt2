@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
@@ -19,70 +20,72 @@ class _PatHomePageState extends State<PatHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: FloatingActionButton(
-                  backgroundColor: Colors.lightBlue.shade200,
-                  foregroundColor: Colors.white,
-                  heroTag: null,
-                  onPressed: () {},
-                  child: const Icon(
-                    FontAwesomeIcons.house,
-                    size: 24,
+    return Observer(
+      builder: (context) => Scaffold(
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.miniCenterDocked,
+        floatingActionButton: Container(
+          margin: const EdgeInsets.all(20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                height: 40,
+                width: 40,
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.lightBlue.shade200,
+                    foregroundColor: Colors.white,
+                    heroTag: null,
+                    onPressed: () {},
+                    child: const Icon(
+                      FontAwesomeIcons.house,
+                      size: 24,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  backgroundColor: Colors.lightBlue.shade200,
-                  foregroundColor: Colors.white,
-                  heroTag: null,
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.add,
-                    size: 32,
+              SizedBox(
+                height: 40,
+                width: 40,
+                child: FittedBox(
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.lightBlue.shade200,
+                    foregroundColor: Colors.white,
+                    heroTag: null,
+                    onPressed: () {},
+                    child: const Icon(
+                      Icons.add,
+                      size: 32,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  backgroundColor: Colors.lightBlue.shade200,
-                  foregroundColor: Colors.white,
-                  heroTag: null,
-                  onPressed: () {},
-                  child: const Icon(
-                    FontAwesomeIcons.noteSticky,
-                    size: 32,
+              SizedBox(
+                height: 40,
+                width: 40,
+                child: FittedBox(
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.lightBlue.shade200,
+                    foregroundColor: Colors.white,
+                    heroTag: null,
+                    onPressed: () {},
+                    child: const Icon(
+                      FontAwesomeIcons.noteSticky,
+                      size: 32,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        appBar: _appbar(),
+        drawer: _drawer(),
+        body: _body(),
+        bottomNavigationBar: _bottomAppBar(),
       ),
-      appBar: _appbar(),
-      drawer: _drawer(),
-      body: _body(),
-      bottomNavigationBar: _bottomAppBar(),
     );
   }
 
@@ -165,27 +168,32 @@ class _PatHomePageState extends State<PatHomePage> {
   }
 
 // Botones del gridview
-  Widget _myButton(String texto, Icon icono, ruta) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.lightBlue.shade100,
-        alignment: Alignment.center,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+  Widget _myButton(String texto, Icon icono, Function ruta) {
+    return Expanded(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.lightBlue.shade100,
+          alignment: Alignment.center,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              texto,
+              style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+            ),
+            icono
+          ],
+        ),
+        onPressed: () {
+          ruta();
+        },
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Text(
-            texto,
-            style: const TextStyle(
-                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
-          ),
-          icono
-        ],
-      ),
-      onPressed: () {
-        ruta;
-      },
     );
   }
 
@@ -228,7 +236,7 @@ class _PatHomePageState extends State<PatHomePage> {
                         size: 56,
                         color: Colors.black,
                       ),
-                      context.pushRoute(const AyudaRoute())),
+                      () => context.pushRoute(const AyudaRoute())),
                   _myButton(
                       'Notas',
                       const Icon(
@@ -236,9 +244,7 @@ class _PatHomePageState extends State<PatHomePage> {
                         size: 56,
                         color: Colors.black,
                       ),
-                      ''
-                      //context.pushRoute(const MainNotes())
-                      ),
+                      () => context.pushRoute(const NotesRoute())),
                   _myButton(
                       'Tareas',
                       const Icon(
@@ -246,7 +252,7 @@ class _PatHomePageState extends State<PatHomePage> {
                         size: 56,
                         color: Colors.black,
                       ),
-                      '/tareas'),
+                      () => '/tareas'),
                   _myButton(
                       'Próxima cita',
                       const Icon(
@@ -254,7 +260,7 @@ class _PatHomePageState extends State<PatHomePage> {
                         size: 56,
                         color: Colors.black,
                       ),
-                      '/citas'),
+                      () => '/citas'),
                 ],
               ),
               SizedBox.fromSize(
@@ -341,7 +347,7 @@ class _PatHomePageState extends State<PatHomePage> {
           ],
         ),
         onPressed: () {
-          //context.pushRoute(const MainNotes());
+          context.pushRoute(const CalendarRoute());
         },
       ),
     );

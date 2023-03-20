@@ -1,25 +1,27 @@
 import 'package:axiipsic_tt2/services/calendar_repo.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/calendar/model/calendar_model.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 part 'calendar_mobx.g.dart';
 
+@injectable
 class CalendarStore = _CalendarStoreBase with _$CalendarStore;
 
 abstract class _CalendarStoreBase with Store {
   final _calendarRepo = GetIt.instance.get<CalendarRepo>();
 
   _CalendarStoreBase() {
-    FirebaseAuth.instance.authStateChanges().listen((event) async {
-      if (event != null) {
-        calendar = (await _calendarRepo.get(event.uid));
-      } else {
-        calendar = null;
-      }
+    _calendarRepo.calendarChanges().listen((event) {
+      eventList = event;
     });
   }
 
+   @action
+  crearEvento(String date, String title, String description) {
+    _calendarRepo.addEvent(date, title, description);
+  }
+
   @observable
-  CalendarData? calendar;
+  List<CalendarData>? eventList;
 }

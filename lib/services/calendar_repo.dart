@@ -26,8 +26,7 @@ class CalendarRepo {
     }
   }
 
-
-    Future<DocumentReference<Map<String, dynamic>>> addEvent(
+  Future<DocumentReference<Map<String, dynamic>>> addEvent(
       String date, String title, String description) {
     final currentUSer = _auth.currentUser;
 
@@ -42,4 +41,17 @@ class CalendarRepo {
       "description": description,
     });
   }
+
+  Stream<List<CalendarData>> calendarChanges() {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('calendar')
+        .snapshots()
+        .map((event) {
+      return event.docs.map((e) => CalendarData.fromDocument(e)).toList();
+    });
+  }
+
 }

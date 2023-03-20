@@ -70,6 +70,7 @@ dependencies:
 
   # Calendar
   table_calendar: ^3.0.8
+  flutter_mobx: ^2.0.6+5
 
 dev_dependencies:
   flutter_test:

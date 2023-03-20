@@ -11,148 +11,159 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i10;
-import 'package:flutter/material.dart' as _i11;
+import 'package:auto_route/auto_route.dart' as _i11;
+import 'package:flutter/material.dart' as _i12;
 
 import '../pages/auth/view/login_page.dart' as _i1;
-import '../pages/auth/view/register_page.dart' as _i8;
+import '../pages/auth/view/register_page.dart' as _i9;
+import '../pages/usuarios/view/calendar/view/calendar_page.dart' as _i8;
 import '../pages/usuarios/view/notas/main_notas.dart' as _i7;
 import '../pages/usuarios/view/paciente/home/patient_home_page.dart' as _i3;
-import '../pages/usuarios/view/paciente/linea/view/ayuda_linea.dart' as _i6;
-import '../pages/usuarios/view/paciente/progress/progress_page.dart' as _i5;
-import '../pages/usuarios/view/profile_page.dart' as _i4;
+import '../pages/usuarios/view/paciente/linea/view/ayuda_linea.dart' as _i5;
+import '../pages/usuarios/view/paciente/progress/progress_page.dart' as _i4;
+import '../pages/usuarios/view/profile_page.dart' as _i6;
 import '../pages/usuarios/view/psicologo/home/psic_home_page.dart' as _i2;
-import '../pages/usuarios/view/psicologo/list_page.dart' as _i9;
-import 'guest_guard.dart' as _i12;
-import 'ispat_guard.dart' as _i14;
-import 'ispsic_guard.dart' as _i13;
+import '../pages/usuarios/view/psicologo/list_page.dart' as _i10;
+import 'guest_guard.dart' as _i13;
+import 'ispat_guard.dart' as _i15;
+import 'ispsic_guard.dart' as _i14;
 
-class AppRouter extends _i10.RootStackRouter {
+class AppRouter extends _i11.RootStackRouter {
   AppRouter({
-    _i11.GlobalKey<_i11.NavigatorState>? navigatorKey,
+    _i12.GlobalKey<_i12.NavigatorState>? navigatorKey,
     required this.checkIfUserIsGuest,
     required this.checkIfUserIsPsic,
     required this.checkIfUserIsPat,
   }) : super(navigatorKey);
 
-  final _i12.CheckIfUserIsGuest checkIfUserIsGuest;
+  final _i13.CheckIfUserIsGuest checkIfUserIsGuest;
 
-  final _i13.CheckIfUserIsPsic checkIfUserIsPsic;
+  final _i14.CheckIfUserIsPsic checkIfUserIsPsic;
 
-  final _i14.CheckIfUserIsPat checkIfUserIsPat;
+  final _i15.CheckIfUserIsPat checkIfUserIsPat;
 
   @override
-  final Map<String, _i10.PageFactory> pagesMap = {
+  final Map<String, _i11.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.LoginPage(),
       );
     },
     PsicHomeRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.PsicHomePage(),
       );
     },
     PatHomeRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.PatHomePage(),
       );
     },
-    ProfileRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i4.ProfilePage(),
-      );
-    },
     ProgressRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.ProgressPage(),
+        child: const _i4.ProgressPage(),
       );
     },
     AyudaRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.AyudaPage(),
+        child: const _i5.AyudaPage(),
       );
     },
-    MainNotes.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+    ProfileRoute.name: (routeData) {
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.MainNotes(),
+        child: const _i6.ProfilePage(),
+      );
+    },
+    NotesRoute.name: (routeData) {
+      return _i11.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i7.NotesPage(),
+      );
+    },
+    CalendarRoute.name: (routeData) {
+      return _i11.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i8.CalendarPage(),
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.RegisterPage(),
+        child: const _i9.RegisterPage(),
       );
     },
     ListRoute.name: (routeData) {
-      return _i10.MaterialPageX<dynamic>(
+      return _i11.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.ListPage(),
+        child: const _i10.ListPage(),
       );
     },
   };
 
   @override
-  List<_i10.RouteConfig> get routes => [
-        _i10.RouteConfig(
+  List<_i11.RouteConfig> get routes => [
+        _i11.RouteConfig(
           LoginRoute.name,
           path: '/',
           guards: [checkIfUserIsGuest],
           children: [
-            _i10.RouteConfig(
+            _i11.RouteConfig(
               RegisterRoute.name,
               path: 'register-page',
               parent: LoginRoute.name,
             )
           ],
         ),
-        _i10.RouteConfig(
+        _i11.RouteConfig(
           PsicHomeRoute.name,
           path: '/psic-home-page',
           guards: [checkIfUserIsPsic],
           children: [
-            _i10.RouteConfig(
+            _i11.RouteConfig(
               ListRoute.name,
               path: 'list-page',
               parent: PsicHomeRoute.name,
             )
           ],
         ),
-        _i10.RouteConfig(
+        _i11.RouteConfig(
           PatHomeRoute.name,
           path: '/',
           guards: [checkIfUserIsPat],
         ),
-        _i10.RouteConfig(
-          ProfileRoute.name,
-          path: '/profile-page',
-        ),
-        _i10.RouteConfig(
+        _i11.RouteConfig(
           ProgressRoute.name,
           path: '/progress-page',
         ),
-        _i10.RouteConfig(
+        _i11.RouteConfig(
           AyudaRoute.name,
           path: '/ayuda-page',
         ),
-        _i10.RouteConfig(
-          MainNotes.name,
-          path: '/main-notes',
+        _i11.RouteConfig(
+          ProfileRoute.name,
+          path: '/profile-page',
+        ),
+        _i11.RouteConfig(
+          NotesRoute.name,
+          path: '/notes-page',
+        ),
+        _i11.RouteConfig(
+          CalendarRoute.name,
+          path: '/calendar-page',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.LoginPage]
-class LoginRoute extends _i10.PageRouteInfo<void> {
-  const LoginRoute({List<_i10.PageRouteInfo>? children})
+class LoginRoute extends _i11.PageRouteInfo<void> {
+  const LoginRoute({List<_i11.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           path: '/',
@@ -164,8 +175,8 @@ class LoginRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.PsicHomePage]
-class PsicHomeRoute extends _i10.PageRouteInfo<void> {
-  const PsicHomeRoute({List<_i10.PageRouteInfo>? children})
+class PsicHomeRoute extends _i11.PageRouteInfo<void> {
+  const PsicHomeRoute({List<_i11.PageRouteInfo>? children})
       : super(
           PsicHomeRoute.name,
           path: '/psic-home-page',
@@ -177,7 +188,7 @@ class PsicHomeRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.PatHomePage]
-class PatHomeRoute extends _i10.PageRouteInfo<void> {
+class PatHomeRoute extends _i11.PageRouteInfo<void> {
   const PatHomeRoute()
       : super(
           PatHomeRoute.name,
@@ -188,20 +199,8 @@ class PatHomeRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ProfilePage]
-class ProfileRoute extends _i10.PageRouteInfo<void> {
-  const ProfileRoute()
-      : super(
-          ProfileRoute.name,
-          path: '/profile-page',
-        );
-
-  static const String name = 'ProfileRoute';
-}
-
-/// generated route for
-/// [_i5.ProgressPage]
-class ProgressRoute extends _i10.PageRouteInfo<void> {
+/// [_i4.ProgressPage]
+class ProgressRoute extends _i11.PageRouteInfo<void> {
   const ProgressRoute()
       : super(
           ProgressRoute.name,
@@ -212,8 +211,8 @@ class ProgressRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.AyudaPage]
-class AyudaRoute extends _i10.PageRouteInfo<void> {
+/// [_i5.AyudaPage]
+class AyudaRoute extends _i11.PageRouteInfo<void> {
   const AyudaRoute()
       : super(
           AyudaRoute.name,
@@ -224,20 +223,44 @@ class AyudaRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.MainNotes]
-class MainNotes extends _i10.PageRouteInfo<void> {
-  const MainNotes()
+/// [_i6.ProfilePage]
+class ProfileRoute extends _i11.PageRouteInfo<void> {
+  const ProfileRoute()
       : super(
-          MainNotes.name,
-          path: '/main-notes',
+          ProfileRoute.name,
+          path: '/profile-page',
         );
 
-  static const String name = 'MainNotes';
+  static const String name = 'ProfileRoute';
 }
 
 /// generated route for
-/// [_i8.RegisterPage]
-class RegisterRoute extends _i10.PageRouteInfo<void> {
+/// [_i7.NotesPage]
+class NotesRoute extends _i11.PageRouteInfo<void> {
+  const NotesRoute()
+      : super(
+          NotesRoute.name,
+          path: '/notes-page',
+        );
+
+  static const String name = 'NotesRoute';
+}
+
+/// generated route for
+/// [_i8.CalendarPage]
+class CalendarRoute extends _i11.PageRouteInfo<void> {
+  const CalendarRoute()
+      : super(
+          CalendarRoute.name,
+          path: '/calendar-page',
+        );
+
+  static const String name = 'CalendarRoute';
+}
+
+/// generated route for
+/// [_i9.RegisterPage]
+class RegisterRoute extends _i11.PageRouteInfo<void> {
   const RegisterRoute()
       : super(
           RegisterRoute.name,
@@ -248,8 +271,8 @@ class RegisterRoute extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.ListPage]
-class ListRoute extends _i10.PageRouteInfo<void> {
+/// [_i10.ListPage]
+class ListRoute extends _i11.PageRouteInfo<void> {
   const ListRoute()
       : super(
           ListRoute.name,

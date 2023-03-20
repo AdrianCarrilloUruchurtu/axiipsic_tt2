@@ -8,6 +8,7 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/list_page.dart';
 import 'package:axiipsic_tt2/ui/routes/ispat_guard.dart';
 import 'package:axiipsic_tt2/ui/routes/ispsic_guard.dart';
 import '../pages/auth/view/register_page.dart';
+import '../pages/usuarios/view/calendar/view/calendar_page.dart';
 import '../pages/usuarios/view/notas/main_notas.dart';
 import '../pages/usuarios/view/profile_page.dart';
 import 'guest_guard.dart';
@@ -27,11 +28,13 @@ import 'guest_guard.dart';
     ]),
     MaterialRoute(page: PatHomePage, initial: true, guards: [
       CheckIfUserIsPat,
-    ], children: []),
-    MaterialRoute(page: ProfilePage),
+    ]),
+
     MaterialRoute(page: ProgressPage),
     MaterialRoute(page: AyudaPage),
-    MaterialRoute(page: MainNotes),
+    MaterialRoute(page: ProfilePage),
+    MaterialRoute(page: NotesPage), // MainPage
+    MaterialRoute(page: CalendarPage), // MainPage
   ],
 )
 class $AppRouter {}
