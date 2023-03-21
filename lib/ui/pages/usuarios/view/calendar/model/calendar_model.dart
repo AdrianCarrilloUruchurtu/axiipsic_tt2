@@ -15,7 +15,11 @@ class CalendarData with _$CalendarData {
 
   factory CalendarData.fromDocument(
           DocumentSnapshot<Map<String, dynamic>> doc) =>
-      _$CalendarDataFromJson({...?doc.data(), "id": doc.id});
+      _$CalendarDataFromJson({
+        ...?doc.data(),
+        "id": doc.id,
+        "date": (doc.get("date") as Timestamp).toDate().toIso8601String()
+      });
   factory CalendarData.fromJson(Map<String, dynamic> json) =>
       _$CalendarDataFromJson(json);
 }

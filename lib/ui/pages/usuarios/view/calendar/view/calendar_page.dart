@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/calendar/model/calendar_model.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +23,6 @@ class _CalendarPageState extends State<CalendarPage> {
   late DateTime _lastDay;
   late DateTime _selectedDay;
   late CalendarFormat _calendarFormat;
-  late Map<DateTime, List<CalendarData>> _events;
   final _calendarMobx = getIt.get<CalendarStore>();
 
   int getHashCode(DateTime key) {
@@ -36,10 +33,6 @@ class _CalendarPageState extends State<CalendarPage> {
   @override
   void initState() {
     super.initState();
-    _events = LinkedHashMap(
-      equals: isSameDay,
-      hashCode: getHashCode,
-    );
     _focusedDay = DateTime.now();
     _firstDay = DateTime.now().subtract(const Duration(days: 1000));
     _lastDay = DateTime.now().add(const Duration(days: 1000));
@@ -51,7 +44,13 @@ class _CalendarPageState extends State<CalendarPage> {
   // Imagino que la implementación de cargar eventos ahora es con mobx
 
   List<CalendarData> _getEventsForTheDay(DateTime day) {
-    return _events[day] ?? [];
+    return _calendarMobx.eventList
+            ?.where((element) =>
+                day.day == element.date.day &&
+                day.month == element.date.month &&
+                day.year == element.date.year)
+            .toList() ??
+        [];
   }
 
   @override
@@ -76,13 +75,11 @@ class _CalendarPageState extends State<CalendarPage> {
                 setState(() {
                   _focusedDay = focusedDay;
                 });
-                _calendarMobx.leerEvento(_focusedDay, _events);
+                _calendarMobx.leerEvento();
                 // _loadFirestoreEvents();
               },
               selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
               onDaySelected: (selectedDay, focusedDay) {
-                // ??
-                print(_events[selectedDay]);
                 setState(() {
                   _selectedDay = selectedDay;
                   _focusedDay = focusedDay;
@@ -121,7 +118,7 @@ class _CalendarPageState extends State<CalendarPage> {
                     );
 
                     if (res ?? false) {
-                      _calendarMobx.leerEvento(_focusedDay, _events);
+                      _calendarMobx.leerEvento();
                     }
                   },
                   onDelete: () async {
@@ -173,9 +170,9 @@ class _CalendarPageState extends State<CalendarPage> {
               ),
             );
             // Cambiar
-            // if (result ?? false) {
-            //   _loadFirestoreEvents();
-            // }
+            if (result ?? false) {
+              _calendarMobx.leerEvento();
+            }
           },
           child: const Icon(Icons.add),
         ),
@@ -195,7 +192,7 @@ class _CalendarPageState extends State<CalendarPage> {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  context.popRoute();
+                  context.router.pop();
                 },
               ));
         },

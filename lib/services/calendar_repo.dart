@@ -43,35 +43,16 @@ class CalendarRepo {
   }
 
   //pedir ayuda a proclo
-  Future<QuerySnapshot<Object?>> loadEvent(
-      DateTime focusedDay, Map<DateTime, List<CalendarData>> events) async {
-    final firstDay = DateTime(focusedDay.year, focusedDay.month, 1);
-    final lastDay = DateTime(focusedDay.year, focusedDay.month + 1, 0);
+  Future<List<CalendarData>> loadEvent() async {
     final currentUSer = _auth.currentUser;
-    events = {};
 
     final snap = await FirebaseFirestore.instance
         .collection('users')
         .doc(currentUSer?.uid)
         .collection('calendar')
-        .where('date', isGreaterThanOrEqualTo: firstDay)
-        .where('date', isLessThanOrEqualTo: lastDay)
-        // .withConverter(
-        //     fromFirestore: Event.fromFirestore,
-        //     toFirestore: (event, options) => event?.toFirestore())
         .get();
 
-    for (var doc in snap.docs) {
-      final event = doc.data();
-      final day = firstDay;
-      //DateTime.utc(event!.date.year, event.date.month, event.date.day); que no funciona como debería????
-      if (events[day] == null) {
-        events[day] = [];
-      }
-      // events[day]!.add(event); Preguntar pq no funciona tmbn
-    }
-
-    return snap;
+    return snap.docs.map((e) => CalendarData.fromDocument(e)).toList();
   }
 
   Stream<List<CalendarData>> calendarChanges() {

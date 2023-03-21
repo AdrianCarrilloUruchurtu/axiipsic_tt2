@@ -24,10 +24,6 @@ abstract class _NotaStoreBase with Store {
     _notaRepo.notaEdit(colorId, creationDate, noteContent, noteTitle);
   }
 
-  @action
-  leerNota() {
-    _notaRepo.notaRead();
-  }
 
   @observable
   List<NotaData>? notaList;

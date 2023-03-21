@@ -55,14 +55,5 @@ class NotaRepo {
     });
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> notaRead() {
-    final currentUSer = _auth.currentUser;
 
-    return _firestore
-        .collection('users')
-        .doc(currentUSer!.uid)
-        .collection('notes')
-        .doc()
-        .get();
-  }
 }

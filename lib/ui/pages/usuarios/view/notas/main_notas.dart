@@ -98,11 +98,12 @@ class _NotesPageState extends State<NotesPage> {
                       itemBuilder: ((context, index) =>
                           Builder(builder: (BuildContext context) {
                             return _notaMobx.notaList?[index] != null
-                                ? NotaCard(
-                                    _notaMobx.notaList![index],
-                                    onTap: () => context.pushRoute(
-                                        LectorRoute(doc: _notaMobx.leerNota())),// pedir ayuda
-                                  )
+                                ? NotaCard(_notaMobx.notaList![index],
+                                    onTap: () => context.router.push(
+                                          LectorRoute(
+                                              doc: _notaMobx.notaList![
+                                                  index]), // pedir ayuda
+                                        ))
                                 : const Center(
                                     child: CircularProgressIndicator());
                           })),

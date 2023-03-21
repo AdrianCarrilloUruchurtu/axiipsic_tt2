@@ -14,6 +14,7 @@ abstract class _CalendarStoreBase with Store {
 
   _CalendarStoreBase() {
     _calendarRepo.calendarChanges().listen((event) {
+      print(event);
       eventList = event;
     });
   }
@@ -24,8 +25,9 @@ abstract class _CalendarStoreBase with Store {
   }
 
   @action
-  leerEvento(DateTime focusedDay, Map<DateTime, List<CalendarData>> events) {
-    _calendarRepo.loadEvent(focusedDay, events);
+  leerEvento() async {
+    print(eventList);
+    eventList = await _calendarRepo.loadEvent();
   }
 
   @observable
