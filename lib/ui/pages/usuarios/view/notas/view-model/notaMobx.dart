@@ -1,5 +1,4 @@
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/model/note_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 
@@ -23,6 +22,11 @@ abstract class _NotaStoreBase with Store {
   crearNota(
       int colorId, String creationDate, String noteContent, String noteTitle) {
     _notaRepo.notaEdit(colorId, creationDate, noteContent, noteTitle);
+  }
+
+  @action
+  leerNota() {
+    _notaRepo.notaRead();
   }
 
   @observable

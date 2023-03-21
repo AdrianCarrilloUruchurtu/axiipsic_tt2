@@ -29,11 +29,23 @@ mixin _$CalendarStore on _CalendarStoreBase, Store {
       ActionController(name: '_CalendarStoreBase', context: context);
 
   @override
-  dynamic crearEvento(String date, String title, String description) {
+  dynamic crearEvento(Timestamp date, String title, String description) {
     final _$actionInfo = _$_CalendarStoreBaseActionController.startAction(
         name: '_CalendarStoreBase.crearEvento');
     try {
       return super.crearEvento(date, title, description);
+    } finally {
+      _$_CalendarStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic leerEvento(
+      DateTime focusedDay, Map<DateTime, List<CalendarData>> events) {
+    final _$actionInfo = _$_CalendarStoreBaseActionController.startAction(
+        name: '_CalendarStoreBase.leerEvento');
+    try {
+      return super.leerEvento(focusedDay, events);
     } finally {
       _$_CalendarStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -1,5 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+import 'package:axiipsic_tt2/lib/get_it.dart';
+import '../view-model/calendar_mobx.dart';
 
 class AddEvent extends StatefulWidget {
   final DateTime firstDate;
@@ -20,6 +24,7 @@ class _AddEventState extends State<AddEvent> {
   late DateTime _selectedDate;
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
+  final _calendarMobx = getIt.get<CalendarStore>();
 
   @override
   void initState() {
@@ -73,14 +78,17 @@ class _AddEventState extends State<AddEvent> {
       print('title cannot be empty');
       return;
     }
-    //Cambiar también
-    await FirebaseFirestore.instance.collection('events').add({
-      "title": title,
-      "description": description,
-      "date": Timestamp.fromDate(_selectedDate),
-    });
+    // //Cambiar también
+    // await FirebaseFirestore.instance.collection('events').add({
+    //   "title": title,
+    //   "description": description,
+    //   "date": Timestamp.fromDate(_selectedDate),
+    // });
+
+    _calendarMobx.crearEvento(
+        Timestamp.fromDate(_selectedDate), title, description);
     if (mounted) {
-      Navigator.pop<bool>(context, true);
+      context.popRoute();
     }
   }
 }

@@ -48,31 +48,7 @@ class _CalendarPageState extends State<CalendarPage> {
     //
   }
 
-  // Cambiar por implementación con mobx
-  // _loadFirestoreEvents() async {
-  //   final firstDay = DateTime(_focusedDay.year, _focusedDay.month, 1);
-  //   final lastDay = DateTime(_focusedDay.year, _focusedDay.month + 1, 0);
-  //   _events = {};
-
-  //   final snap = await FirebaseFirestore.instance
-  //       .collection('events')
-  //       .where('date', isGreaterThanOrEqualTo: firstDay)
-  //       .where('date', isLessThanOrEqualTo: lastDay)
-  //       .withConverter(
-  //           fromFirestore: Event.fromFirestore,
-  //           toFirestore: (event, options) => event?.toFirestore())
-  //       .get();
-  //   for (var doc in snap.docs) {
-  //     final event = doc.data();
-  //     final day =
-  //         DateTime.utc(event!.date.year, event.date.month, event.date.day);
-  //     if (_events[day] == null) {
-  //       _events[day] = [];
-  //     }
-  //     _events[day]!.add(event);
-  //   }
-  //   setState(() {});
-  // }
+  // Imagino que la implementación de cargar eventos ahora es con mobx
 
   List<CalendarData> _getEventsForTheDay(DateTime day) {
     return _events[day] ?? [];
@@ -100,6 +76,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 setState(() {
                   _focusedDay = focusedDay;
                 });
+                _calendarMobx.leerEvento(_focusedDay, _events);
                 // _loadFirestoreEvents();
               },
               selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
@@ -143,10 +120,9 @@ class _CalendarPageState extends State<CalendarPage> {
                       ),
                     );
 
-                    // Obsoleto?
-                    // if (res ?? false) {
-                    //   _loadFirestoreEvents();
-                    // }
+                    if (res ?? false) {
+                      _calendarMobx.leerEvento(_focusedDay, _events);
+                    }
                   },
                   onDelete: () async {
                     final delete = await showDialog<bool>(

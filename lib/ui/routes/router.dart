@@ -1,5 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/editor_nota.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/lector_notas.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/home/patient_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/linea/view/ayuda_linea.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/progress/progress_page.dart';
@@ -35,6 +37,8 @@ import 'guest_guard.dart';
     MaterialRoute(page: ProfilePage),
     MaterialRoute(page: NotesPage), // MainPage
     MaterialRoute(page: CalendarPage), // MainPage
+    MaterialRoute(page: NotaEditPage), // MainPage
+    MaterialRoute(page: LectorPage), // MainPage
   ],
 )
 class $AppRouter {}

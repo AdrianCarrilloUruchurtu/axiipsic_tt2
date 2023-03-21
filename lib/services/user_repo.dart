@@ -16,4 +16,8 @@ class UserRepo {
       return null;
     }
   }
+
+  patToPsic(){
+    
+  }
 }

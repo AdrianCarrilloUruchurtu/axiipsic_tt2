@@ -1,5 +1,6 @@
 import 'package:axiipsic_tt2/services/calendar_repo.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/calendar/model/calendar_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
@@ -17,9 +18,14 @@ abstract class _CalendarStoreBase with Store {
     });
   }
 
-   @action
-  crearEvento(String date, String title, String description) {
+  @action
+  crearEvento(Timestamp date, String title, String description) {
     _calendarRepo.addEvent(date, title, description);
+  }
+
+  @action
+  leerEvento(DateTime focusedDay, Map<DateTime, List<CalendarData>> events) {
+    _calendarRepo.loadEvent(focusedDay, events);
   }
 
   @observable

@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/editor_nota.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/nota_card.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
@@ -54,12 +53,7 @@ class _NotesPageState extends State<NotesPage> {
                     backgroundColor: Colors.lightBlue.shade200,
                     foregroundColor: Colors.white,
                     heroTag: null,
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const NotaEditPage()));
-                    },
+                    onPressed: () => context.pushRoute(const NotaEditRoute()),
                     child: const Icon(
                       Icons.add,
                       size: 32,
@@ -104,7 +98,11 @@ class _NotesPageState extends State<NotesPage> {
                       itemBuilder: ((context, index) =>
                           Builder(builder: (BuildContext context) {
                             return _notaMobx.notaList?[index] != null
-                                ? NotaCard(_notaMobx.notaList![index])
+                                ? NotaCard(
+                                    _notaMobx.notaList![index],
+                                    onTap: () => context.pushRoute(
+                                        LectorRoute(doc: _notaMobx.leerNota())),// pedir ayuda
+                                  )
                                 : const Center(
                                     child: CircularProgressIndicator());
                           })),

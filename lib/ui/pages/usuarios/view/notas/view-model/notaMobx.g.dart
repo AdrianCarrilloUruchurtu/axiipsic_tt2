@@ -41,6 +41,17 @@ mixin _$NotaStore on _NotaStoreBase, Store {
   }
 
   @override
+  dynamic leerNota() {
+    final _$actionInfo = _$_NotaStoreBaseActionController.startAction(
+        name: '_NotaStoreBase.leerNota');
+    try {
+      return super.leerNota();
+    } finally {
+      _$_NotaStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 notaList: ${notaList}
