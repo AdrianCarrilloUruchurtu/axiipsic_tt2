@@ -1,12 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/services/global_method.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/profile_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view_model/datos_usuario.dart';
+import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../auth/view/login_page.dart';
+import '../../../../auth/view_model/auth_mobx.dart';
 
 class PsicHomePage extends StatefulWidget {
   const PsicHomePage({Key? key}) : super(key: key);
@@ -16,90 +21,70 @@ class PsicHomePage extends StatefulWidget {
 }
 
 class _PsicHomePageState extends State<PsicHomePage> {
-  var nombre = '';
-
-// Obtener el nombre del usuario
-
-  Future getUserData() async {
-    final DocumentSnapshot userDoc = (await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get());
-
-    setState(() {
-      nombre = userDoc.get('nombre');
-    });
-  }
-
-  final GetUserData _usuarioNombre = GetUserData();
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getUserData();
-  }
+  final AuthMobx _authMobx = getIt.get<AuthMobx>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.all(24),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () {},
-                  backgroundColor: const Color(0xfff5fa197),
-                  child: const Icon(
-                    FontAwesomeIcons.house,
-                    size: 24,
+    return Observer(
+      builder: (context) => Scaffold(
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: Container(
+          margin: const EdgeInsets.all(24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(
+                height: 40,
+                width: 40,
+                child: FittedBox(
+                  child: FloatingActionButton(
+                    heroTag: null,
+                    onPressed: () {},
+                    backgroundColor: const Color(0xfff5fa197),
+                    child: const Icon(
+                      FontAwesomeIcons.house,
+                      size: 24,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () {},
-                  backgroundColor: const Color(0xfff5fa197),
-                  child: const Icon(
-                    Icons.add,
-                    size: 32,
+              SizedBox(
+                height: 40,
+                width: 40,
+                child: FittedBox(
+                  child: FloatingActionButton(
+                    heroTag: null,
+                    onPressed: () {},
+                    backgroundColor: const Color(0xfff5fa197),
+                    child: const Icon(
+                      Icons.add,
+                      size: 32,
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () {},
-                  backgroundColor: const Color(0xfff5fa197),
-                  child: const Icon(
-                    FontAwesomeIcons.noteSticky,
-                    size: 32,
+              SizedBox(
+                height: 40,
+                width: 40,
+                child: FittedBox(
+                  child: FloatingActionButton(
+                    heroTag: null,
+                    onPressed: () {},
+                    backgroundColor: const Color(0xfff5fa197),
+                    child: const Icon(
+                      FontAwesomeIcons.noteSticky,
+                      size: 32,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        appBar: _appbar(),
+        drawer: _drawer(),
+        body: _body(),
       ),
-      appBar: _appbar(),
-      drawer: _drawer(),
-      body: _body(),
     );
   }
 
@@ -162,7 +147,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
         backgroundColor: Colors.grey.shade800,
         child: TextButton(
           onPressed: () {
-            Navigator.of(context).pushNamed('/profilePage');
+            context.router.push(const ProfileRoute());
           },
           child: const Text(""),
         ),
@@ -200,7 +185,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _usuarioNombre.usuario(),
+            Text(_authMobx.user!.nombre),
             SizedBox.fromSize(
               size: const Size.fromHeight(8),
             ),
@@ -266,7 +251,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
               ],
             ),
             onPressed: () {
-              AutoRouter.of(context).pushNamed('/ListRouter');
+              context.router.push(const ListRoute());
             },
           )),
     );
@@ -362,7 +347,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
               )
             ],
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.router.push(const CalendarRoute());
+          },
         ),
       ),
     );
@@ -370,9 +357,8 @@ class _PsicHomePageState extends State<PsicHomePage> {
 
   // Función para SignOut
   void _signOut() async {
-    await FirebaseAuth.instance
-        .signOut()
-        .then((value) => AutoRouter.of(context).pushNamed('/'));
+    _authMobx.signOut();
+    context.router.popAndPush(const LoginRoute());
   }
 
   // Obsoleto para la barra de navegación inferior

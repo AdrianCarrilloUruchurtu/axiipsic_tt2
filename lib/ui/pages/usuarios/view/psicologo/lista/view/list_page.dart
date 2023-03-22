@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:axiipsic_tt2/firebase_options.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import 'package:axiipsic_tt2/lib/get_it.dart';
+import '../../../../../auth/view_model/auth_mobx.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -10,26 +12,30 @@ class ListPage extends StatefulWidget {
 }
 
 class _ListPageState extends State<ListPage> {
+  final AuthMobx _authMobx = getIt.get<AuthMobx>();
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: () {},
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+    return Observer(
+      builder: (context) => Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
           ),
+          title: const Text(
+            "SearchBar",
+            style: TextStyle(backgroundColor: Colors.grey),
+          ),
+          actions: [_profileImage()],
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
-        title: Text(
-          "SearchBar",
-          style: TextStyle(backgroundColor: Colors.grey),
-        ),
-        actions: [_profileImage()],
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        body: _body(),
       ),
-      body: _body(),
     );
   }
 
@@ -40,16 +46,19 @@ class _ListPageState extends State<ListPage> {
         onPressed: () {
           Navigator.of(context).pushNamed('/profilePage');
         },
-        child: Text(""),
+        child: const Text(""),
       ),
     );
   }
 
   Widget _body() {
-    return Column(
-      children: [
-        _myButton("Nombre Apellido", _profileImage(), "/PatFunctions")
-      ],
+    return ListView.builder(
+      itemBuilder: ((context, index) => ListTile(
+            title: Text(_authMobx.user.),//User List where user.psicMail == currentuser.mail
+            subtitle: const Text('subtitulo'),
+            leading: const Icon(Icons.abc),
+          )),
+      itemCount: 20,
     );
   }
 
@@ -66,7 +75,7 @@ class _ListPageState extends State<ListPage> {
           profileImage,
           Text(
             texto,
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           )
         ],
       ),

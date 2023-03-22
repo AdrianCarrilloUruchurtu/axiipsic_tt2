@@ -15,18 +15,18 @@ import 'package:auto_route/auto_route.dart' as _i13;
 import 'package:flutter/material.dart' as _i14;
 
 import '../pages/auth/view/login_page.dart' as _i1;
-import '../pages/auth/view/register_page.dart' as _i11;
-import '../pages/usuarios/view/calendar/view/calendar_page.dart' as _i8;
-import '../pages/usuarios/view/notas/editor_nota.dart' as _i9;
-import '../pages/usuarios/view/notas/lector_notas.dart' as _i10;
-import '../pages/usuarios/view/notas/main_notas.dart' as _i7;
+import '../pages/auth/view/register_page.dart' as _i2;
+import '../pages/usuarios/view/calendar/view/calendar_page.dart' as _i10;
+import '../pages/usuarios/view/notas/editor_nota.dart' as _i11;
+import '../pages/usuarios/view/notas/lector_notas.dart' as _i12;
+import '../pages/usuarios/view/notas/main_notas.dart' as _i9;
 import '../pages/usuarios/view/notas/model/note_model.dart' as _i18;
-import '../pages/usuarios/view/paciente/home/patient_home_page.dart' as _i3;
-import '../pages/usuarios/view/paciente/linea/view/ayuda_linea.dart' as _i5;
-import '../pages/usuarios/view/paciente/progress/progress_page.dart' as _i4;
-import '../pages/usuarios/view/profile_page.dart' as _i6;
-import '../pages/usuarios/view/psicologo/home/psic_home_page.dart' as _i2;
-import '../pages/usuarios/view/psicologo/list_page.dart' as _i12;
+import '../pages/usuarios/view/paciente/home/patient_home_page.dart' as _i4;
+import '../pages/usuarios/view/paciente/linea/view/ayuda_linea.dart' as _i7;
+import '../pages/usuarios/view/paciente/progress/progress_page.dart' as _i6;
+import '../pages/usuarios/view/profile_page.dart' as _i8;
+import '../pages/usuarios/view/psicologo/home/psic_home_page.dart' as _i3;
+import '../pages/usuarios/view/psicologo/lista/view/list_page.dart' as _i5;
 import 'guest_guard.dart' as _i15;
 import 'ispat_guard.dart' as _i17;
 import 'ispsic_guard.dart' as _i16;
@@ -53,74 +53,74 @@ class AppRouter extends _i13.RootStackRouter {
         child: const _i1.LoginPage(),
       );
     },
+    RegisterRoute.name: (routeData) {
+      return _i13.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i2.RegisterPage(),
+      );
+    },
     PsicHomeRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i2.PsicHomePage(),
+        child: const _i3.PsicHomePage(),
       );
     },
     PatHomeRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i3.PatHomePage(),
+        child: const _i4.PatHomePage(),
+      );
+    },
+    ListRoute.name: (routeData) {
+      return _i13.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: const _i5.ListPage(),
       );
     },
     ProgressRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i4.ProgressPage(),
+        child: const _i6.ProgressPage(),
       );
     },
     AyudaRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i5.AyudaPage(),
+        child: const _i7.AyudaPage(),
       );
     },
     ProfileRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i6.ProfilePage(),
+        child: const _i8.ProfilePage(),
       );
     },
     NotesRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i7.NotesPage(),
+        child: const _i9.NotesPage(),
       );
     },
     CalendarRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i8.CalendarPage(),
+        child: const _i10.CalendarPage(),
       );
     },
     NotaEditRoute.name: (routeData) {
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i9.NotaEditPage(),
+        child: const _i11.NotaEditPage(),
       );
     },
     LectorRoute.name: (routeData) {
       final args = routeData.argsAs<LectorRouteArgs>();
       return _i13.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: _i10.LectorPage(
+        child: _i12.LectorPage(
           args.doc,
           key: args.key,
         ),
-      );
-    },
-    RegisterRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i11.RegisterPage(),
-      );
-    },
-    ListRoute.name: (routeData) {
-      return _i13.MaterialPageX<dynamic>(
-        routeData: routeData,
-        child: const _i12.ListPage(),
       );
     },
   };
@@ -131,30 +131,24 @@ class AppRouter extends _i13.RootStackRouter {
           LoginRoute.name,
           path: '/',
           guards: [checkIfUserIsGuest],
-          children: [
-            _i13.RouteConfig(
-              RegisterRoute.name,
-              path: 'register-page',
-              parent: LoginRoute.name,
-            )
-          ],
+        ),
+        _i13.RouteConfig(
+          RegisterRoute.name,
+          path: '/register-page',
         ),
         _i13.RouteConfig(
           PsicHomeRoute.name,
           path: '/psic-home-page',
           guards: [checkIfUserIsPsic],
-          children: [
-            _i13.RouteConfig(
-              ListRoute.name,
-              path: 'list-page',
-              parent: PsicHomeRoute.name,
-            )
-          ],
         ),
         _i13.RouteConfig(
           PatHomeRoute.name,
           path: '/',
           guards: [checkIfUserIsPat],
+        ),
+        _i13.RouteConfig(
+          ListRoute.name,
+          path: '/list-page',
         ),
         _i13.RouteConfig(
           ProgressRoute.name,
@@ -190,31 +184,41 @@ class AppRouter extends _i13.RootStackRouter {
 /// generated route for
 /// [_i1.LoginPage]
 class LoginRoute extends _i13.PageRouteInfo<void> {
-  const LoginRoute({List<_i13.PageRouteInfo>? children})
+  const LoginRoute()
       : super(
           LoginRoute.name,
           path: '/',
-          initialChildren: children,
         );
 
   static const String name = 'LoginRoute';
 }
 
 /// generated route for
-/// [_i2.PsicHomePage]
+/// [_i2.RegisterPage]
+class RegisterRoute extends _i13.PageRouteInfo<void> {
+  const RegisterRoute()
+      : super(
+          RegisterRoute.name,
+          path: '/register-page',
+        );
+
+  static const String name = 'RegisterRoute';
+}
+
+/// generated route for
+/// [_i3.PsicHomePage]
 class PsicHomeRoute extends _i13.PageRouteInfo<void> {
-  const PsicHomeRoute({List<_i13.PageRouteInfo>? children})
+  const PsicHomeRoute()
       : super(
           PsicHomeRoute.name,
           path: '/psic-home-page',
-          initialChildren: children,
         );
 
   static const String name = 'PsicHomeRoute';
 }
 
 /// generated route for
-/// [_i3.PatHomePage]
+/// [_i4.PatHomePage]
 class PatHomeRoute extends _i13.PageRouteInfo<void> {
   const PatHomeRoute()
       : super(
@@ -226,7 +230,19 @@ class PatHomeRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ProgressPage]
+/// [_i5.ListPage]
+class ListRoute extends _i13.PageRouteInfo<void> {
+  const ListRoute()
+      : super(
+          ListRoute.name,
+          path: '/list-page',
+        );
+
+  static const String name = 'ListRoute';
+}
+
+/// generated route for
+/// [_i6.ProgressPage]
 class ProgressRoute extends _i13.PageRouteInfo<void> {
   const ProgressRoute()
       : super(
@@ -238,7 +254,7 @@ class ProgressRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i5.AyudaPage]
+/// [_i7.AyudaPage]
 class AyudaRoute extends _i13.PageRouteInfo<void> {
   const AyudaRoute()
       : super(
@@ -250,7 +266,7 @@ class AyudaRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.ProfilePage]
+/// [_i8.ProfilePage]
 class ProfileRoute extends _i13.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
@@ -262,7 +278,7 @@ class ProfileRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.NotesPage]
+/// [_i9.NotesPage]
 class NotesRoute extends _i13.PageRouteInfo<void> {
   const NotesRoute()
       : super(
@@ -274,7 +290,7 @@ class NotesRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.CalendarPage]
+/// [_i10.CalendarPage]
 class CalendarRoute extends _i13.PageRouteInfo<void> {
   const CalendarRoute()
       : super(
@@ -286,7 +302,7 @@ class CalendarRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.NotaEditPage]
+/// [_i11.NotaEditPage]
 class NotaEditRoute extends _i13.PageRouteInfo<void> {
   const NotaEditRoute()
       : super(
@@ -298,7 +314,7 @@ class NotaEditRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.LectorPage]
+/// [_i12.LectorPage]
 class LectorRoute extends _i13.PageRouteInfo<LectorRouteArgs> {
   LectorRoute({
     required _i18.NotaData doc,
@@ -329,28 +345,4 @@ class LectorRouteArgs {
   String toString() {
     return 'LectorRouteArgs{doc: $doc, key: $key}';
   }
-}
-
-/// generated route for
-/// [_i11.RegisterPage]
-class RegisterRoute extends _i13.PageRouteInfo<void> {
-  const RegisterRoute()
-      : super(
-          RegisterRoute.name,
-          path: 'register-page',
-        );
-
-  static const String name = 'RegisterRoute';
-}
-
-/// generated route for
-/// [_i12.ListPage]
-class ListRoute extends _i13.PageRouteInfo<void> {
-  const ListRoute()
-      : super(
-          ListRoute.name,
-          path: 'list-page',
-        );
-
-  static const String name = 'ListRoute';
 }

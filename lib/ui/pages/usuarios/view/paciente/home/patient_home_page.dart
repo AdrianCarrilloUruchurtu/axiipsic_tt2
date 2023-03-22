@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -347,7 +346,7 @@ class _PatHomePageState extends State<PatHomePage> {
           ],
         ),
         onPressed: () {
-          context.pushRoute(const CalendarRoute());
+          context.router.push(const CalendarRoute());
         },
       ),
     );
@@ -355,9 +354,8 @@ class _PatHomePageState extends State<PatHomePage> {
 
   //Sign out function
   void _signOut() async {
-    await FirebaseAuth.instance
-        .signOut()
-        .then((value) => AutoRouter.of(context).pushNamed('/'));
+    _authMobx.signOut();
+    context.router.popAndPush(const LoginRoute());
   }
 
 // Appbar de navegación inferior, su uso realmente es hacer espacio

@@ -1,6 +1,5 @@
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:get_it/get_it.dart';
@@ -21,6 +20,14 @@ abstract class _AuthMobxBase with Store {
         user = null;
       }
     });
+  }
+
+  signOut() {
+    FirebaseAuth.instance.signOut();
+  }
+
+  Future<List<UserData>> psicPat(){
+    _userRepo.
   }
 
   @observable

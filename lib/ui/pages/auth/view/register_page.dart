@@ -21,12 +21,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final bool _loggedIn = true;
   final bool _obscureText = true;
+  late bool _isLinked = false;
 
   //FocusNodes
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _nombreFocusNode = FocusNode();
   final FocusNode _apellidoFocusNode = FocusNode();
+  final FocusNode _linkFocusNode = FocusNode();
 
   //Campos
   String? _nombre = '';
@@ -34,6 +36,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _email = '';
   String? _isPsic = "";
   String? _password = '';
+  String? _psicMail = '';
 
   final GlobalMethod _globalMethod = GlobalMethod();
 
@@ -49,6 +52,7 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailFocusNode.dispose();
     _nombreFocusNode.dispose();
     _apellidoFocusNode.dispose();
+    _linkFocusNode.dispose();
   }
 
   // Acción del botón
@@ -66,10 +70,13 @@ class _RegisterPageState extends State<RegisterPage> {
             .createUserWithEmailAndPassword(
                 email: _email!.toLowerCase().trim(),
                 password: _password!.trim())
-            .then((value) =>
-                {addUserDetails(_nombre!, _apellido!, _isPsic!, _email!)});
+            .then((value) => {
+                  addUserDetails(
+                      _nombre!, _apellido!, _isPsic!, _email!, _psicMail!)
+                });
       } catch (error) {
-        _globalMethod.authErrorHandle("Hola", context);
+        _globalMethod.authErrorHandle(
+            "Revisa que los campos estén llenados", context);
       } finally {
         setState(() {
           _isLoading = false;
@@ -78,17 +85,28 @@ class _RegisterPageState extends State<RegisterPage> {
     }
   }
 
-  Future addUserDetails(
-      String nombre, String apellido, String isPsic, String email) async {
+  Future addUserDetails(String nombre, String apellido, String isPsic,
+      String email, String psicMail) async {
     var user = _auth.currentUser;
     await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
       'nombre': nombre,
       'apellido': apellido,
       'ispsic': isPsic,
-      'email': email
+      'email': email,
+      'psicMail': psicMail
     });
     // ignore: use_build_context_synchronously
     AutoRouter.of(context).push(const LoginRoute());
+  }
+
+  checkIfLinkedPat() {
+    _isLinked = true;
+    return _isLinked;
+  }
+
+  checkIfLinkedPsi() {
+    _isLinked = false;
+    return _isLinked;
   }
 
   @override
@@ -120,7 +138,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     borderRadius: BorderRadius.circular(20)),
                 margin: const EdgeInsets.only(
                     left: 20, right: 20, top: 260, bottom: 20),
-                child: Padding(
+                child: Container(
+                  margin: const EdgeInsets.all(16.0),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
                   child: Form(
@@ -230,18 +249,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                   });
                                 },
                                 isExpanded: true,
-                                items: const [
-                                  DropdownMenuItem(
+                                items: [
+                                  const DropdownMenuItem(
                                     value: "",
                                     child: Text("Tipo de usuario"),
                                   ),
                                   DropdownMenuItem(
                                     value: "Psicologo",
-                                    child: Text("Psicólogo"),
+                                    onTap: checkIfLinkedPsi,
+                                    child: const Text("Psicólogo"),
                                   ),
                                   DropdownMenuItem(
                                     value: "Paciente",
-                                    child: Text("Paciente"),
+                                    onTap: checkIfLinkedPat,
+                                    child: const Text("Paciente"),
                                   ),
                                 ],
                               )),
@@ -262,6 +283,35 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 20),
 
+                        // Prueba para esconder el formfield si el usuario es paciente, para que ingrese el código del psicólogo
+                        Visibility(
+                          visible: _isLinked,
+                          child: TextFormField(
+                            key: const ValueKey('psicMail'),
+                            focusNode: _linkFocusNode,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'El mail del psicólogo es necesario para los pacientes';
+                              } else {
+                                return null;
+                              }
+                            },
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            onEditingComplete: () => FocusScope.of(context)
+                                .requestFocus(_passwordFocusNode),
+                            decoration: const InputDecoration(
+                                icon: Icon(
+                                  Icons.supervised_user_circle_outlined,
+                                  color: Colors.blue,
+                                ),
+                                hintText: "Mail del psicólogo: "),
+                            onSaved: (value) {
+                              _psicMail = value;
+                            },
+                          ),
+                        ),
+                        const SizedBox(height: 20),
                         // Contraseña FormField
                         TextFormField(
                           focusNode: _passwordFocusNode,
