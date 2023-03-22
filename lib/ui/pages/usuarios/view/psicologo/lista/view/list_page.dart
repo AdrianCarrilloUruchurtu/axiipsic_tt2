@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../../auth/view_model/auth_mobx.dart';
+import 'list_item.dart';
 
 class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
@@ -20,7 +22,9 @@ class _ListPageState extends State<ListPage> {
       builder: (context) => Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.router.pop();
+            },
             icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
@@ -34,7 +38,16 @@ class _ListPageState extends State<ListPage> {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: _body(),
+        body: ListView.builder(
+          itemBuilder: ((context, index) => Builder(builder: ((context) {
+                return _authMobx.userLista?[index] != null
+                    ? ListItem(
+                        doc: _authMobx.userLista![index],
+                      )
+                    : const Center(child: CircularProgressIndicator());
+              }))),
+          itemCount: _authMobx.userLista!.length.toInt(),
+        ),
       ),
     );
   }
@@ -53,11 +66,13 @@ class _ListPageState extends State<ListPage> {
 
   Widget _body() {
     return ListView.builder(
-      itemBuilder: ((context, index) => ListTile(
-            title: Text(_authMobx.user.),//User List where user.psicMail == currentuser.mail
-            subtitle: const Text('subtitulo'),
-            leading: const Icon(Icons.abc),
-          )),
+      itemBuilder: ((context, index) => Builder(builder: ((context) {
+            return _authMobx.userLista?[index] != null
+                ? ListItem(
+                    doc: _authMobx.userLista![index],
+                  )
+                : const Center(child: CircularProgressIndicator());
+          }))),
       itemCount: 20,
     );
   }

@@ -75,7 +75,7 @@ class _CalendarPageState extends State<CalendarPage> {
                 setState(() {
                   _focusedDay = focusedDay;
                 });
-                _calendarMobx.leerEvento();
+                //_calendarMobx.leerEvento;
                 // _loadFirestoreEvents();
               },
               selectedDayPredicate: (day) => isSameDay(day, _selectedDay),
@@ -125,8 +125,9 @@ class _CalendarPageState extends State<CalendarPage> {
                     final delete = await showDialog<bool>(
                       context: context,
                       builder: (_) => AlertDialog(
-                        title: const Text("Delete Event?"),
-                        content: const Text("Are you sure you want to delete?"),
+                        title: const Text("Eliminar evento"),
+                        content: const Text(
+                            "Estás seguro que deseas eliminar el evento"),
                         actions: [
                           TextButton(
                             onPressed: () => context.popRoute(),
@@ -140,19 +141,16 @@ class _CalendarPageState extends State<CalendarPage> {
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.red,
                             ),
-                            child: const Text("Yes"),
+                            child: const Text("Si"),
                           ),
                         ],
                       ),
                     );
+
                     // Cambiar también
-                    // if (delete ?? false) {
-                    //   await FirebaseFirestore.instance
-                    //       .collection('events')
-                    //       .doc(event.id)
-                    //       .delete();
-                    //   _loadFirestoreEvents();
-                    // }
+                    if (delete ?? false) {
+                      _calendarMobx.eliminarEvento(event.id);
+                    }
                   }),
             ),
           ],

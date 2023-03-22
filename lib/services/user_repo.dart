@@ -23,8 +23,9 @@ class UserRepo {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
-        .doc(currentUser!.uid)
-        .collection('calendar'), //Dejo el error para recordar que se tiene que modificar
+        .where('psicMail',
+            isEqualTo: currentUser!
+                .email) //Dejo el error para recordar que se tiene que modificar
         .snapshots()
         .map((event) {
       return event.docs.map((e) => UserData.fromDocument(e)).toList();

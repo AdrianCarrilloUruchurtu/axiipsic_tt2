@@ -13,6 +13,10 @@ abstract class _AuthMobxBase with Store {
   final _userRepo = GetIt.instance.get<UserRepo>();
 
   _AuthMobxBase() {
+    _userRepo.userList().listen((event) {
+      userLista = event;
+    });
+
     FirebaseAuth.instance.authStateChanges().listen((event) async {
       if (event != null) {
         user = await _userRepo.get(event.uid);
@@ -26,10 +30,9 @@ abstract class _AuthMobxBase with Store {
     FirebaseAuth.instance.signOut();
   }
 
-  Future<List<UserData>> psicPat(){
-    _userRepo.
-  }
-
   @observable
   UserData? user;
+
+  @observable
+  List<UserData>? userLista;
 }

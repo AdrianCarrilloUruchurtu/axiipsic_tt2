@@ -28,21 +28,31 @@ class CalendarRepo {
 
   Future<DocumentReference<Map<String, dynamic>>> addEvent(
       Timestamp date, String title, String description) {
-    final currentUSer = _auth.currentUser;
+    final currentUser = _auth.currentUser;
 
     return _firestore
         .collection('users')
-        .doc(currentUSer!.uid)
+        .doc(currentUser!.uid)
         .collection('calendar')
         .add({
-      'userId': currentUSer.uid,
+      'userId': currentUser.uid,
       'title': title,
       "date": date,
       "description": description,
     });
   }
 
-  //pedir ayuda a proclo
+  Future<void> deleteEvent(String id) async {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('calendar')
+        .doc(id)
+        .delete();
+  }
+
+  // Obsoleto ¿?
   Future<List<CalendarData>> loadEvent() async {
     final currentUSer = _auth.currentUser;
 

@@ -33,6 +33,14 @@ mixin _$CalendarStore on _CalendarStoreBase, Store {
     return _$leerEventoAsyncAction.run(() => super.leerEvento());
   }
 
+  late final _$eliminarEventoAsyncAction =
+      AsyncAction('_CalendarStoreBase.eliminarEvento', context: context);
+
+  @override
+  Future eliminarEvento(String id) {
+    return _$eliminarEventoAsyncAction.run(() => super.eliminarEvento(id));
+  }
+
   late final _$_CalendarStoreBaseActionController =
       ActionController(name: '_CalendarStoreBase', context: context);
 
