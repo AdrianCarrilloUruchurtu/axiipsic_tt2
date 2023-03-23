@@ -25,6 +25,14 @@ mixin _$NotaStore on _NotaStoreBase, Store {
     });
   }
 
+  late final _$eliminarNotaAsyncAction =
+      AsyncAction('_NotaStoreBase.eliminarNota', context: context);
+
+  @override
+  Future eliminarNota(String id) {
+    return _$eliminarNotaAsyncAction.run(() => super.eliminarNota(id));
+  }
+
   late final _$_NotaStoreBaseActionController =
       ActionController(name: '_NotaStoreBase', context: context);
 

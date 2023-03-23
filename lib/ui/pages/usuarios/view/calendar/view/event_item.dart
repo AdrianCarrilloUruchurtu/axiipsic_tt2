@@ -19,9 +19,9 @@ class EventItem extends StatelessWidget {
       title: Text(event.title),
       subtitle: Text(event.date.toString()),
       onTap: onTap,
-      trailing: const IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: null, //onPressed: onDelete pero no sé porqué no funciona :c
+      trailing: IconButton(
+        icon: const Icon(Icons.delete),
+        onPressed: onDelete, //onPressed: onDelete pero no sé porqué no funciona :c
       ),
     );
   }

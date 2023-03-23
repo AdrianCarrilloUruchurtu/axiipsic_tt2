@@ -24,6 +24,10 @@ abstract class _NotaStoreBase with Store {
     _notaRepo.notaEdit(colorId, creationDate, noteContent, noteTitle);
   }
 
+  @action
+  eliminarNota(String id) async {
+    return _notaRepo.deleteNota(id);
+  }
 
   @observable
   List<NotaData>? notaList;

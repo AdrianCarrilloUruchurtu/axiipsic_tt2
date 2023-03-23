@@ -38,6 +38,16 @@ class NotaRepo {
     });
   }
 
+  Future<void> deleteNota(String id) async {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('notas')
+        .doc(id)
+        .delete();
+  }
+
   Future<DocumentReference<Map<String, dynamic>>> notaEdit(
       int colorId, String creationDate, String noteContent, String noteTitle) {
     final currentUSer = _auth.currentUser;
@@ -54,6 +64,4 @@ class NotaRepo {
       "colorId": colorId,
     });
   }
-
-
 }

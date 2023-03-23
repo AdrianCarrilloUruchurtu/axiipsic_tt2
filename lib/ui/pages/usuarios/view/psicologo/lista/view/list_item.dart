@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../../auth/model/user_data.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem({super.key, required this.doc});
+  const ListItem({super.key, required this.doc, this.onTap});
 
+  final Function()? onTap;
   final UserData doc;
 
   @override
@@ -18,6 +19,7 @@ class ListItem extends StatelessWidget {
           color: Colors.blueAccent.shade100,
           borderRadius: BorderRadius.circular(16.0)),
       child: ListTile(
+        onTap: onTap,
         leading: const Icon(
           Icons.person,
           color: Colors.white,

@@ -7,6 +7,7 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/linea/view/ayuda_li
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/progress/progress_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/home/psic_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/lista/view/list_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/user_funciones/view/funcs_page.dart';
 import 'package:axiipsic_tt2/ui/routes/ispat_guard.dart';
 import 'package:axiipsic_tt2/ui/routes/ispsic_guard.dart';
 import '../pages/auth/view/register_page.dart';
@@ -37,6 +38,7 @@ import 'guest_guard.dart';
     MaterialRoute(page: CalendarPage), // MainPage
     MaterialRoute(page: NotaEditPage), // MainPage
     MaterialRoute(page: LectorPage), // MainPage
+    MaterialRoute(page: FuncsPage), // MainPage
   ],
 )
 class $AppRouter {}

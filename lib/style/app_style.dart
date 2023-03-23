@@ -12,11 +12,21 @@ class AppStyle {
     Colors.blue.shade100,
     Colors.blueGrey.shade100,
   ];
+  static List<Color> iconColors = [
+    Colors.white,
+    Colors.red.shade200,
+    Colors.pink.shade200,
+    Colors.orange.shade300,
+    Colors.purple.shade300,
+    Colors.green.shade300,
+    Colors.blue.shade300,
+    Colors.blueGrey.shade300,
+  ];
 
-  static TextStyle mainTitle =
-      GoogleFonts.roboto(fontSize: 18.0, fontWeight: FontWeight.bold);
+  static TextStyle mainTitle = GoogleFonts.roboto(
+      fontSize: 20.0, fontWeight: FontWeight.bold, color: Colors.black);
   static TextStyle mainContent =
-      GoogleFonts.nunito(fontSize: 16.0, fontWeight: FontWeight.normal);
+      GoogleFonts.nunito(fontSize: 20.0, fontWeight: FontWeight.normal);
   static TextStyle dateTitle =
-      GoogleFonts.nunito(fontSize: 13.0, fontWeight: FontWeight.w100);
+      GoogleFonts.nunito(fontSize: 16.0, fontWeight: FontWeight.w400);
 }

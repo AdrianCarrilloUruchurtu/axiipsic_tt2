@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import '../../../../../../routes/router.gr.dart';
 import '../../../../../auth/view_model/auth_mobx.dart';
 import 'list_item.dart';
 
@@ -15,65 +16,58 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
+  int? itemCnt = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) => Scaffold(
+    return Observer(builder: (_) {
+      return Scaffold(
         appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              context.router.pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.black,
+          leading: Container(
+            margin: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
             ),
           ),
-          title: const Text(
-            "SearchBar",
-            style: TextStyle(backgroundColor: Colors.grey),
-          ),
-          actions: [_profileImage()],
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
         body: ListView.builder(
-          itemBuilder: ((context, index) => Builder(builder: ((context) {
+          itemBuilder: ((context, index) =>
+              Builder(builder: ((BuildContext context) {
                 return _authMobx.userLista?[index] != null
                     ? ListItem(
                         doc: _authMobx.userLista![index],
+                        onTap: () => context.router
+                            .push(FuncsRoute(doc: _authMobx.userLista![index])),
                       )
                     : const Center(child: CircularProgressIndicator());
               }))),
-          itemCount: _authMobx.userLista!.length.toInt(),
+          itemCount: _authMobx.userLista?.length.toInt() ?? 0,
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget _profileImage() {
-    return CircleAvatar(
-      backgroundColor: Colors.grey.shade800,
-      child: TextButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed('/profilePage');
-        },
-        child: const Text(""),
+    return Container(
+      height: 30,
+      margin: const EdgeInsets.all(8.0),
+      child: CircleAvatar(
+        backgroundColor: Colors.grey.shade800,
+        child: TextButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed('/profilePage');
+          },
+          child: const Text(""),
+        ),
       ),
-    );
-  }
-
-  Widget _body() {
-    return ListView.builder(
-      itemBuilder: ((context, index) => Builder(builder: ((context) {
-            return _authMobx.userLista?[index] != null
-                ? ListItem(
-                    doc: _authMobx.userLista![index],
-                  )
-                : const Center(child: CircularProgressIndicator());
-          }))),
-      itemCount: 20,
     );
   }
 

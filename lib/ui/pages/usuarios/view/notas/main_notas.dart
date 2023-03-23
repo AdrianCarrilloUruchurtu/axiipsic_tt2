@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../routes/router.gr.dart';
+import '../../../auth/view_model/auth_mobx.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
@@ -17,6 +18,9 @@ class NotesPage extends StatefulWidget {
 
 class _NotesPageState extends State<NotesPage> {
   final _notaMobx = getIt.get<NotaStore>();
+  final AuthMobx _authMobx = getIt.get<AuthMobx>();
+  Color flBtnColor = Colors.lightBlue.shade200;
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -34,7 +38,7 @@ class _NotesPageState extends State<NotesPage> {
                 child: FittedBox(
                   fit: BoxFit.fitHeight,
                   child: FloatingActionButton(
-                    backgroundColor: Colors.lightBlue.shade200,
+                    backgroundColor: flBtnColor,
                     foregroundColor: Colors.white,
                     heroTag: null,
                     onPressed: () {},
@@ -120,10 +124,15 @@ class _NotesPageState extends State<NotesPage> {
 
 // Appbar
   AppBar _appbar() {
+    String nombre = _authMobx.user!.nombre;
     return AppBar(
-      title: const Text(
-        "Notas de nombre",
-        style: TextStyle(color: Colors.black),
+      title: Container(
+        margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+        child: Text(
+          "Notas de $nombre",
+          style:
+              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
       ),
       centerTitle: true,
       leading: Builder(

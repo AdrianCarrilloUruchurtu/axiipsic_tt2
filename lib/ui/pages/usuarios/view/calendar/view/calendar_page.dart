@@ -146,8 +146,6 @@ class _CalendarPageState extends State<CalendarPage> {
                         ],
                       ),
                     );
-
-                    // Cambiar también
                     if (delete ?? false) {
                       _calendarMobx.eliminarEvento(event.id);
                     }

@@ -24,10 +24,27 @@ mixin _$AuthMobx on _AuthMobxBase, Store {
     });
   }
 
+  late final _$userListaAtom =
+      Atom(name: '_AuthMobxBase.userLista', context: context);
+
+  @override
+  List<UserData>? get userLista {
+    _$userListaAtom.reportRead();
+    return super.userLista;
+  }
+
+  @override
+  set userLista(List<UserData>? value) {
+    _$userListaAtom.reportWrite(value, super.userLista, () {
+      super.userLista = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-user: ${user}
+user: ${user},
+userLista: ${userLista}
     ''';
   }
 }

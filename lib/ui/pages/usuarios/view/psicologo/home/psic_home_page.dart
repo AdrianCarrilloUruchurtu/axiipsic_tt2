@@ -69,7 +69,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 child: FittedBox(
                   child: FloatingActionButton(
                     heroTag: null,
-                    onPressed: () {},
+                    onPressed: () {
+                      context.router.push(const NotesRoute());
+                    },
                     backgroundColor: const Color(0xfff5fa197),
                     child: const Icon(
                       FontAwesomeIcons.noteSticky,
@@ -112,7 +114,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
           );
         },
       ),
-      actions: [_profileImage()],
+      actions: [_profileImage(30)],
       backgroundColor: Colors.transparent,
       elevation: 0,
     );
@@ -125,10 +127,18 @@ class _PsicHomePageState extends State<PsicHomePage> {
         children: [
           DrawerHeader(
               child: Column(
-            children: const [Icon((Icons.person_add_alt_1_outlined))],
+            children: [
+              Hero(
+                tag: 'profile',
+                child: _profileImage(120),
+              ),
+            ],
           )),
           ListTile(
-            title: const Text("Salir"),
+            title: const Text(
+              "Salir",
+              style: TextStyle(fontSize: 24, color: Colors.redAccent),
+            ),
             onTap: () {
               _signOut();
             },
@@ -139,15 +149,17 @@ class _PsicHomePageState extends State<PsicHomePage> {
     );
   }
 
-  // Botón del perfil en la parte superior derecha
-  Widget _profileImage() {
+  // Imagen del perfil del usuario
+  Widget _profileImage(double? size) {
     return Container(
+      height: size,
       margin: const EdgeInsets.all(8),
       child: CircleAvatar(
+        radius: size,
         backgroundColor: Colors.grey.shade800,
         child: TextButton(
           onPressed: () {
-            context.router.push(const ProfileRoute());
+            context.pushRoute(const ProfileRoute());
           },
           child: const Text(""),
         ),
@@ -179,13 +191,21 @@ class _PsicHomePageState extends State<PsicHomePage> {
 
   //Widget para el cuerpo del Scaffold
   Widget _body() {
+    String nombre = _authMobx.user!.nombre;
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.fromLTRB(32, 0, 32, 32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(_authMobx.user!.nombre),
+            Container(
+              margin: const EdgeInsets.fromLTRB(0, 0, 0, 4),
+              child: Text(
+                "Hola, $nombre",
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
+              ),
+            ),
             SizedBox.fromSize(
               size: const Size.fromHeight(8),
             ),
