@@ -1,28 +1,37 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view-model/tarea_mobx.dart';
+import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import '../../../../../../routes/router.gr.dart';
-import '../../../../../auth/view_model/auth_mobx.dart';
-import 'list_item.dart';
+import 'item_tareas.dart';
 
-class ListPage extends StatefulWidget {
-  const ListPage({Key? key}) : super(key: key);
-
+class TareasPage extends StatefulWidget {
+  const TareasPage({Key? key, required this.doc})
+      : super(key: key);
+ 
+  final UserData doc;
   @override
-  State<ListPage> createState() => _ListPageState();
+  State<TareasPage> createState() => _TareasPageState();
 }
 
-class _ListPageState extends State<ListPage> {
-  final AuthMobx _authMobx = getIt.get<AuthMobx>();
+class _TareasPageState extends State<TareasPage> {
+  final TareaStore _tareaMobx = getIt.get<TareaStore>();
   int? itemCnt = 0;
 
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.router
+                .push(ItemAddRoute( docUser: widget.doc));
+          },
+          child: const Icon(Icons.add),
+        ),
         appBar: AppBar(
           leading: Container(
             margin: const EdgeInsets.all(8.0),
@@ -42,15 +51,13 @@ class _ListPageState extends State<ListPage> {
         body: ListView.builder(
           itemBuilder: ((context, index) =>
               Builder(builder: ((BuildContext context) {
-                return _authMobx.userLista?[index] != null
-                    ? ListItem(
-                        doc: _authMobx.userLista![index],
-                        onTap: () => context.router.push(FuncsRoute(
-                            doc: _authMobx.userLista![index])),
+                return _tareaMobx.tareaList?[index] != null
+                    ? TareasItem(
+                        doc: _tareaMobx.tareaList![index],
                       )
                     : const Center(child: CircularProgressIndicator());
               }))),
-          itemCount: _authMobx.userLista?.length.toInt() ?? 0,
+          itemCount: _tareaMobx.tareaList!.length.toInt(),
         ),
       );
     });

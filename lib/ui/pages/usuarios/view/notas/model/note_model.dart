@@ -14,6 +14,7 @@ class NotaData with _$NotaData {
     final String noteTitle,
     final String userId,
   ) = _NotaData;
+  
   factory NotaData.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) =>
       _$NotaDataFromJson({...?doc.data(), "id": doc.id});
   factory NotaData.fromJson(Map<String, dynamic> json) =>
