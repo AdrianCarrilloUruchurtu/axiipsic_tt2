@@ -1,12 +1,17 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view-model/tarea_mobx.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../style/app_style.dart';
 
 class FuncsPage extends StatefulWidget {
-  const FuncsPage({super.key, required this.doc});
+  const FuncsPage({
+    super.key,
+    required this.doc,
+  });
   final UserData doc;
 
   @override
@@ -14,6 +19,7 @@ class FuncsPage extends StatefulWidget {
 }
 
 class _FuncsPageState extends State<FuncsPage> {
+  final TareaStore _tareaStore = getIt.get<TareaStore>();
   @override
   Widget build(BuildContext context) {
     String? nombre = widget.doc.nombre;
@@ -61,7 +67,9 @@ class _FuncsPageState extends State<FuncsPage> {
                 btn("Agendar cita", Icons.calendar_month, (() {
                   context.router.push(const CalendarRoute());
                 }), 1),
-                btn("Asignar tarea", Icons.check_box, (() {}), 2),
+                btn("Asignar tarea", Icons.check_box, (() {
+                  context.router.push(TareasRoute(doc: widget.doc));
+                }), 2),
                 btn("Tips", Icons.tips_and_updates, (() {}), 3),
                 btn("Rapport", Icons.supervised_user_circle, (() {}), 7),
                 btn("Plan de trabajo", Icons.book, (() {}), 5),
