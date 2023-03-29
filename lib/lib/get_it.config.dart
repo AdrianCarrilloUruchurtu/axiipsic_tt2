@@ -7,7 +7,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:axiipsic_tt2/services/calendar_repo.dart' as _i4;
 import 'package:axiipsic_tt2/services/nota_repo.dart' as _i6;
-import 'package:axiipsic_tt2/services/user_repo.dart' as _i8;
+import 'package:axiipsic_tt2/services/tips_repo.dart' as _i8;
+import 'package:axiipsic_tt2/services/user_repo.dart' as _i9;
 import 'package:axiipsic_tt2/ui/pages/auth/view_model/auth_mobx.dart' as _i3;
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/calendar/view-model/calendar_mobx.dart'
     as _i5;
@@ -34,7 +35,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i5.CalendarStore>(() => _i5.CalendarStore());
     gh.singleton<_i6.NotaRepo>(_i6.NotaRepo());
     gh.factory<_i7.NotaStore>(() => _i7.NotaStore());
-    gh.singleton<_i8.UserRepo>(_i8.UserRepo());
+    gh.singleton<_i8.TipsRepo>(_i8.TipsRepo());
+    gh.singleton<_i9.UserRepo>(_i9.UserRepo());
     return this;
   }
 }
