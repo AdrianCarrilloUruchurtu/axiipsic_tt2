@@ -20,12 +20,10 @@ TipsData _$TipsDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TipsData {
-  int get colorId => throw _privateConstructorUsedError;
   String get creationDate => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get tipContent => throw _privateConstructorUsedError;
-  String get userId => throw _privateConstructorUsedError;
-  String get pacienteId => throw _privateConstructorUsedError;
+  List<String> get owners => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,12 +37,7 @@ abstract class $TipsDataCopyWith<$Res> {
       _$TipsDataCopyWithImpl<$Res, TipsData>;
   @useResult
   $Res call(
-      {int colorId,
-      String creationDate,
-      String id,
-      String tipContent,
-      String userId,
-      String pacienteId});
+      {String creationDate, String id, String tipContent, List<String> owners});
 }
 
 /// @nodoc
@@ -60,18 +53,12 @@ class _$TipsDataCopyWithImpl<$Res, $Val extends TipsData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colorId = null,
     Object? creationDate = null,
     Object? id = null,
     Object? tipContent = null,
-    Object? userId = null,
-    Object? pacienteId = null,
+    Object? owners = null,
   }) {
     return _then(_value.copyWith(
-      colorId: null == colorId
-          ? _value.colorId
-          : colorId // ignore: cast_nullable_to_non_nullable
-              as int,
       creationDate: null == creationDate
           ? _value.creationDate
           : creationDate // ignore: cast_nullable_to_non_nullable
@@ -84,14 +71,10 @@ class _$TipsDataCopyWithImpl<$Res, $Val extends TipsData>
           ? _value.tipContent
           : tipContent // ignore: cast_nullable_to_non_nullable
               as String,
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      pacienteId: null == pacienteId
-          ? _value.pacienteId
-          : pacienteId // ignore: cast_nullable_to_non_nullable
-              as String,
+      owners: null == owners
+          ? _value.owners
+          : owners // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -104,12 +87,7 @@ abstract class _$$_TipsDataCopyWith<$Res> implements $TipsDataCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {int colorId,
-      String creationDate,
-      String id,
-      String tipContent,
-      String userId,
-      String pacienteId});
+      {String creationDate, String id, String tipContent, List<String> owners});
 }
 
 /// @nodoc
@@ -123,18 +101,12 @@ class __$$_TipsDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? colorId = null,
     Object? creationDate = null,
     Object? id = null,
     Object? tipContent = null,
-    Object? userId = null,
-    Object? pacienteId = null,
+    Object? owners = null,
   }) {
     return _then(_$_TipsData(
-      null == colorId
-          ? _value.colorId
-          : colorId // ignore: cast_nullable_to_non_nullable
-              as int,
       null == creationDate
           ? _value.creationDate
           : creationDate // ignore: cast_nullable_to_non_nullable
@@ -147,14 +119,10 @@ class __$$_TipsDataCopyWithImpl<$Res>
           ? _value.tipContent
           : tipContent // ignore: cast_nullable_to_non_nullable
               as String,
-      null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == pacienteId
-          ? _value.pacienteId
-          : pacienteId // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == owners
+          ? _value._owners
+          : owners // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -162,28 +130,30 @@ class __$$_TipsDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TipsData implements _TipsData {
-  _$_TipsData(this.colorId, this.creationDate, this.id, this.tipContent,
-      this.userId, this.pacienteId);
+  _$_TipsData(
+      this.creationDate, this.id, this.tipContent, final List<String> owners)
+      : _owners = owners;
 
   factory _$_TipsData.fromJson(Map<String, dynamic> json) =>
       _$$_TipsDataFromJson(json);
 
-  @override
-  final int colorId;
   @override
   final String creationDate;
   @override
   final String id;
   @override
   final String tipContent;
+  final List<String> _owners;
   @override
-  final String userId;
-  @override
-  final String pacienteId;
+  List<String> get owners {
+    if (_owners is EqualUnmodifiableListView) return _owners;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_owners);
+  }
 
   @override
   String toString() {
-    return 'TipsData(colorId: $colorId, creationDate: $creationDate, id: $id, tipContent: $tipContent, userId: $userId, pacienteId: $pacienteId)';
+    return 'TipsData(creationDate: $creationDate, id: $id, tipContent: $tipContent, owners: $owners)';
   }
 
   @override
@@ -191,21 +161,18 @@ class _$_TipsData implements _TipsData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TipsData &&
-            (identical(other.colorId, colorId) || other.colorId == colorId) &&
             (identical(other.creationDate, creationDate) ||
                 other.creationDate == creationDate) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.tipContent, tipContent) ||
                 other.tipContent == tipContent) &&
-            (identical(other.userId, userId) || other.userId == userId) &&
-            (identical(other.pacienteId, pacienteId) ||
-                other.pacienteId == pacienteId));
+            const DeepCollectionEquality().equals(other._owners, _owners));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, colorId, creationDate, id, tipContent, userId, pacienteId);
+  int get hashCode => Object.hash(runtimeType, creationDate, id, tipContent,
+      const DeepCollectionEquality().hash(_owners));
 
   @JsonKey(ignore: true)
   @override
@@ -222,18 +189,11 @@ class _$_TipsData implements _TipsData {
 }
 
 abstract class _TipsData implements TipsData {
-  factory _TipsData(
-      final int colorId,
-      final String creationDate,
-      final String id,
-      final String tipContent,
-      final String userId,
-      final String pacienteId) = _$_TipsData;
+  factory _TipsData(final String creationDate, final String id,
+      final String tipContent, final List<String> owners) = _$_TipsData;
 
   factory _TipsData.fromJson(Map<String, dynamic> json) = _$_TipsData.fromJson;
 
-  @override
-  int get colorId;
   @override
   String get creationDate;
   @override
@@ -241,9 +201,7 @@ abstract class _TipsData implements TipsData {
   @override
   String get tipContent;
   @override
-  String get userId;
-  @override
-  String get pacienteId;
+  List<String> get owners;
   @override
   @JsonKey(ignore: true)
   _$$_TipsDataCopyWith<_$_TipsData> get copyWith =>

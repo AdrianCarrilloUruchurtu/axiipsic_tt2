@@ -1,10 +1,8 @@
 // Obtener uno, todos, crear uno
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/model/note_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
-
-import '../ui/pages/usuarios/view/psicologo/tips/model/tips_model.dart';
+import '../ui/pages/usuarios/view/tips/model/tips_model.dart';
 
 @singleton
 class TipsRepo {
@@ -28,15 +26,40 @@ class TipsRepo {
     }
   }
 
+// Debería de mostrar solo los que tengan el mismo mail que el currentUser psicólogo?
+// Hacer dos vistas?
   Stream<List<TipsData>> tipsChanges() {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
         .doc(currentUser!.uid)
         .collection('tips')
+        .where(
+            'owners', //Guardar el mail del paciente en cada tip, todos los tips que cree el psicólogo se guardarán en la misma colección
+            arrayContains: currentUser
+                .email) //El current user en ese momento será el psicólogo
         .snapshots()
         .map((event) {
       return event.docs.map((e) => TipsData.fromDocument(e)).toList();
+    });
+  }
+
+  Future<DocumentReference<Map<String, dynamic>>> tipAdd(
+    String creationDate,
+    String tipContent,
+    List<String> owners,
+  ) {
+    final currentUser = _auth.currentUser;
+
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('tips')
+        .add({
+      'userId': currentUser.uid,
+      "creationDate": creationDate,
+      "tipContent": tipContent,
+      "owners": owners
     });
   }
 }

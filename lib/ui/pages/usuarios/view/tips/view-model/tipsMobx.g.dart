@@ -25,6 +25,21 @@ mixin _$TipsMobx on _TipsMobxBase, Store {
     });
   }
 
+  late final _$_TipsMobxBaseActionController =
+      ActionController(name: '_TipsMobxBase', context: context);
+
+  @override
+  dynamic crearTip(
+      String creationDate, String tipContent, List<String> owners) {
+    final _$actionInfo = _$_TipsMobxBaseActionController.startAction(
+        name: '_TipsMobxBase.crearTip');
+    try {
+      return super.crearTip(creationDate, tipContent, owners);
+    } finally {
+      _$_TipsMobxBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

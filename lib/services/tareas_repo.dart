@@ -1,67 +1,64 @@
-// Obtener uno, todos, crear uno
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/model/note_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 
+import '../ui/pages/usuarios/view/tareas/model/tareas_model.dart';
+
 @singleton
-class NotaRepo {
+class TareasRepo {
   final _firestore = FirebaseFirestore.instance;
   final _auth = FirebaseAuth.instance;
 
-  Future<NotaData?> get(String id) async {
+  Future<TareasData?> get(String id) async {
     final currentUser = _auth.currentUser;
 
     final uid = await _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('notes')
+        .collection('tips')
         .doc(id)
         .get();
     final jsonUid = uid.data();
     if (jsonUid != null) {
-      return NotaData.fromJson({...jsonUid, id: uid.id});
+      return TareasData.fromJson({...jsonUid, id: uid.id});
     } else {
       return null;
     }
   }
 
-  Stream<List<NotaData>> noteChanges() {
+  Stream<List<TareasData>> tareasChanges() {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('notes')
+        .collection('tareas')
+        .where(
+            'owners', //Guardar el mail del paciente en cada tip, todos los tips que cree el psicólogo se guardarán en la misma colección
+            arrayContains: currentUser.email) //El current user en ese momento será el psicólogo
         .snapshots()
         .map((event) {
-      return event.docs.map((e) => NotaData.fromDocument(e)).toList();
+      return event.docs.map((e) => TareasData.fromDocument(e)).toList();
     });
   }
 
-  Future<void> deleteNota(String id) async {
-    final currentUser = _auth.currentUser;
-    return _firestore
-        .collection('users')
-        .doc(currentUser!.uid)
-        .collection('notas')
-        .doc(id)
-        .delete();
-  }
-
-  Future<DocumentReference<Map<String, dynamic>>> notaEdit(
-      int colorId, String creationDate, String noteContent, String noteTitle) {
+   Future<DocumentReference<Map<String, dynamic>>> tareasAdd(
+    String title,
+    String content,
+    List<String> owners,
+    String creationDate,
+  ) {
     final currentUser = _auth.currentUser;
 
     return _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('notes')
+        .collection('tareas')
         .add({
       'userId': currentUser.uid,
-      'noteTitle': noteTitle,
       "creationDate": creationDate,
-      "noteContent": noteContent,
-      "colorId": colorId,
+      "tareaContent": content,
+      "owners": owners
     });
   }
 }
+

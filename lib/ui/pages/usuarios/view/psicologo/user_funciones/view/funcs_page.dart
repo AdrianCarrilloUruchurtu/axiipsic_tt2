@@ -62,7 +62,9 @@ class _FuncsPageState extends State<FuncsPage> {
                   context.router.push(const CalendarRoute());
                 }), 1),
                 btn("Asignar tarea", Icons.check_box, (() {}), 2),
-                btn("Tips", Icons.tips_and_updates, (() {}), 3),
+                btn("Tips", Icons.tips_and_updates, (() {
+                  context.router.push(TipsRoute(doc: widget.doc));
+                }), 3),
                 btn("Rapport", Icons.supervised_user_circle, (() {}), 7),
                 btn("Plan de trabajo", Icons.book, (() {}), 5),
                 btn("Historia clínica", Icons.history, (() {}), 6),

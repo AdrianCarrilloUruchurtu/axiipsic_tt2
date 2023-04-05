@@ -8,12 +8,16 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/progress/progress_p
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/home/psic_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/lista/view/list_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/user_funciones/view/funcs_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view/tareas_page.dart';
 import 'package:axiipsic_tt2/ui/routes/ispat_guard.dart';
 import 'package:axiipsic_tt2/ui/routes/ispsic_guard.dart';
 import '../pages/auth/view/register_page.dart';
 import '../pages/usuarios/view/calendar/view/calendar_page.dart';
 import '../pages/usuarios/view/notas/main_notas.dart';
 import '../pages/usuarios/view/profile_page.dart';
+import '../pages/usuarios/view/tareas/view/tarea_add_page.dart';
+import '../pages/usuarios/view/tips/view/add_tips.dart';
+import '../pages/usuarios/view/tips/view/tips_page.dart';
 import 'guest_guard.dart';
 
 @MaterialAutoRouter(
@@ -39,6 +43,11 @@ import 'guest_guard.dart';
     MaterialRoute(page: NotaEditPage), // MainPage
     MaterialRoute(page: LectorPage), // MainPage
     MaterialRoute(page: FuncsPage), // MainPage
+    MaterialRoute(page: TipsPage), // MainPage
+    MaterialRoute(page: AddTipPage), // MainPage
+    MaterialRoute(page: TareasPage),
+    MaterialRoute(page: TareaAddPage), // MainPage
+    // MainPage
   ],
 )
 class $AppRouter {}

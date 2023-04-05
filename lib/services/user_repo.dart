@@ -25,7 +25,7 @@ class UserRepo {
         .collection('users')
         .where('psicMail',
             isEqualTo: currentUser!
-                .email) //Dejo el error para recordar que se tiene que modificar
+                .email) 
         .snapshots()
         .map((event) {
       return event.docs.map((e) => UserData.fromDocument(e)).toList();

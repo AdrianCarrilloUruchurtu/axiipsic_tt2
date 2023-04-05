@@ -7,20 +7,16 @@ part of 'tips_model.dart';
 // **************************************************************************
 
 _$_TipsData _$$_TipsDataFromJson(Map<String, dynamic> json) => _$_TipsData(
-      json['colorId'] as int,
       json['creationDate'] as String,
       json['id'] as String,
       json['tipContent'] as String,
-      json['userId'] as String,
-      json['pacienteId'] as String,
+      (json['owners'] as List<dynamic>).map((e) => e as String).toList(),
     );
 
 Map<String, dynamic> _$$_TipsDataToJson(_$_TipsData instance) =>
     <String, dynamic>{
-      'colorId': instance.colorId,
       'creationDate': instance.creationDate,
       'id': instance.id,
       'tipContent': instance.tipContent,
-      'userId': instance.userId,
-      'pacienteId': instance.pacienteId,
+      'owners': instance.owners,
     };
