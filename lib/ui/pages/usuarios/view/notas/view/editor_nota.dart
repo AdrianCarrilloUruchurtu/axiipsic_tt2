@@ -56,7 +56,7 @@ class _NotaEditPageState extends State<NotaEditPage> {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  context.popRoute();
+                  context.router.pop();
                 },
               ));
         },

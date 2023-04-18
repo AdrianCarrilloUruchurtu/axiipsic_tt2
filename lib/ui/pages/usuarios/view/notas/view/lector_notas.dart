@@ -3,8 +3,8 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.da
 import 'package:flutter/material.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
-import '../../../../../style/app_style.dart';
-import 'model/note_model.dart';
+import '../../../../../../style/app_style.dart';
+import '../model/note_model.dart';
 
 class LectorPage extends StatefulWidget {
   LectorPage(this.doc, {super.key});

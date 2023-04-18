@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/nota_card.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../routes/router.gr.dart';
-import '../../../auth/view_model/auth_mobx.dart';
+import '../../../../../routes/router.gr.dart';
+import '../../../../auth/view_model/auth_mobx.dart';
+import 'nota_card.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});

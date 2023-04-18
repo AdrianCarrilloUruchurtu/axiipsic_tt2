@@ -30,14 +30,19 @@ class TipsRepo {
 // Hacer dos vistas?
   Stream<List<TipsData>> tipsChanges() {
     final currentUser = _auth.currentUser;
-    return _firestore
+    final pac = _firestore
         .collection('users')
         .doc(currentUser!.uid)
         .collection('tips')
+        .doc('owners'[1])
+        .get();
+    return _firestore
+        .collection('users')
+        .doc(currentUser.uid)
+        .collection('tips')
         .where(
             'owners', //Guardar el mail del paciente en cada tip, todos los tips que cree el psicólogo se guardarán en la misma colección
-            arrayContains: currentUser
-                .email) //El current user en ese momento será el psicólogo
+            arrayContains: currentUser.email)
         .snapshots()
         .map((event) {
       return event.docs.map((e) => TipsData.fromDocument(e)).toList();

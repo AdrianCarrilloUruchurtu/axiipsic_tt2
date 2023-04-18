@@ -20,13 +20,26 @@ class _TareasPageState extends State<TareasPage> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Row(
-            children: const [Icon(Icons.add), Text("Añadir tip")],
+        floatingActionButton: Container(
+          margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+          width: 150,
+          child: FloatingActionButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            onPressed: () {
+              context.router.push(TareaAddRoute(doc: widget.doc));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.add),
+                Text(
+                  "Añadir tarea",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
           ),
-          onPressed: () {
-            context.router.push(TareaAddRoute(doc: widget.doc));
-          },
         ),
         appBar: AppBar(
           leading: Container(
@@ -56,7 +69,7 @@ class _TareasPageState extends State<TareasPage> {
                         child: CircularProgressIndicator(),
                       );
               })),
-          itemCount: 1,
+          itemCount: _tareaStore.tareasList?.length.toInt(),
         ),
       );
     });

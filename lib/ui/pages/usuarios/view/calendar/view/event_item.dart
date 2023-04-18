@@ -15,13 +15,19 @@ class EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String day = event.date.day.toString();
+    String month = event.date.month.toString();
+    String year = event.date.year.toString();
+    String time = event.time;
+
     return ListTile(
       title: Text(event.title),
-      subtitle: Text(event.date.toString()),
+      subtitle: Text("$day/$month/$year @ $time"),
       onTap: onTap,
       trailing: IconButton(
         icon: const Icon(Icons.delete),
-        onPressed: onDelete, //onPressed: onDelete pero no sé porqué no funciona :c
+        onPressed:
+            onDelete, //onPressed: onDelete pero no sé porqué no funciona :c
       ),
     );
   }

@@ -11,9 +11,7 @@ import '../view-model/tipsMobx.dart';
 
 class TipsPage extends StatefulWidget {
   const TipsPage({Key? key, required this.doc}) : super(key: key);
-  final UserData
-      doc; // Este doc es el doc del paciente, lo recibe FuncsPage, FuncsPage lo recibe de ListPage y este último lo recibe del índice de la lista de los pacientes.
-
+  final UserData doc;
   @override
   State<TipsPage> createState() => _TipsPageState();
 }
@@ -25,13 +23,26 @@ class _TipsPageState extends State<TipsPage> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          child: Row(
-            children: const [Icon(Icons.add), Text("Añadir tip")],
+        floatingActionButton: Container(
+          margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+          width: 150,
+          child: FloatingActionButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.add),
+                Text(
+                  "Añadir tip",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            onPressed: () {
+              context.router.push(AddTipRoute(doc: widget.doc));
+            },
           ),
-          onPressed: () {
-            context.router.push(AddTipRoute(doc: widget.doc));
-          },
         ),
         appBar: AppBar(
           leading: Container(
@@ -61,7 +72,7 @@ class _TipsPageState extends State<TipsPage> {
                         child: CircularProgressIndicator(),
                       );
               })),
-          itemCount: 1,
+          itemCount: _tipsMobx.tipList?.length.toInt(),
         ),
       );
     });

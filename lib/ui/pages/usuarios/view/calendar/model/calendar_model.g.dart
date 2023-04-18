@@ -12,6 +12,7 @@ _$_CalendarData _$$_CalendarDataFromJson(Map<String, dynamic> json) =>
       json['description'] as String?,
       DateTime.parse(json['date'] as String),
       json['id'] as String,
+      json['time'] as String,
     );
 
 Map<String, dynamic> _$$_CalendarDataToJson(_$_CalendarData instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$$_CalendarDataToJson(_$_CalendarData instance) =>
       'description': instance.description,
       'date': instance.date.toIso8601String(),
       'id': instance.id,
+      'time': instance.time,
     };

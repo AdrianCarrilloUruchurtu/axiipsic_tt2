@@ -15,7 +15,7 @@ class TareasRepo {
     final uid = await _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('tips')
+        .collection('tareas')
         .doc(id)
         .get();
     final jsonUid = uid.data();
@@ -28,20 +28,27 @@ class TareasRepo {
 
   Stream<List<TareasData>> tareasChanges() {
     final currentUser = _auth.currentUser;
-    return _firestore
+    final pac = _firestore
         .collection('users')
         .doc(currentUser!.uid)
         .collection('tareas')
+        .doc('owners'[1])
+        .get();
+    return _firestore
+        .collection('users')
+        .doc(currentUser.uid)
+        .collection('tareas')
         .where(
             'owners', //Guardar el mail del paciente en cada tip, todos los tips que cree el psicólogo se guardarán en la misma colección
-            arrayContains: currentUser.email) //El current user en ese momento será el psicólogo
+            arrayContains: currentUser
+                .email) //El current user en ese momento será el psicólogo
         .snapshots()
         .map((event) {
       return event.docs.map((e) => TareasData.fromDocument(e)).toList();
     });
   }
 
-   Future<DocumentReference<Map<String, dynamic>>> tareasAdd(
+  Future<DocumentReference<Map<String, dynamic>>> tareasAdd(
     String title,
     String content,
     List<String> owners,
@@ -57,8 +64,8 @@ class TareasRepo {
       'userId': currentUser.uid,
       "creationDate": creationDate,
       "tareaContent": content,
-      "owners": owners
+      "owners": owners,
+      "tareaTitle": title
     });
   }
 }
-

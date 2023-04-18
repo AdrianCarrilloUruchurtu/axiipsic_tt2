@@ -1,14 +1,21 @@
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/model/tareas_model.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_model.dart';
 import 'package:flutter/material.dart';
 
-class TareaItem extends StatelessWidget {
-  const TareaItem({super.key, this.onTap, required this.doc});
+class SesionItem extends StatelessWidget {
+  const SesionItem(
+      {super.key, required this.doc, this.onTap, required this.docSes});
 
   final Function()? onTap;
-  final TareasData doc;
+  final UserData doc;
+  final SesionesData? docSes;
 
   @override
   Widget build(BuildContext context) {
+    String nombre = doc.nombre;
+    String apellido = doc.apellido;
+    int? numSesion = docSes?.id.toInt();
+
     return Container(
       margin: const EdgeInsets.all(12.0),
       padding: const EdgeInsets.all(8.0),
@@ -17,23 +24,13 @@ class TareaItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.0)),
       child: ListTile(
         onTap: onTap,
-        leading: const Icon(
-          Icons.check_box_outline_blank,
-          color: Colors.white,
-          size: 40,
-        ),
         title: Text(
-          doc.tareaTitle,
-          style: const TextStyle(
-              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(
-          doc.tareaContent,
+          "Sesión $numSesion",
           style: const TextStyle(
               color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         ),
         trailing: Icon(
-          Icons.edit,
+          Icons.arrow_right_sharp,
           color: Colors.pink.shade50,
           size: 50,
         ),

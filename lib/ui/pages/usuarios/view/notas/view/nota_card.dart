@@ -1,7 +1,7 @@
 import 'package:axiipsic_tt2/style/app_style.dart';
 import 'package:flutter/material.dart';
 
-import 'model/note_model.dart';
+import '../model/note_model.dart';
 
 class NotaCard extends StatelessWidget {
   const NotaCard(this.doc, {super.key, this.onTap});

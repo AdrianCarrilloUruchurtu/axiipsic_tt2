@@ -25,6 +25,8 @@ class _AddEventState extends State<AddEvent> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
   final _calendarMobx = getIt.get<CalendarStore>();
+  late final TimeOfDay _timeController;
+  late String _selectedTime;
 
   @override
   void initState() {
@@ -44,7 +46,6 @@ class _AddEventState extends State<AddEvent> {
             lastDate: widget.lastDate,
             initialDate: _selectedDate,
             onDateSubmitted: (date) {
-              print(date);
               setState(() {
                 _selectedDate = date;
               });
@@ -53,40 +54,72 @@ class _AddEventState extends State<AddEvent> {
           TextField(
             controller: _titleController,
             maxLines: 1,
-            decoration: const InputDecoration(labelText: 'title'),
+            decoration: const InputDecoration(labelText: 'Título'),
           ),
           TextField(
             controller: _descController,
             maxLines: 5,
-            decoration: const InputDecoration(labelText: 'description'),
+            decoration: const InputDecoration(labelText: 'Descripción'),
+          ),
+          Container(
+            margin: const EdgeInsets.fromLTRB(64, 4, 64, 4),
+            child: ElevatedButton(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  )),
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.lightBlue)),
+              onPressed: () {
+                _timeDialog();
+              },
+              child: const Text("Hora"),
+            ),
           ),
           ElevatedButton(
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                )),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.lightBlue)),
             onPressed: () {
               _addEvent();
             },
-            child: const Text("Save"),
+            child: const Text("Guardar evento"),
           ),
         ],
       ),
     );
   }
 
+  Future<void> _timeDialog() async {
+    final TimeOfDay? result = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+        cancelText: "Cancelar",
+        helpText: "Hora");
+    if (result != null) {
+      setState(() {
+        _selectedTime = result.format(context);
+      });
+    }
+  }
+
   void _addEvent() async {
     final title = _titleController.text;
     final description = _descController.text;
+    final time = _selectedTime;
     if (title.isEmpty) {
-      print('title cannot be empty');
+      const SnackBar(
+        content: Text('El título no puede estar vacío'),
+      );
       return;
     }
-    // //Cambiar también
-    // await FirebaseFirestore.instance.collection('events').add({
-    //   "title": title,
-    //   "description": description,
-    //   "date": Timestamp.fromDate(_selectedDate),
-    // });
-
     _calendarMobx.crearEvento(
-        Timestamp.fromDate(_selectedDate), title, description);
+        Timestamp.fromDate(_selectedDate), title, description, time);
     if (mounted) {
       context.popRoute();
     }

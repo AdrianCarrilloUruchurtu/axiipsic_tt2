@@ -19,8 +19,8 @@ abstract class _CalendarStoreBase with Store {
   }
 
   @action
-  crearEvento(Timestamp date, String title, String description) {
-    _calendarRepo.addEvent(date, title, description);
+  crearEvento(Timestamp date, String title, String description, String time) {
+    _calendarRepo.addEvent(date, title, description, time);
   }
 
   @action

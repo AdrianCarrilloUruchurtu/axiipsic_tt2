@@ -7,8 +7,9 @@ part 'tareas_model.g.dart';
 @freezed
 class TareasData with _$TareasData {
   factory TareasData(
-    String title,
-    String content,
+    String tareaTitle,
+    String tareaContent,
+    String id,
     List<String> owners,
     String creationDate,
   ) = _TareasData;

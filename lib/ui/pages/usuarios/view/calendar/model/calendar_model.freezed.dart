@@ -24,6 +24,7 @@ mixin _$CalendarData {
   String? get description => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
+  String get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +38,12 @@ abstract class $CalendarDataCopyWith<$Res> {
           CalendarData value, $Res Function(CalendarData) then) =
       _$CalendarDataCopyWithImpl<$Res, CalendarData>;
   @useResult
-  $Res call({String title, String? description, DateTime date, String id});
+  $Res call(
+      {String title,
+      String? description,
+      DateTime date,
+      String id,
+      String time});
 }
 
 /// @nodoc
@@ -57,6 +63,7 @@ class _$CalendarDataCopyWithImpl<$Res, $Val extends CalendarData>
     Object? description = freezed,
     Object? date = null,
     Object? id = null,
+    Object? time = null,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -75,6 +82,10 @@ class _$CalendarDataCopyWithImpl<$Res, $Val extends CalendarData>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -87,7 +98,12 @@ abstract class _$$_CalendarDataCopyWith<$Res>
       __$$_CalendarDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title, String? description, DateTime date, String id});
+  $Res call(
+      {String title,
+      String? description,
+      DateTime date,
+      String id,
+      String time});
 }
 
 /// @nodoc
@@ -105,6 +121,7 @@ class __$$_CalendarDataCopyWithImpl<$Res>
     Object? description = freezed,
     Object? date = null,
     Object? id = null,
+    Object? time = null,
   }) {
     return _then(_$_CalendarData(
       null == title
@@ -123,6 +140,10 @@ class __$$_CalendarDataCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -130,7 +151,7 @@ class __$$_CalendarDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CalendarData implements _CalendarData {
-  _$_CalendarData(this.title, this.description, this.date, this.id);
+  _$_CalendarData(this.title, this.description, this.date, this.id, this.time);
 
   factory _$_CalendarData.fromJson(Map<String, dynamic> json) =>
       _$$_CalendarDataFromJson(json);
@@ -143,10 +164,12 @@ class _$_CalendarData implements _CalendarData {
   final DateTime date;
   @override
   final String id;
+  @override
+  final String time;
 
   @override
   String toString() {
-    return 'CalendarData(title: $title, description: $description, date: $date, id: $id)';
+    return 'CalendarData(title: $title, description: $description, date: $date, id: $id, time: $time)';
   }
 
   @override
@@ -158,12 +181,14 @@ class _$_CalendarData implements _CalendarData {
             (identical(other.description, description) ||
                 other.description == description) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.time, time) || other.time == time));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, description, date, id);
+  int get hashCode =>
+      Object.hash(runtimeType, title, description, date, id, time);
 
   @JsonKey(ignore: true)
   @override
@@ -180,8 +205,12 @@ class _$_CalendarData implements _CalendarData {
 }
 
 abstract class _CalendarData implements CalendarData {
-  factory _CalendarData(final String title, final String? description,
-      final DateTime date, final String id) = _$_CalendarData;
+  factory _CalendarData(
+      final String title,
+      final String? description,
+      final DateTime date,
+      final String id,
+      final String time) = _$_CalendarData;
 
   factory _CalendarData.fromJson(Map<String, dynamic> json) =
       _$_CalendarData.fromJson;
@@ -194,6 +223,8 @@ abstract class _CalendarData implements CalendarData {
   DateTime get date;
   @override
   String get id;
+  @override
+  String get time;
   @override
   @JsonKey(ignore: true)
   _$$_CalendarDataCopyWith<_$_CalendarData> get copyWith =>

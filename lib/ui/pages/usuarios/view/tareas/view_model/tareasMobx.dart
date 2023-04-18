@@ -1,9 +1,11 @@
 import 'package:mobx/mobx.dart';
-import '../../../../../../lib/get_it.dart';
+import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../../../services/tareas_repo.dart';
 import '../model/tareas_model.dart';
+import 'package:injectable/injectable.dart';
 part 'tareasMobx.g.dart';
 
+@injectable
 class TareasStore = _TareasStoreBase with _$TareasStore;
 
 abstract class _TareasStoreBase with Store {

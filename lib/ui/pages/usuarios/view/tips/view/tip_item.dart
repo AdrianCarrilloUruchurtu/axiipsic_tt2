@@ -20,16 +20,17 @@ class TipItem extends StatelessWidget {
         leading: const Icon(
           Icons.check_box_outline_blank,
           color: Colors.white,
-          size: 40,
+          size: 34,
         ),
-        title: Text(doc.tipContent,
+        title: Text(
+          doc.tipContent,
           style: const TextStyle(
               color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
         ),
         trailing: Icon(
           Icons.edit,
           color: Colors.pink.shade50,
-          size: 50,
+          size: 26,
         ),
       ),
     );

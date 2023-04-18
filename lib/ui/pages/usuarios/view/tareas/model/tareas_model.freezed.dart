@@ -20,8 +20,9 @@ TareasData _$TareasDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TareasData {
-  String get title => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
+  String get tareaTitle => throw _privateConstructorUsedError;
+  String get tareaContent => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   List<String> get owners => throw _privateConstructorUsedError;
   String get creationDate => throw _privateConstructorUsedError;
 
@@ -38,7 +39,11 @@ abstract class $TareasDataCopyWith<$Res> {
       _$TareasDataCopyWithImpl<$Res, TareasData>;
   @useResult
   $Res call(
-      {String title, String content, List<String> owners, String creationDate});
+      {String tareaTitle,
+      String tareaContent,
+      String id,
+      List<String> owners,
+      String creationDate});
 }
 
 /// @nodoc
@@ -54,19 +59,24 @@ class _$TareasDataCopyWithImpl<$Res, $Val extends TareasData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? content = null,
+    Object? tareaTitle = null,
+    Object? tareaContent = null,
+    Object? id = null,
     Object? owners = null,
     Object? creationDate = null,
   }) {
     return _then(_value.copyWith(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      tareaTitle: null == tareaTitle
+          ? _value.tareaTitle
+          : tareaTitle // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      tareaContent: null == tareaContent
+          ? _value.tareaContent
+          : tareaContent // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       owners: null == owners
           ? _value.owners
@@ -89,7 +99,11 @@ abstract class _$$_TareasDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String title, String content, List<String> owners, String creationDate});
+      {String tareaTitle,
+      String tareaContent,
+      String id,
+      List<String> owners,
+      String creationDate});
 }
 
 /// @nodoc
@@ -103,19 +117,24 @@ class __$$_TareasDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? content = null,
+    Object? tareaTitle = null,
+    Object? tareaContent = null,
+    Object? id = null,
     Object? owners = null,
     Object? creationDate = null,
   }) {
     return _then(_$_TareasData(
-      null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      null == tareaTitle
+          ? _value.tareaTitle
+          : tareaTitle // ignore: cast_nullable_to_non_nullable
               as String,
-      null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      null == tareaContent
+          ? _value.tareaContent
+          : tareaContent // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
       null == owners
           ? _value._owners
@@ -132,17 +151,19 @@ class __$$_TareasDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_TareasData implements _TareasData {
-  _$_TareasData(
-      this.title, this.content, final List<String> owners, this.creationDate)
+  _$_TareasData(this.tareaTitle, this.tareaContent, this.id,
+      final List<String> owners, this.creationDate)
       : _owners = owners;
 
   factory _$_TareasData.fromJson(Map<String, dynamic> json) =>
       _$$_TareasDataFromJson(json);
 
   @override
-  final String title;
+  final String tareaTitle;
   @override
-  final String content;
+  final String tareaContent;
+  @override
+  final String id;
   final List<String> _owners;
   @override
   List<String> get owners {
@@ -156,7 +177,7 @@ class _$_TareasData implements _TareasData {
 
   @override
   String toString() {
-    return 'TareasData(title: $title, content: $content, owners: $owners, creationDate: $creationDate)';
+    return 'TareasData(tareaTitle: $tareaTitle, tareaContent: $tareaContent, id: $id, owners: $owners, creationDate: $creationDate)';
   }
 
   @override
@@ -164,8 +185,11 @@ class _$_TareasData implements _TareasData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TareasData &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.content, content) || other.content == content) &&
+            (identical(other.tareaTitle, tareaTitle) ||
+                other.tareaTitle == tareaTitle) &&
+            (identical(other.tareaContent, tareaContent) ||
+                other.tareaContent == tareaContent) &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._owners, _owners) &&
             (identical(other.creationDate, creationDate) ||
                 other.creationDate == creationDate));
@@ -173,7 +197,7 @@ class _$_TareasData implements _TareasData {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, title, content,
+  int get hashCode => Object.hash(runtimeType, tareaTitle, tareaContent, id,
       const DeepCollectionEquality().hash(_owners), creationDate);
 
   @JsonKey(ignore: true)
@@ -191,16 +215,22 @@ class _$_TareasData implements _TareasData {
 }
 
 abstract class _TareasData implements TareasData {
-  factory _TareasData(final String title, final String content,
-      final List<String> owners, final String creationDate) = _$_TareasData;
+  factory _TareasData(
+      final String tareaTitle,
+      final String tareaContent,
+      final String id,
+      final List<String> owners,
+      final String creationDate) = _$_TareasData;
 
   factory _TareasData.fromJson(Map<String, dynamic> json) =
       _$_TareasData.fromJson;
 
   @override
-  String get title;
+  String get tareaTitle;
   @override
-  String get content;
+  String get tareaContent;
+  @override
+  String get id;
   @override
   List<String> get owners;
   @override

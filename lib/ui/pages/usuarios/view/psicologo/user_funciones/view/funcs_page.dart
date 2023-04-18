@@ -61,11 +61,13 @@ class _FuncsPageState extends State<FuncsPage> {
                 btn("Agendar cita", Icons.calendar_month, (() {
                   context.router.push(const CalendarRoute());
                 }), 1),
-                btn("Asignar tarea", Icons.check_box, (() {}), 2),
+                btn("Asignar tarea", Icons.check_box, (() {
+                  context.router.push(TareasRoute(doc: widget.doc));
+                }), 2),
                 btn("Tips", Icons.tips_and_updates, (() {
                   context.router.push(TipsRoute(doc: widget.doc));
                 }), 3),
-                btn("Rapport", Icons.supervised_user_circle, (() {}), 7),
+                btn("Sesiones", Icons.meeting_room, (() {}), 7),
                 btn("Plan de trabajo", Icons.book, (() {}), 5),
                 btn("Historia clínica", Icons.history, (() {}), 6),
               ],

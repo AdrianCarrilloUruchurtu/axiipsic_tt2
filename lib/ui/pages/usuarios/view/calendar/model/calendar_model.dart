@@ -6,12 +6,8 @@ part 'calendar_model.g.dart';
 
 @freezed
 class CalendarData with _$CalendarData {
-  factory CalendarData(
-    final String title,
-    final String? description,
-    final DateTime date,
-    final String id,
-  ) = _CalendarData;
+  factory CalendarData(final String title, final String? description,
+      final DateTime date, final String id, final String time) = _CalendarData;
 
   factory CalendarData.fromDocument(
           DocumentSnapshot<Map<String, dynamic>> doc) =>
