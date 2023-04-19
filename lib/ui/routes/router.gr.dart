@@ -193,9 +193,13 @@ class AppRouter extends _i20.RootStackRouter {
       );
     },
     SesionesAdd.name: (routeData) {
+      final args = routeData.argsAs<SesionesAddArgs>();
       return _i20.MaterialPageX<dynamic>(
         routeData: routeData,
-        child: const _i19.SesionesAdd(),
+        child: _i19.SesionesAdd(
+          key: args.key,
+          doc: args.doc,
+        ),
       );
     },
   };
@@ -656,12 +660,34 @@ class SesionesRouteArgs {
 
 /// generated route for
 /// [_i19.SesionesAdd]
-class SesionesAdd extends _i20.PageRouteInfo<void> {
-  const SesionesAdd()
-      : super(
+class SesionesAdd extends _i20.PageRouteInfo<SesionesAddArgs> {
+  SesionesAdd({
+    _i21.Key? key,
+    required _i26.UserData doc,
+  }) : super(
           SesionesAdd.name,
           path: '/sesiones-add',
+          args: SesionesAddArgs(
+            key: key,
+            doc: doc,
+          ),
         );
 
   static const String name = 'SesionesAdd';
+}
+
+class SesionesAddArgs {
+  const SesionesAddArgs({
+    this.key,
+    required this.doc,
+  });
+
+  final _i21.Key? key;
+
+  final _i26.UserData doc;
+
+  @override
+  String toString() {
+    return 'SesionesAddArgs{key: $key, doc: $doc}';
+  }
 }

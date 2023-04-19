@@ -6,9 +6,12 @@ import 'package:flutter/material.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../../../style/app_style.dart';
+import '../../../../auth/model/user_data.dart';
 
 class SesionesAdd extends StatefulWidget {
-  const SesionesAdd({super.key});
+  const SesionesAdd({super.key, required this.doc});
+
+  final UserData doc;
 
   @override
   State<SesionesAdd> createState() => _SesionesAddState();
@@ -16,6 +19,7 @@ class SesionesAdd extends StatefulWidget {
 
 class _SesionesAddState extends State<SesionesAdd> {
   int color_id = Random().nextInt(AppStyle.cardsColor.length);
+  int id = 1;
   String date = DateTime.now().toString();
   final _sesionesMobx = getIt.get<SesionesStore>();
 
@@ -29,7 +33,8 @@ class _SesionesAddState extends State<SesionesAdd> {
       body: _body(),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          
+          _sesionesMobx.crearSesion(id, [widget.doc.email, widget.doc.psicMail],
+              [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5, 6]);
           context.router.pop();
         }),
         child: const Icon(Icons.save),

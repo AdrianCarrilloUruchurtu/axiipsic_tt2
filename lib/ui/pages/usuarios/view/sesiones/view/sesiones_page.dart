@@ -38,7 +38,7 @@ class _SesionesPageState extends State<SesionesPage> {
                       child: IconButton(
                           icon: const Icon(Icons.add),
                           onPressed: () =>
-                              {context.router.push(const SesionesAdd())})),
+                              {context.router.push( SesionesAdd(doc: widget.doc))})),
                   const Text(
                     "Nueva se",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

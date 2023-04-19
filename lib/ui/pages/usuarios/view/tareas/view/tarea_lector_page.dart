@@ -1,20 +1,24 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../../../style/app_style.dart';
-import '../model/note_model.dart';
+import '../../../../auth/model/user_data.dart';
+import '../model/tareas_model.dart';
+import '../view_model/tareasMobx.dart';
 
-class LectorPage extends StatefulWidget {
-  LectorPage(this.doc, {super.key});
-  NotaData doc;
+class TareaLectorPage extends StatefulWidget {
+  const TareaLectorPage({super.key, required this.doc});
+  final TareasData doc;
+
   @override
-  State<LectorPage> createState() => _LectorPageState();
+  State<TareaLectorPage> createState() => _TareaLectorPageState();
 }
 
-class _LectorPageState extends State<LectorPage> {
-  final _notaMobx = getIt.get<NotaStore>();
+class _TareaLectorPageState extends State<TareaLectorPage> {
+  final _tareaMobx = getIt.get<TareasStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,15 +27,14 @@ class _LectorPageState extends State<LectorPage> {
             final delete = await showDialog<bool>(
               context: context,
               builder: (_) => AlertDialog(
-                title: const Text("Eliminar Nota"),
+                title: const Text("Eliminar tarea"),
                 content:
-                    const Text("¿Estás seguro que deseas eliminar la nota?"),
+                    const Text("¿Estás seguro que deseas eliminar la tarea?"),
                 actions: [
                   TextButton(
                     onPressed: () => context.router.pop(),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.black,
-                      
                     ),
                     child: const Text("No"),
                   ),
@@ -47,9 +50,7 @@ class _LectorPageState extends State<LectorPage> {
             );
 
             // Cambiar también
-            if (delete ?? false) {
-              _notaMobx.eliminarNota(widget.doc.id);
-            }
+            if (delete ?? false) {}
           },
           child: const Icon(Icons.delete)),
       appBar: _appbar(),
@@ -57,12 +58,11 @@ class _LectorPageState extends State<LectorPage> {
     );
   }
 
-// Appbar
+  // Appbar
   AppBar _appbar() {
-    int colorId = widget.doc.colorId;
     return AppBar(
         title: Text(
-          widget.doc.noteTitle,
+          "Sesion ",
           style: AppStyle.mainTitle,
           textAlign: TextAlign.center,
         ),
@@ -81,7 +81,6 @@ class _LectorPageState extends State<LectorPage> {
                 ));
           },
         ),
-        backgroundColor: AppStyle.cardsColor[colorId],
         elevation: 0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(0.0),
@@ -94,9 +93,7 @@ class _LectorPageState extends State<LectorPage> {
   }
 
   Widget _body() {
-    int colorId = widget.doc.colorId;
     return Container(
-      color: AppStyle.cardsColor[colorId],
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,10 +101,7 @@ class _LectorPageState extends State<LectorPage> {
           const SizedBox(
             height: 4.0,
           ),
-          Text(
-            widget.doc.creationDate,
-            style: AppStyle.dateTitle,
-          ),
+          Text(widget.doc.tareaTitle),
           const Divider(
             height: 6,
             thickness: 2,
@@ -119,7 +113,7 @@ class _LectorPageState extends State<LectorPage> {
             height: 28.0,
           ),
           Text(
-            widget.doc.noteContent,
+            widget.doc.tareaContent,
             style: AppStyle.mainContent,
             overflow: TextOverflow.ellipsis,
           ),

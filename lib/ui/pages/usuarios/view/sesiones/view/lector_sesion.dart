@@ -47,9 +47,7 @@ class _LectorSesPageState extends State<LectorSesPage> {
             );
 
             // Cambiar también
-            if (delete ?? false) {
-             
-            }
+            if (delete ?? false) {}
           },
           child: const Icon(Icons.delete)),
       appBar: _appbar(),
@@ -100,28 +98,72 @@ class _LectorSesPageState extends State<LectorSesPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 4.0,
-          ),
-          Text(
-          "Sesión $numSes",
-          style: AppStyle.mainTitle,
-          textAlign: TextAlign.center,
-        ),
-          const Divider(
-            height: 6,
-            thickness: 2,
-            indent: 0,
-            endIndent: 130,
-            color: Colors.black,
-          ),
-          const SizedBox(
-            height: 28.0,
-          ),
-          
+          // Container(
+          //   width: 290,
+          //   height: 40,
+          //   margin: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+          //   decoration: BoxDecoration(
+          //       color: Colors.brown.shade300,
+          //       borderRadius: BorderRadius.circular(20)),
+          //   child: Center(
+          //     child: Text(
+          //       "Sesión $numSes",
+          //       style: const TextStyle(
+          //           color: Colors.white,
+          //           fontSize: 22.0,
+          //           fontWeight: FontWeight.bold),
+          //     ),
+          //   ),
+          // ),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                btn("Placeholder", Icons.calendar_month, (() {}), 1),
+                btn("Placeholder", Icons.check_box, (() {}), 2),
+                btn("Placeholder", Icons.tips_and_updates, (() {}), 3),
+                btn("Placeholder", Icons.meeting_room, (() {}), 7),
+                btn("Placeholder", Icons.book, (() {}), 5),
+                btn("Placeholder", Icons.history, (() {}), 6),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
+  Widget btn(String texto, IconData? icono, Function()? onTap, int colorid) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(16.0, 6.0, 16.0, 6.0),
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 75, 176, 223),
+          borderRadius: BorderRadius.circular(16.0)),
+      child: ListTile(
+        leading: Container(
+          height: 45,
+          width: 45,
+          decoration: BoxDecoration(
+              color: AppStyle.iconColors[colorid],
+              borderRadius: BorderRadius.circular(16)),
+          child: Icon(
+            icono,
+            color: Colors.white,
+            size: 30,
+          ),
+        ),
+        title: Text(
+          texto,
+          style: const TextStyle(
+              color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        trailing: Icon(
+          Icons.arrow_right_sharp,
+          color: Colors.pink.shade50,
+          size: 50,
+        ),
+        onTap: onTap,
+      ),
+    );
+  }
 }
