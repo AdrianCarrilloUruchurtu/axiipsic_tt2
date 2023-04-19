@@ -15,7 +15,7 @@ class TareasPage extends StatefulWidget {
 }
 
 class _TareasPageState extends State<TareasPage> {
-  final TareasStore _tareaStore = getIt.get<TareasStore>();
+  late final TareasStore _tareaStore = TareasStore(widget.doc.email);
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {

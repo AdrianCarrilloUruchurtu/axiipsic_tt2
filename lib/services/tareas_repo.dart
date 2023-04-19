@@ -26,22 +26,16 @@ class TareasRepo {
     }
   }
 
-  Stream<List<TareasData>> tareasChanges() {
+  Stream<List<TareasData>> tareasChanges(String pac) {
     final currentUser = _auth.currentUser;
-    final pac = _firestore
-        .collection('users')
-        .doc(currentUser!.uid)
-        .collection('tareas')
-        .doc('owners'[1])
-        .get();
+    
     return _firestore
         .collection('users')
-        .doc(currentUser.uid)
+        .doc(currentUser?.uid)
         .collection('tareas')
         .where(
             'owners', //Guardar el mail del paciente en cada tip, todos los tips que cree el psicólogo se guardarán en la misma colección
-            arrayContains: currentUser
-                .email) //El current user en ese momento será el psicólogo
+            arrayContains: pac) //El current user en ese momento será el psicólogo
         .snapshots()
         .map((event) {
       return event.docs.map((e) => TareasData.fromDocument(e)).toList();

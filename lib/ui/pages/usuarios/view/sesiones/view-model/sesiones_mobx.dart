@@ -17,6 +17,11 @@ abstract class _SesionesStoreBase with Store {
     });
   }
 
+  crearSesion(
+      int id, List<String> owners, List<int> rapport, List<int> evaluacion) {
+    _sesionesRepo.sesionesAdd(id, owners, rapport, evaluacion);
+  }
+
   @observable
   List<SesionesData>? sesionesList;
 }

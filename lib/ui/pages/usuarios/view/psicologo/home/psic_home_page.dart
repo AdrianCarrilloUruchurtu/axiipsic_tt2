@@ -1,16 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:axiipsic_tt2/services/global_method.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/profile_page.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view_model/datos_usuario.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
-import '../../../../auth/view/login_page.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
 
 class PsicHomePage extends StatefulWidget {

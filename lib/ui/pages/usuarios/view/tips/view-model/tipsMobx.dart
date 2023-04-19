@@ -11,8 +11,8 @@ class TipsMobx = _TipsMobxBase with _$TipsMobx;
 abstract class _TipsMobxBase with Store {
   final _tipsRepo = getIt<TipsRepo>();
 
-  _TipsMobxBase() {
-    _tipsRepo.tipsChanges().listen((event) {
+  _TipsMobxBase(String pac) {
+    _tipsRepo.tipsChanges(pac).listen((event) {
       tipList = event;
     });
   }

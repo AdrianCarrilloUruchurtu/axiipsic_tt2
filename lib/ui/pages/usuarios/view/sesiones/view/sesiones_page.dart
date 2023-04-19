@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view-model/sesiones_mobx.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view/sesion_add.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view/sesion_item.dart';
+import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -33,11 +33,14 @@ class _SesionesPageState extends State<SesionesPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: () => { }),
+                  Container(
+                      margin: const EdgeInsets.all(4),
+                      child: IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () =>
+                              {context.router.push(const SesionesAdd())})),
                   const Text(
-                    "Nueva sesión",
+                    "Nueva se",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   )
                 ],
@@ -71,6 +74,7 @@ class _SesionesPageState extends State<SesionesPage> {
                           onTap: () => {})
                       : const Center(child: CircularProgressIndicator());
                 }))),
+            itemCount: _sesionesMobx.sesionesList?.length.toInt(),
           ));
     });
   }

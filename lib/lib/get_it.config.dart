@@ -48,8 +48,8 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i8.SesionesRepo>(_i8.SesionesRepo());
     gh.factory<_i9.SesionesStore>(() => _i9.SesionesStore());
     gh.singleton<_i10.TareasRepo>(_i10.TareasRepo());
-    gh.factory<_i11.TareasStore>(() => _i11.TareasStore());
-    gh.factory<_i12.TipsMobx>(() => _i12.TipsMobx());
+    gh.factory<_i11.TareasStore>(() => _i11.TareasStore(gh<String>()));
+    gh.factory<_i12.TipsMobx>(() => _i12.TipsMobx(gh<String>()));
     gh.singleton<_i13.TipsRepo>(_i13.TipsRepo());
     gh.singleton<_i14.UserRepo>(_i14.UserRepo());
     return this;

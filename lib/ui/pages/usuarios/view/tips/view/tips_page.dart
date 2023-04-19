@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tips/view/tip_item.dart';
 import 'package:flutter/material.dart';
 
-import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../routes/router.gr.dart';
@@ -17,7 +16,7 @@ class TipsPage extends StatefulWidget {
 }
 
 class _TipsPageState extends State<TipsPage> {
-  final TipsMobx _tipsMobx = getIt.get<TipsMobx>();
+  late final TipsMobx _tipsMobx = TipsMobx(widget.doc.email);
 
   @override
   Widget build(BuildContext context) {

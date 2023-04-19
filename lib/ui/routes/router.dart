@@ -6,6 +6,8 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/progress/progress_p
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/home/psic_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/lista/view/list_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/user_funciones/view/funcs_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view/sesion_add.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view/sesiones_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view/tareas_page.dart';
 import 'package:axiipsic_tt2/ui/routes/ispat_guard.dart';
 import 'package:axiipsic_tt2/ui/routes/ispsic_guard.dart';
@@ -47,6 +49,8 @@ import 'guest_guard.dart';
     MaterialRoute(page: AddTipPage), // MainPage
     MaterialRoute(page: TareasPage),
     MaterialRoute(page: TareaAddPage), // MainPage
+    MaterialRoute(page: SesionesPage), // MainPage
+    MaterialRoute(page: SesionesAdd), // MainPage
     // MainPage
   ],
 )

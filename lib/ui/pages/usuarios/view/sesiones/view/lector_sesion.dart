@@ -1,20 +1,21 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
+import 'package:axiipsic_tt2/lib/get_it.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view-model/sesiones_mobx.dart';
 import 'package:flutter/material.dart';
 
-import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../../../style/app_style.dart';
-import '../model/note_model.dart';
+import '../model/sesiones_model.dart';
 
-class LectorPage extends StatefulWidget {
-  LectorPage(this.doc, {super.key});
-  NotaData doc;
+class LectorSesPage extends StatefulWidget {
+  const LectorSesPage({super.key, this.docSes});
+
+  final SesionesData? docSes;
   @override
-  State<LectorPage> createState() => _LectorPageState();
+  State<LectorSesPage> createState() => _LectorSesPageState();
 }
 
-class _LectorPageState extends State<LectorPage> {
-  final _notaMobx = getIt.get<NotaStore>();
+class _LectorSesPageState extends State<LectorSesPage> {
+  final _sesionMobx = getIt.get<SesionesStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +48,7 @@ class _LectorPageState extends State<LectorPage> {
 
             // Cambiar también
             if (delete ?? false) {
-              _notaMobx.eliminarNota(widget.doc.id);
+             
             }
           },
           child: const Icon(Icons.delete)),
@@ -58,10 +59,10 @@ class _LectorPageState extends State<LectorPage> {
 
 // Appbar
   AppBar _appbar() {
-    int colorId = widget.doc.colorId;
+    int numSes = widget.docSes!.id;
     return AppBar(
         title: Text(
-          widget.doc.noteTitle,
+          "Sesión $numSes",
           style: AppStyle.mainTitle,
           textAlign: TextAlign.center,
         ),
@@ -80,7 +81,7 @@ class _LectorPageState extends State<LectorPage> {
                 ));
           },
         ),
-        backgroundColor: AppStyle.cardsColor[colorId],
+        backgroundColor: Colors.transparent,
         elevation: 0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(0.0),
@@ -93,9 +94,8 @@ class _LectorPageState extends State<LectorPage> {
   }
 
   Widget _body() {
-    int colorId = widget.doc.colorId;
+    int numSes = widget.docSes!.id;
     return Container(
-      color: AppStyle.cardsColor[colorId],
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,9 +104,10 @@ class _LectorPageState extends State<LectorPage> {
             height: 4.0,
           ),
           Text(
-            widget.doc.creationDate,
-            style: AppStyle.dateTitle,
-          ),
+          "Sesión $numSes",
+          style: AppStyle.mainTitle,
+          textAlign: TextAlign.center,
+        ),
           const Divider(
             height: 6,
             thickness: 2,
@@ -117,13 +118,10 @@ class _LectorPageState extends State<LectorPage> {
           const SizedBox(
             height: 28.0,
           ),
-          Text(
-            widget.doc.noteContent,
-            style: AppStyle.mainContent,
-            overflow: TextOverflow.ellipsis,
-          ),
+          
         ],
       ),
     );
   }
+
 }

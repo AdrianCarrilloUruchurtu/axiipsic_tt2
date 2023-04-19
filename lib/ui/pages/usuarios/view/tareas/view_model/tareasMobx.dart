@@ -11,8 +11,8 @@ class TareasStore = _TareasStoreBase with _$TareasStore;
 abstract class _TareasStoreBase with Store {
   final _tareasRepo = getIt.get<TareasRepo>();
 
-  _TareasStoreBase() {
-    _tareasRepo.tareasChanges().listen((event) {
+  _TareasStoreBase(String pac) {
+    _tareasRepo.tareasChanges(pac).listen((event) {
       tareasList = event;
     });
   }

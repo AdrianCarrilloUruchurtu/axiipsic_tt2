@@ -67,7 +67,9 @@ class _FuncsPageState extends State<FuncsPage> {
                 btn("Tips", Icons.tips_and_updates, (() {
                   context.router.push(TipsRoute(doc: widget.doc));
                 }), 3),
-                btn("Sesiones", Icons.meeting_room, (() {}), 7),
+                btn("Sesiones", Icons.meeting_room, (() {
+                  context.router.push(SesionesRoute(doc: widget.doc));
+                }), 7),
                 btn("Plan de trabajo", Icons.book, (() {}), 5),
                 btn("Historia clínica", Icons.history, (() {}), 6),
               ],

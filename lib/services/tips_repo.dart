@@ -28,21 +28,16 @@ class TipsRepo {
 
 // Debería de mostrar solo los que tengan el mismo mail que el currentUser psicólogo?
 // Hacer dos vistas?
-  Stream<List<TipsData>> tipsChanges() {
+  Stream<List<TipsData>> tipsChanges(String pac) {
     final currentUser = _auth.currentUser;
-    final pac = _firestore
-        .collection('users')
-        .doc(currentUser!.uid)
-        .collection('tips')
-        .doc('owners'[1])
-        .get();
+
     return _firestore
         .collection('users')
-        .doc(currentUser.uid)
+        .doc(currentUser?.uid)
         .collection('tips')
         .where(
             'owners', //Guardar el mail del paciente en cada tip, todos los tips que cree el psicólogo se guardarán en la misma colección
-            arrayContains: currentUser.email)
+            arrayContains: pac)
         .snapshots()
         .map((event) {
       return event.docs.map((e) => TipsData.fromDocument(e)).toList();

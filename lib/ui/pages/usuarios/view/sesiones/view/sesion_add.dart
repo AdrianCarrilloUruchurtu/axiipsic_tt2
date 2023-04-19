@@ -28,7 +28,10 @@ class _SesionesAddState extends State<SesionesAdd> {
       appBar: _appbar(),
       body: _body(),
       floatingActionButton: FloatingActionButton(
-        onPressed: (() {}),
+        onPressed: (() {
+          
+          context.router.pop();
+        }),
         child: const Icon(Icons.save),
       ),
     );
