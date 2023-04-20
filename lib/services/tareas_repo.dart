@@ -28,14 +28,15 @@ class TareasRepo {
 
   Stream<List<TareasData>> tareasChanges(String pac) {
     final currentUser = _auth.currentUser;
-    
+
     return _firestore
         .collection('users')
         .doc(currentUser?.uid)
         .collection('tareas')
         .where(
             'owners', //Guardar el mail del paciente en cada tip, todos los tips que cree el psicólogo se guardarán en la misma colección
-            arrayContains: pac) //El current user en ese momento será el psicólogo
+            arrayContains:
+                pac) //El current user en ese momento será el psicólogo
         .snapshots()
         .map((event) {
       return event.docs.map((e) => TareasData.fromDocument(e)).toList();
@@ -61,5 +62,37 @@ class TareasRepo {
       "owners": owners,
       "tareaTitle": title
     });
+  }
+
+  Future<void> editarTarea(
+    String title,
+    String content,
+    List<String> owners,
+    String creationDate,
+    String id
+  ) {
+    final currentUser = _auth.currentUser;
+    final tareaRef = _firestore
+        .collection("users")
+        .doc(currentUser!.uid)
+        .collection("tareas")
+        .doc(id);
+    return tareaRef.update({
+      'userId': currentUser.uid,
+      "creationDate": creationDate,
+      "tareaContent": content,
+      "owners": owners,
+      "tareaTitle": title
+    });
+  }
+
+  Future<void> deleteTarea(String id) {
+    final currentUser = _auth.currentUser;
+    final tareaRef = _firestore
+        .collection("users")
+        .doc(currentUser!.uid)
+        .collection("tareas")
+        .doc(id);
+    return tareaRef.delete();
   }
 }

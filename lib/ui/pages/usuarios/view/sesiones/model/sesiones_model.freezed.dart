@@ -20,7 +20,7 @@ SesionesData _$SesionesDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SesionesData {
-  int get id => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   List<String> get owners => throw _privateConstructorUsedError;
   List<int> get rapport => throw _privateConstructorUsedError;
   List<int> get evaluacion => throw _privateConstructorUsedError;
@@ -38,7 +38,10 @@ abstract class $SesionesDataCopyWith<$Res> {
       _$SesionesDataCopyWithImpl<$Res, SesionesData>;
   @useResult
   $Res call(
-      {int id, List<String> owners, List<int> rapport, List<int> evaluacion});
+      {String id,
+      List<String> owners,
+      List<int> rapport,
+      List<int> evaluacion});
 }
 
 /// @nodoc
@@ -63,7 +66,7 @@ class _$SesionesDataCopyWithImpl<$Res, $Val extends SesionesData>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       owners: null == owners
           ? _value.owners
           : owners // ignore: cast_nullable_to_non_nullable
@@ -89,7 +92,10 @@ abstract class _$$_SesionesDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id, List<String> owners, List<int> rapport, List<int> evaluacion});
+      {String id,
+      List<String> owners,
+      List<int> rapport,
+      List<int> evaluacion});
 }
 
 /// @nodoc
@@ -112,7 +118,7 @@ class __$$_SesionesDataCopyWithImpl<$Res>
       null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as String,
       null == owners
           ? _value._owners
           : owners // ignore: cast_nullable_to_non_nullable
@@ -142,7 +148,7 @@ class _$_SesionesData implements _SesionesData {
       _$$_SesionesDataFromJson(json);
 
   @override
-  final int id;
+  final String id;
   final List<String> _owners;
   @override
   List<String> get owners {
@@ -208,14 +214,14 @@ class _$_SesionesData implements _SesionesData {
 }
 
 abstract class _SesionesData implements SesionesData {
-  factory _SesionesData(final int id, final List<String> owners,
+  factory _SesionesData(final String id, final List<String> owners,
       final List<int> rapport, final List<int> evaluacion) = _$_SesionesData;
 
   factory _SesionesData.fromJson(Map<String, dynamic> json) =
       _$_SesionesData.fromJson;
 
   @override
-  int get id;
+  String get id;
   @override
   List<String> get owners;
   @override

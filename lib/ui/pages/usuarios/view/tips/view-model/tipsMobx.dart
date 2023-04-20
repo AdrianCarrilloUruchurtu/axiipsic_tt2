@@ -27,6 +27,11 @@ abstract class _TipsMobxBase with Store {
     _tipsRepo.tipAdd(creationDate, tipContent, owners);
   }
 
+  @action
+  deleteTip(String id) {
+    _tipsRepo.deleteTip(id);
+  }
+
   @observable
   List<TipsData>? tipList;
 }

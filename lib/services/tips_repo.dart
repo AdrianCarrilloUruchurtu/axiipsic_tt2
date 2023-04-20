@@ -62,4 +62,14 @@ class TipsRepo {
       "owners": owners
     });
   }
+
+  Future<void> deleteTip(String id) {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('tips')
+        .doc(id)
+        .delete();
+  }
 }

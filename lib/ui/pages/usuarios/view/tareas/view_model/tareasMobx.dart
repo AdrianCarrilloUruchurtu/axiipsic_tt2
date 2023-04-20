@@ -23,6 +23,17 @@ abstract class _TareasStoreBase with Store {
     _tareasRepo.tareasAdd(title, content, owners, creationDate);
   }
 
+  @action
+  editarTarea(
+      String title, String content, List<String> owners, String creationDate, String id) {
+    _tareasRepo.editarTarea(title, content, owners, creationDate, id);
+  }
+
+  @action
+  deleteTarea(String id) {
+    _tareasRepo.deleteTarea(id);
+  }
+
   @observable
   List<TareasData>? tareasList;
 }

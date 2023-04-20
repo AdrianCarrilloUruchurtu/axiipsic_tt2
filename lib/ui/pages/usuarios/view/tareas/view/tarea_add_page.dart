@@ -2,10 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view_model/tareasMobx.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-
-import 'package:axiipsic_tt2/lib/get_it.dart';
 
 class TareaAddPage extends StatefulWidget {
   const TareaAddPage({super.key, required this.doc});
@@ -17,7 +13,7 @@ class TareaAddPage extends StatefulWidget {
 
 class _TareaAddPageState extends State<TareaAddPage> {
   String date = DateTime.now().toString();
-  final _tareaStore = getIt.get<TareasStore>();
+  late final _tareaStore = TareasStore(widget.doc.email);
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
@@ -42,7 +38,7 @@ class _TareaAddPageState extends State<TareaAddPage> {
   AppBar _appbar() {
     return AppBar(
       title: const Text(
-        "Nuevo tip",
+        "Nueva tarea",
         style: TextStyle(color: Colors.black),
       ),
       leading: Builder(
@@ -73,7 +69,7 @@ class _TareaAddPageState extends State<TareaAddPage> {
         TextField(
           controller: _titleController,
           decoration: const InputDecoration(
-              border: InputBorder.none, hintText: 'Título'),
+              border: InputBorder.none, hintText: 'Título de la tarea'),
         ),
         const SizedBox(
           height: 8.0,
@@ -103,7 +99,7 @@ class _TareaAddPageState extends State<TareaAddPage> {
           keyboardType: TextInputType.multiline,
           maxLines: null,
           decoration: const InputDecoration(
-              border: InputBorder.none, hintText: 'Tu nota aquí'),
+              border: InputBorder.none, hintText: 'Describe la tarea'),
         ),
       ]),
     );

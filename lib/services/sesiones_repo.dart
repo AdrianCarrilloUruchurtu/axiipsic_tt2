@@ -40,7 +40,7 @@ class SesionesRepo {
 
   // Create
   Future<DocumentReference<Map<String, dynamic>>> sesionesAdd(
-      final int id,
+      final String id,
     final List<String> owners,
     final List<int> rapport,
     final List<int> evaluacion) {

@@ -1,13 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
-import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../../../style/app_style.dart';
-import '../../../../auth/model/user_data.dart';
 import '../model/tareas_model.dart';
-import '../view_model/tareasMobx.dart';
 
 class TareaLectorPage extends StatefulWidget {
   const TareaLectorPage({super.key, required this.doc});
@@ -18,7 +13,6 @@ class TareaLectorPage extends StatefulWidget {
 }
 
 class _TareaLectorPageState extends State<TareaLectorPage> {
-  final _tareaMobx = getIt.get<TareasStore>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,11 +55,6 @@ class _TareaLectorPageState extends State<TareaLectorPage> {
   // Appbar
   AppBar _appbar() {
     return AppBar(
-        title: Text(
-          "Sesion ",
-          style: AppStyle.mainTitle,
-          textAlign: TextAlign.center,
-        ),
         leading: Builder(
           builder: (BuildContext context) {
             return Container(

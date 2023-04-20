@@ -57,7 +57,7 @@ class _LectorSesPageState extends State<LectorSesPage> {
 
 // Appbar
   AppBar _appbar() {
-    int numSes = widget.docSes!.id;
+    String numSes = widget.docSes!.id;
     return AppBar(
         title: Text(
           "Sesión $numSes",
@@ -92,7 +92,7 @@ class _LectorSesPageState extends State<LectorSesPage> {
   }
 
   Widget _body() {
-    int numSes = widget.docSes!.id;
+    String numSes = widget.docSes!.id;
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(

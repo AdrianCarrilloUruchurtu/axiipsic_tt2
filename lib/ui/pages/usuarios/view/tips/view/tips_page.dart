@@ -25,22 +25,25 @@ class _TipsPageState extends State<TipsPage> {
         floatingActionButton: Container(
           margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
           width: 150,
-          child: FloatingActionButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.add),
-                Text(
-                  "Añadir tip",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                )
-              ],
+          child: Visibility(
+            visible: true, //Cambiar visibilidad según tipo de usuario
+            child: FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.add),
+                  Text(
+                    "Añadir tip",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
+              onPressed: () {
+                context.router.push(AddTipRoute(doc: widget.doc));
+              },
             ),
-            onPressed: () {
-              context.router.push(AddTipRoute(doc: widget.doc));
-            },
           ),
         ),
         appBar: AppBar(
@@ -65,6 +68,7 @@ class _TipsPageState extends State<TipsPage> {
                 return _tipsMobx.tipList?[index] != null
                     ? TipItem(
                         doc: _tipsMobx.tipList![index],
+                        docUser: widget.doc,
                         onTap: () {},
                       )
                     : const Center(

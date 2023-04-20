@@ -25,22 +25,27 @@ class _SesionesPageState extends State<SesionesPage> {
       return Scaffold(
           floatingActionButton: Container(
             margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-            width: 150,
+            padding: const EdgeInsets.all(2),
+            width: 200,
             child: FloatingActionButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16)),
-              onPressed: () {},
+              onPressed: () {
+                
+                context.router.push(SesionesAdd(doc: widget.doc));
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                      margin: const EdgeInsets.all(4),
-                      child: IconButton(
-                          icon: const Icon(Icons.add),
-                          onPressed: () =>
-                              {context.router.push( SesionesAdd(doc: widget.doc))})),
+                    margin: const EdgeInsets.fromLTRB(4, 4, 16, 4),
+                    child: const Icon(
+                      Icons.add_circle,
+                      size: 32,
+                    ),
+                  ),
                   const Text(
-                    "Nueva se",
+                    "Nueva sesión",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   )
                 ],
@@ -68,7 +73,6 @@ class _SesionesPageState extends State<SesionesPage> {
                 Builder(builder: ((BuildContext context) {
                   return _sesionesMobx.sesionesList?[index] != null
                       ? SesionItem(
-                          //Crear el creador de los items de las sesiones
                           doc: widget.doc,
                           docSes: _sesionesMobx.sesionesList?[index],
                           onTap: () => {})

@@ -8,7 +8,10 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/lista/view/list_pa
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/user_funciones/view/funcs_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view/sesion_add.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view/sesiones_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view/tarea_edit_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view/tarea_lector_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view/tareas_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/tips/view/tip_edit.dart';
 import 'package:axiipsic_tt2/ui/routes/ispat_guard.dart';
 import 'package:axiipsic_tt2/ui/routes/ispsic_guard.dart';
 import '../pages/auth/view/register_page.dart';
@@ -51,6 +54,9 @@ import 'guest_guard.dart';
     MaterialRoute(page: TareaAddPage), // MainPage
     MaterialRoute(page: SesionesPage), // MainPage
     MaterialRoute(page: SesionesAdd), // MainPage
+    MaterialRoute(page: TareaLectorPage), // MainPage
+    MaterialRoute(page: TareaEditPage), // MainPage
+    MaterialRoute(page: TipEditPage), // MainPage
     // MainPage
   ],
 )

@@ -41,6 +41,17 @@ mixin _$TipsMobx on _TipsMobxBase, Store {
   }
 
   @override
+  dynamic deleteTip(String id) {
+    final _$actionInfo = _$_TipsMobxBaseActionController.startAction(
+        name: '_TipsMobxBase.deleteTip');
+    try {
+      return super.deleteTip(id);
+    } finally {
+      _$_TipsMobxBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 tipList: ${tipList}

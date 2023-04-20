@@ -41,6 +41,29 @@ mixin _$TareasStore on _TareasStoreBase, Store {
   }
 
   @override
+  dynamic editarTarea(String title, String content, List<String> owners,
+      String creationDate, String id) {
+    final _$actionInfo = _$_TareasStoreBaseActionController.startAction(
+        name: '_TareasStoreBase.editarTarea');
+    try {
+      return super.editarTarea(title, content, owners, creationDate, id);
+    } finally {
+      _$_TareasStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic deleteTarea(String id) {
+    final _$actionInfo = _$_TareasStoreBaseActionController.startAction(
+        name: '_TareasStoreBase.deleteTarea');
+    try {
+      return super.deleteTarea(id);
+    } finally {
+      _$_TareasStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 tareasList: ${tareasList}

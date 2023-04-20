@@ -16,7 +16,6 @@ class SesionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     String nombre = doc.nombre;
     String apellido = doc.apellido;
-    int? numSesion = docSes?.id.toInt();
 
     return InkWell(
       child: Container(
@@ -29,14 +28,12 @@ class SesionItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Sesión $numSesion",
+              "Sesión 1",
               style: AppStyle.mainTitle,
             ),
+            Text("Cita con $nombre"),
             const SizedBox(
               height: 4.0,
-            ),
-            const SizedBox(
-              height: 8.0,
             ),
           ],
         ),

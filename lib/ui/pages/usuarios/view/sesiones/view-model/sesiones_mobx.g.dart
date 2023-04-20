@@ -25,6 +25,21 @@ mixin _$SesionesStore on _SesionesStoreBase, Store {
     });
   }
 
+  late final _$_SesionesStoreBaseActionController =
+      ActionController(name: '_SesionesStoreBase', context: context);
+
+  @override
+  dynamic crearSesion(
+      String id, List<String> owners, List<int> rapport, List<int> evaluacion) {
+    final _$actionInfo = _$_SesionesStoreBaseActionController.startAction(
+        name: '_SesionesStoreBase.crearSesion');
+    try {
+      return super.crearSesion(id, owners, rapport, evaluacion);
+    } finally {
+      _$_SesionesStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view/tarea_item.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view_model/tareasMobx.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
@@ -8,14 +7,16 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../auth/model/user_data.dart';
 
 class TareasPage extends StatefulWidget {
-  const TareasPage({super.key, required this.doc});
+  TareasPage({super.key, required this.doc});
   final UserData doc;
+  bool isPaciente = true;
   @override
   State<TareasPage> createState() => _TareasPageState();
 }
 
 class _TareasPageState extends State<TareasPage> {
   late final TareasStore _tareaStore = TareasStore(widget.doc.email);
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -23,21 +24,24 @@ class _TareasPageState extends State<TareasPage> {
         floatingActionButton: Container(
           margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
           width: 150,
-          child: FloatingActionButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            onPressed: () {
-              context.router.push(TareaAddRoute(doc: widget.doc));
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.add),
-                Text(
-                  "Añadir tarea",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                )
-              ],
+          child: Visibility(
+            visible: widget.isPaciente,
+            child: FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              onPressed: () {
+                context.router.push(TareaAddRoute(doc: widget.doc));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.add),
+                  Text(
+                    "Añadir tarea",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -63,7 +67,11 @@ class _TareasPageState extends State<TareasPage> {
                 return _tareaStore.tareasList?[index] != null
                     ? TareaItem(
                         doc: _tareaStore.tareasList![index],
-                        onTap: () {},
+                        docUser: widget.doc,
+                        onTap: () {
+                          context.router.push(TareaLectorRoute(
+                              doc: _tareaStore.tareasList![index]));
+                        },
                       )
                     : const Center(
                         child: CircularProgressIndicator(),

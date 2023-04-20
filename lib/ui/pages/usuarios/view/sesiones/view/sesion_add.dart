@@ -19,7 +19,7 @@ class SesionesAdd extends StatefulWidget {
 
 class _SesionesAddState extends State<SesionesAdd> {
   int color_id = Random().nextInt(AppStyle.cardsColor.length);
-  int id = 1;
+  String id = "uno";
   String date = DateTime.now().toString();
   final _sesionesMobx = getIt.get<SesionesStore>();
 
@@ -30,7 +30,9 @@ class _SesionesAddState extends State<SesionesAdd> {
     return Scaffold(
       backgroundColor: AppStyle.cardsColor[color_id],
       appBar: _appbar(),
-      body: _body(),
+      body: Container(
+        child: const Text("Sesión creada con éxito"),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           _sesionesMobx.crearSesion(id, [widget.doc.email, widget.doc.psicMail],

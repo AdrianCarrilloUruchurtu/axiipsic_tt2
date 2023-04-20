@@ -17,8 +17,9 @@ abstract class _SesionesStoreBase with Store {
     });
   }
 
+  @action
   crearSesion(
-      int id, List<String> owners, List<int> rapport, List<int> evaluacion) {
+      String id, List<String> owners, List<int> rapport, List<int> evaluacion) {
     _sesionesRepo.sesionesAdd(id, owners, rapport, evaluacion);
   }
 
