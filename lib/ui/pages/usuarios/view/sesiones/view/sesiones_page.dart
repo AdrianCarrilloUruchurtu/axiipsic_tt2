@@ -23,63 +23,84 @@ class _SesionesPageState extends State<SesionesPage> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       return Scaffold(
-          floatingActionButton: Container(
-            margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
-            padding: const EdgeInsets.all(2),
-            width: 200,
-            child: FloatingActionButton(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)),
-              onPressed: () {
-                
-                context.router.push(SesionesAdd(doc: widget.doc));
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.fromLTRB(4, 4, 16, 4),
-                    child: const Icon(
-                      Icons.add_circle,
-                      size: 32,
-                    ),
+        floatingActionButton: Container(
+          margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
+          padding: const EdgeInsets.all(2),
+          width: 200,
+          child: FloatingActionButton(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            onPressed: () {
+              context.router.push(SesionesAdd(doc: widget.doc));
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: const EdgeInsets.fromLTRB(4, 4, 16, 4),
+                  child: const Icon(
+                    Icons.add_circle,
+                    size: 32,
                   ),
-                  const Text(
-                    "Nueva sesión",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-          ),
-          appBar: AppBar(
-            leading: Container(
-              margin: const EdgeInsets.all(8.0),
-              child: IconButton(
-                onPressed: () {
-                  context.router.pop();
-                },
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.black,
                 ),
+                const Text(
+                  "Nueva sesión",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+          ),
+        ),
+        appBar: AppBar(
+          leading: Container(
+            margin: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () {
+                context.router.pop();
+              },
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.black,
               ),
             ),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
           ),
-          body: ListView.builder(
-            itemBuilder: ((context, index) =>
-                Builder(builder: ((BuildContext context) {
-                  return _sesionesMobx.sesionesList?[index] != null
-                      ? SesionItem(
-                          doc: widget.doc,
-                          docSes: _sesionesMobx.sesionesList?[index],
-                          onTap: () => {})
-                      : const Center(child: CircularProgressIndicator());
-                }))),
-            itemCount: _sesionesMobx.sesionesList?.length.toInt(),
-          ));
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  height: 200,
+                  child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 3),
+                      itemBuilder: ((context, index) =>
+                          Builder(builder: (BuildContext context) {
+                            return _sesionesMobx.sesionesList?[index] != null
+                                ? SesionItem(
+                                    docSes: _sesionesMobx.sesionesList![index],
+                                    doc: widget.doc,
+                                    onTap: () {
+                                      context.router.push(LectorSesRoute(
+                                          docSes: _sesionesMobx
+                                              .sesionesList![index]));
+                                    })
+                                : const Center(
+                                    child: CircularProgressIndicator());
+                          })),
+                      itemCount: _sesionesMobx.sesionesList?.length.toInt()),
+                ),
+              )
+            ],
+          ),
+        ),
+      );
     });
   }
 

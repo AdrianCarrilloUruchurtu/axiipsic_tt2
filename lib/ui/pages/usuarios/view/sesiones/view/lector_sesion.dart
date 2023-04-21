@@ -1,15 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view-model/sesiones_mobx.dart';
+import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../style/app_style.dart';
 import '../model/sesiones_model.dart';
 
 class LectorSesPage extends StatefulWidget {
-  const LectorSesPage({super.key, this.docSes});
+  const LectorSesPage({super.key, required this.docSes});
 
-  final SesionesData? docSes;
+  final SesionesData docSes;
   @override
   State<LectorSesPage> createState() => _LectorSesPageState();
 }
@@ -24,9 +25,9 @@ class _LectorSesPageState extends State<LectorSesPage> {
             final delete = await showDialog<bool>(
               context: context,
               builder: (_) => AlertDialog(
-                title: const Text("Eliminar Nota"),
+                title: const Text("Eliminar Sesión"),
                 content:
-                    const Text("¿Estás seguro que deseas eliminar la nota?"),
+                    const Text("¿Estás seguro que deseas eliminar la sesión?"),
                 actions: [
                   TextButton(
                     onPressed: () => context.router.pop(),
@@ -47,7 +48,10 @@ class _LectorSesPageState extends State<LectorSesPage> {
             );
 
             // Cambiar también
-            if (delete ?? false) {}
+            if (delete ?? false) {
+              _sesionMobx.deleteSesion(widget.docSes.id);
+              context.router.pop();
+            }
           },
           child: const Icon(Icons.delete)),
       appBar: _appbar(),
@@ -57,73 +61,48 @@ class _LectorSesPageState extends State<LectorSesPage> {
 
 // Appbar
   AppBar _appbar() {
-    String numSes = widget.docSes!.id;
     return AppBar(
-        title: Text(
-          "Sesión $numSes",
-          style: AppStyle.mainTitle,
-          textAlign: TextAlign.center,
-        ),
-        leading: Builder(
-          builder: (BuildContext context) {
-            return Container(
-                margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                child: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
-                  ),
-                  onPressed: () {
-                    context.router.pop();
-                  },
-                ));
-          },
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(0.0),
-          child: Container(
-            margin: const EdgeInsets.fromLTRB(20, 0, 130, 0),
-            color: Colors.black,
-            height: 1.0,
-          ),
-        ));
+      title: Text(
+        widget.docSes.titulo,
+        style: AppStyle.mainTitle,
+        textAlign: TextAlign.justify,
+      ),
+      leading: Builder(
+        builder: (BuildContext context) {
+          return Container(
+              margin: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  context.router.pop();
+                },
+              ));
+        },
+      ),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+    );
   }
 
   Widget _body() {
-    String numSes = widget.docSes!.id;
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Container(
-          //   width: 290,
-          //   height: 40,
-          //   margin: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-          //   decoration: BoxDecoration(
-          //       color: Colors.brown.shade300,
-          //       borderRadius: BorderRadius.circular(20)),
-          //   child: Center(
-          //     child: Text(
-          //       "Sesión $numSes",
-          //       style: const TextStyle(
-          //           color: Colors.white,
-          //           fontSize: 22.0,
-          //           fontWeight: FontWeight.bold),
-          //     ),
-          //   ),
-          // ),
           SingleChildScrollView(
             child: Column(
               children: [
-                btn("Placeholder", Icons.calendar_month, (() {}), 1),
-                btn("Placeholder", Icons.check_box, (() {}), 2),
-                btn("Placeholder", Icons.tips_and_updates, (() {}), 3),
-                btn("Placeholder", Icons.meeting_room, (() {}), 7),
-                btn("Placeholder", Icons.book, (() {}), 5),
-                btn("Placeholder", Icons.history, (() {}), 6),
+                btn("Hora", widget.docSes.date, Icons.timelapse, (() {}), 1),
+                btn("Día", "", Icons.date_range, (() {}), 2),
+                btn("Notificar", "", Icons.notification_add, (() {}), 3),
+                btn("Notas", "", Icons.notes, (() {
+                  context.router.push(const NotesRoute());
+                }), 7),
+                btn("Progreso", "", Icons.insights, (() {}), 5),
               ],
             ),
           )
@@ -132,7 +111,8 @@ class _LectorSesPageState extends State<LectorSesPage> {
     );
   }
 
-  Widget btn(String texto, IconData? icono, Function()? onTap, int colorid) {
+  Widget btn(String texto, String subtitle, IconData? icono, Function()? onTap,
+      int colorid) {
     return Container(
       margin: const EdgeInsets.fromLTRB(16.0, 6.0, 16.0, 6.0),
       padding: const EdgeInsets.all(8.0),
@@ -156,6 +136,14 @@ class _LectorSesPageState extends State<LectorSesPage> {
           texto,
           style: const TextStyle(
               color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(
+            color: Colors.white70,
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+          ),
         ),
         trailing: Icon(
           Icons.arrow_right_sharp,

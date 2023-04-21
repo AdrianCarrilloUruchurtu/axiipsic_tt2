@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view-model/sesiones_mobx.dart';
 import 'package:flutter/material.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
-import '../../../../../../style/app_style.dart';
+import 'package:intl/intl.dart';
 import '../../../../auth/model/user_data.dart';
 
 class SesionesAdd extends StatefulWidget {
@@ -18,25 +16,108 @@ class SesionesAdd extends StatefulWidget {
 }
 
 class _SesionesAddState extends State<SesionesAdd> {
-  int color_id = Random().nextInt(AppStyle.cardsColor.length);
   String id = "uno";
-  String date = DateTime.now().toString();
   final _sesionesMobx = getIt.get<SesionesStore>();
 
+  final TextEditingController _dateInput = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _contentController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppStyle.cardsColor[color_id],
       appBar: _appbar(),
       body: Container(
-        child: const Text("Sesión creada con éxito"),
+        margin: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Card(
+              child: SizedBox(
+                  width: 300,
+                  height: 300,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          controller: _titleController,
+                          maxLines: 1,
+                          decoration: const InputDecoration(
+                              labelText: 'Título de la sesión',
+                              icon: Icon(Icons.title)),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          controller: _descriptionController,
+                          maxLines: 1,
+                          decoration: const InputDecoration(
+                              labelText: 'Descripción',
+                              icon: Icon(Icons.description)),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          controller: _timeController,
+                          maxLines: 1,
+                          decoration: const InputDecoration(
+                              icon: Icon(Icons.punch_clock),
+                              hintText: "Horario de la sesión"),
+                          readOnly: true,
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          controller: _dateInput,
+                          maxLines: 1,
+                          decoration: const InputDecoration(
+                              icon: Icon(Icons.calendar_today),
+                              hintText: "Día de la sesión"),
+                          readOnly: true,
+                          onTap: () async {
+                            DateTime? pickedDate = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(
+                                    2000), //DateTime.now() - not to allow to choose before today.
+                                lastDate: DateTime(2101));
+
+                            if (pickedDate != null) {
+                              String formattedDate =
+                                  DateFormat('dd-MM-yyy').format(pickedDate);
+                              setState(() {
+                                _dateInput.text = formattedDate;
+                              });
+                            } else {
+                              const SnackBar(
+                                content: Text("La fecha no fue seleccionada"),
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
-          _sesionesMobx.crearSesion(id, [widget.doc.email, widget.doc.psicMail],
-              [0, 1, 2, 3, 4, 5, 6], [0, 1, 2, 3, 4, 5, 6]);
+          _sesionesMobx.crearSesion(
+              [widget.doc.email, widget.doc.psicMail],
+              _titleController.text,
+              _descriptionController.text,
+              _dateInput.text);
           context.router.pop();
         }),
         child: const Icon(Icons.save),
@@ -47,10 +128,6 @@ class _SesionesAddState extends State<SesionesAdd> {
 // Appbar
   AppBar _appbar() {
     return AppBar(
-      title: const Text(
-        "Nueva nota",
-        style: TextStyle(color: Colors.black),
-      ),
       leading: Builder(
         builder: (BuildContext context) {
           return Container(
@@ -68,53 +145,6 @@ class _SesionesAddState extends State<SesionesAdd> {
       ),
       backgroundColor: Colors.transparent,
       elevation: 0,
-    );
-  }
-
-// Body
-  Widget _body() {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        TextField(
-          controller: _titleController,
-          decoration: const InputDecoration(
-              border: InputBorder.none, hintText: 'Título'),
-          style: AppStyle.mainTitle,
-        ),
-        const SizedBox(
-          height: 8.0,
-        ),
-        const Divider(
-          height: 20,
-          thickness: 5,
-          indent: 20,
-          endIndent: 50,
-          color: Colors.black,
-        ),
-        Text(
-          date,
-          style: AppStyle.dateTitle,
-        ),
-        const Divider(
-          height: 20,
-          thickness: 5,
-          indent: 20,
-          endIndent: 50,
-          color: Colors.black,
-        ),
-        const SizedBox(
-          height: 28.0,
-        ),
-        TextField(
-          controller: _contentController,
-          keyboardType: TextInputType.multiline,
-          maxLines: null,
-          decoration: const InputDecoration(
-              border: InputBorder.none, hintText: 'Tu nota aquí'),
-          style: AppStyle.mainContent,
-        ),
-      ]),
     );
   }
 }

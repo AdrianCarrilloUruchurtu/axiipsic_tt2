@@ -19,8 +19,13 @@ abstract class _SesionesStoreBase with Store {
 
   @action
   crearSesion(
-      String id, List<String> owners, List<int> rapport, List<int> evaluacion) {
-    _sesionesRepo.sesionesAdd(id, owners, rapport, evaluacion);
+      List<String> owners, String titulo, String descripcion, String date) {
+    _sesionesRepo.sesionesAdd(owners, titulo, descripcion, date);
+  }
+
+  @action
+  deleteSesion(String id) {
+    _sesionesRepo.deleteSesiones(id);
   }
 
   @observable

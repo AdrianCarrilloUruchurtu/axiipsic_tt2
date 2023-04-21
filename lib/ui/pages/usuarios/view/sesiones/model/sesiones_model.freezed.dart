@@ -22,8 +22,9 @@ SesionesData _$SesionesDataFromJson(Map<String, dynamic> json) {
 mixin _$SesionesData {
   String get id => throw _privateConstructorUsedError;
   List<String> get owners => throw _privateConstructorUsedError;
-  List<int> get rapport => throw _privateConstructorUsedError;
-  List<int> get evaluacion => throw _privateConstructorUsedError;
+  String get titulo => throw _privateConstructorUsedError;
+  String get descripcion => throw _privateConstructorUsedError;
+  String get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -40,8 +41,9 @@ abstract class $SesionesDataCopyWith<$Res> {
   $Res call(
       {String id,
       List<String> owners,
-      List<int> rapport,
-      List<int> evaluacion});
+      String titulo,
+      String descripcion,
+      String date});
 }
 
 /// @nodoc
@@ -59,8 +61,9 @@ class _$SesionesDataCopyWithImpl<$Res, $Val extends SesionesData>
   $Res call({
     Object? id = null,
     Object? owners = null,
-    Object? rapport = null,
-    Object? evaluacion = null,
+    Object? titulo = null,
+    Object? descripcion = null,
+    Object? date = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -71,14 +74,18 @@ class _$SesionesDataCopyWithImpl<$Res, $Val extends SesionesData>
           ? _value.owners
           : owners // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      rapport: null == rapport
-          ? _value.rapport
-          : rapport // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      evaluacion: null == evaluacion
-          ? _value.evaluacion
-          : evaluacion // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+      titulo: null == titulo
+          ? _value.titulo
+          : titulo // ignore: cast_nullable_to_non_nullable
+              as String,
+      descripcion: null == descripcion
+          ? _value.descripcion
+          : descripcion // ignore: cast_nullable_to_non_nullable
+              as String,
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -94,8 +101,9 @@ abstract class _$$_SesionesDataCopyWith<$Res>
   $Res call(
       {String id,
       List<String> owners,
-      List<int> rapport,
-      List<int> evaluacion});
+      String titulo,
+      String descripcion,
+      String date});
 }
 
 /// @nodoc
@@ -111,8 +119,9 @@ class __$$_SesionesDataCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? owners = null,
-    Object? rapport = null,
-    Object? evaluacion = null,
+    Object? titulo = null,
+    Object? descripcion = null,
+    Object? date = null,
   }) {
     return _then(_$_SesionesData(
       null == id
@@ -123,14 +132,18 @@ class __$$_SesionesDataCopyWithImpl<$Res>
           ? _value._owners
           : owners // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      null == rapport
-          ? _value._rapport
-          : rapport // ignore: cast_nullable_to_non_nullable
-              as List<int>,
-      null == evaluacion
-          ? _value._evaluacion
-          : evaluacion // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+      null == titulo
+          ? _value.titulo
+          : titulo // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == descripcion
+          ? _value.descripcion
+          : descripcion // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -138,11 +151,9 @@ class __$$_SesionesDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_SesionesData implements _SesionesData {
-  _$_SesionesData(this.id, final List<String> owners, final List<int> rapport,
-      final List<int> evaluacion)
-      : _owners = owners,
-        _rapport = rapport,
-        _evaluacion = evaluacion;
+  _$_SesionesData(this.id, final List<String> owners, this.titulo,
+      this.descripcion, this.date)
+      : _owners = owners;
 
   factory _$_SesionesData.fromJson(Map<String, dynamic> json) =>
       _$$_SesionesDataFromJson(json);
@@ -157,25 +168,16 @@ class _$_SesionesData implements _SesionesData {
     return EqualUnmodifiableListView(_owners);
   }
 
-  final List<int> _rapport;
   @override
-  List<int> get rapport {
-    if (_rapport is EqualUnmodifiableListView) return _rapport;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_rapport);
-  }
-
-  final List<int> _evaluacion;
+  final String titulo;
   @override
-  List<int> get evaluacion {
-    if (_evaluacion is EqualUnmodifiableListView) return _evaluacion;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_evaluacion);
-  }
+  final String descripcion;
+  @override
+  final String date;
 
   @override
   String toString() {
-    return 'SesionesData(id: $id, owners: $owners, rapport: $rapport, evaluacion: $evaluacion)';
+    return 'SesionesData(id: $id, owners: $owners, titulo: $titulo, descripcion: $descripcion, date: $date)';
   }
 
   @override
@@ -185,19 +187,16 @@ class _$_SesionesData implements _SesionesData {
             other is _$_SesionesData &&
             (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._owners, _owners) &&
-            const DeepCollectionEquality().equals(other._rapport, _rapport) &&
-            const DeepCollectionEquality()
-                .equals(other._evaluacion, _evaluacion));
+            (identical(other.titulo, titulo) || other.titulo == titulo) &&
+            (identical(other.descripcion, descripcion) ||
+                other.descripcion == descripcion) &&
+            (identical(other.date, date) || other.date == date));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      const DeepCollectionEquality().hash(_owners),
-      const DeepCollectionEquality().hash(_rapport),
-      const DeepCollectionEquality().hash(_evaluacion));
+  int get hashCode => Object.hash(runtimeType, id,
+      const DeepCollectionEquality().hash(_owners), titulo, descripcion, date);
 
   @JsonKey(ignore: true)
   @override
@@ -214,8 +213,12 @@ class _$_SesionesData implements _SesionesData {
 }
 
 abstract class _SesionesData implements SesionesData {
-  factory _SesionesData(final String id, final List<String> owners,
-      final List<int> rapport, final List<int> evaluacion) = _$_SesionesData;
+  factory _SesionesData(
+      final String id,
+      final List<String> owners,
+      final String titulo,
+      final String descripcion,
+      final String date) = _$_SesionesData;
 
   factory _SesionesData.fromJson(Map<String, dynamic> json) =
       _$_SesionesData.fromJson;
@@ -225,9 +228,11 @@ abstract class _SesionesData implements SesionesData {
   @override
   List<String> get owners;
   @override
-  List<int> get rapport;
+  String get titulo;
   @override
-  List<int> get evaluacion;
+  String get descripcion;
+  @override
+  String get date;
   @override
   @JsonKey(ignore: true)
   _$$_SesionesDataCopyWith<_$_SesionesData> get copyWith =>

@@ -40,10 +40,10 @@ class SesionesRepo {
 
   // Create
   Future<DocumentReference<Map<String, dynamic>>> sesionesAdd(
-      final String id,
-    final List<String> owners,
-    final List<int> rapport,
-    final List<int> evaluacion) {
+      final List<String> owners,
+      final String titulo,
+      final String descripcion,
+      final String date) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -52,10 +52,10 @@ class SesionesRepo {
         .collection('sesiones')
         .add({
       'userId': currentUser.uid,
-      'id': id,
       "owners": owners,
-      "rapport": rapport,
-      "evaluacion": evaluacion,
+      "titulo": titulo,
+      "descripcion": descripcion,
+      "date": date
     });
   }
 

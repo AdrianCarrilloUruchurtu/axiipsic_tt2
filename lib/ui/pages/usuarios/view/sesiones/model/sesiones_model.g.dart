@@ -10,14 +10,16 @@ _$_SesionesData _$$_SesionesDataFromJson(Map<String, dynamic> json) =>
     _$_SesionesData(
       json['id'] as String,
       (json['owners'] as List<dynamic>).map((e) => e as String).toList(),
-      (json['rapport'] as List<dynamic>).map((e) => e as int).toList(),
-      (json['evaluacion'] as List<dynamic>).map((e) => e as int).toList(),
+      json['titulo'] as String,
+      json['descripcion'] as String,
+      json['date'] as String,
     );
 
 Map<String, dynamic> _$$_SesionesDataToJson(_$_SesionesData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'owners': instance.owners,
-      'rapport': instance.rapport,
-      'evaluacion': instance.evaluacion,
+      'titulo': instance.titulo,
+      'descripcion': instance.descripcion,
+      'date': instance.date,
     };

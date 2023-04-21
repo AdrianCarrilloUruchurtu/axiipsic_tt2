@@ -1,8 +1,7 @@
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_model.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../../style/app_style.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SesionItem extends StatelessWidget {
   const SesionItem(
@@ -10,7 +9,7 @@ class SesionItem extends StatelessWidget {
 
   final Function()? onTap;
   final UserData doc;
-  final SesionesData? docSes;
+  final SesionesData docSes;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +17,7 @@ class SesionItem extends StatelessWidget {
     String apellido = doc.apellido;
 
     return InkWell(
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.all(12.0),
         padding: const EdgeInsets.all(8.0),
@@ -28,10 +28,16 @@ class SesionItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Sesión 1",
-              style: AppStyle.mainTitle,
+              docSes.titulo,
+              style: GoogleFonts.roboto(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
             ),
-            Text("Cita con $nombre"),
+            Text(
+              docSes.descripcion,
+              style: const TextStyle(fontSize: 14),
+            ),
             const SizedBox(
               height: 4.0,
             ),

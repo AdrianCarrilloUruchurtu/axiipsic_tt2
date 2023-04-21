@@ -30,11 +30,22 @@ mixin _$SesionesStore on _SesionesStoreBase, Store {
 
   @override
   dynamic crearSesion(
-      String id, List<String> owners, List<int> rapport, List<int> evaluacion) {
+      List<String> owners, String titulo, String descripcion, String date) {
     final _$actionInfo = _$_SesionesStoreBaseActionController.startAction(
         name: '_SesionesStoreBase.crearSesion');
     try {
-      return super.crearSesion(id, owners, rapport, evaluacion);
+      return super.crearSesion(owners, titulo, descripcion, date);
+    } finally {
+      _$_SesionesStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic deleteSesion(String id) {
+    final _$actionInfo = _$_SesionesStoreBaseActionController.startAction(
+        name: '_SesionesStoreBase.deleteSesion');
+    try {
+      return super.deleteSesion(id);
     } finally {
       _$_SesionesStoreBaseActionController.endAction(_$actionInfo);
     }

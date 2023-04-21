@@ -7,11 +7,11 @@ part 'sesiones_model.g.dart';
 @freezed
 class SesionesData with _$SesionesData {
   factory SesionesData(
-    final String id,
-    final List<String> owners,
-    final List<int> rapport,
-    final List<int> evaluacion,
-  ) = _SesionesData;
+      final String id,
+      final List<String> owners,
+      final String titulo,
+      final String descripcion,
+      final String date) = _SesionesData;
 
   factory SesionesData.fromJson(Map<String, dynamic> json) =>
       _$SesionesDataFromJson(json);
