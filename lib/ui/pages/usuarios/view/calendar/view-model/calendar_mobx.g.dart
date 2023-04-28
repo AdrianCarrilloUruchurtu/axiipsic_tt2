@@ -46,7 +46,7 @@ mixin _$CalendarStore on _CalendarStoreBase, Store {
 
   @override
   dynamic crearEvento(
-      Timestamp date, String title, String description, String time) {
+      DateTime date, String title, String description, String time) {
     final _$actionInfo = _$_CalendarStoreBaseActionController.startAction(
         name: '_CalendarStoreBase.crearEvento');
     try {

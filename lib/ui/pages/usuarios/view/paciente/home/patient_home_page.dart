@@ -135,8 +135,18 @@ class _PatHomePageState extends State<PatHomePage> {
           )),
           ListTile(
             title: const Text(
+              "Tips",
+              style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+            ),
+            onTap: () {
+              context.router.push(TipsRoute(doc: _authMobx.user));
+            },
+            selected: true,
+          ),
+          ListTile(
+            title: const Text(
               "Salir",
-              style: TextStyle(fontSize: 24, color: Colors.redAccent),
+              style: TextStyle(fontSize: 20, color: Colors.redAccent),
             ),
             onTap: () {
               _signOut();
@@ -251,7 +261,8 @@ class _PatHomePageState extends State<PatHomePage> {
                         size: 56,
                         color: Colors.black,
                       ),
-                      () => '/tareas'),
+                      () => context.router
+                          .push(TareasRoute(doc: _authMobx.user))),
                   _myButton(
                       'Próxima cita',
                       const Icon(
@@ -312,7 +323,9 @@ class _PatHomePageState extends State<PatHomePage> {
             ],
           ),
           onPressed: () {
-            context.pushRoute(const ProgressRoute());
+            context.pushRoute(SesionesRoute(
+                doc: _authMobx
+                    .user)); //¿Cómo sé en qué lugar está? Hacer builder ?
           },
         ));
   }

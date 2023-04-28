@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class TareaAddPage extends StatefulWidget {
   const TareaAddPage({super.key, required this.doc});
-  final UserData doc;
+  final UserData? doc;
 
   @override
   State<TareaAddPage> createState() => _TareaAddPageState();
@@ -13,7 +13,7 @@ class TareaAddPage extends StatefulWidget {
 
 class _TareaAddPageState extends State<TareaAddPage> {
   String date = DateTime.now().toString();
-  late final _tareaStore = TareasStore(widget.doc.email);
+  late final _tareaStore = TareasStore(widget.doc!.email);
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
@@ -26,7 +26,7 @@ class _TareaAddPageState extends State<TareaAddPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           _tareaStore.crearTarea(_titleController.text, _contentController.text,
-              [widget.doc.psicMail, widget.doc.email], date);
+              [widget.doc!.psicMail, widget.doc!.email], date, widget.doc!.id);
           context.router.pop();
         }),
         child: const Icon(Icons.save),

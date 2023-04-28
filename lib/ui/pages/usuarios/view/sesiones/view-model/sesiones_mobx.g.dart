@@ -29,12 +29,13 @@ mixin _$SesionesStore on _SesionesStoreBase, Store {
       ActionController(name: '_SesionesStoreBase', context: context);
 
   @override
-  dynamic crearSesion(
-      List<String> owners, String titulo, String descripcion, String date) {
+  dynamic crearSesion(List<String> owners, String titulo, String descripcion,
+      String date, String pacienteId, String time) {
     final _$actionInfo = _$_SesionesStoreBaseActionController.startAction(
         name: '_SesionesStoreBase.crearSesion');
     try {
-      return super.crearSesion(owners, titulo, descripcion, date);
+      return super
+          .crearSesion(owners, titulo, descripcion, date, pacienteId, time);
     } finally {
       _$_SesionesStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -8,7 +8,7 @@ import '../view_model/tareasMobx.dart';
 class TareaEditPage extends StatefulWidget {
   const TareaEditPage({super.key, required this.doc, required this.docUser});
   final TareasData doc;
-  final UserData docUser;
+  final UserData? docUser;
 
   @override
   State<TareaEditPage> createState() => _TareaEditPageState();
@@ -16,7 +16,7 @@ class TareaEditPage extends StatefulWidget {
 
 class _TareaEditPageState extends State<TareaEditPage> {
   final date = DateTime.now().toString();
-  late final _tareaStore = TareasStore(widget.docUser.email);
+  late final _tareaStore = TareasStore(widget.docUser!.email);
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
@@ -31,14 +31,14 @@ class _TareaEditPageState extends State<TareaEditPage> {
             _tareaStore.editarTarea(
                 widget.doc.tareaTitle,
                 _contentController.text,
-                [widget.docUser.psicMail, widget.docUser.email],
+                [widget.docUser!.psicMail, widget.docUser!.email],
                 date,
                 widget.doc.id);
           } else if (_contentController.text == "") {
             _tareaStore.editarTarea(
                 _titleController.text,
                 widget.doc.tareaContent,
-                [widget.docUser.psicMail, widget.docUser.email],
+                [widget.docUser!.psicMail, widget.docUser!.email],
                 date,
                 widget.doc.id);
           } else if (_titleController.text == "" &&
@@ -46,14 +46,14 @@ class _TareaEditPageState extends State<TareaEditPage> {
             _tareaStore.editarTarea(
                 widget.doc.tareaTitle,
                 widget.doc.tareaContent,
-                [widget.docUser.psicMail, widget.docUser.email],
+                [widget.docUser!.psicMail, widget.docUser!.email],
                 date,
                 widget.doc.id);
           } else {
             _tareaStore.editarTarea(
                 _titleController.text,
                 _contentController.text,
-                [widget.docUser.psicMail, widget.docUser.email],
+                [widget.docUser!.psicMail, widget.docUser!.email],
                 date,
                 widget.doc.id);
           }

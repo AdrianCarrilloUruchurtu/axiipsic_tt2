@@ -48,6 +48,7 @@ class TareasRepo {
     String content,
     List<String> owners,
     String creationDate,
+    String pacienteId
   ) {
     final currentUser = _auth.currentUser;
 
@@ -61,16 +62,23 @@ class TareasRepo {
       "tareaContent": content,
       "owners": owners,
       "tareaTitle": title
+    }).then((value) async {
+      return _firestore
+          .collection('users')
+          .doc(pacienteId)
+          .collection('tareas')
+          .add({
+        'userId': currentUser.uid,
+        "creationDate": creationDate,
+        "tareaContent": content,
+        "owners": owners,
+        "tareaTitle": title
+      });
     });
   }
 
-  Future<void> editarTarea(
-    String title,
-    String content,
-    List<String> owners,
-    String creationDate,
-    String id
-  ) {
+  Future<void> editarTarea(String title, String content, List<String> owners,
+      String creationDate, String id) {
     final currentUser = _auth.currentUser;
     final tareaRef = _firestore
         .collection("users")

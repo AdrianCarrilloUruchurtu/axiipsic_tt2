@@ -19,8 +19,8 @@ abstract class _TareasStoreBase with Store {
 
   @action
   crearTarea(
-      String title, String content, List<String> owners, String creationDate) {
-    _tareasRepo.tareasAdd(title, content, owners, creationDate);
+      String title, String content, List<String> owners, String creationDate, String pacienteId) {
+    _tareasRepo.tareasAdd(title, content, owners, creationDate, pacienteId);
   }
 
   @action

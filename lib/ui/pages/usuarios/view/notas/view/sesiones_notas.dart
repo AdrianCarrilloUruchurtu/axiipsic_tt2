@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,18 +10,17 @@ import '../../../../../routes/router.gr.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
 import 'nota_card.dart';
 
-class NotesPage extends StatefulWidget {
-  const NotesPage({super.key});
-
+class NotasSesionesPage extends StatefulWidget {
+  const NotasSesionesPage({super.key, required this.doc});
+  final SesionesData doc;
   @override
-  State<NotesPage> createState() => _NotesPageState();
+  State<NotasSesionesPage> createState() => NotasSesionesPageState();
 }
 
-class _NotesPageState extends State<NotesPage> {
-  late final _notaMobx = NotaStore("");
+class NotasSesionesPageState extends State<NotasSesionesPage> {
+  late final _notaMobx = NotaStore(widget.doc.id);
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
   Color flBtnColor = Colors.lightBlue.shade200;
-
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -58,7 +58,7 @@ class _NotesPageState extends State<NotesPage> {
                     foregroundColor: Colors.white,
                     heroTag: null,
                     onPressed: () =>
-                        context.pushRoute(NotaEditRoute(isses: "")),
+                        context.pushRoute(NotaEditRoute(isses: widget.doc.id)),
                     child: const Icon(
                       Icons.add,
                       size: 32,
@@ -99,20 +99,20 @@ class _NotesPageState extends State<NotesPage> {
                   child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
+                              crossAxisCount: 1),
                       itemBuilder: ((context, index) =>
                           Builder(builder: (BuildContext context) {
-                            return _notaMobx.notaList?[index] != null
-                                ? NotaCard(_notaMobx.notaList![index],
+                            return _notaMobx.notaSes?[index] != null
+                                ? NotaCard(_notaMobx.notaSes![index],
                                     onTap: () => context.router.push(
                                           LectorRoute(
-                                              doc: _notaMobx.notaList![
+                                              doc: _notaMobx.notaSes![
                                                   index]), // pedir ayuda
                                         ))
                                 : const Center(
                                     child: CircularProgressIndicator());
                           })),
-                      itemCount: _notaMobx.notaList?.length.toInt()),
+                      itemCount: _notaMobx.notaSes?.length.toInt()),
                 ),
               )
             ],
@@ -123,16 +123,15 @@ class _NotesPageState extends State<NotesPage> {
     );
   }
 
-// Appbar
+  // Appbar
   AppBar _appbar() {
     String nombre = _authMobx.user!.nombre;
     return AppBar(
       title: Container(
         margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-        child: Text(
-          "Notas de $nombre",
-          style:
-              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        child: const Text(
+          "Nota de la sesión",
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       centerTitle: true,

@@ -8,13 +8,13 @@ class SesionItem extends StatelessWidget {
       {super.key, required this.doc, this.onTap, required this.docSes});
 
   final Function()? onTap;
-  final UserData doc;
+  final UserData? doc;
   final SesionesData docSes;
 
   @override
   Widget build(BuildContext context) {
-    String nombre = doc.nombre;
-    String apellido = doc.apellido;
+    String nombre = doc!.nombre;
+    String apellido = doc!.apellido;
 
     return InkWell(
       onTap: onTap,
@@ -29,6 +29,7 @@ class SesionItem extends StatelessWidget {
           children: [
             Text(
               docSes.titulo,
+              overflow: TextOverflow.ellipsis,
               style: GoogleFonts.roboto(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
@@ -36,6 +37,7 @@ class SesionItem extends StatelessWidget {
             ),
             Text(
               docSes.descripcion,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(

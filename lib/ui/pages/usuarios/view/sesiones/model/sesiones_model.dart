@@ -11,7 +11,8 @@ class SesionesData with _$SesionesData {
       final List<String> owners,
       final String titulo,
       final String descripcion,
-      final String date) = _SesionesData;
+      final String date,
+      final String time) = _SesionesData;
 
   factory SesionesData.fromJson(Map<String, dynamic> json) =>
       _$SesionesDataFromJson(json);

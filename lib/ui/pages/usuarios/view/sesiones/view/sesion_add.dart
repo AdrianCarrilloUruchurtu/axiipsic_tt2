@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:intl/intl.dart';
 import '../../../../auth/model/user_data.dart';
+import '../../calendar/view-model/calendar_mobx.dart';
 
 class SesionesAdd extends StatefulWidget {
   const SesionesAdd({super.key, required this.doc});
 
-  final UserData doc;
+  final UserData? doc;
 
   @override
   State<SesionesAdd> createState() => _SesionesAddState();
@@ -17,7 +18,10 @@ class SesionesAdd extends StatefulWidget {
 
 class _SesionesAddState extends State<SesionesAdd> {
   String id = "uno";
-  final _sesionesMobx = getIt.get<SesionesStore>();
+  late String _selectedTime;
+  late DateTime _eventDate;
+  late final _sesionesMobx = SesionesStore(widget.doc!.email);
+  final _calendarMobx = getIt.get<CalendarStore>();
 
   final TextEditingController _dateInput = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
@@ -64,6 +68,7 @@ class _SesionesAddState extends State<SesionesAdd> {
                       Container(
                         margin: const EdgeInsets.fromLTRB(12, 4, 12, 4),
                         child: TextField(
+                          onTap: _timeDialog,
                           textAlign: TextAlign.center,
                           controller: _timeController,
                           maxLines: 1,
@@ -95,6 +100,7 @@ class _SesionesAddState extends State<SesionesAdd> {
                               String formattedDate =
                                   DateFormat('dd-MM-yyy').format(pickedDate);
                               setState(() {
+                                _eventDate = pickedDate;
                                 _dateInput.text = formattedDate;
                               });
                             } else {
@@ -114,15 +120,32 @@ class _SesionesAddState extends State<SesionesAdd> {
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           _sesionesMobx.crearSesion(
-              [widget.doc.email, widget.doc.psicMail],
+              [widget.doc!.email, widget.doc!.psicMail],
               _titleController.text,
               _descriptionController.text,
-              _dateInput.text);
+              _dateInput.text,
+              widget.doc!.id,
+              _selectedTime);
+          _calendarMobx.crearEvento(_eventDate, _titleController.text,
+              _descriptionController.text, _selectedTime);
           context.router.pop();
         }),
         child: const Icon(Icons.save),
       ),
     );
+  }
+
+  Future<void> _timeDialog() async {
+    final TimeOfDay? result = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+        cancelText: "Cancelar",
+        helpText: "Hora");
+    if (result != null) {
+      setState(() {
+        _selectedTime = result.format(context);
+      });
+    }
   }
 
 // Appbar

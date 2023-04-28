@@ -10,8 +10,8 @@ class TipItem extends StatelessWidget {
 
   final Function()? onTap;
   final TipsData doc;
-  final UserData docUser;
-  late final _tipMobx = TipsMobx(docUser.email);
+  final UserData? docUser;
+  late final _tipMobx = TipsMobx(docUser!.email);
   @override
   Widget build(BuildContext context) {
     return Container(

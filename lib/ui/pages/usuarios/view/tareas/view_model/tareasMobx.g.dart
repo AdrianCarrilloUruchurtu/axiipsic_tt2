@@ -29,12 +29,12 @@ mixin _$TareasStore on _TareasStoreBase, Store {
       ActionController(name: '_TareasStoreBase', context: context);
 
   @override
-  dynamic crearTarea(
-      String title, String content, List<String> owners, String creationDate) {
+  dynamic crearTarea(String title, String content, List<String> owners,
+      String creationDate, String pacienteId) {
     final _$actionInfo = _$_TareasStoreBaseActionController.startAction(
         name: '_TareasStoreBase.crearTarea');
     try {
-      return super.crearTarea(title, content, owners, creationDate);
+      return super.crearTarea(title, content, owners, creationDate, pacienteId);
     } finally {
       _$_TareasStoreBaseActionController.endAction(_$actionInfo);
     }

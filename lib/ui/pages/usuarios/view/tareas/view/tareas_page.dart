@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/lib/get_it.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/view_model/auth_mobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view/tarea_item.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/view_model/tareasMobx.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
@@ -7,25 +9,33 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../auth/model/user_data.dart';
 
 class TareasPage extends StatefulWidget {
-  TareasPage({super.key, required this.doc});
-  final UserData doc;
-  bool isPaciente = true;
+  const TareasPage({super.key, required this.doc});
+  final UserData? doc;
   @override
   State<TareasPage> createState() => _TareasPageState();
 }
 
 class _TareasPageState extends State<TareasPage> {
-  late final TareasStore _tareaStore = TareasStore(widget.doc.email);
+  late final TareasStore _tareaStore = TareasStore(widget.doc!.email);
+  final _authMobx = getIt.get<AuthMobx>();
 
   @override
   Widget build(BuildContext context) {
+    bool _checkType() {
+      bool isPsic = false;
+      if (_authMobx.user!.ispsic == "Psicologo") {
+        isPsic = true;
+      }
+      return isPsic;
+    }
+
     return Observer(builder: (_) {
       return Scaffold(
         floatingActionButton: Container(
           margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
           width: 150,
           child: Visibility(
-            visible: widget.isPaciente,
+            visible: _checkType(),
             child: FloatingActionButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16)),

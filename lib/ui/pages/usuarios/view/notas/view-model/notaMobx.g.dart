@@ -25,6 +25,22 @@ mixin _$NotaStore on _NotaStoreBase, Store {
     });
   }
 
+  late final _$notaSesAtom =
+      Atom(name: '_NotaStoreBase.notaSes', context: context);
+
+  @override
+  List<NotaData>? get notaSes {
+    _$notaSesAtom.reportRead();
+    return super.notaSes;
+  }
+
+  @override
+  set notaSes(List<NotaData>? value) {
+    _$notaSesAtom.reportWrite(value, super.notaSes, () {
+      super.notaSes = value;
+    });
+  }
+
   late final _$eliminarNotaAsyncAction =
       AsyncAction('_NotaStoreBase.eliminarNota', context: context);
 
@@ -37,12 +53,13 @@ mixin _$NotaStore on _NotaStoreBase, Store {
       ActionController(name: '_NotaStoreBase', context: context);
 
   @override
-  dynamic crearNota(
-      int colorId, String creationDate, String noteContent, String noteTitle) {
+  dynamic crearNota(int colorId, String creationDate, String noteContent,
+      String noteTitle, String isses) {
     final _$actionInfo = _$_NotaStoreBaseActionController.startAction(
         name: '_NotaStoreBase.crearNota');
     try {
-      return super.crearNota(colorId, creationDate, noteContent, noteTitle);
+      return super
+          .crearNota(colorId, creationDate, noteContent, noteTitle, isses);
     } finally {
       _$_NotaStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +68,8 @@ mixin _$NotaStore on _NotaStoreBase, Store {
   @override
   String toString() {
     return '''
-notaList: ${notaList}
+notaList: ${notaList},
+notaSes: ${notaSes}
     ''';
   }
 }

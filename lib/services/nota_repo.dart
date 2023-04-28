@@ -32,13 +32,27 @@ class NotaRepo {
         .collection('users')
         .doc(currentUser!.uid)
         .collection('notes')
+        .where('isses', isEqualTo: "")
         .snapshots()
         .map((event) {
       return event.docs.map((e) => NotaData.fromDocument(e)).toList();
     });
   }
 
- // Delete pendiente, el id no es así
+  Stream<List<NotaData>> sesionNote(String sesId) {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('notes')
+        .where('isses', isEqualTo: sesId)
+        .snapshots()
+        .map((event) {
+      return event.docs.map((e) => NotaData.fromDocument(e)).toList();
+    });
+  }
+
+  // Delete pendiente, el id no es así
   Future<void> deleteNota(String id) async {
     final currentUser = _auth.currentUser;
     return _firestore
@@ -49,8 +63,8 @@ class NotaRepo {
         .delete();
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> notaEdit(
-      int colorId, String creationDate, String noteContent, String noteTitle) {
+  Future<DocumentReference<Map<String, dynamic>>> notaEdit(int colorId,
+      String creationDate, String noteContent, String noteTitle, String isses) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -63,6 +77,7 @@ class NotaRepo {
       "creationDate": creationDate,
       "noteContent": noteContent,
       "colorId": colorId,
+      "isses": isses
     });
   }
 }

@@ -26,6 +26,7 @@ mixin _$NotaData {
   String get noteContent => throw _privateConstructorUsedError;
   String get noteTitle => throw _privateConstructorUsedError;
   String get userId => throw _privateConstructorUsedError;
+  String get isses => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +45,8 @@ abstract class $NotaDataCopyWith<$Res> {
       String id,
       String noteContent,
       String noteTitle,
-      String userId});
+      String userId,
+      String isses});
 }
 
 /// @nodoc
@@ -66,6 +68,7 @@ class _$NotaDataCopyWithImpl<$Res, $Val extends NotaData>
     Object? noteContent = null,
     Object? noteTitle = null,
     Object? userId = null,
+    Object? isses = null,
   }) {
     return _then(_value.copyWith(
       colorId: null == colorId
@@ -92,6 +95,10 @@ class _$NotaDataCopyWithImpl<$Res, $Val extends NotaData>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      isses: null == isses
+          ? _value.isses
+          : isses // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -109,7 +116,8 @@ abstract class _$$_NotaDataCopyWith<$Res> implements $NotaDataCopyWith<$Res> {
       String id,
       String noteContent,
       String noteTitle,
-      String userId});
+      String userId,
+      String isses});
 }
 
 /// @nodoc
@@ -129,6 +137,7 @@ class __$$_NotaDataCopyWithImpl<$Res>
     Object? noteContent = null,
     Object? noteTitle = null,
     Object? userId = null,
+    Object? isses = null,
   }) {
     return _then(_$_NotaData(
       null == colorId
@@ -155,6 +164,10 @@ class __$$_NotaDataCopyWithImpl<$Res>
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
               as String,
+      null == isses
+          ? _value.isses
+          : isses // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -163,7 +176,7 @@ class __$$_NotaDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_NotaData implements _NotaData {
   _$_NotaData(this.colorId, this.creationDate, this.id, this.noteContent,
-      this.noteTitle, this.userId);
+      this.noteTitle, this.userId, this.isses);
 
   factory _$_NotaData.fromJson(Map<String, dynamic> json) =>
       _$$_NotaDataFromJson(json);
@@ -180,10 +193,12 @@ class _$_NotaData implements _NotaData {
   final String noteTitle;
   @override
   final String userId;
+  @override
+  final String isses;
 
   @override
   String toString() {
-    return 'NotaData(colorId: $colorId, creationDate: $creationDate, id: $id, noteContent: $noteContent, noteTitle: $noteTitle, userId: $userId)';
+    return 'NotaData(colorId: $colorId, creationDate: $creationDate, id: $id, noteContent: $noteContent, noteTitle: $noteTitle, userId: $userId, isses: $isses)';
   }
 
   @override
@@ -199,13 +214,14 @@ class _$_NotaData implements _NotaData {
                 other.noteContent == noteContent) &&
             (identical(other.noteTitle, noteTitle) ||
                 other.noteTitle == noteTitle) &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.isses, isses) || other.isses == isses));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, colorId, creationDate, id, noteContent, noteTitle, userId);
+  int get hashCode => Object.hash(runtimeType, colorId, creationDate, id,
+      noteContent, noteTitle, userId, isses);
 
   @JsonKey(ignore: true)
   @override
@@ -228,7 +244,8 @@ abstract class _NotaData implements NotaData {
       final String id,
       final String noteContent,
       final String noteTitle,
-      final String userId) = _$_NotaData;
+      final String userId,
+      final String isses) = _$_NotaData;
 
   factory _NotaData.fromJson(Map<String, dynamic> json) = _$_NotaData.fromJson;
 
@@ -244,6 +261,8 @@ abstract class _NotaData implements NotaData {
   String get noteTitle;
   @override
   String get userId;
+  @override
+  String get isses;
   @override
   @JsonKey(ignore: true)
   _$$_NotaDataCopyWith<_$_NotaData> get copyWith =>

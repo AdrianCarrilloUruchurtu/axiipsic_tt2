@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/view_model/auth_mobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view-model/sesiones_mobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/view/sesion_item.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
@@ -11,13 +12,22 @@ import '../../../../auth/model/user_data.dart';
 
 class SesionesPage extends StatefulWidget {
   const SesionesPage({super.key, required this.doc});
-  final UserData doc;
+  final UserData? doc;
   @override
   State<SesionesPage> createState() => _SesionesPageState();
 }
 
 class _SesionesPageState extends State<SesionesPage> {
-  final _sesionesMobx = getIt.get<SesionesStore>();
+  late final _sesionesMobx = SesionesStore(widget.doc!.email);
+  final _authMobx = getIt.get<AuthMobx>();
+
+  bool _checkType() {
+    bool isPsic = false;
+    if (_authMobx.user!.ispsic == "Psicologo") {
+      isPsic = true;
+    }
+    return isPsic;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +37,31 @@ class _SesionesPageState extends State<SesionesPage> {
           margin: const EdgeInsets.fromLTRB(4, 4, 4, 4),
           padding: const EdgeInsets.all(2),
           width: 200,
-          child: FloatingActionButton(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            onPressed: () {
-              context.router.push(SesionesAdd(doc: widget.doc));
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.fromLTRB(4, 4, 16, 4),
-                  child: const Icon(
-                    Icons.add_circle,
-                    size: 32,
+          child: Visibility(
+            visible: _checkType(),
+            child: FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              onPressed: () {
+                print(widget.doc!.email);
+                context.router.push(SesionesAdd(doc: widget.doc));
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: const EdgeInsets.fromLTRB(4, 4, 16, 4),
+                    child: const Icon(
+                      Icons.add_circle,
+                      size: 32,
+                    ),
                   ),
-                ),
-                const Text(
-                  "Nueva sesión",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                )
-              ],
+                  const Text(
+                    "Nueva sesión",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -89,7 +103,8 @@ class _SesionesPageState extends State<SesionesPage> {
                                     onTap: () {
                                       context.router.push(LectorSesRoute(
                                           docSes: _sesionesMobx
-                                              .sesionesList![index]));
+                                              .sesionesList![index],
+                                          docPac: widget.doc));
                                     })
                                 : const Center(
                                     child: CircularProgressIndicator());

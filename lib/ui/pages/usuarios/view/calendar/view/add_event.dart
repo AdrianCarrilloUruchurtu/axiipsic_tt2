@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
@@ -25,7 +24,6 @@ class _AddEventState extends State<AddEvent> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
   final _calendarMobx = getIt.get<CalendarStore>();
-  late final TimeOfDay _timeController;
   late String _selectedTime;
 
   @override
@@ -112,14 +110,18 @@ class _AddEventState extends State<AddEvent> {
     final title = _titleController.text;
     final description = _descController.text;
     final time = _selectedTime;
-    if (title.isEmpty) {
+    if (title.isEmpty || description.isEmpty || time.isEmpty) {
       const SnackBar(
-        content: Text('El título no puede estar vacío'),
+        content: Text('Todos los campos deben llenarse'),
       );
       return;
     }
-    _calendarMobx.crearEvento(
-        Timestamp.fromDate(_selectedDate), title, description, time);
+
+    print(widget.firstDate);
+    print(widget.lastDate);
+    print(_selectedDate);
+    _calendarMobx.crearEvento(_selectedDate, title, description, time);
+    // Timestamp.fromDate(_selectedDate)
     if (mounted) {
       context.popRoute();
     }

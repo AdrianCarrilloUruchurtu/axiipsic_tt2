@@ -11,7 +11,7 @@ class TareaItem extends StatelessWidget {
 
   final Function()? onTap;
   final TareasData doc;
-  final UserData docUser;
+  final UserData? docUser;
 
   @override
   Widget build(BuildContext context) {

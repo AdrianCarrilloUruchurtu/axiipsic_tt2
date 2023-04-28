@@ -25,6 +25,7 @@ mixin _$UserData {
   String get ispsic => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get psicMail => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +43,8 @@ abstract class $UserDataCopyWith<$Res> {
       String apellido,
       String ispsic,
       String email,
-      String psicMail});
+      String psicMail,
+      String id});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? ispsic = null,
     Object? email = null,
     Object? psicMail = null,
+    Object? id = null,
   }) {
     return _then(_value.copyWith(
       nombre: null == nombre
@@ -85,6 +88,10 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.psicMail
           : psicMail // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -101,7 +108,8 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       String apellido,
       String ispsic,
       String email,
-      String psicMail});
+      String psicMail,
+      String id});
 }
 
 /// @nodoc
@@ -120,6 +128,7 @@ class __$$_UserDataCopyWithImpl<$Res>
     Object? ispsic = null,
     Object? email = null,
     Object? psicMail = null,
+    Object? id = null,
   }) {
     return _then(_$_UserData(
       null == nombre
@@ -142,6 +151,10 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value.psicMail
           : psicMail // ignore: cast_nullable_to_non_nullable
               as String,
+      null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -149,8 +162,8 @@ class __$$_UserDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_UserData implements _UserData {
-  _$_UserData(
-      this.nombre, this.apellido, this.ispsic, this.email, this.psicMail);
+  _$_UserData(this.nombre, this.apellido, this.ispsic, this.email,
+      this.psicMail, this.id);
 
   factory _$_UserData.fromJson(Map<String, dynamic> json) =>
       _$$_UserDataFromJson(json);
@@ -165,10 +178,12 @@ class _$_UserData implements _UserData {
   final String email;
   @override
   final String psicMail;
+  @override
+  final String id;
 
   @override
   String toString() {
-    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail)';
+    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail, id: $id)';
   }
 
   @override
@@ -182,13 +197,14 @@ class _$_UserData implements _UserData {
             (identical(other.ispsic, ispsic) || other.ispsic == ispsic) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.psicMail, psicMail) ||
-                other.psicMail == psicMail));
+                other.psicMail == psicMail) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, nombre, apellido, ispsic, email, psicMail);
+      Object.hash(runtimeType, nombre, apellido, ispsic, email, psicMail, id);
 
   @JsonKey(ignore: true)
   @override
@@ -210,7 +226,8 @@ abstract class _UserData implements UserData {
       final String apellido,
       final String ispsic,
       final String email,
-      final String psicMail) = _$_UserData;
+      final String psicMail,
+      final String id) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
 
@@ -224,6 +241,8 @@ abstract class _UserData implements UserData {
   String get email;
   @override
   String get psicMail;
+  @override
+  String get id;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataCopyWith<_$_UserData> get copyWith =>

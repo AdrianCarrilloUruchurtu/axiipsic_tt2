@@ -31,7 +31,6 @@ class _LectorPageState extends State<LectorPage> {
                     onPressed: () => context.router.pop(),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.black,
-                      
                     ),
                     child: const Text("No"),
                   ),
@@ -47,8 +46,11 @@ class _LectorPageState extends State<LectorPage> {
             );
 
             // Cambiar también
-            if (delete ?? false) {
+            if (delete == true) {
+              print(delete);
+              print(widget.doc.id);
               _notaMobx.eliminarNota(widget.doc.id);
+              context.router.pop();
             }
           },
           child: const Icon(Icons.delete)),

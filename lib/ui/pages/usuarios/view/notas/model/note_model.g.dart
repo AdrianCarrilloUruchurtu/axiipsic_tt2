@@ -13,6 +13,7 @@ _$_NotaData _$$_NotaDataFromJson(Map<String, dynamic> json) => _$_NotaData(
       json['noteContent'] as String,
       json['noteTitle'] as String,
       json['userId'] as String,
+      json['isses'] as String,
     );
 
 Map<String, dynamic> _$$_NotaDataToJson(_$_NotaData instance) =>
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_NotaDataToJson(_$_NotaData instance) =>
       'noteContent': instance.noteContent,
       'noteTitle': instance.noteTitle,
       'userId': instance.userId,
+      'isses': instance.isses,
     };

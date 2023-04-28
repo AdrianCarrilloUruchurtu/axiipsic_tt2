@@ -3,7 +3,7 @@ import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../auth/view_model/auth_mobx.dart';
+import '../../../auth/view_model/auth_mobx.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -15,7 +15,13 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
-  bool isPsic = false;
+  bool _checkType() {
+    bool isPsic = false;
+    if (_authMobx.user!.ispsic == "Psicologo") {
+      isPsic = true;
+    }
+    return isPsic;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +36,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Hero(tag: 'profile', child: _profileImage(90)),
+                  children: [
+                    _profileImage(90),
                     Text(
                       _authMobx.user?.nombre ?? '',
                       style: const TextStyle(fontSize: 30),
@@ -48,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                     ),
                     Visibility(
-                        visible: isPsic,
+                        visible: _checkType(),
                         child: Container(
                           margin: const EdgeInsets.all(8),
                           child: const Text(

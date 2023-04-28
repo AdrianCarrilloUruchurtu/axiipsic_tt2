@@ -13,6 +13,7 @@ _$_SesionesData _$$_SesionesDataFromJson(Map<String, dynamic> json) =>
       json['titulo'] as String,
       json['descripcion'] as String,
       json['date'] as String,
+      json['time'] as String,
     );
 
 Map<String, dynamic> _$$_SesionesDataToJson(_$_SesionesData instance) =>
@@ -22,4 +23,5 @@ Map<String, dynamic> _$$_SesionesDataToJson(_$_SesionesData instance) =>
       'titulo': instance.titulo,
       'descripcion': instance.descripcion,
       'date': instance.date,
+      'time': instance.time,
     };

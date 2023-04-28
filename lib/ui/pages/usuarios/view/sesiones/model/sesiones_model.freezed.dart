@@ -25,6 +25,7 @@ mixin _$SesionesData {
   String get titulo => throw _privateConstructorUsedError;
   String get descripcion => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
+  String get time => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $SesionesDataCopyWith<$Res> {
       List<String> owners,
       String titulo,
       String descripcion,
-      String date});
+      String date,
+      String time});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$SesionesDataCopyWithImpl<$Res, $Val extends SesionesData>
     Object? titulo = null,
     Object? descripcion = null,
     Object? date = null,
+    Object? time = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -86,6 +89,10 @@ class _$SesionesDataCopyWithImpl<$Res, $Val extends SesionesData>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
+      time: null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$_SesionesDataCopyWith<$Res>
       List<String> owners,
       String titulo,
       String descripcion,
-      String date});
+      String date,
+      String time});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$_SesionesDataCopyWithImpl<$Res>
     Object? titulo = null,
     Object? descripcion = null,
     Object? date = null,
+    Object? time = null,
   }) {
     return _then(_$_SesionesData(
       null == id
@@ -144,6 +153,10 @@ class __$$_SesionesDataCopyWithImpl<$Res>
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
               as String,
+      null == time
+          ? _value.time
+          : time // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -152,7 +165,7 @@ class __$$_SesionesDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SesionesData implements _SesionesData {
   _$_SesionesData(this.id, final List<String> owners, this.titulo,
-      this.descripcion, this.date)
+      this.descripcion, this.date, this.time)
       : _owners = owners;
 
   factory _$_SesionesData.fromJson(Map<String, dynamic> json) =>
@@ -174,10 +187,12 @@ class _$_SesionesData implements _SesionesData {
   final String descripcion;
   @override
   final String date;
+  @override
+  final String time;
 
   @override
   String toString() {
-    return 'SesionesData(id: $id, owners: $owners, titulo: $titulo, descripcion: $descripcion, date: $date)';
+    return 'SesionesData(id: $id, owners: $owners, titulo: $titulo, descripcion: $descripcion, date: $date, time: $time)';
   }
 
   @override
@@ -190,13 +205,20 @@ class _$_SesionesData implements _SesionesData {
             (identical(other.titulo, titulo) || other.titulo == titulo) &&
             (identical(other.descripcion, descripcion) ||
                 other.descripcion == descripcion) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.time, time) || other.time == time));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id,
-      const DeepCollectionEquality().hash(_owners), titulo, descripcion, date);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      const DeepCollectionEquality().hash(_owners),
+      titulo,
+      descripcion,
+      date,
+      time);
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +240,8 @@ abstract class _SesionesData implements SesionesData {
       final List<String> owners,
       final String titulo,
       final String descripcion,
-      final String date) = _$_SesionesData;
+      final String date,
+      final String time) = _$_SesionesData;
 
   factory _SesionesData.fromJson(Map<String, dynamic> json) =
       _$_SesionesData.fromJson;
@@ -233,6 +256,8 @@ abstract class _SesionesData implements SesionesData {
   String get descripcion;
   @override
   String get date;
+  @override
+  String get time;
   @override
   @JsonKey(ignore: true)
   _$$_SesionesDataCopyWith<_$_SesionesData> get copyWith =>

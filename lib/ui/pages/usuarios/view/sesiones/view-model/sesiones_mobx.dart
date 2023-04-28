@@ -11,16 +11,17 @@ class SesionesStore = _SesionesStoreBase with _$SesionesStore;
 abstract class _SesionesStoreBase with Store {
   final _sesionesRepo = getIt.get<SesionesRepo>();
 
-  _SesionesStoreBase() {
-    _sesionesRepo.sesionesChanges().listen((event) {
+  _SesionesStoreBase(String pacienteId) {
+    _sesionesRepo.sesionesChanges(pacienteId).listen((event) {
       sesionesList = event;
     });
   }
 
   @action
-  crearSesion(
-      List<String> owners, String titulo, String descripcion, String date) {
-    _sesionesRepo.sesionesAdd(owners, titulo, descripcion, date);
+  crearSesion(List<String> owners, String titulo, String descripcion,
+      String date, String pacienteId, String time) {
+    _sesionesRepo.sesionesAdd(
+        owners, titulo, descripcion, date, pacienteId, time);
   }
 
   @action

@@ -9,7 +9,7 @@ import '../../../../auth/model/user_data.dart';
 
 class AddTipPage extends StatefulWidget {
   const AddTipPage({super.key, required this.doc});
-  final UserData doc;
+  final UserData? doc;
   @override
   State<AddTipPage> createState() => _AddTipPageState();
 }
@@ -17,7 +17,7 @@ class AddTipPage extends StatefulWidget {
 class _AddTipPageState extends State<AddTipPage> {
   int color_id = Random().nextInt(AppStyle.cardsColor.length);
   String date = DateTime.now().toString();
-  late final _tipMobx = TipsMobx(widget.doc.email);
+  late final _tipMobx = TipsMobx(widget.doc!.email);
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
   @override
@@ -30,7 +30,7 @@ class _AddTipPageState extends State<AddTipPage> {
         onPressed: (() {
           // Corregir
           _tipMobx.crearTip(date, _contentController.text,
-              [widget.doc.psicMail, widget.doc.email]);
+              [widget.doc!.psicMail, widget.doc!.email]);
           context.popRoute();
         }),
         child: const Icon(Icons.save),

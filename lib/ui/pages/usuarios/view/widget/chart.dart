@@ -1,9 +1,10 @@
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/model/progreso_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class ChartPage extends StatefulWidget {
-  const ChartPage({super.key});
-
+  const ChartPage({super.key, required this.conductaDoc});
+  final ProgresoData conductaDoc;
   @override
   State<ChartPage> createState() => _ProgressChartPage();
 }
@@ -61,14 +62,26 @@ class _ProgressChartPage extends State<ChartPage> {
         fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black);
     Widget text;
     switch (value.toInt()) {
+      case 0:
+        text = const Text('L', style: style);
+        break;
       case 1:
-        text = const Text('EN', style: style);
+        text = const Text('M', style: style);
+        break;
+      case 2:
+        text = const Text('M', style: style);
         break;
       case 3:
-        text = const Text('FEB', style: style);
+        text = const Text('J', style: style);
+        break;
+      case 4:
+        text = const Text('V', style: style);
         break;
       case 5:
-        text = const Text('MAR', style: style);
+        text = const Text('S', style: style);
+        break;
+      case 6:
+        text = const Text('D', style: style);
         break;
       default:
         text = const Text('', style: style);
@@ -101,14 +114,23 @@ class _ProgressChartPage extends State<ChartPage> {
         fontWeight: FontWeight.bold, fontSize: 15, color: Colors.black);
     String text;
     switch (value.toInt()) {
+      case 0:
+        text = '0';
+        break;
       case 1:
-        text = '5';
+        text = '1';
+        break;
+      case 2:
+        text = '2';
         break;
       case 3:
-        text = '10';
+        text = '3';
+        break;
+      case 4:
+        text = '4';
         break;
       case 5:
-        text = '15';
+        text = '5';
         break;
       default:
         return Container();
@@ -168,20 +190,26 @@ class _ProgressChartPage extends State<ChartPage> {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: 0,
-      maxX: 11,
+      maxX: 6,
       minY: 0,
-      maxY: 6,
+      maxY: 5,
       // Datos del gráfico
       lineBarsData: [
         LineChartBarData(
-          spots: const [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
+          spots: [
+            FlSpot(widget.conductaDoc.lunes[0]!, widget.conductaDoc.lunes[1]!),
+            FlSpot(
+                widget.conductaDoc.martes[0]!, widget.conductaDoc.martes[1]!),
+            FlSpot(widget.conductaDoc.miercoles[0]!,
+                widget.conductaDoc.miercoles[1]!),
+            FlSpot(
+                widget.conductaDoc.jueves[0]!, widget.conductaDoc.jueves[1]!),
+            FlSpot(
+                widget.conductaDoc.viernes[0]!, widget.conductaDoc.viernes[1]!),
+            FlSpot(
+                widget.conductaDoc.sabado[0]!, widget.conductaDoc.sabado[1]!),
+            FlSpot(
+                widget.conductaDoc.domingo[0]!, widget.conductaDoc.domingo[1]!),
           ],
           isCurved: true,
           gradient: LinearGradient(

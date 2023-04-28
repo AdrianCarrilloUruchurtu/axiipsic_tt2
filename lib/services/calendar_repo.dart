@@ -27,7 +27,7 @@ class CalendarRepo {
   }
 
   Future<DocumentReference<Map<String, dynamic>>> addEvent(
-      Timestamp date, String title, String description, String time) {
+      DateTime date, String title, String description, String time) {
     final currentUser = _auth.currentUser;
 
     return _firestore

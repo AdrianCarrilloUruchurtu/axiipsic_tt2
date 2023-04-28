@@ -10,13 +10,13 @@ import '../view-model/tipsMobx.dart';
 
 class TipsPage extends StatefulWidget {
   const TipsPage({Key? key, required this.doc}) : super(key: key);
-  final UserData doc;
+  final UserData? doc;
   @override
   State<TipsPage> createState() => _TipsPageState();
 }
 
 class _TipsPageState extends State<TipsPage> {
-  late final TipsMobx _tipsMobx = TipsMobx(widget.doc.email);
+  late final TipsMobx _tipsMobx = TipsMobx(widget.doc!.email);
 
   @override
   Widget build(BuildContext context) {

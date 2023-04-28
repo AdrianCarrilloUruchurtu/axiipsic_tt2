@@ -1,8 +1,10 @@
 import 'package:auto_route/annotations.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view/sesiones_notas.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/home/patient_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/linea/view/ayuda_linea.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/progress/progress_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/view/lector_conducta.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/view/progress_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/home/psic_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/lista/view/list_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psicologo/user_funciones/view/funcs_page.dart';
@@ -20,10 +22,10 @@ import '../pages/usuarios/view/calendar/view/calendar_page.dart';
 import '../pages/usuarios/view/notas/view/editor_nota.dart';
 import '../pages/usuarios/view/notas/view/lector_notas.dart';
 import '../pages/usuarios/view/notas/view/main_notas.dart';
-import '../pages/usuarios/view/profile_page.dart';
 import '../pages/usuarios/view/tareas/view/tarea_add_page.dart';
 import '../pages/usuarios/view/tips/view/add_tips.dart';
 import '../pages/usuarios/view/tips/view/tips_page.dart';
+import '../pages/usuarios/view/widget/profile_page.dart';
 import 'guest_guard.dart';
 
 @MaterialAutoRouter(
@@ -59,6 +61,8 @@ import 'guest_guard.dart';
     MaterialRoute(page: TareaEditPage), // MainPage
     MaterialRoute(page: TipEditPage), // MainPage
     MaterialRoute(page: LectorSesPage), // MainPage
+    MaterialRoute(page: NotasSesionesPage), // MainPage
+    MaterialRoute(page: ConductaLectorPage), // MainPage
     // MainPage
   ],
 )

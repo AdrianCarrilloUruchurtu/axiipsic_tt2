@@ -26,12 +26,12 @@ class SesionesRepo {
   }
 
   // Read
-  Stream<List<SesionesData>> sesionesChanges() {
+  Stream<List<SesionesData>> sesionesChanges(String pacienteId) {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('sesiones')
+        .collection('sesiones').where("owners" , arrayContains: pacienteId)
         .snapshots()
         .map((event) {
       return event.docs.map((e) => SesionesData.fromDocument(e)).toList();
@@ -43,7 +43,9 @@ class SesionesRepo {
       final List<String> owners,
       final String titulo,
       final String descripcion,
-      final String date) {
+      final String date,
+      String pacienteId,
+      String time) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -55,7 +57,21 @@ class SesionesRepo {
       "owners": owners,
       "titulo": titulo,
       "descripcion": descripcion,
-      "date": date
+      "date": date,
+      "time": time
+    }).then((value) {
+      return _firestore
+          .collection('users')
+          .doc(pacienteId)
+          .collection('sesiones')
+          .add({
+        'userId': currentUser.uid,
+        "owners": owners,
+        "titulo": titulo,
+        "descripcion": descripcion,
+        "date": date,
+        "time": time
+      });
     });
   }
 

@@ -7,7 +7,7 @@ part 'user_data.g.dart';
 @freezed
 class UserData with _$UserData {
   factory UserData(String nombre, String apellido, String ispsic, String email,
-      String psicMail) = _UserData;
+      String psicMail, String id) = _UserData;
 
 // Preguntar
   factory UserData.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) =>

@@ -5,11 +5,9 @@ import 'package:axiipsic_tt2/style/app_style.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
 
-import 'package:axiipsic_tt2/lib/get_it.dart';
-
 class NotaEditPage extends StatefulWidget {
-  const NotaEditPage({super.key});
-
+  const NotaEditPage({super.key, required this.isses});
+  final String isses;
   @override
   State<NotaEditPage> createState() => _NotaEditPageState();
 }
@@ -17,7 +15,7 @@ class NotaEditPage extends StatefulWidget {
 class _NotaEditPageState extends State<NotaEditPage> {
   int color_id = Random().nextInt(AppStyle.cardsColor.length);
   String date = DateTime.now().toString();
-  final _notaMobx = getIt.get<NotaStore>();
+  late final _notaMobx = NotaStore(widget.isses);
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
@@ -30,8 +28,8 @@ class _NotaEditPageState extends State<NotaEditPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: (() {
           // Corregir
-          _notaMobx.crearNota(
-              color_id, date, _contentController.text, _titleController.text);
+          _notaMobx.crearNota(color_id, date, _contentController.text,
+              _titleController.text, widget.isses);
           context.popRoute();
         }),
         child: const Icon(Icons.save),
