@@ -89,4 +89,18 @@ class MessageRepo {
           .set({"last_msg": message});
     });
   }
+
+  Stream<List<MessageData>> getMessages(String friendId) {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection("users")
+        .doc(currentUser?.uid)
+        .collection('messages')
+        .doc(friendId)
+        .collection('chats')
+        .orderBy("date", descending: true)
+        .snapshots()
+        .map((event) =>
+            event.docs.map((e) => MessageData.fromDocument(e)).toList());
+  }
 }

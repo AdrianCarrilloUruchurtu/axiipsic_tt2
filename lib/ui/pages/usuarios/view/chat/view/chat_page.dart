@@ -6,6 +6,7 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view-model/chat_mobx.da
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/single_message.dart';
 import 'package:flutter/material.dart';
 
+import '../view-model/message_mobx.dart';
 import 'message_textfield.dart';
 
 class ChatPage extends StatelessWidget {
@@ -24,6 +25,7 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final authMobx = getIt.get<AuthMobx>();
     final chatMobx = getIt.get<ChatStore>();
+    final messageMobx = getIt.get<MessageStore>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -62,7 +64,7 @@ class ChatPage extends StatelessWidget {
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25))),
             child: StreamBuilder<List<ChatData>>(
-                stream: chatMobx.getMensajes(user!.id),
+                stream: messageMobx.getMessages(user!.id),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.docs.length < 1) {

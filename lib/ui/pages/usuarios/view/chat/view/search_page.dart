@@ -112,9 +112,12 @@ class _SearchPageState extends State<SearchPage> {
                                           doc: _chatMobx.searchResult?[index],
                                           onTap: () {
                                             context.router.push(ChatRoute(
-                                                user: _authMobx.user,
-                                                friendId: widget.user!.id,
-                                                friendName: widget.user!.nombre,));
+                                              user: _authMobx.user,
+                                              friendId: _authMobx
+                                                  .userLista![index].id,
+                                              friendName: _authMobx
+                                                  .userLista![index].nombre,
+                                            ));
                                           })
                                       : const Center(
                                           child: CircularProgressIndicator());

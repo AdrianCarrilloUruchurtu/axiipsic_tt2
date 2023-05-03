@@ -36,8 +36,8 @@ abstract class _ChatStoreBase with Store {
   }
 
   @action
-  getMensajes(String friendId) {
-    _chatRepo.getMensajes(friendId);
+  streamChats(String friendId) {
+    _chatRepo.streamChats(friendId);
   }
 
   @observable

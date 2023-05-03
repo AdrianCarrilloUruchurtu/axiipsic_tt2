@@ -89,7 +89,7 @@ class ProgresoRepo {
     });
   }
 
-  editProgreso(
+  Future<void> editProgreso(
       String conducta,
       List<double?> lunes,
       List<double?> martes,

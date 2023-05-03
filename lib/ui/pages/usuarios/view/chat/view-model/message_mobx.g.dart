@@ -40,6 +40,17 @@ mixin _$MessageStore on _MessageStoreBase, Store {
   }
 
   @override
+  dynamic getMessages(String friendId) {
+    final _$actionInfo = _$_MessageStoreBaseActionController.startAction(
+        name: '_MessageStoreBase.getMessages');
+    try {
+      return super.getMessages(friendId);
+    } finally {
+      _$_MessageStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 messageList: ${messageList}

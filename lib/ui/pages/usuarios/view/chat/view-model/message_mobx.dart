@@ -5,9 +5,9 @@ import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 part 'message_mobx.g.dart';
 
+@injectable
 class MessageStore = _MessageStoreBase with _$MessageStore;
 
-@injectable
 abstract class _MessageStoreBase with Store {
   final _messageRepo = getIt.get<MessageRepo>();
 
@@ -21,6 +21,11 @@ abstract class _MessageStoreBase with Store {
   onSavedMessage(String friendId, String message) {
     _messageRepo.currentUserOnMessageSent(friendId, message);
     _messageRepo.friendUserOnMessageSent(friendId, message);
+  }
+
+  @action
+  getMessages(String friendId) {
+    _messageRepo.getMessages(friendId);
   }
 
   @observable

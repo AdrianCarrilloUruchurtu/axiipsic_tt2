@@ -38,17 +38,11 @@ class ChatRepo {
     });
   }
 
-  Stream<List<ChatData>> getMensajes(String friendId) {
-    final currentUser = _auth.currentUser;
+  streamChats(String friendId) {
     return _firestore
-        .collection("users")
-        .doc(currentUser?.uid)
-        .collection('messages')
+        .collection('users')
         .doc(friendId)
-        .collection('chats')
-        .orderBy("date", descending: true)
-        .snapshots()
-        .map((event) =>
-            event.docs.map((e) => ChatData.fromDocument(e)).toList());
+        .collection('messages')
+        .snapshots();
   }
 }

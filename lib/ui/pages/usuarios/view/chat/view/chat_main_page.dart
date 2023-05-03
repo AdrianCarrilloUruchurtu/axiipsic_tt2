@@ -28,11 +28,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
     return Observer(
       builder: ((context) => Scaffold(
             body: StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('users')
-                    .doc(widget.user?.id)
-                    .collection('messages')
-                    .snapshots(),
+                stream: _chatMobx.streamChats(widget.user!.id),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.docs.length < 1) {
@@ -102,7 +98,7 @@ class _ChatMainPageState extends State<ChatMainPage> {
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.search),
               onPressed: () {
-                context.router.push(SearchRoute(user: widget.user));
+                context.router.push(SearchRoute(user: _authMobx.user));
                 // Navigator.push(
                 //     context,
                 //     MaterialPageRoute(
