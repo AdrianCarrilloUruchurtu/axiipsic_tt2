@@ -11,32 +11,35 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i26;
-import 'package:flutter/material.dart' as _i27;
+import 'package:auto_route/auto_route.dart' as _i29;
+import 'package:flutter/material.dart' as _i30;
 
-import '../pages/auth/model/user_data.dart' as _i32;
+import '../pages/auth/model/user_data.dart' as _i35;
 import '../pages/auth/view/login_page.dart' as _i1;
 import '../pages/auth/view/register_page.dart' as _i2;
 import '../pages/usuarios/view/calendar/view/calendar_page.dart' as _i10;
-import '../pages/usuarios/view/notas/model/note_model.dart' as _i33;
+import '../pages/usuarios/view/chat/view/chat_main_page.dart' as _i26;
+import '../pages/usuarios/view/chat/view/chat_page.dart' as _i28;
+import '../pages/usuarios/view/chat/view/search_page.dart' as _i27;
+import '../pages/usuarios/view/notas/model/note_model.dart' as _i36;
 import '../pages/usuarios/view/notas/view/editor_nota.dart' as _i11;
 import '../pages/usuarios/view/notas/view/lector_notas.dart' as _i12;
 import '../pages/usuarios/view/notas/view/main_notas.dart' as _i9;
 import '../pages/usuarios/view/notas/view/sesiones_notas.dart' as _i24;
 import '../pages/usuarios/view/paciente/home/patient_home_page.dart' as _i4;
 import '../pages/usuarios/view/paciente/linea/view/ayuda_linea.dart' as _i7;
-import '../pages/usuarios/view/progreso/model/progreso_model.dart' as _i35;
+import '../pages/usuarios/view/progreso/model/progreso_model.dart' as _i38;
 import '../pages/usuarios/view/progreso/view/lector_conducta.dart' as _i25;
 import '../pages/usuarios/view/progreso/view/progress_page.dart' as _i6;
 import '../pages/usuarios/view/psicologo/home/psic_home_page.dart' as _i3;
 import '../pages/usuarios/view/psicologo/lista/view/list_page.dart' as _i5;
 import '../pages/usuarios/view/psicologo/user_funciones/view/funcs_page.dart'
     as _i13;
-import '../pages/usuarios/view/sesiones/model/sesiones_model.dart' as _i31;
+import '../pages/usuarios/view/sesiones/model/sesiones_model.dart' as _i34;
 import '../pages/usuarios/view/sesiones/view/lector_sesion.dart' as _i23;
 import '../pages/usuarios/view/sesiones/view/sesion_add.dart' as _i19;
 import '../pages/usuarios/view/sesiones/view/sesiones_page.dart' as _i18;
-import '../pages/usuarios/view/tareas/model/tareas_model.dart' as _i34;
+import '../pages/usuarios/view/tareas/model/tareas_model.dart' as _i37;
 import '../pages/usuarios/view/tareas/view/tarea_add_page.dart' as _i17;
 import '../pages/usuarios/view/tareas/view/tarea_edit_page.dart' as _i21;
 import '../pages/usuarios/view/tareas/view/tarea_lector_page.dart' as _i20;
@@ -45,59 +48,59 @@ import '../pages/usuarios/view/tips/view/add_tips.dart' as _i15;
 import '../pages/usuarios/view/tips/view/tip_edit.dart' as _i22;
 import '../pages/usuarios/view/tips/view/tips_page.dart' as _i14;
 import '../pages/usuarios/view/widget/profile_page.dart' as _i8;
-import 'guest_guard.dart' as _i28;
-import 'ispat_guard.dart' as _i30;
-import 'ispsic_guard.dart' as _i29;
+import 'guest_guard.dart' as _i31;
+import 'ispat_guard.dart' as _i33;
+import 'ispsic_guard.dart' as _i32;
 
-class AppRouter extends _i26.RootStackRouter {
+class AppRouter extends _i29.RootStackRouter {
   AppRouter({
-    _i27.GlobalKey<_i27.NavigatorState>? navigatorKey,
+    _i30.GlobalKey<_i30.NavigatorState>? navigatorKey,
     required this.checkIfUserIsGuest,
     required this.checkIfUserIsPsic,
     required this.checkIfUserIsPat,
   }) : super(navigatorKey);
 
-  final _i28.CheckIfUserIsGuest checkIfUserIsGuest;
+  final _i31.CheckIfUserIsGuest checkIfUserIsGuest;
 
-  final _i29.CheckIfUserIsPsic checkIfUserIsPsic;
+  final _i32.CheckIfUserIsPsic checkIfUserIsPsic;
 
-  final _i30.CheckIfUserIsPat checkIfUserIsPat;
+  final _i33.CheckIfUserIsPat checkIfUserIsPat;
 
   @override
-  final Map<String, _i26.PageFactory> pagesMap = {
+  final Map<String, _i29.PageFactory> pagesMap = {
     LoginRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i1.LoginPage(),
       );
     },
     RegisterRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i2.RegisterPage(),
       );
     },
     PsicHomeRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i3.PsicHomePage(),
       );
     },
     PatHomeRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i4.PatHomePage(),
       );
     },
     ListRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i5.ListPage(),
       );
     },
     ProgressRoute.name: (routeData) {
       final args = routeData.argsAs<ProgressRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i6.ProgressPage(
           key: args.key,
@@ -107,32 +110,32 @@ class AppRouter extends _i26.RootStackRouter {
       );
     },
     AyudaRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i7.AyudaPage(),
       );
     },
     ProfileRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i8.ProfilePage(),
       );
     },
     NotesRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i9.NotesPage(),
       );
     },
     CalendarRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i10.CalendarPage(),
       );
     },
     NotaEditRoute.name: (routeData) {
       final args = routeData.argsAs<NotaEditRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i11.NotaEditPage(
           key: args.key,
@@ -142,7 +145,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     LectorRoute.name: (routeData) {
       final args = routeData.argsAs<LectorRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i12.LectorPage(
           args.doc,
@@ -152,7 +155,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     FuncsRoute.name: (routeData) {
       final args = routeData.argsAs<FuncsRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i13.FuncsPage(
           key: args.key,
@@ -162,7 +165,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     TipsRoute.name: (routeData) {
       final args = routeData.argsAs<TipsRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i14.TipsPage(
           key: args.key,
@@ -172,7 +175,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     AddTipRoute.name: (routeData) {
       final args = routeData.argsAs<AddTipRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i15.AddTipPage(
           key: args.key,
@@ -182,7 +185,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     TareasRoute.name: (routeData) {
       final args = routeData.argsAs<TareasRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i16.TareasPage(
           key: args.key,
@@ -192,7 +195,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     TareaAddRoute.name: (routeData) {
       final args = routeData.argsAs<TareaAddRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i17.TareaAddPage(
           key: args.key,
@@ -202,7 +205,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     SesionesRoute.name: (routeData) {
       final args = routeData.argsAs<SesionesRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i18.SesionesPage(
           key: args.key,
@@ -212,7 +215,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     SesionesAdd.name: (routeData) {
       final args = routeData.argsAs<SesionesAddArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i19.SesionesAdd(
           key: args.key,
@@ -222,7 +225,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     TareaLectorRoute.name: (routeData) {
       final args = routeData.argsAs<TareaLectorRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i20.TareaLectorPage(
           key: args.key,
@@ -232,7 +235,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     TareaEditRoute.name: (routeData) {
       final args = routeData.argsAs<TareaEditRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i21.TareaEditPage(
           key: args.key,
@@ -242,14 +245,14 @@ class AppRouter extends _i26.RootStackRouter {
       );
     },
     TipEditRoute.name: (routeData) {
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: const _i22.TipEditPage(),
       );
     },
     LectorSesRoute.name: (routeData) {
       final args = routeData.argsAs<LectorSesRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i23.LectorSesPage(
           key: args.key,
@@ -260,7 +263,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     NotasSesionesRoute.name: (routeData) {
       final args = routeData.argsAs<NotasSesionesRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i24.NotasSesionesPage(
           key: args.key,
@@ -270,7 +273,7 @@ class AppRouter extends _i26.RootStackRouter {
     },
     ConductaLectorRoute.name: (routeData) {
       final args = routeData.argsAs<ConductaLectorRouteArgs>();
-      return _i26.MaterialPageX<dynamic>(
+      return _i29.MaterialPageX<dynamic>(
         routeData: routeData,
         child: _i25.ConductaLectorPage(
           key: args.key,
@@ -280,119 +283,163 @@ class AppRouter extends _i26.RootStackRouter {
         ),
       );
     },
+    ChatMainRoute.name: (routeData) {
+      final args = routeData.argsAs<ChatMainRouteArgs>();
+      return _i29.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i26.ChatMainPage(
+          args.user,
+          key: args.key,
+        ),
+      );
+    },
+    SearchRoute.name: (routeData) {
+      final args = routeData.argsAs<SearchRouteArgs>();
+      return _i29.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i27.SearchPage(
+          args.user,
+          key: args.key,
+        ),
+      );
+    },
+    ChatRoute.name: (routeData) {
+      final args = routeData.argsAs<ChatRouteArgs>();
+      return _i29.MaterialPageX<dynamic>(
+        routeData: routeData,
+        child: _i28.ChatPage(
+          key: args.key,
+          user: args.user,
+          friendId: args.friendId,
+          friendName: args.friendName,
+        ),
+      );
+    },
   };
 
   @override
-  List<_i26.RouteConfig> get routes => [
-        _i26.RouteConfig(
+  List<_i29.RouteConfig> get routes => [
+        _i29.RouteConfig(
           LoginRoute.name,
           path: '/',
           guards: [checkIfUserIsGuest],
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           RegisterRoute.name,
           path: '/register-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           PsicHomeRoute.name,
           path: '/psic-home-page',
           guards: [checkIfUserIsPsic],
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           PatHomeRoute.name,
           path: '/',
           guards: [checkIfUserIsPat],
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           ListRoute.name,
           path: '/list-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           ProgressRoute.name,
           path: '/progress-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           AyudaRoute.name,
           path: '/ayuda-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           ProfileRoute.name,
           path: '/profile-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           NotesRoute.name,
           path: '/notes-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           CalendarRoute.name,
           path: '/calendar-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           NotaEditRoute.name,
           path: '/nota-edit-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           LectorRoute.name,
           path: '/lector-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           FuncsRoute.name,
           path: '/funcs-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           TipsRoute.name,
           path: '/tips-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           AddTipRoute.name,
           path: '/add-tip-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           TareasRoute.name,
           path: '/tareas-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           TareaAddRoute.name,
           path: '/tarea-add-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           SesionesRoute.name,
           path: '/sesiones-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           SesionesAdd.name,
           path: '/sesiones-add',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           TareaLectorRoute.name,
           path: '/tarea-lector-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           TareaEditRoute.name,
           path: '/tarea-edit-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           TipEditRoute.name,
           path: '/tip-edit-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           LectorSesRoute.name,
           path: '/lector-ses-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           NotasSesionesRoute.name,
           path: '/notas-sesiones-page',
         ),
-        _i26.RouteConfig(
+        _i29.RouteConfig(
           ConductaLectorRoute.name,
           path: '/conducta-lector-page',
+        ),
+        _i29.RouteConfig(
+          ChatMainRoute.name,
+          path: '/chat-main-page',
+        ),
+        _i29.RouteConfig(
+          SearchRoute.name,
+          path: '/search-page',
+        ),
+        _i29.RouteConfig(
+          ChatRoute.name,
+          path: '/chat-page',
         ),
       ];
 }
 
 /// generated route for
 /// [_i1.LoginPage]
-class LoginRoute extends _i26.PageRouteInfo<void> {
+class LoginRoute extends _i29.PageRouteInfo<void> {
   const LoginRoute()
       : super(
           LoginRoute.name,
@@ -404,7 +451,7 @@ class LoginRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.RegisterPage]
-class RegisterRoute extends _i26.PageRouteInfo<void> {
+class RegisterRoute extends _i29.PageRouteInfo<void> {
   const RegisterRoute()
       : super(
           RegisterRoute.name,
@@ -416,7 +463,7 @@ class RegisterRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.PsicHomePage]
-class PsicHomeRoute extends _i26.PageRouteInfo<void> {
+class PsicHomeRoute extends _i29.PageRouteInfo<void> {
   const PsicHomeRoute()
       : super(
           PsicHomeRoute.name,
@@ -428,7 +475,7 @@ class PsicHomeRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.PatHomePage]
-class PatHomeRoute extends _i26.PageRouteInfo<void> {
+class PatHomeRoute extends _i29.PageRouteInfo<void> {
   const PatHomeRoute()
       : super(
           PatHomeRoute.name,
@@ -440,7 +487,7 @@ class PatHomeRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.ListPage]
-class ListRoute extends _i26.PageRouteInfo<void> {
+class ListRoute extends _i29.PageRouteInfo<void> {
   const ListRoute()
       : super(
           ListRoute.name,
@@ -452,11 +499,11 @@ class ListRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.ProgressPage]
-class ProgressRoute extends _i26.PageRouteInfo<ProgressRouteArgs> {
+class ProgressRoute extends _i29.PageRouteInfo<ProgressRouteArgs> {
   ProgressRoute({
-    _i27.Key? key,
-    required _i31.SesionesData docSes,
-    required _i32.UserData? docPac,
+    _i30.Key? key,
+    required _i34.SesionesData docSes,
+    required _i35.UserData? docPac,
   }) : super(
           ProgressRoute.name,
           path: '/progress-page',
@@ -477,11 +524,11 @@ class ProgressRouteArgs {
     required this.docPac,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i31.SesionesData docSes;
+  final _i34.SesionesData docSes;
 
-  final _i32.UserData? docPac;
+  final _i35.UserData? docPac;
 
   @override
   String toString() {
@@ -491,7 +538,7 @@ class ProgressRouteArgs {
 
 /// generated route for
 /// [_i7.AyudaPage]
-class AyudaRoute extends _i26.PageRouteInfo<void> {
+class AyudaRoute extends _i29.PageRouteInfo<void> {
   const AyudaRoute()
       : super(
           AyudaRoute.name,
@@ -503,7 +550,7 @@ class AyudaRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.ProfilePage]
-class ProfileRoute extends _i26.PageRouteInfo<void> {
+class ProfileRoute extends _i29.PageRouteInfo<void> {
   const ProfileRoute()
       : super(
           ProfileRoute.name,
@@ -515,7 +562,7 @@ class ProfileRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.NotesPage]
-class NotesRoute extends _i26.PageRouteInfo<void> {
+class NotesRoute extends _i29.PageRouteInfo<void> {
   const NotesRoute()
       : super(
           NotesRoute.name,
@@ -527,7 +574,7 @@ class NotesRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.CalendarPage]
-class CalendarRoute extends _i26.PageRouteInfo<void> {
+class CalendarRoute extends _i29.PageRouteInfo<void> {
   const CalendarRoute()
       : super(
           CalendarRoute.name,
@@ -539,9 +586,9 @@ class CalendarRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i11.NotaEditPage]
-class NotaEditRoute extends _i26.PageRouteInfo<NotaEditRouteArgs> {
+class NotaEditRoute extends _i29.PageRouteInfo<NotaEditRouteArgs> {
   NotaEditRoute({
-    _i27.Key? key,
+    _i30.Key? key,
     required String isses,
   }) : super(
           NotaEditRoute.name,
@@ -561,7 +608,7 @@ class NotaEditRouteArgs {
     required this.isses,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
   final String isses;
 
@@ -573,10 +620,10 @@ class NotaEditRouteArgs {
 
 /// generated route for
 /// [_i12.LectorPage]
-class LectorRoute extends _i26.PageRouteInfo<LectorRouteArgs> {
+class LectorRoute extends _i29.PageRouteInfo<LectorRouteArgs> {
   LectorRoute({
-    required _i33.NotaData doc,
-    _i27.Key? key,
+    required _i36.NotaData doc,
+    _i30.Key? key,
   }) : super(
           LectorRoute.name,
           path: '/lector-page',
@@ -595,9 +642,9 @@ class LectorRouteArgs {
     this.key,
   });
 
-  final _i33.NotaData doc;
+  final _i36.NotaData doc;
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
   @override
   String toString() {
@@ -607,10 +654,10 @@ class LectorRouteArgs {
 
 /// generated route for
 /// [_i13.FuncsPage]
-class FuncsRoute extends _i26.PageRouteInfo<FuncsRouteArgs> {
+class FuncsRoute extends _i29.PageRouteInfo<FuncsRouteArgs> {
   FuncsRoute({
-    _i27.Key? key,
-    required _i32.UserData doc,
+    _i30.Key? key,
+    required _i35.UserData doc,
   }) : super(
           FuncsRoute.name,
           path: '/funcs-page',
@@ -629,9 +676,9 @@ class FuncsRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i32.UserData doc;
+  final _i35.UserData doc;
 
   @override
   String toString() {
@@ -641,10 +688,10 @@ class FuncsRouteArgs {
 
 /// generated route for
 /// [_i14.TipsPage]
-class TipsRoute extends _i26.PageRouteInfo<TipsRouteArgs> {
+class TipsRoute extends _i29.PageRouteInfo<TipsRouteArgs> {
   TipsRoute({
-    _i27.Key? key,
-    required _i32.UserData? doc,
+    _i30.Key? key,
+    required _i35.UserData? doc,
   }) : super(
           TipsRoute.name,
           path: '/tips-page',
@@ -663,9 +710,9 @@ class TipsRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i32.UserData? doc;
+  final _i35.UserData? doc;
 
   @override
   String toString() {
@@ -675,10 +722,10 @@ class TipsRouteArgs {
 
 /// generated route for
 /// [_i15.AddTipPage]
-class AddTipRoute extends _i26.PageRouteInfo<AddTipRouteArgs> {
+class AddTipRoute extends _i29.PageRouteInfo<AddTipRouteArgs> {
   AddTipRoute({
-    _i27.Key? key,
-    required _i32.UserData? doc,
+    _i30.Key? key,
+    required _i35.UserData? doc,
   }) : super(
           AddTipRoute.name,
           path: '/add-tip-page',
@@ -697,9 +744,9 @@ class AddTipRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i32.UserData? doc;
+  final _i35.UserData? doc;
 
   @override
   String toString() {
@@ -709,10 +756,10 @@ class AddTipRouteArgs {
 
 /// generated route for
 /// [_i16.TareasPage]
-class TareasRoute extends _i26.PageRouteInfo<TareasRouteArgs> {
+class TareasRoute extends _i29.PageRouteInfo<TareasRouteArgs> {
   TareasRoute({
-    _i27.Key? key,
-    required _i32.UserData? doc,
+    _i30.Key? key,
+    required _i35.UserData? doc,
   }) : super(
           TareasRoute.name,
           path: '/tareas-page',
@@ -731,9 +778,9 @@ class TareasRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i32.UserData? doc;
+  final _i35.UserData? doc;
 
   @override
   String toString() {
@@ -743,10 +790,10 @@ class TareasRouteArgs {
 
 /// generated route for
 /// [_i17.TareaAddPage]
-class TareaAddRoute extends _i26.PageRouteInfo<TareaAddRouteArgs> {
+class TareaAddRoute extends _i29.PageRouteInfo<TareaAddRouteArgs> {
   TareaAddRoute({
-    _i27.Key? key,
-    required _i32.UserData? doc,
+    _i30.Key? key,
+    required _i35.UserData? doc,
   }) : super(
           TareaAddRoute.name,
           path: '/tarea-add-page',
@@ -765,9 +812,9 @@ class TareaAddRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i32.UserData? doc;
+  final _i35.UserData? doc;
 
   @override
   String toString() {
@@ -777,10 +824,10 @@ class TareaAddRouteArgs {
 
 /// generated route for
 /// [_i18.SesionesPage]
-class SesionesRoute extends _i26.PageRouteInfo<SesionesRouteArgs> {
+class SesionesRoute extends _i29.PageRouteInfo<SesionesRouteArgs> {
   SesionesRoute({
-    _i27.Key? key,
-    required _i32.UserData? doc,
+    _i30.Key? key,
+    required _i35.UserData? doc,
   }) : super(
           SesionesRoute.name,
           path: '/sesiones-page',
@@ -799,9 +846,9 @@ class SesionesRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i32.UserData? doc;
+  final _i35.UserData? doc;
 
   @override
   String toString() {
@@ -811,10 +858,10 @@ class SesionesRouteArgs {
 
 /// generated route for
 /// [_i19.SesionesAdd]
-class SesionesAdd extends _i26.PageRouteInfo<SesionesAddArgs> {
+class SesionesAdd extends _i29.PageRouteInfo<SesionesAddArgs> {
   SesionesAdd({
-    _i27.Key? key,
-    required _i32.UserData? doc,
+    _i30.Key? key,
+    required _i35.UserData? doc,
   }) : super(
           SesionesAdd.name,
           path: '/sesiones-add',
@@ -833,9 +880,9 @@ class SesionesAddArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i32.UserData? doc;
+  final _i35.UserData? doc;
 
   @override
   String toString() {
@@ -845,10 +892,10 @@ class SesionesAddArgs {
 
 /// generated route for
 /// [_i20.TareaLectorPage]
-class TareaLectorRoute extends _i26.PageRouteInfo<TareaLectorRouteArgs> {
+class TareaLectorRoute extends _i29.PageRouteInfo<TareaLectorRouteArgs> {
   TareaLectorRoute({
-    _i27.Key? key,
-    required _i34.TareasData doc,
+    _i30.Key? key,
+    required _i37.TareasData doc,
   }) : super(
           TareaLectorRoute.name,
           path: '/tarea-lector-page',
@@ -867,9 +914,9 @@ class TareaLectorRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i34.TareasData doc;
+  final _i37.TareasData doc;
 
   @override
   String toString() {
@@ -879,11 +926,11 @@ class TareaLectorRouteArgs {
 
 /// generated route for
 /// [_i21.TareaEditPage]
-class TareaEditRoute extends _i26.PageRouteInfo<TareaEditRouteArgs> {
+class TareaEditRoute extends _i29.PageRouteInfo<TareaEditRouteArgs> {
   TareaEditRoute({
-    _i27.Key? key,
-    required _i34.TareasData doc,
-    required _i32.UserData? docUser,
+    _i30.Key? key,
+    required _i37.TareasData doc,
+    required _i35.UserData? docUser,
   }) : super(
           TareaEditRoute.name,
           path: '/tarea-edit-page',
@@ -904,11 +951,11 @@ class TareaEditRouteArgs {
     required this.docUser,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i34.TareasData doc;
+  final _i37.TareasData doc;
 
-  final _i32.UserData? docUser;
+  final _i35.UserData? docUser;
 
   @override
   String toString() {
@@ -918,7 +965,7 @@ class TareaEditRouteArgs {
 
 /// generated route for
 /// [_i22.TipEditPage]
-class TipEditRoute extends _i26.PageRouteInfo<void> {
+class TipEditRoute extends _i29.PageRouteInfo<void> {
   const TipEditRoute()
       : super(
           TipEditRoute.name,
@@ -930,11 +977,11 @@ class TipEditRoute extends _i26.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i23.LectorSesPage]
-class LectorSesRoute extends _i26.PageRouteInfo<LectorSesRouteArgs> {
+class LectorSesRoute extends _i29.PageRouteInfo<LectorSesRouteArgs> {
   LectorSesRoute({
-    _i27.Key? key,
-    required _i31.SesionesData docSes,
-    required _i32.UserData? docPac,
+    _i30.Key? key,
+    required _i34.SesionesData docSes,
+    required _i35.UserData? docPac,
   }) : super(
           LectorSesRoute.name,
           path: '/lector-ses-page',
@@ -955,11 +1002,11 @@ class LectorSesRouteArgs {
     required this.docPac,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i31.SesionesData docSes;
+  final _i34.SesionesData docSes;
 
-  final _i32.UserData? docPac;
+  final _i35.UserData? docPac;
 
   @override
   String toString() {
@@ -969,10 +1016,10 @@ class LectorSesRouteArgs {
 
 /// generated route for
 /// [_i24.NotasSesionesPage]
-class NotasSesionesRoute extends _i26.PageRouteInfo<NotasSesionesRouteArgs> {
+class NotasSesionesRoute extends _i29.PageRouteInfo<NotasSesionesRouteArgs> {
   NotasSesionesRoute({
-    _i27.Key? key,
-    required _i31.SesionesData doc,
+    _i30.Key? key,
+    required _i34.SesionesData doc,
   }) : super(
           NotasSesionesRoute.name,
           path: '/notas-sesiones-page',
@@ -991,9 +1038,9 @@ class NotasSesionesRouteArgs {
     required this.doc,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i31.SesionesData doc;
+  final _i34.SesionesData doc;
 
   @override
   String toString() {
@@ -1003,12 +1050,12 @@ class NotasSesionesRouteArgs {
 
 /// generated route for
 /// [_i25.ConductaLectorPage]
-class ConductaLectorRoute extends _i26.PageRouteInfo<ConductaLectorRouteArgs> {
+class ConductaLectorRoute extends _i29.PageRouteInfo<ConductaLectorRouteArgs> {
   ConductaLectorRoute({
-    _i27.Key? key,
-    required _i35.ProgresoData docProg,
-    required _i31.SesionesData docSes,
-    required _i32.UserData? docPac,
+    _i30.Key? key,
+    required _i38.ProgresoData docProg,
+    required _i34.SesionesData docSes,
+    required _i35.UserData? docPac,
   }) : super(
           ConductaLectorRoute.name,
           path: '/conducta-lector-page',
@@ -1031,16 +1078,128 @@ class ConductaLectorRouteArgs {
     required this.docPac,
   });
 
-  final _i27.Key? key;
+  final _i30.Key? key;
 
-  final _i35.ProgresoData docProg;
+  final _i38.ProgresoData docProg;
 
-  final _i31.SesionesData docSes;
+  final _i34.SesionesData docSes;
 
-  final _i32.UserData? docPac;
+  final _i35.UserData? docPac;
 
   @override
   String toString() {
     return 'ConductaLectorRouteArgs{key: $key, docProg: $docProg, docSes: $docSes, docPac: $docPac}';
+  }
+}
+
+/// generated route for
+/// [_i26.ChatMainPage]
+class ChatMainRoute extends _i29.PageRouteInfo<ChatMainRouteArgs> {
+  ChatMainRoute({
+    required _i35.UserData? user,
+    _i30.Key? key,
+  }) : super(
+          ChatMainRoute.name,
+          path: '/chat-main-page',
+          args: ChatMainRouteArgs(
+            user: user,
+            key: key,
+          ),
+        );
+
+  static const String name = 'ChatMainRoute';
+}
+
+class ChatMainRouteArgs {
+  const ChatMainRouteArgs({
+    required this.user,
+    this.key,
+  });
+
+  final _i35.UserData? user;
+
+  final _i30.Key? key;
+
+  @override
+  String toString() {
+    return 'ChatMainRouteArgs{user: $user, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i27.SearchPage]
+class SearchRoute extends _i29.PageRouteInfo<SearchRouteArgs> {
+  SearchRoute({
+    required _i35.UserData? user,
+    _i30.Key? key,
+  }) : super(
+          SearchRoute.name,
+          path: '/search-page',
+          args: SearchRouteArgs(
+            user: user,
+            key: key,
+          ),
+        );
+
+  static const String name = 'SearchRoute';
+}
+
+class SearchRouteArgs {
+  const SearchRouteArgs({
+    required this.user,
+    this.key,
+  });
+
+  final _i35.UserData? user;
+
+  final _i30.Key? key;
+
+  @override
+  String toString() {
+    return 'SearchRouteArgs{user: $user, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i28.ChatPage]
+class ChatRoute extends _i29.PageRouteInfo<ChatRouteArgs> {
+  ChatRoute({
+    _i30.Key? key,
+    required _i35.UserData? user,
+    required String friendId,
+    required String friendName,
+  }) : super(
+          ChatRoute.name,
+          path: '/chat-page',
+          args: ChatRouteArgs(
+            key: key,
+            user: user,
+            friendId: friendId,
+            friendName: friendName,
+          ),
+        );
+
+  static const String name = 'ChatRoute';
+}
+
+class ChatRouteArgs {
+  const ChatRouteArgs({
+    this.key,
+    required this.user,
+    required this.friendId,
+    required this.friendName,
+  });
+
+  final _i30.Key? key;
+
+  final _i35.UserData? user;
+
+  final String friendId;
+
+  final String friendName;
+
+  @override
+  String toString() {
+    return 'ChatRouteArgs{key: $key, user: $user, friendId: $friendId, friendName: $friendName}';
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
+import 'package:table_calendar/table_calendar.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
 
 class PsicHomePage extends StatefulWidget {
@@ -130,6 +131,16 @@ class _PsicHomePageState extends State<PsicHomePage> {
           )),
           ListTile(
             title: const Text(
+              "Chat",
+              style: TextStyle(fontSize: 24, color: Colors.greenAccent),
+            ),
+            onTap: () {
+              context.router.push(ChatMainRoute(user: _authMobx.user));
+            },
+            selected: true,
+          ),
+          ListTile(
+            title: const Text(
               "Salir",
               style: TextStyle(fontSize: 24, color: Colors.redAccent),
             ),
@@ -193,13 +204,16 @@ class _PsicHomePageState extends State<PsicHomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Container(
-              margin: const EdgeInsets.fromLTRB(0, 0, 0, 4),
-              child: Text(
-                "Hola, $nombre",
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
-              ),
-            ),
+                margin: const EdgeInsets.fromLTRB(0, 0, 0, 4),
+                child: nombre != null
+                    ? Text(
+                        "Hola, $nombre",
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 36),
+                      )
+                    : const Center(
+                        child: CircularProgressIndicator(),
+                      )),
             SizedBox.fromSize(
               size: const Size.fromHeight(8),
             ),

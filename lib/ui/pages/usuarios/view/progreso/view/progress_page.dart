@@ -150,7 +150,7 @@ class _ProgressPageState extends State<ProgressPage> {
             margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             shadowColor: Colors.black,
             child: _progresoMobx.progresoLista!.isNotEmpty
-                ? ChartPage(conductaDoc: _progresoMobx.progresoLista![0])
+                ? ChartPage(conductaDoc: _progresoMobx.progresoLista)
                 : const Center(
                     child: Text(
                         "Cuando empieces a ingresar conductas aparecerán aquí"),

@@ -26,6 +26,7 @@ abstract class _AuthMobxBase with Store {
     });
   }
 
+  @action
   signOut() {
     FirebaseAuth.instance.signOut();
   }

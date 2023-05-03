@@ -1,5 +1,8 @@
 import 'package:auto_route/annotations.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_main_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/search_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view/sesiones_notas.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/home/patient_home_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/paciente/linea/view/ayuda_linea.dart';
@@ -63,6 +66,9 @@ import 'guest_guard.dart';
     MaterialRoute(page: LectorSesPage), // MainPage
     MaterialRoute(page: NotasSesionesPage), // MainPage
     MaterialRoute(page: ConductaLectorPage), // MainPage
+    MaterialRoute(page: ChatMainPage), // MainPage
+    MaterialRoute(page: SearchPage), // MainPage
+    MaterialRoute(page: ChatPage), // MainPage
     // MainPage
   ],
 )

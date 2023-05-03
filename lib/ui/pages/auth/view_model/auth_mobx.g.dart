@@ -40,6 +40,20 @@ mixin _$AuthMobx on _AuthMobxBase, Store {
     });
   }
 
+  late final _$_AuthMobxBaseActionController =
+      ActionController(name: '_AuthMobxBase', context: context);
+
+  @override
+  dynamic signOut() {
+    final _$actionInfo = _$_AuthMobxBaseActionController.startAction(
+        name: '_AuthMobxBase.signOut');
+    try {
+      return super.signOut();
+    } finally {
+      _$_AuthMobxBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

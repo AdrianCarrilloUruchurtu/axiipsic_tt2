@@ -9,7 +9,7 @@ class UserData with _$UserData {
   factory UserData(String nombre, String apellido, String ispsic, String email,
       String psicMail, String id) = _UserData;
 
-// Preguntar
+
   factory UserData.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) =>
       _$UserDataFromJson(
           {...?doc.data(), "id": doc.id, "psicMail": (doc.get("psicMail"))});

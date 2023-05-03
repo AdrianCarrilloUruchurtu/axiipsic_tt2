@@ -57,11 +57,11 @@ dependencies:
   # Auto Route
   auto_route: ^5.0.4
 
-  #Injectable
+  # Injectable
   injectable: ^2.1.0
   json_annotation: ^4.8.0
 
-  #Get_it
+  # Get_it
   get_it: ^7.2.0
   
   # Charts
@@ -73,8 +73,11 @@ dependencies:
   flutter_mobx: ^2.0.6+5
   intl: ^0.17.0
 
-  #Forms
+  # Forms
   multiselect_formfield: ^0.1.7
+
+  # AppBar
+  # rounded_floating_app_bar: 0.1.0
 
 dev_dependencies:
   flutter_test:

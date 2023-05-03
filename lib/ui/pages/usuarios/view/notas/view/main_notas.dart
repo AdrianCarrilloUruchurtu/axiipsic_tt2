@@ -129,11 +129,11 @@ class _NotesPageState extends State<NotesPage> {
     return AppBar(
       title: Container(
         margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-        child: Text(
+        child: nombre != "" ? Text(
           "Notas de $nombre",
           style:
               const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
+        ) : const Center(child: CircularProgressIndicator(),)
       ),
       centerTitle: true,
       leading: Builder(

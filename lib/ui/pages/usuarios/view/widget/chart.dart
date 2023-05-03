@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ChartPage extends StatefulWidget {
   const ChartPage({super.key, required this.conductaDoc});
-  final ProgresoData conductaDoc;
+  final List<ProgresoData>? conductaDoc;
   @override
   State<ChartPage> createState() => _ProgressChartPage();
 }
@@ -141,96 +141,91 @@ class _ProgressChartPage extends State<ChartPage> {
 
   LineChartData mainData() {
     return LineChartData(
-      gridData: FlGridData(
-        show: true,
-        drawVerticalLine: true,
-        horizontalInterval: 1,
-        verticalInterval: 1,
-        getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: Colors.black,
-            strokeWidth: 1,
-          );
-        },
-        getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: Colors.black,
-            strokeWidth: 1,
-          );
-        },
-      ),
-      titlesData: FlTitlesData(
-        show: true,
-        rightTitles: AxisTitles(
-          sideTitles: SideTitles(showTitles: false),
+        gridData: FlGridData(
+          show: true,
+          drawVerticalLine: true,
+          horizontalInterval: 1,
+          verticalInterval: 1,
+          getDrawingHorizontalLine: (value) {
+            return FlLine(
+              color: Colors.black,
+              strokeWidth: 1,
+            );
+          },
+          getDrawingVerticalLine: (value) {
+            return FlLine(
+              color: Colors.black,
+              strokeWidth: 1,
+            );
+          },
         ),
-        topTitles: AxisTitles(
-          sideTitles:
-              SideTitles(showTitles: true, getTitlesWidget: topTitleWidgets),
-        ),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            interval: 1,
-            getTitlesWidget: bottomTitleWidgets,
+        titlesData: FlTitlesData(
+          show: true,
+          rightTitles: AxisTitles(
+            sideTitles: SideTitles(showTitles: false),
           ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            interval: 1,
-            getTitlesWidget: leftTitleWidgets,
-            reservedSize: 42,
+          topTitles: AxisTitles(
+            sideTitles:
+                SideTitles(showTitles: true, getTitlesWidget: topTitleWidgets),
           ),
-        ),
-      ),
-      borderData: FlBorderData(
-        show: true,
-        border: Border.all(color: const Color(0xff37434d)),
-      ),
-      minX: 0,
-      maxX: 6,
-      minY: 0,
-      maxY: 5,
-      // Datos del gráfico
-      lineBarsData: [
-        LineChartBarData(
-          spots: [
-            FlSpot(widget.conductaDoc.lunes[0]!, widget.conductaDoc.lunes[1]!),
-            FlSpot(
-                widget.conductaDoc.martes[0]!, widget.conductaDoc.martes[1]!),
-            FlSpot(widget.conductaDoc.miercoles[0]!,
-                widget.conductaDoc.miercoles[1]!),
-            FlSpot(
-                widget.conductaDoc.jueves[0]!, widget.conductaDoc.jueves[1]!),
-            FlSpot(
-                widget.conductaDoc.viernes[0]!, widget.conductaDoc.viernes[1]!),
-            FlSpot(
-                widget.conductaDoc.sabado[0]!, widget.conductaDoc.sabado[1]!),
-            FlSpot(
-                widget.conductaDoc.domingo[0]!, widget.conductaDoc.domingo[1]!),
-          ],
-          isCurved: true,
-          gradient: LinearGradient(
-            colors: gradientColors,
+          bottomTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              reservedSize: 30,
+              interval: 1,
+              getTitlesWidget: bottomTitleWidgets,
+            ),
           ),
-          barWidth: 5,
-          isStrokeCapRound: true,
-          dotData: FlDotData(
-            show: false,
-          ),
-          belowBarData: BarAreaData(
-            show: true,
-            gradient: LinearGradient(
-              colors: gradientColors
-                  .map((color) => color.withOpacity(0.3))
-                  .toList(),
+          leftTitles: AxisTitles(
+            sideTitles: SideTitles(
+              showTitles: true,
+              interval: 1,
+              getTitlesWidget: leftTitleWidgets,
+              reservedSize: 42,
             ),
           ),
         ),
-      ],
-    );
+        borderData: FlBorderData(
+          show: true,
+          border: Border.all(color: const Color(0xff37434d)),
+        ),
+        minX: 0,
+        maxX: 6,
+        minY: 0,
+        maxY: 5,
+        // Datos del gráfico
+        lineBarsData: widget.conductaDoc
+            ?.map(
+              (doc) => LineChartBarData(
+                spots: [
+                  FlSpot(doc.lunes[0]!, doc.lunes[1]!),
+                  FlSpot(doc.martes[0]!, doc.martes[1]!),
+                  FlSpot(doc.miercoles[0]!, doc.miercoles[1]!),
+                  FlSpot(doc.jueves[0]!, doc.jueves[1]!),
+                  FlSpot(doc.viernes[0]!, doc.viernes[1]!),
+                  FlSpot(doc.sabado[0]!, doc.sabado[1]!),
+                  FlSpot(doc.domingo[0]!, doc.domingo[1]!),
+                ],
+                isCurved: true,
+                gradient: LinearGradient(
+                  colors: gradientColors,
+                ),
+                barWidth: 5,
+                isStrokeCapRound: true,
+                dotData: FlDotData(
+                  show: false,
+                ),
+                belowBarData: BarAreaData(
+                  show: true,
+                  gradient: LinearGradient(
+                    colors: gradientColors
+                        .map((color) => color.withOpacity(0.3))
+                        .toList(),
+                  ),
+                ),
+              ),
+            )
+            .toList());
   }
 
   LineChartData avgData() {
