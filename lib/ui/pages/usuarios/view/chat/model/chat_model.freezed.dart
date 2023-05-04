@@ -20,11 +20,7 @@ ChatData _$ChatDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ChatData {
-  String get senderId => throw _privateConstructorUsedError;
-  String get recieverId => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
-  String get type => throw _privateConstructorUsedError;
-  DateTime get date => throw _privateConstructorUsedError;
+  String get last_msg => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,12 +33,7 @@ abstract class $ChatDataCopyWith<$Res> {
   factory $ChatDataCopyWith(ChatData value, $Res Function(ChatData) then) =
       _$ChatDataCopyWithImpl<$Res, ChatData>;
   @useResult
-  $Res call(
-      {String senderId,
-      String recieverId,
-      String message,
-      String type,
-      DateTime date});
+  $Res call({String last_msg});
 }
 
 /// @nodoc
@@ -58,33 +49,13 @@ class _$ChatDataCopyWithImpl<$Res, $Val extends ChatData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? senderId = null,
-    Object? recieverId = null,
-    Object? message = null,
-    Object? type = null,
-    Object? date = null,
+    Object? last_msg = null,
   }) {
     return _then(_value.copyWith(
-      senderId: null == senderId
-          ? _value.senderId
-          : senderId // ignore: cast_nullable_to_non_nullable
+      last_msg: null == last_msg
+          ? _value.last_msg
+          : last_msg // ignore: cast_nullable_to_non_nullable
               as String,
-      recieverId: null == recieverId
-          ? _value.recieverId
-          : recieverId // ignore: cast_nullable_to_non_nullable
-              as String,
-      message: null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ) as $Val);
   }
 }
@@ -96,12 +67,7 @@ abstract class _$$_ChatDataCopyWith<$Res> implements $ChatDataCopyWith<$Res> {
       __$$_ChatDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String senderId,
-      String recieverId,
-      String message,
-      String type,
-      DateTime date});
+  $Res call({String last_msg});
 }
 
 /// @nodoc
@@ -115,33 +81,13 @@ class __$$_ChatDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? senderId = null,
-    Object? recieverId = null,
-    Object? message = null,
-    Object? type = null,
-    Object? date = null,
+    Object? last_msg = null,
   }) {
     return _then(_$_ChatData(
-      null == senderId
-          ? _value.senderId
-          : senderId // ignore: cast_nullable_to_non_nullable
+      null == last_msg
+          ? _value.last_msg
+          : last_msg // ignore: cast_nullable_to_non_nullable
               as String,
-      null == recieverId
-          ? _value.recieverId
-          : recieverId // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
     ));
   }
 }
@@ -149,26 +95,17 @@ class __$$_ChatDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ChatData implements _ChatData {
-  _$_ChatData(
-      this.senderId, this.recieverId, this.message, this.type, this.date);
+  _$_ChatData(this.last_msg);
 
   factory _$_ChatData.fromJson(Map<String, dynamic> json) =>
       _$$_ChatDataFromJson(json);
 
   @override
-  final String senderId;
-  @override
-  final String recieverId;
-  @override
-  final String message;
-  @override
-  final String type;
-  @override
-  final DateTime date;
+  final String last_msg;
 
   @override
   String toString() {
-    return 'ChatData(senderId: $senderId, recieverId: $recieverId, message: $message, type: $type, date: $date)';
+    return 'ChatData(last_msg: $last_msg)';
   }
 
   @override
@@ -176,19 +113,13 @@ class _$_ChatData implements _ChatData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ChatData &&
-            (identical(other.senderId, senderId) ||
-                other.senderId == senderId) &&
-            (identical(other.recieverId, recieverId) ||
-                other.recieverId == recieverId) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.date, date) || other.date == date));
+            (identical(other.last_msg, last_msg) ||
+                other.last_msg == last_msg));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, senderId, recieverId, message, type, date);
+  int get hashCode => Object.hash(runtimeType, last_msg);
 
   @JsonKey(ignore: true)
   @override
@@ -205,25 +136,12 @@ class _$_ChatData implements _ChatData {
 }
 
 abstract class _ChatData implements ChatData {
-  factory _ChatData(
-      final String senderId,
-      final String recieverId,
-      final String message,
-      final String type,
-      final DateTime date) = _$_ChatData;
+  factory _ChatData(final String last_msg) = _$_ChatData;
 
   factory _ChatData.fromJson(Map<String, dynamic> json) = _$_ChatData.fromJson;
 
   @override
-  String get senderId;
-  @override
-  String get recieverId;
-  @override
-  String get message;
-  @override
-  String get type;
-  @override
-  DateTime get date;
+  String get last_msg;
   @override
   @JsonKey(ignore: true)
   _$$_ChatDataCopyWith<_$_ChatData> get copyWith =>

@@ -31,6 +31,11 @@ abstract class _AuthMobxBase with Store {
     FirebaseAuth.instance.signOut();
   }
 
+  @action
+  getUserById(String? friendId) {
+    _userRepo.getUserByFriendId(friendId);
+  }
+
   @observable
   UserData? user;
 

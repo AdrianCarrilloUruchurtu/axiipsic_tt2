@@ -5,7 +5,6 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view-model/chat_mobx.da
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view-model/message_mobx.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -28,72 +27,44 @@ class _ChatMainPageState extends State<ChatMainPage> {
     return Observer(
       builder: ((context) => Scaffold(
             body: StreamBuilder(
-                stream: _chatMobx.streamChats(widget.user!.id),
+                stream: _chatMobx.streamChats(),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     if (snapshot.data.docs.length < 1) {
                       return const Center(
-                        child: Text("No Chats Available !"),
+                        child: Text("No has comenzado ningún chat"),
                       );
                     }
                     return ListView.builder(
                         itemCount: snapshot.data.docs.length,
-                        itemBuilder: (context, index) {
-                          var friendId = _authMobx.userLista?[index].id;
-                          var lastMsg =
-                              _messageMobx.messageList?[index].lastMsg;
-                          return FutureBuilder(
-                            future: FirebaseFirestore.instance
-                                .collection('users')
-                                .doc(friendId)
-                                .get(),
-                            builder: (context, AsyncSnapshot asyncSnapshot) {
-                              if (asyncSnapshot.hasData) {
-                                var friend = asyncSnapshot.data;
-                                return ListTile(
-                                  // Falta implementación de imagenes de perfil
-                                  // leading: ClipRRect(
-                                  //   borderRadius: BorderRadius.circular(80),
-                                  //   child: CachedNetworkImage(
-                                  //     imageUrl: friend['image'],
-                                  //     placeholder: (conteext, url) =>
-                                  //         const CircularProgressIndicator(),
-                                  //     errorWidget: (context, url, error) =>
-                                  //         const Icon(
-                                  //       Icons.error,
-                                  //     ),
-                                  //     height: 50,
-                                  //   ),
-                                  // ),
-                                  title: Text(friend['name']),
-                                  subtitle: Container(
-                                    child: Text(
-                                      "$lastMsg",
-                                      style:
-                                          const TextStyle(color: Colors.grey),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  onTap: () {
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => ChatScreen(
-                                    //             currentUser: widget.user,
-                                    //             friendId: friend['uid'],
-                                    //             friendName: friend['name'],
-                                    //             friendImage: friend['image'])));
-                                  },
-                                );
-                              }
-                              return const LinearProgressIndicator();
-                            },
-                          );
-                        });
+                        itemBuilder: (context, index) =>
+                            Builder(builder: (BuildContext context) {
+                              return FutureBuilder(
+                                  future: _authMobx.getUserById(
+                                      _authMobx.userLista?[index].id),
+                                  builder: (context, asyncSnapshot) {
+                                    return asyncSnapshot.hasData
+                                        ? ListTile(
+                                            title: Text(_authMobx
+                                                .userLista![index].nombre),
+                                            subtitle: Container(
+                                              child: Text(
+                                                _chatMobx
+                                                    .chatList![index].last_msg,
+                                                style: const TextStyle(
+                                                    color: Colors.grey),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                            onTap: () {})
+                                        : const LinearProgressIndicator();
+                                  });
+                            }));
+                  } else {
+                    return const Center(
+                      child: Text("Hola"),
+                    );
                   }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
                 }),
             floatingActionButton: FloatingActionButton(
               child: const Icon(Icons.search),

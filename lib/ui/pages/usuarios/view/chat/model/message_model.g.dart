@@ -8,14 +8,18 @@ part of 'message_model.dart';
 
 _$_MessageData _$$_MessageDataFromJson(Map<String, dynamic> json) =>
     _$_MessageData(
-      json['currentId'] as String,
-      json['friendId'] as String,
-      json['lastMsg'] as String,
+      DateTime.parse(json['date'] as String),
+      json['message'] as String,
+      json['recieverId'] as String,
+      json['senderId'] as String,
+      json['type'] as String,
     );
 
 Map<String, dynamic> _$$_MessageDataToJson(_$_MessageData instance) =>
     <String, dynamic>{
-      'currentId': instance.currentId,
-      'friendId': instance.friendId,
-      'lastMsg': instance.lastMsg,
+      'date': instance.date.toIso8601String(),
+      'message': instance.message,
+      'recieverId': instance.recieverId,
+      'senderId': instance.senderId,
+      'type': instance.type,
     };

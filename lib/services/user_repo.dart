@@ -23,24 +23,26 @@ class UserRepo {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
-        .where('psicMail',
-            isEqualTo: currentUser!
-                .email) 
+        .where('psicMail', isEqualTo: currentUser!.email)
         .snapshots()
         .map((event) {
       return event.docs.map((e) => UserData.fromDocument(e)).toList();
     });
   }
 
-    Stream<List<UserData>> searchList(String name) {
+  Stream<List<UserData>> searchList(String name) {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
-        .where('nombre',
-            isEqualTo: name) 
+        .where('nombre', isEqualTo: name)
         .snapshots()
         .map((event) {
       return event.docs.map((e) => UserData.fromDocument(e)).toList();
     });
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserByFriendId(
+      String? friendId) {
+    return _firestore.collection('users').doc(friendId).get();
   }
 }

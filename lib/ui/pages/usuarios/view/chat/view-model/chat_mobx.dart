@@ -36,8 +36,8 @@ abstract class _ChatStoreBase with Store {
   }
 
   @action
-  streamChats(String friendId) {
-    _chatRepo.streamChats(friendId);
+  streamChats() {
+    _chatRepo.streamChats();
   }
 
   @observable

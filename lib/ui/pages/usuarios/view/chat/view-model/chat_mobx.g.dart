@@ -69,11 +69,11 @@ mixin _$ChatStore on _ChatStoreBase, Store {
       ActionController(name: '_ChatStoreBase', context: context);
 
   @override
-  dynamic streamChats(String friendId) {
+  dynamic streamChats() {
     final _$actionInfo = _$_ChatStoreBaseActionController.startAction(
         name: '_ChatStoreBase.streamChats');
     try {
-      return super.streamChats(friendId);
+      return super.streamChats();
     } finally {
       _$_ChatStoreBaseActionController.endAction(_$actionInfo);
     }

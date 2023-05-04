@@ -38,11 +38,12 @@ class ChatRepo {
     });
   }
 
-  streamChats(String friendId) {
+  streamChats() {
     return _firestore
         .collection('users')
-        .doc(friendId)
+        .doc(_auth.currentUser?.uid)
         .collection('messages')
-        .snapshots();
+        .snapshots()
+        .map((event) => event.docs.first.id);
   }
 }

@@ -55,6 +55,17 @@ mixin _$AuthMobx on _AuthMobxBase, Store {
   }
 
   @override
+  dynamic getUserById(String? friendId) {
+    final _$actionInfo = _$_AuthMobxBaseActionController.startAction(
+        name: '_AuthMobxBase.getUserById');
+    try {
+      return super.getUserById(friendId);
+    } finally {
+      _$_AuthMobxBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 user: ${user},

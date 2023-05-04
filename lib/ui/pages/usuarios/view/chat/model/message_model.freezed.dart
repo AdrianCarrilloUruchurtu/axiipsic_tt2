@@ -20,9 +20,11 @@ MessageData _$MessageDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MessageData {
-  String get currentId => throw _privateConstructorUsedError;
-  String get friendId => throw _privateConstructorUsedError;
-  String get lastMsg => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
+  String get message => throw _privateConstructorUsedError;
+  String get recieverId => throw _privateConstructorUsedError;
+  String get senderId => throw _privateConstructorUsedError;
+  String get type => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +38,12 @@ abstract class $MessageDataCopyWith<$Res> {
           MessageData value, $Res Function(MessageData) then) =
       _$MessageDataCopyWithImpl<$Res, MessageData>;
   @useResult
-  $Res call({String currentId, String friendId, String lastMsg});
+  $Res call(
+      {DateTime date,
+      String message,
+      String recieverId,
+      String senderId,
+      String type});
 }
 
 /// @nodoc
@@ -52,22 +59,32 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentId = null,
-    Object? friendId = null,
-    Object? lastMsg = null,
+    Object? date = null,
+    Object? message = null,
+    Object? recieverId = null,
+    Object? senderId = null,
+    Object? type = null,
   }) {
     return _then(_value.copyWith(
-      currentId: null == currentId
-          ? _value.currentId
-          : currentId // ignore: cast_nullable_to_non_nullable
+      date: null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      message: null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
-      friendId: null == friendId
-          ? _value.friendId
-          : friendId // ignore: cast_nullable_to_non_nullable
+      recieverId: null == recieverId
+          ? _value.recieverId
+          : recieverId // ignore: cast_nullable_to_non_nullable
               as String,
-      lastMsg: null == lastMsg
-          ? _value.lastMsg
-          : lastMsg // ignore: cast_nullable_to_non_nullable
+      senderId: null == senderId
+          ? _value.senderId
+          : senderId // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -81,7 +98,12 @@ abstract class _$$_MessageDataCopyWith<$Res>
       __$$_MessageDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String currentId, String friendId, String lastMsg});
+  $Res call(
+      {DateTime date,
+      String message,
+      String recieverId,
+      String senderId,
+      String type});
 }
 
 /// @nodoc
@@ -95,22 +117,32 @@ class __$$_MessageDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentId = null,
-    Object? friendId = null,
-    Object? lastMsg = null,
+    Object? date = null,
+    Object? message = null,
+    Object? recieverId = null,
+    Object? senderId = null,
+    Object? type = null,
   }) {
     return _then(_$_MessageData(
-      null == currentId
-          ? _value.currentId
-          : currentId // ignore: cast_nullable_to_non_nullable
+      null == date
+          ? _value.date
+          : date // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
               as String,
-      null == friendId
-          ? _value.friendId
-          : friendId // ignore: cast_nullable_to_non_nullable
+      null == recieverId
+          ? _value.recieverId
+          : recieverId // ignore: cast_nullable_to_non_nullable
               as String,
-      null == lastMsg
-          ? _value.lastMsg
-          : lastMsg // ignore: cast_nullable_to_non_nullable
+      null == senderId
+          ? _value.senderId
+          : senderId // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -119,21 +151,26 @@ class __$$_MessageDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_MessageData implements _MessageData {
-  _$_MessageData(this.currentId, this.friendId, this.lastMsg);
+  _$_MessageData(
+      this.date, this.message, this.recieverId, this.senderId, this.type);
 
   factory _$_MessageData.fromJson(Map<String, dynamic> json) =>
       _$$_MessageDataFromJson(json);
 
   @override
-  final String currentId;
+  final DateTime date;
   @override
-  final String friendId;
+  final String message;
   @override
-  final String lastMsg;
+  final String recieverId;
+  @override
+  final String senderId;
+  @override
+  final String type;
 
   @override
   String toString() {
-    return 'MessageData(currentId: $currentId, friendId: $friendId, lastMsg: $lastMsg)';
+    return 'MessageData(date: $date, message: $message, recieverId: $recieverId, senderId: $senderId, type: $type)';
   }
 
   @override
@@ -141,16 +178,19 @@ class _$_MessageData implements _MessageData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MessageData &&
-            (identical(other.currentId, currentId) ||
-                other.currentId == currentId) &&
-            (identical(other.friendId, friendId) ||
-                other.friendId == friendId) &&
-            (identical(other.lastMsg, lastMsg) || other.lastMsg == lastMsg));
+            (identical(other.date, date) || other.date == date) &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.recieverId, recieverId) ||
+                other.recieverId == recieverId) &&
+            (identical(other.senderId, senderId) ||
+                other.senderId == senderId) &&
+            (identical(other.type, type) || other.type == type));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, currentId, friendId, lastMsg);
+  int get hashCode =>
+      Object.hash(runtimeType, date, message, recieverId, senderId, type);
 
   @JsonKey(ignore: true)
   @override
@@ -168,18 +208,25 @@ class _$_MessageData implements _MessageData {
 
 abstract class _MessageData implements MessageData {
   factory _MessageData(
-          final String currentId, final String friendId, final String lastMsg) =
-      _$_MessageData;
+      final DateTime date,
+      final String message,
+      final String recieverId,
+      final String senderId,
+      final String type) = _$_MessageData;
 
   factory _MessageData.fromJson(Map<String, dynamic> json) =
       _$_MessageData.fromJson;
 
   @override
-  String get currentId;
+  DateTime get date;
   @override
-  String get friendId;
+  String get message;
   @override
-  String get lastMsg;
+  String get recieverId;
+  @override
+  String get senderId;
+  @override
+  String get type;
   @override
   @JsonKey(ignore: true)
   _$$_MessageDataCopyWith<_$_MessageData> get copyWith =>
