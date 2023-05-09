@@ -14,7 +14,7 @@ class ChatRepo {
     final cid = await _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('messages')
+        .collection('chats')
         .doc(id)
         .get();
 
@@ -31,7 +31,7 @@ class ChatRepo {
     return _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('messages')
+        .collection('chats')
         .snapshots()
         .map((event) {
       return event.docs.map((e) => ChatData.fromDocument(e)).toList();
@@ -39,11 +39,10 @@ class ChatRepo {
   }
 
   streamChats() {
-    return _firestore
+    return FirebaseFirestore.instance
         .collection('users')
         .doc(_auth.currentUser?.uid)
-        .collection('messages')
-        .snapshots()
-        .map((event) => event.docs.first.id);
+        .collection('chats')
+        .snapshots();
   }
 }

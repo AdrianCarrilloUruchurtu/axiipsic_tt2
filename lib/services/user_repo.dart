@@ -30,11 +30,22 @@ class UserRepo {
     });
   }
 
+  Stream<List<UserData>> psicList() {
+    return _firestore
+        .collection('users')
+        .where('ispsic', isEqualTo: "Psicologo")
+        .snapshots()
+        .map((event) {
+      return event.docs.map((e) => UserData.fromDocument(e)).toList();
+    });
+  }
+
   Stream<List<UserData>> searchList(String name) {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
         .where('nombre', isEqualTo: name)
+        .where('nombre', isNotEqualTo: currentUser?.uid)
         .snapshots()
         .map((event) {
       return event.docs.map((e) => UserData.fromDocument(e)).toList();

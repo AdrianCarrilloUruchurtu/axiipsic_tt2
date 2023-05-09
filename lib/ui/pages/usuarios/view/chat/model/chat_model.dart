@@ -6,7 +6,8 @@ part 'chat_model.g.dart';
 
 @freezed
 class ChatData with _$ChatData {
-  factory ChatData(final String last_msg) = _ChatData;
+  factory ChatData(final String last_msg, final String friendId,
+      final String friendName) = _ChatData;
 
   factory ChatData.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) =>
       _$ChatDataFromJson({...?doc.data(), "id": doc.id});

@@ -103,27 +103,27 @@ class _SearchPageState extends State<SearchPage> {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: 200,
-                        child: ListView.builder(
-                            itemBuilder: ((context, index) =>
-                                Builder(builder: (BuildContext context) {
-                                  return _chatMobx.searchResult?[index] != null
-                                      ? SearchItem(
-                                          doc: _chatMobx.searchResult?[index],
-                                          onTap: () {
-                                            context.router.push(ChatRoute(
-                                              user: _authMobx.user,
-                                              friendId: _authMobx
-                                                  .userLista![index].id,
-                                              friendName: _authMobx
-                                                  .userLista![index].nombre,
-                                            ));
-                                          })
-                                      : const Center(
-                                          child: CircularProgressIndicator());
-                                })),
-                            itemCount: _chatMobx.searchResult?.length.toInt()),
-                      ),
+                          height: 200,
+                          child: _chatMobx.searchResult != null
+                              ? ListView.builder(
+                                  itemBuilder: ((context, index) =>
+                                      Builder(builder: (BuildContext context) {
+                                        return SearchItem(
+                                            doc: _chatMobx.searchResult?[index],
+                                            onTap: () {
+                                              context.router.push(ChatRoute(
+                                                user: _authMobx.user,
+                                                friendId: _chatMobx
+                                                    .searchResult!.first.id,
+                                                friendName: _chatMobx
+                                                    .searchResult!.first.nombre,
+                                              ));
+                                            });
+                                      })),
+                                  itemCount:
+                                      _chatMobx.searchResult?.length.toInt())
+                              : const Center(
+                                  child: CircularProgressIndicator())),
                     )
                   ],
                 ),

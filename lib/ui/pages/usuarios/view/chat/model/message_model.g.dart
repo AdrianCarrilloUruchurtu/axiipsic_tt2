@@ -8,7 +8,7 @@ part of 'message_model.dart';
 
 _$_MessageData _$$_MessageDataFromJson(Map<String, dynamic> json) =>
     _$_MessageData(
-      DateTime.parse(json['date'] as String),
+      json['date'] as String,
       json['message'] as String,
       json['recieverId'] as String,
       json['senderId'] as String,
@@ -17,7 +17,7 @@ _$_MessageData _$$_MessageDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_MessageDataToJson(_$_MessageData instance) =>
     <String, dynamic>{
-      'date': instance.date.toIso8601String(),
+      'date': instance.date,
       'message': instance.message,
       'recieverId': instance.recieverId,
       'senderId': instance.senderId,

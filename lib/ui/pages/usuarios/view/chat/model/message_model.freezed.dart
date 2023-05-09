@@ -20,7 +20,7 @@ MessageData _$MessageDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MessageData {
-  DateTime get date => throw _privateConstructorUsedError;
+  String get date => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get recieverId => throw _privateConstructorUsedError;
   String get senderId => throw _privateConstructorUsedError;
@@ -39,7 +39,7 @@ abstract class $MessageDataCopyWith<$Res> {
       _$MessageDataCopyWithImpl<$Res, MessageData>;
   @useResult
   $Res call(
-      {DateTime date,
+      {String date,
       String message,
       String recieverId,
       String senderId,
@@ -69,7 +69,7 @@ class _$MessageDataCopyWithImpl<$Res, $Val extends MessageData>
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -99,7 +99,7 @@ abstract class _$$_MessageDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DateTime date,
+      {String date,
       String message,
       String recieverId,
       String senderId,
@@ -127,7 +127,7 @@ class __$$_MessageDataCopyWithImpl<$Res>
       null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as String,
       null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -158,7 +158,7 @@ class _$_MessageData implements _MessageData {
       _$$_MessageDataFromJson(json);
 
   @override
-  final DateTime date;
+  final String date;
   @override
   final String message;
   @override
@@ -208,7 +208,7 @@ class _$_MessageData implements _MessageData {
 
 abstract class _MessageData implements MessageData {
   factory _MessageData(
-      final DateTime date,
+      final String date,
       final String message,
       final String recieverId,
       final String senderId,
@@ -218,7 +218,7 @@ abstract class _MessageData implements MessageData {
       _$_MessageData.fromJson;
 
   @override
-  DateTime get date;
+  String get date;
   @override
   String get message;
   @override

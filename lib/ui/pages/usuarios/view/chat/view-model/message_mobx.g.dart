@@ -25,26 +25,31 @@ mixin _$MessageStore on _MessageStoreBase, Store {
     });
   }
 
+  late final _$chatMessagesAtom =
+      Atom(name: '_MessageStoreBase.chatMessages', context: context);
+
+  @override
+  List<MessageData>? get chatMessages {
+    _$chatMessagesAtom.reportRead();
+    return super.chatMessages;
+  }
+
+  @override
+  set chatMessages(List<MessageData>? value) {
+    _$chatMessagesAtom.reportWrite(value, super.chatMessages, () {
+      super.chatMessages = value;
+    });
+  }
+
   late final _$_MessageStoreBaseActionController =
       ActionController(name: '_MessageStoreBase', context: context);
 
   @override
-  dynamic onSavedMessage(String friendId, String message) {
+  dynamic onSavedMessage(String friendId, String message, String friendName) {
     final _$actionInfo = _$_MessageStoreBaseActionController.startAction(
         name: '_MessageStoreBase.onSavedMessage');
     try {
-      return super.onSavedMessage(friendId, message);
-    } finally {
-      _$_MessageStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic getMessages(String friendId) {
-    final _$actionInfo = _$_MessageStoreBaseActionController.startAction(
-        name: '_MessageStoreBase.getMessages');
-    try {
-      return super.getMessages(friendId);
+      return super.onSavedMessage(friendId, message, friendName);
     } finally {
       _$_MessageStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -53,7 +58,8 @@ mixin _$MessageStore on _MessageStoreBase, Store {
   @override
   String toString() {
     return '''
-messageList: ${messageList}
+messageList: ${messageList},
+chatMessages: ${chatMessages}
     ''';
   }
 }

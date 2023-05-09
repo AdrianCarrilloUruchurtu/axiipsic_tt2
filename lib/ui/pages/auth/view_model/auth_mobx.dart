@@ -17,6 +17,10 @@ abstract class _AuthMobxBase with Store {
       userLista = event;
     });
 
+    _userRepo.psicList().listen((event) {
+      psicList = event;
+    });
+
     FirebaseAuth.instance.authStateChanges().listen((event) async {
       if (event != null) {
         user = await _userRepo.get(event.uid);
@@ -41,4 +45,7 @@ abstract class _AuthMobxBase with Store {
 
   @observable
   List<UserData>? userLista;
+
+  @observable
+  List<UserData>? psicList;
 }

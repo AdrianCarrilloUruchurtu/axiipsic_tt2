@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/view/tareas/model/tareas_model.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 
@@ -62,8 +61,7 @@ class _FuncsPageState extends State<FuncsPage> {
                   context.router.push(const CalendarRoute());
                 }), 1),
                 btn("Asignar tarea", Icons.check_box, (() {
-                  context.router.push(
-                      TareasRoute(doc: widget.doc));
+                  context.router.push(TareasRoute(doc: widget.doc));
                 }), 2),
                 btn("Tips", Icons.tips_and_updates, (() {
                   context.router.push(TipsRoute(doc: widget.doc));
@@ -72,7 +70,9 @@ class _FuncsPageState extends State<FuncsPage> {
                   context.router.push(SesionesRoute(doc: widget.doc));
                 }), 7),
                 btn("Plan de trabajo", Icons.book, (() {}), 5),
-                btn("Historia clínica", Icons.history, (() {}), 6),
+                btn("Historia clínica", Icons.history, (() {
+                  context.router.push(HistoriaRoute(pac: widget.doc));
+                }), 6),
               ],
             ),
           )

@@ -21,69 +21,10 @@ class _PatHomePageState extends State<PatHomePage> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => Scaffold(
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniCenterDocked,
-        floatingActionButton: Container(
-          margin: const EdgeInsets.all(20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.lightBlue.shade200,
-                    foregroundColor: Colors.white,
-                    heroTag: null,
-                    onPressed: () {},
-                    child: const Icon(
-                      FontAwesomeIcons.house,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.lightBlue.shade200,
-                    foregroundColor: Colors.white,
-                    heroTag: null,
-                    onPressed: () {},
-                    child: const Icon(
-                      Icons.add,
-                      size: 32,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.lightBlue.shade200,
-                    foregroundColor: Colors.white,
-                    heroTag: null,
-                    onPressed: () {},
-                    child: const Icon(
-                      FontAwesomeIcons.noteSticky,
-                      size: 32,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
         appBar: _appbar(),
         drawer: _drawer(),
         body: _body(),
-        bottomNavigationBar: _bottomAppBar(),
+        //bottomNavigationBar: _bottomAppBar(),
       ),
     );
   }
@@ -135,6 +76,26 @@ class _PatHomePageState extends State<PatHomePage> {
           )),
           ListTile(
             title: const Text(
+              "Completa tu perfil",
+              style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+            ),
+            onTap: () {
+              context.router.push(const FillHistoriaRoute());
+            },
+            selected: true,
+          ),
+          ListTile(
+            title: const Text(
+              "Escoge tu psicólogo",
+              style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+            ),
+            onTap: () {
+              context.router.push(const ListPsicRoute());
+            },
+            selected: true,
+          ),
+          ListTile(
+            title: const Text(
               "Tips",
               style: TextStyle(fontSize: 24, color: Colors.blueAccent),
             ),
@@ -145,8 +106,18 @@ class _PatHomePageState extends State<PatHomePage> {
           ),
           ListTile(
             title: const Text(
+              "Chat",
+              style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+            ),
+            onTap: () {
+              context.router.push(ChatMainRoute(user: _authMobx.user));
+            },
+            selected: true,
+          ),
+          ListTile(
+            title: const Text(
               "Salir",
-              style: TextStyle(fontSize: 20, color: Colors.redAccent),
+              style: TextStyle(fontSize: 22, color: Colors.redAccent),
             ),
             onTap: () {
               _signOut();
@@ -210,78 +181,75 @@ class _PatHomePageState extends State<PatHomePage> {
   Widget _body() {
     String nombre = _authMobx.user?.nombre ?? '';
     return SafeArea(
-      child: Expanded(
-        flex: 1,
-        child: Container(
-          //padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
-          margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                "Hola, $nombre",
-                style:
-                    const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-              ),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(0),
-              ),
-              _therapyBtn(),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(0),
-              ),
-              GridView.count(
-                childAspectRatio: (1 / 0.7),
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                crossAxisCount: 2,
-                crossAxisSpacing: 7,
-                mainAxisSpacing: 7,
-                children: [
-                  _myButton(
-                      'Línea de ayuda',
-                      const Icon(
-                        FontAwesomeIcons.heartPulse,
-                        size: 56,
-                        color: Colors.black,
-                      ),
-                      () => context.pushRoute(const AyudaRoute())),
-                  _myButton(
-                      'Notas',
-                      const Icon(
-                        FontAwesomeIcons.noteSticky,
-                        size: 56,
-                        color: Colors.black,
-                      ),
-                      () => context.pushRoute(const NotesRoute())),
-                  _myButton(
-                      'Tareas',
-                      const Icon(
-                        FontAwesomeIcons.listCheck,
-                        size: 56,
-                        color: Colors.black,
-                      ),
-                      () => context.router
-                          .push(TareasRoute(doc: _authMobx.user))),
-                  _myButton(
-                      'Próxima cita',
-                      const Icon(
-                        FontAwesomeIcons.solidBell,
-                        size: 56,
-                        color: Colors.black,
-                      ),
-                      () => '/citas'),
-                ],
-              ),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(0),
-              ),
-              _calendarBtn(),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(5),
-              ),
-            ],
-          ),
+      child: Container(
+        //padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
+        margin: const EdgeInsets.only(left: 20, right: 20),
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              "Hola, $nombre",
+              style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
+            ),
+            SizedBox.fromSize(
+              size: const Size.fromHeight(0),
+            ),
+            _therapyBtn(),
+            SizedBox.fromSize(
+              size: const Size.fromHeight(0),
+            ),
+            GridView.count(
+              childAspectRatio: (1 / 0.7),
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              crossAxisSpacing: 7,
+              mainAxisSpacing: 7,
+              children: [
+                _myButton(
+                    'Línea de ayuda',
+                    const Icon(
+                      FontAwesomeIcons.heartPulse,
+                      size: 56,
+                      color: Colors.black,
+                    ),
+                    () => context.pushRoute(const AyudaRoute())),
+                _myButton(
+                    'Notas',
+                    const Icon(
+                      FontAwesomeIcons.noteSticky,
+                      size: 56,
+                      color: Colors.black,
+                    ),
+                    () => context.pushRoute(const NotesRoute())),
+                _myButton(
+                    'Tareas',
+                    const Icon(
+                      FontAwesomeIcons.listCheck,
+                      size: 56,
+                      color: Colors.black,
+                    ),
+                    () =>
+                        context.router.push(TareasRoute(doc: _authMobx.user))),
+                _myButton(
+                    'Próxima cita',
+                    const Icon(
+                      FontAwesomeIcons.solidBell,
+                      size: 56,
+                      color: Colors.black,
+                    ),
+                    () => '/citas'),
+              ],
+            ),
+            SizedBox.fromSize(
+              size: const Size.fromHeight(0),
+            ),
+            _calendarBtn(),
+            SizedBox.fromSize(
+              size: const Size.fromHeight(5),
+            ),
+          ],
         ),
       ),
     );

@@ -22,60 +22,25 @@ class _PsicHomePageState extends State<PsicHomePage> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (context) => Scaffold(
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: Container(
           margin: const EdgeInsets.all(24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    onPressed: () {},
-                    backgroundColor: const Color(0xfff5fa197),
-                    child: const Icon(
-                      FontAwesomeIcons.house,
-                      size: 24,
-                    ),
-                  ),
+          child: SizedBox(
+            height: 40,
+            width: 40,
+            child: FittedBox(
+              child: FloatingActionButton(
+                heroTag: null,
+                onPressed: () {
+                  context.router.push(const NotesRoute());
+                },
+                backgroundColor: const Color(0xfff5fa197),
+                child: const Icon(
+                  FontAwesomeIcons.noteSticky,
+                  size: 32,
                 ),
               ),
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    onPressed: () {},
-                    backgroundColor: const Color(0xfff5fa197),
-                    child: const Icon(
-                      Icons.add,
-                      size: 32,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    onPressed: () {
-                      context.router.push(const NotesRoute());
-                    },
-                    backgroundColor: const Color(0xfff5fa197),
-                    child: const Icon(
-                      FontAwesomeIcons.noteSticky,
-                      size: 32,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
         appBar: _appbar(),

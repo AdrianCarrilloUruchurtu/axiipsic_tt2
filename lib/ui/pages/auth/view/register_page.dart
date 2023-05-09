@@ -3,8 +3,6 @@ import 'package:axiipsic_tt2/services/global_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:axiipsic_tt2/login_state.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../../../routes/router.gr.dart';
@@ -48,6 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void dispose() {
+    super.dispose();
     _passwordFocusNode.dispose();
     _emailFocusNode.dispose();
     _nombreFocusNode.dispose();
@@ -93,7 +92,8 @@ class _RegisterPageState extends State<RegisterPage> {
       'apellido': apellido,
       'ispsic': isPsic,
       'email': email,
-      'psicMail': psicMail
+      'psicMail': psicMail,
+      'id': user.uid
     });
     // ignore: use_build_context_synchronously
     AutoRouter.of(context).push(const LoginRoute());
@@ -363,21 +363,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                   },
                                 ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text("¿Google?"),
-                            TextButton(
-                              child: const Text("Google"),
-                              onPressed: () {
-                                context.read<LoginState>().login();
-                              },
-                            )
-                          ],
-                        )
                       ],
                     ),
                   ),

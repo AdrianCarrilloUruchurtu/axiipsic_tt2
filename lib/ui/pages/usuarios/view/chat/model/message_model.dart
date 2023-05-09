@@ -9,7 +9,7 @@ part 'message_model.g.dart';
 @freezed
 class MessageData with _$MessageData {
   factory MessageData(
-      final DateTime date,
+      final String date,
       final String message,
       final String recieverId,
       final String senderId,

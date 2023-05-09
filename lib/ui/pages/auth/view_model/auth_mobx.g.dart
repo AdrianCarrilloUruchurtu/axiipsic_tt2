@@ -40,6 +40,22 @@ mixin _$AuthMobx on _AuthMobxBase, Store {
     });
   }
 
+  late final _$psicListAtom =
+      Atom(name: '_AuthMobxBase.psicList', context: context);
+
+  @override
+  List<UserData>? get psicList {
+    _$psicListAtom.reportRead();
+    return super.psicList;
+  }
+
+  @override
+  set psicList(List<UserData>? value) {
+    _$psicListAtom.reportWrite(value, super.psicList, () {
+      super.psicList = value;
+    });
+  }
+
   late final _$_AuthMobxBaseActionController =
       ActionController(name: '_AuthMobxBase', context: context);
 
@@ -69,7 +85,8 @@ mixin _$AuthMobx on _AuthMobxBase, Store {
   String toString() {
     return '''
 user: ${user},
-userLista: ${userLista}
+userLista: ${userLista},
+psicList: ${psicList}
     ''';
   }
 }

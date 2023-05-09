@@ -11,23 +11,24 @@ class MessageStore = _MessageStoreBase with _$MessageStore;
 abstract class _MessageStoreBase with Store {
   final _messageRepo = getIt.get<MessageRepo>();
 
-  _MessageStoreBase() {
+  _MessageStoreBase(String friendId) {
     _messageRepo.messageChanges().listen((event) {
       messageList = event;
+    });
+    _messageRepo.getMessages(friendId).listen((event) {
+      chatMessages = event;
     });
   }
 
   @action
-  onSavedMessage(String friendId, String message) {
-    _messageRepo.currentUserOnMessageSent(friendId, message);
-    _messageRepo.friendUserOnMessageSent(friendId, message);
-  }
-
-  @action
-  getMessages(String friendId) {
-    _messageRepo.getMessages(friendId);
+  onSavedMessage(String friendId, String message, String friendName) {
+    _messageRepo.currentUserOnMessageSent(friendId, message, friendName);
+    _messageRepo.friendUserOnMessageSent(friendId, message, friendName);
   }
 
   @observable
   List<MessageData>? messageList;
+
+  @observable
+  List<MessageData>? chatMessages;
 }

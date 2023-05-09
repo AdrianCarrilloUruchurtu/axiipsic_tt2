@@ -21,6 +21,8 @@ ChatData _$ChatDataFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ChatData {
   String get last_msg => throw _privateConstructorUsedError;
+  String get friendId => throw _privateConstructorUsedError;
+  String get friendName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +35,7 @@ abstract class $ChatDataCopyWith<$Res> {
   factory $ChatDataCopyWith(ChatData value, $Res Function(ChatData) then) =
       _$ChatDataCopyWithImpl<$Res, ChatData>;
   @useResult
-  $Res call({String last_msg});
+  $Res call({String last_msg, String friendId, String friendName});
 }
 
 /// @nodoc
@@ -50,11 +52,21 @@ class _$ChatDataCopyWithImpl<$Res, $Val extends ChatData>
   @override
   $Res call({
     Object? last_msg = null,
+    Object? friendId = null,
+    Object? friendName = null,
   }) {
     return _then(_value.copyWith(
       last_msg: null == last_msg
           ? _value.last_msg
           : last_msg // ignore: cast_nullable_to_non_nullable
+              as String,
+      friendId: null == friendId
+          ? _value.friendId
+          : friendId // ignore: cast_nullable_to_non_nullable
+              as String,
+      friendName: null == friendName
+          ? _value.friendName
+          : friendName // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -67,7 +79,7 @@ abstract class _$$_ChatDataCopyWith<$Res> implements $ChatDataCopyWith<$Res> {
       __$$_ChatDataCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String last_msg});
+  $Res call({String last_msg, String friendId, String friendName});
 }
 
 /// @nodoc
@@ -82,11 +94,21 @@ class __$$_ChatDataCopyWithImpl<$Res>
   @override
   $Res call({
     Object? last_msg = null,
+    Object? friendId = null,
+    Object? friendName = null,
   }) {
     return _then(_$_ChatData(
       null == last_msg
           ? _value.last_msg
           : last_msg // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == friendId
+          ? _value.friendId
+          : friendId // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == friendName
+          ? _value.friendName
+          : friendName // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -95,17 +117,21 @@ class __$$_ChatDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ChatData implements _ChatData {
-  _$_ChatData(this.last_msg);
+  _$_ChatData(this.last_msg, this.friendId, this.friendName);
 
   factory _$_ChatData.fromJson(Map<String, dynamic> json) =>
       _$$_ChatDataFromJson(json);
 
   @override
   final String last_msg;
+  @override
+  final String friendId;
+  @override
+  final String friendName;
 
   @override
   String toString() {
-    return 'ChatData(last_msg: $last_msg)';
+    return 'ChatData(last_msg: $last_msg, friendId: $friendId, friendName: $friendName)';
   }
 
   @override
@@ -114,12 +140,16 @@ class _$_ChatData implements _ChatData {
         (other.runtimeType == runtimeType &&
             other is _$_ChatData &&
             (identical(other.last_msg, last_msg) ||
-                other.last_msg == last_msg));
+                other.last_msg == last_msg) &&
+            (identical(other.friendId, friendId) ||
+                other.friendId == friendId) &&
+            (identical(other.friendName, friendName) ||
+                other.friendName == friendName));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, last_msg);
+  int get hashCode => Object.hash(runtimeType, last_msg, friendId, friendName);
 
   @JsonKey(ignore: true)
   @override
@@ -136,12 +166,17 @@ class _$_ChatData implements _ChatData {
 }
 
 abstract class _ChatData implements ChatData {
-  factory _ChatData(final String last_msg) = _$_ChatData;
+  factory _ChatData(final String last_msg, final String friendId,
+      final String friendName) = _$_ChatData;
 
   factory _ChatData.fromJson(Map<String, dynamic> json) = _$_ChatData.fromJson;
 
   @override
   String get last_msg;
+  @override
+  String get friendId;
+  @override
+  String get friendName;
   @override
   @JsonKey(ignore: true)
   _$$_ChatDataCopyWith<_$_ChatData> get copyWith =>

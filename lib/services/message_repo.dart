@@ -14,10 +14,10 @@ class MessageRepo {
     final cid = await _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('messages')
-        .doc(messageId)
         .collection('chats')
         .doc(chatId)
+        .collection('messages')
+        .doc(messageId)
         .get();
 
     final jsonCid = cid.data();
@@ -33,60 +33,68 @@ class MessageRepo {
     return _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('messages')
-        .doc()
         .collection('chats')
+        .doc()
+        .collection('messages')
         .snapshots()
         .map((event) {
       return event.docs.map((e) => MessageData.fromDocument(e)).toList();
     });
   }
 
-  Future<void> currentUserOnMessageSent(String friendId, String message) {
+  Future<void> currentUserOnMessageSent(
+      String friendId, String message, String friendName) {
     return _firestore
         .collection('users')
         .doc(_auth.currentUser?.uid)
-        .collection('messages')
-        .doc(friendId)
         .collection('chats')
+        .doc(friendId)
+        .collection('messages')
         .add({
       "senderId": _auth.currentUser?.uid,
-      "receiverId": friendId,
+      "recieverId": friendId,
       "message": message,
       "type": "text",
-      "date": DateTime.now(),
+      "date": DateTime.now().toString(),
     }).then((value) {
       FirebaseFirestore.instance
           .collection('users')
           .doc(_auth.currentUser?.uid)
-          .collection('messages')
+          .collection('chats')
           .doc(friendId)
           .set({
         'last_msg': message,
+        'friendId': friendId,
+        'friendName': friendName
       });
     });
   }
 
-  Future<void> friendUserOnMessageSent(String friendId, String message) {
+  Future<void> friendUserOnMessageSent(
+      String friendId, String message, String friendName) {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(friendId)
-        .collection('messages')
+        .collection('chats')
         .doc(_auth.currentUser?.uid)
-        .collection("chats")
+        .collection("messages")
         .add({
       "senderId": _auth.currentUser?.uid,
-      "receiverId": friendId,
+      "recieverId": friendId,
       "message": message,
       "type": "text",
-      "date": DateTime.now(),
+      "date": DateTime.now().toString(),
     }).then((value) {
       FirebaseFirestore.instance
           .collection('users')
           .doc(friendId)
           .collection('messages')
           .doc(_auth.currentUser?.uid)
-          .set({"last_msg": message});
+          .set({
+        "last_msg": message,
+        'friendId': friendId,
+        'friendName': friendName
+      });
     });
   }
 
@@ -95,10 +103,10 @@ class MessageRepo {
     return _firestore
         .collection("users")
         .doc(currentUser?.uid)
-        .collection('messages')
-        .doc(friendId)
         .collection('chats')
-        .orderBy("date", descending: true)
+        .doc(friendId)
+        .collection('messages')
+        .orderBy('date', descending: true)
         .snapshots()
         .map((event) =>
             event.docs.map((e) => MessageData.fromDocument(e)).toList());
