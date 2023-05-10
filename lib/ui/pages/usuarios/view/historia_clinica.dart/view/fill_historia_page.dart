@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/lib/get_it.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/historia_clinica.dart/view_model/historia_mobx.dart';
 import 'package:flutter/material.dart';
 
 class FillHistoriaPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class FillHistoriaPage extends StatefulWidget {
 
 class _FillHistoriaPageState extends State<FillHistoriaPage> {
   final _formKey = GlobalKey<FormState>();
+  final _historiaMobx = getIt.get<HistoriaStore>();
 
   //FocusNodes
   final FocusNode _edadFocusNode = FocusNode();
@@ -41,6 +44,12 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
     _antecedenteFocusNode.dispose();
   }
 
+  _submitForm(String edad, String estadoCivil, String escolaridad,
+      String contacto, String motivo, String antecedentes) {
+    _historiaMobx.addHistoria(
+        edad, estadoCivil, escolaridad, contacto, motivo, antecedentes);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,11 +73,11 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
           //Tarjeta para los forms
           child: Card(
             color: Colors.white,
-            elevation: 2,
+            elevation: 5,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            margin: const EdgeInsets.only(
-                left: 20, right: 20, top: 260, bottom: 20),
+            margin:
+                const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
             child: Container(
               margin: const EdgeInsets.all(16.0),
               padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
@@ -187,7 +196,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
-                      focusNode: _antecedenteFocusNode,
+                      focusNode: _motivoFocusNode,
                       decoration: const InputDecoration(
                           hintText:
                               "Razón por la que buscas ayuda psicológica: ",
@@ -215,6 +224,15 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                         _antecedente = value!;
                       },
                     ),
+                    ElevatedButton(
+                        onPressed: _submitForm(
+                            _edad!,
+                            _estadoCivil!,
+                            _escolaridad!,
+                            _nombreContacto!,
+                            _motivo,
+                            _antecedente),
+                        child: const Text("Si"))
                   ],
                 ),
               ),

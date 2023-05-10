@@ -4,7 +4,7 @@ import 'package:axiipsic_tt2/ui/pages/auth/view_model/auth_mobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../auth/model/user_data.dart';
+import '../../../../auth/model/user_data.dart';
 
 class HistoriaPage extends StatelessWidget {
   const HistoriaPage({
@@ -87,42 +87,83 @@ class HistoriaPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Nombre: ${pac!.nombre} ${pac!.apellido}",
-                            style: TextStyle(
-                                color: Colors.grey.shade800, fontSize: 13),
+                          RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                    color: Colors.grey.shade800, fontSize: 13),
+                                children: [
+                                  const TextSpan(
+                                      text: "Nombre: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: "${pac!.nombre} ${pac!.apellido}")
+                                ]),
                           ),
                           const SizedBox(
                             height: 9,
                           ),
-                          Text(
-                            "Edad: ${pac!.nombre}",
-                            style: TextStyle(
-                                color: Colors.grey.shade800, fontSize: 13),
+                          RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                    color: Colors.grey.shade800, fontSize: 13),
+                                children: [
+                                  const TextSpan(
+                                      text: "Edad: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: "${pac!.nombre} ${pac!.apellido}")
+                                ]),
                           ),
                           const SizedBox(
                             height: 9,
                           ),
-                          Text(
-                            "Estado civil: ${pac!.nombre}",
-                            style: TextStyle(
-                                color: Colors.grey.shade800, fontSize: 13),
+                          RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                    color: Colors.grey.shade800, fontSize: 13),
+                                children: [
+                                  const TextSpan(
+                                      text: "Estado civil: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: "${pac!.nombre} ${pac!.apellido}")
+                                ]),
                           ),
                           const SizedBox(
                             height: 9,
                           ),
-                          Text(
-                            "Escolaridad: ${pac!.nombre}",
-                            style: TextStyle(
-                                color: Colors.grey.shade800, fontSize: 13),
+                          RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                    color: Colors.grey.shade800, fontSize: 13),
+                                children: [
+                                  const TextSpan(
+                                      text: "Escolaridad: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: "${pac!.nombre} ${pac!.apellido}")
+                                ]),
                           ),
                           const SizedBox(
                             height: 9,
                           ),
-                          Text(
-                            "En caso de emergencia comunicarse con: ${pac!.nombre}",
-                            style: TextStyle(
-                                color: Colors.grey.shade800, fontSize: 13),
+                          RichText(
+                            text: TextSpan(
+                                style: TextStyle(
+                                    color: Colors.grey.shade800, fontSize: 13),
+                                children: [
+                                  const TextSpan(
+                                      text:
+                                          "En caso de emergencia comunicarse con: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                  TextSpan(
+                                      text: "${pac!.nombre} ${pac!.apellido}")
+                                ]),
                           ),
                         ],
                       ),

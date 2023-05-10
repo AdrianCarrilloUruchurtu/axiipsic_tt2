@@ -17,14 +17,14 @@ import 'package:flutter/material.dart' as _i33;
 import '../pages/auth/model/user_data.dart' as _i38;
 import '../pages/auth/view/login_page.dart' as _i1;
 import '../pages/auth/view/register_page.dart' as _i2;
-import '../pages/usuarios/historia_clinica.dart/view/fill_historia_page.dart'
-    as _i31;
-import '../pages/usuarios/historia_clinica.dart/view/historia_page.dart'
-    as _i30;
 import '../pages/usuarios/view/calendar/view/calendar_page.dart' as _i10;
 import '../pages/usuarios/view/chat/view/chat_main_page.dart' as _i26;
 import '../pages/usuarios/view/chat/view/chat_page.dart' as _i28;
 import '../pages/usuarios/view/chat/view/search_page.dart' as _i27;
+import '../pages/usuarios/view/historia_clinica.dart/view/fill_historia_page.dart'
+    as _i31;
+import '../pages/usuarios/view/historia_clinica.dart/view/historia_page.dart'
+    as _i30;
 import '../pages/usuarios/view/notas/model/note_model.dart' as _i39;
 import '../pages/usuarios/view/notas/view/editor_nota.dart' as _i11;
 import '../pages/usuarios/view/notas/view/lector_notas.dart' as _i12;

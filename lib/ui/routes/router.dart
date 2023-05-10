@@ -1,6 +1,5 @@
 import 'package:auto_route/annotations.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
-import 'package:axiipsic_tt2/ui/pages/usuarios/historia_clinica.dart/view/fill_historia_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_main_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psic_list.dart/view/psic_list.dart';
@@ -23,8 +22,9 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/tips/view/tip_edit.dart';
 import 'package:axiipsic_tt2/ui/routes/ispat_guard.dart';
 import 'package:axiipsic_tt2/ui/routes/ispsic_guard.dart';
 import '../pages/auth/view/register_page.dart';
-import '../pages/usuarios/historia_clinica.dart/view/historia_page.dart';
 import '../pages/usuarios/view/calendar/view/calendar_page.dart';
+import '../pages/usuarios/view/historia_clinica.dart/view/fill_historia_page.dart';
+import '../pages/usuarios/view/historia_clinica.dart/view/historia_page.dart';
 import '../pages/usuarios/view/notas/view/editor_nota.dart';
 import '../pages/usuarios/view/notas/view/lector_notas.dart';
 import '../pages/usuarios/view/notas/view/main_notas.dart';

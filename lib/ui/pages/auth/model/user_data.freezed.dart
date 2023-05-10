@@ -25,6 +25,7 @@ mixin _$UserData {
   String get ispsic => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get psicMail => throw _privateConstructorUsedError;
+  String get psicCed => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -44,6 +45,7 @@ abstract class $UserDataCopyWith<$Res> {
       String ispsic,
       String email,
       String psicMail,
+      String psicCed,
       String id});
 }
 
@@ -65,6 +67,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? ispsic = null,
     Object? email = null,
     Object? psicMail = null,
+    Object? psicCed = null,
     Object? id = null,
   }) {
     return _then(_value.copyWith(
@@ -88,6 +91,10 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.psicMail
           : psicMail // ignore: cast_nullable_to_non_nullable
               as String,
+      psicCed: null == psicCed
+          ? _value.psicCed
+          : psicCed // ignore: cast_nullable_to_non_nullable
+              as String,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -109,6 +116,7 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       String ispsic,
       String email,
       String psicMail,
+      String psicCed,
       String id});
 }
 
@@ -128,6 +136,7 @@ class __$$_UserDataCopyWithImpl<$Res>
     Object? ispsic = null,
     Object? email = null,
     Object? psicMail = null,
+    Object? psicCed = null,
     Object? id = null,
   }) {
     return _then(_$_UserData(
@@ -151,6 +160,10 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value.psicMail
           : psicMail // ignore: cast_nullable_to_non_nullable
               as String,
+      null == psicCed
+          ? _value.psicCed
+          : psicCed // ignore: cast_nullable_to_non_nullable
+              as String,
       null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -163,7 +176,7 @@ class __$$_UserDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserData implements _UserData {
   _$_UserData(this.nombre, this.apellido, this.ispsic, this.email,
-      this.psicMail, this.id);
+      this.psicMail, this.psicCed, this.id);
 
   factory _$_UserData.fromJson(Map<String, dynamic> json) =>
       _$$_UserDataFromJson(json);
@@ -179,11 +192,13 @@ class _$_UserData implements _UserData {
   @override
   final String psicMail;
   @override
+  final String psicCed;
+  @override
   final String id;
 
   @override
   String toString() {
-    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail, id: $id)';
+    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail, psicCed: $psicCed, id: $id)';
   }
 
   @override
@@ -198,13 +213,14 @@ class _$_UserData implements _UserData {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.psicMail, psicMail) ||
                 other.psicMail == psicMail) &&
+            (identical(other.psicCed, psicCed) || other.psicCed == psicCed) &&
             (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, nombre, apellido, ispsic, email, psicMail, id);
+  int get hashCode => Object.hash(
+      runtimeType, nombre, apellido, ispsic, email, psicMail, psicCed, id);
 
   @JsonKey(ignore: true)
   @override
@@ -227,6 +243,7 @@ abstract class _UserData implements UserData {
       final String ispsic,
       final String email,
       final String psicMail,
+      final String psicCed,
       final String id) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
@@ -241,6 +258,8 @@ abstract class _UserData implements UserData {
   String get email;
   @override
   String get psicMail;
+  @override
+  String get psicCed;
   @override
   String get id;
   @override

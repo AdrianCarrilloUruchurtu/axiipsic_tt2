@@ -19,7 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final bool _loggedIn = true;
   final bool _obscureText = true;
-  late bool _isLinked = false;
+  late bool _isPat = false;
+  late bool _isNotPat = false;
 
   //FocusNodes
   final FocusNode _passwordFocusNode = FocusNode();
@@ -27,6 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final FocusNode _nombreFocusNode = FocusNode();
   final FocusNode _apellidoFocusNode = FocusNode();
   final FocusNode _linkFocusNode = FocusNode();
+  final FocusNode _psicCedFocusNode = FocusNode();
 
   //Campos
   String? _nombre = '';
@@ -35,6 +37,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _isPsic = "";
   String? _password = '';
   String? _psicMail = '';
+  String? _psicCed = '';
 
   final GlobalMethod _globalMethod = GlobalMethod();
 
@@ -100,13 +103,15 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   checkIfLinkedPat() {
-    _isLinked = true;
-    return _isLinked;
+    _isPat = true;
+    _isNotPat = false;
+    return _isPat;
   }
 
   checkIfLinkedPsi() {
-    _isLinked = false;
-    return _isLinked;
+    _isPat = false;
+    _isNotPat = true;
+    return _isPat;
   }
 
   @override
@@ -285,13 +290,42 @@ class _RegisterPageState extends State<RegisterPage> {
 
                         // Prueba para esconder el formfield si el usuario es paciente, para que ingrese el código del psicólogo
                         Visibility(
-                          visible: _isLinked,
+                          visible: _isPat,
                           child: TextFormField(
                             key: const ValueKey('psicMail'),
                             focusNode: _linkFocusNode,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'El mail del psicólogo es necesario para los pacientes';
+                                return 'El correo del psicólogo es requerido';
+                              } else {
+                                return null;
+                              }
+                            },
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            onEditingComplete: () => FocusScope.of(context)
+                                .requestFocus(_psicCedFocusNode),
+                            decoration: const InputDecoration(
+                                icon: Icon(
+                                  Icons.supervised_user_circle_outlined,
+                                  color: Colors.blue,
+                                ),
+                                hintText: "Mail del psicólogo: "),
+                            onSaved: (value) {
+                              _psicMail = value;
+                            },
+                          ),
+                        ),
+
+                        // Prueba para esconder el formfield si el usuario es paciente, para que ingrese el código del psicólogo
+                        Visibility(
+                          visible: _isNotPat,
+                          child: TextFormField(
+                            key: const ValueKey('psicCed'),
+                            focusNode: _psicCedFocusNode,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Por favor ingresa una cédula válida';
                               } else {
                                 return null;
                               }
@@ -305,9 +339,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Icons.supervised_user_circle_outlined,
                                   color: Colors.blue,
                                 ),
-                                hintText: "Mail del psicólogo: "),
+                                hintText: "Cédula Profesional: "),
                             onSaved: (value) {
-                              _psicMail = value;
+                              _psicCed = value;
                             },
                           ),
                         ),
