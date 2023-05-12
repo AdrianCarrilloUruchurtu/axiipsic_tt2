@@ -30,6 +30,7 @@ mixin _$ProgresoStore on _ProgresoStoreBase, Store {
 
   @override
   dynamic addProgreso(
+      int colorId,
       String conducta,
       List<double?> lunes,
       List<double?> martes,
@@ -44,8 +45,8 @@ mixin _$ProgresoStore on _ProgresoStoreBase, Store {
     final _$actionInfo = _$_ProgresoStoreBaseActionController.startAction(
         name: '_ProgresoStoreBase.addProgreso');
     try {
-      return super.addProgreso(conducta, lunes, martes, miercoles, jueves,
-          viernes, sabado, domingo, sesId, pacienteId, pacienteSesId);
+      return super.addProgreso(colorId, conducta, lunes, martes, miercoles,
+          jueves, viernes, sabado, domingo, sesId, pacienteId, pacienteSesId);
     } finally {
       _$_ProgresoStoreBaseActionController.endAction(_$actionInfo);
     }

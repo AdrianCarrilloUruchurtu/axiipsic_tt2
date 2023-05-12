@@ -11,19 +11,29 @@ class HistoriaStore = _HistoriaStoreBase with _$HistoriaStore;
 abstract class _HistoriaStoreBase with Store {
   final _historiaRepo = getIt.get<HistoriaRepo>();
 
-  _HistoriaStoreBase() {
-    _historiaRepo.historiaChanges().listen((event) {
-      historiaList = event;
+  _HistoriaStoreBase(String id) {
+    _historiaRepo.historiaChanges(id).listen((event) {
+      historia = event.single;
     });
   }
 
   @action
-  addHistoria(String edad, String estadoCivil, String escolaridad,
-      String contacto, String motivo, String antecedentes) {
-    _historiaRepo.addHistoria(
-        edad, estadoCivil, escolaridad, contacto, motivo, antecedentes);
+  addHistoria(
+      String edad,
+      String estadoCivil,
+      String escolaridad,
+      String nombreContacto,
+      String telefonoContacto,
+      String motivo,
+      String antecedentes,
+      bool isCompleted) {
+    _historiaRepo.addHistoria(edad, estadoCivil, escolaridad, nombreContacto,
+        telefonoContacto, motivo, antecedentes, isCompleted);
   }
 
   @observable
   List<HistoriaData>? historiaList;
+
+  @observable
+  HistoriaData? historia;
 }

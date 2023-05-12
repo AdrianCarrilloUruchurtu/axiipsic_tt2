@@ -24,7 +24,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
   final FocusNode _antecedenteFocusNode = FocusNode();
 
   //Campos
-  String? _edad = '';
+  String? _edad = "";
   String? _estadoCivil = '';
   String? _escolaridad = '';
   String? _nombreContacto = "";
@@ -44,10 +44,17 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
     _antecedenteFocusNode.dispose();
   }
 
-  _submitForm(String edad, String estadoCivil, String escolaridad,
-      String contacto, String motivo, String antecedentes) {
-    _historiaMobx.addHistoria(
-        edad, estadoCivil, escolaridad, contacto, motivo, antecedentes);
+  _submitForm() {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+    if (isValid) {
+      _historiaMobx.addHistoria(_edad!, _estadoCivil!, _escolaridad!,
+          _nombreContacto!,_telefonoContacto!, _motivo, _antecedente, true);
+      context.router.pop();
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Llena los campos antes de continuar")));
+    }
   }
 
   @override
@@ -88,7 +95,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                   children: [
                     // Nombre FormField
                     TextFormField(
-                      key: const ValueKey('edad'),
+                      key: const ValueKey(0),
                       focusNode: _edadFocusNode,
                       validator: (value) {
                         if ((value!.isEmpty)) {
@@ -99,14 +106,14 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                       textInputAction: TextInputAction.next,
                       onEditingComplete: () => FocusScope.of(context)
                           .requestFocus(_estadoCivilFocusNode),
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
                           hintText: "Edad: ",
                           icon: Icon(
                             Icons.timelapse_sharp,
                             color: Colors.blue,
                           )),
-                      onSaved: (value) {
+                      onChanged: (value) {
                         _edad = value;
                       },
                     ),
@@ -131,7 +138,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                             Icons.co_present_outlined,
                             color: Colors.blue,
                           )),
-                      onSaved: (value) {
+                      onChanged: (value) {
                         _estadoCivil = value;
                       },
                     ),
@@ -157,7 +164,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                             color: Colors.blue,
                           ),
                           hintText: "Escolaridad: "),
-                      onSaved: (value) {
+                      onChanged: (value) {
                         _escolaridad = value;
                       },
                     ),
@@ -173,13 +180,14 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                             color: Colors.blue,
                           )),
                       obscureText: false,
-                      onSaved: (value) {
+                      onChanged: (value) {
                         _nombreContacto = value;
                       },
                     ),
 
                     const SizedBox(height: 20),
                     TextFormField(
+                      keyboardType: TextInputType.phone,
                       onEditingComplete: () =>
                           FocusScope.of(context).requestFocus(_motivoFocusNode),
                       focusNode: _telefonoContactoFocusNode,
@@ -190,12 +198,13 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                             color: Colors.blue,
                           )),
                       obscureText: false,
-                      onSaved: (value) {
+                      onChanged: (value) {
                         _telefonoContacto = value;
                       },
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      maxLines: 5,
                       focusNode: _motivoFocusNode,
                       decoration: const InputDecoration(
                           hintText:
@@ -205,12 +214,13 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                             color: Colors.blue,
                           )),
                       obscureText: false,
-                      onSaved: (value) {
-                        _motivo = value!;
+                      onChanged: (value) {
+                        _motivo = value;
                       },
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      maxLines: 5,
                       focusNode: _antecedenteFocusNode,
                       decoration: const InputDecoration(
                           hintText:
@@ -220,19 +230,30 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                             color: Colors.blue,
                           )),
                       obscureText: false,
-                      onSaved: (value) {
-                        _antecedente = value!;
+                      onChanged: (value) {
+                        _antecedente = value;
                       },
                     ),
+                    const SizedBox(height: 10),
                     ElevatedButton(
-                        onPressed: _submitForm(
-                            _edad!,
-                            _estadoCivil!,
-                            _escolaridad!,
-                            _nombreContacto!,
-                            _motivo,
-                            _antecedente),
-                        child: const Text("Si"))
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const SizedBox(height: 20),
+                          DecoratedBox(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(60)),
+                              child: const Text("Enviar")),
+                        ],
+                      ),
+                      onPressed: () {
+                        _submitForm();
+                      },
+                    ),
                   ],
                 ),
               ),

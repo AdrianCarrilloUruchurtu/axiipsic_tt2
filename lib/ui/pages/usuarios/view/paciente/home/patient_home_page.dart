@@ -1,11 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
+import '../../historia_clinica.dart/view_model/historia_mobx.dart';
 
 class PatHomePage extends StatefulWidget {
   const PatHomePage({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class PatHomePage extends StatefulWidget {
 
 class _PatHomePageState extends State<PatHomePage> {
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
+  late final historiaMobx =
+      HistoriaStore(FirebaseAuth.instance.currentUser!.uid);
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +78,18 @@ class _PatHomePageState extends State<PatHomePage> {
               ),
             ],
           )),
-          ListTile(
-            title: const Text(
-              "Completa tu perfil",
-              style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+          Visibility(
+            visible: !historiaMobx.historia!.isCompleted,
+            child: ListTile(
+              title: const Text(
+                "Completa tu perfil",
+                style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+              ),
+              onTap: () {
+                context.router.push(const FillHistoriaRoute());
+              },
+              selected: true,
             ),
-            onTap: () {
-              context.router.push(const FillHistoriaRoute());
-            },
-            selected: true,
           ),
           ListTile(
             title: const Text(

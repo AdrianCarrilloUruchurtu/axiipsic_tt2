@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/style/app_style.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/view-model/progresoMobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_model.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,13 @@ class _ConductaItemState extends State<ConductaItem> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: Container(
+        decoration: BoxDecoration(
+            color: AppStyle.conductaColors[widget.conducta.colorId],
+            shape: BoxShape.circle),
+        width: 18,
+        height: 18,
+      ),
       title: Text(
         widget.conducta.conducta,
         overflow: TextOverflow.ellipsis,

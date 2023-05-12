@@ -1,3 +1,4 @@
+import 'package:axiipsic_tt2/style/app_style.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/model/progreso_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -208,7 +209,10 @@ class _ProgressChartPage extends State<ChartPage> {
                 ],
                 isCurved: true,
                 gradient: LinearGradient(
-                  colors: gradientColors,
+                  colors: [
+                    AppStyle.conductaColors[doc.colorId],
+                    AppStyle.conductaColors[doc.colorId]
+                  ],
                 ),
                 barWidth: 5,
                 isStrokeCapRound: true,
@@ -218,9 +222,10 @@ class _ProgressChartPage extends State<ChartPage> {
                 belowBarData: BarAreaData(
                   show: true,
                   gradient: LinearGradient(
-                    colors: gradientColors
-                        .map((color) => color.withOpacity(0.3))
-                        .toList(),
+                    colors: [
+                      AppStyle.conductaColors[doc.colorId],
+                      AppStyle.conductaColors[doc.colorId]
+                    ].map((color) => color.withOpacity(0.3)).toList(),
                   ),
                 ),
               ),

@@ -4,7 +4,6 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/model/progreso_mode
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/view-model/progresoMobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_model.dart';
 import 'package:flutter/material.dart';
-import 'package:multiselect_formfield/multiselect_formfield.dart';
 
 import '../../../../../../style/app_style.dart';
 
@@ -25,7 +24,15 @@ class ConductaLectorPage extends StatefulWidget {
 class _ConductaLectorPageState extends State<ConductaLectorPage> {
   late final _progresoMobx = ProgresoStore(widget.docSes.id);
   final _conductaController = TextEditingController();
-  List? _daysWeek;
+  List? _daysWeek = [
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "Viernes",
+    "Sábado",
+    "Domingo"
+  ];
   late List<double?> _lunes;
   late List<double?> _martes;
   late List<double?> _miercoles;
@@ -40,7 +47,15 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
   @override
   void initState() {
     super.initState();
-    _daysWeek = [];
+    _daysWeek = [
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+      "Domingo"
+    ];
     _evaluacionConducta = [0, 0, 0, 0, 0, 0, 0];
     _lunes = [0, 0];
     _martes = [1, 0];
@@ -62,7 +77,7 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
         _martes = [1, _evaluacionConducta[1]];
       });
     }
-    if (_daysWeek!.contains("Miercoles")) {
+    if (_daysWeek!.contains("Miércoles")) {
       setState(() {
         _miercoles = [2, _evaluacionConducta[2]];
       });
@@ -77,7 +92,7 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
         _viernes = [4, _evaluacionConducta[4]];
       });
     }
-    if (_daysWeek!.contains("Sabado")) {
+    if (_daysWeek!.contains("Sábado")) {
       setState(() {
         _sabado = [5, _evaluacionConducta[5]];
       });
@@ -141,95 +156,93 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
             const SizedBox(
               width: 20,
             ),
-            Form(
-                key: daysForm,
-                child: Column(
-                  children: [
-                    MultiSelectFormField(
-                      autovalidate: AutovalidateMode.disabled,
-                      chipBackGroundColor: Colors.blue,
-                      chipLabelStyle: const TextStyle(
-                          fontWeight: FontWeight.bold, color: Colors.white),
-                      dialogTextStyle:
-                          const TextStyle(fontWeight: FontWeight.bold),
-                      checkBoxActiveColor: Colors.blue,
-                      checkBoxCheckColor: Colors.white,
-                      dialogShapeBorder: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(12.0))),
-                      title: const Text(
-                        "Días que sucedió",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.length == 0) {
-                          return "Por favor selecciona uno o más";
-                        }
-                        return null;
-                      },
-                      dataSource: const [
-                        {
-                          "display": "Lunes",
-                          "value": "Lunes",
-                        },
-                        {
-                          "display": "Martes",
-                          "value": "Martes",
-                        },
-                        {
-                          "display": "Miércoles",
-                          "value": "Miercoles",
-                        },
-                        {
-                          "display": "Jueves",
-                          "value": "Jueves",
-                        },
-                        {
-                          "display": "Viernes",
-                          "value": "Viernes",
-                        },
-                        {
-                          "display": "Sábado",
-                          "value": "Sábado",
-                        },
-                        {
-                          "display": "Domingo",
-                          "value": "Domingo",
-                        },
-                      ],
-                      textField: 'display',
-                      valueField: 'value',
-                      okButtonLabel: "OK",
-                      cancelButtonLabel: "Cancelar",
-                      hintWidget: const Text(
-                          "Selecciona los días en los que se repitió esta conducta"),
-                      initialValue: _daysWeek,
-                      onSaved: (value) {
-                        if (value == null) {
-                          return;
-                        }
-                        setState(() {
-                          _daysWeek = value;
-                        });
-                      },
-                    ),
-                  ],
-                )),
+            // Form(
+            //     key: daysForm,
+            //     child: Column(
+            //       children: [
+            //         MultiSelectFormField(
+            //           autovalidate: AutovalidateMode.disabled,
+            //           chipBackGroundColor: Colors.blue,
+            //           chipLabelStyle: const TextStyle(
+            //               fontWeight: FontWeight.bold, color: Colors.white),
+            //           dialogTextStyle:
+            //               const TextStyle(fontWeight: FontWeight.bold),
+            //           checkBoxActiveColor: Colors.blue,
+            //           checkBoxCheckColor: Colors.white,
+            //           dialogShapeBorder: const RoundedRectangleBorder(
+            //               borderRadius:
+            //                   BorderRadius.all(Radius.circular(12.0))),
+            //           title: const Text(
+            //             "Días que sucedió",
+            //             style: TextStyle(fontSize: 16),
+            //           ),
+            //           validator: (value) {
+            //             if (value == null || value.length == 0) {
+            //               return "Por favor selecciona uno o más";
+            //             }
+            //             return null;
+            //           },
+            //           dataSource: const [
+            //             {
+            //               "display": "Lunes",
+            //               "value": "Lunes",
+            //             },
+            //             {
+            //               "display": "Martes",
+            //               "value": "Martes",
+            //             },
+            //             {
+            //               "display": "Miércoles",
+            //               "value": "Miercoles",
+            //             },
+            //             {
+            //               "display": "Jueves",
+            //               "value": "Jueves",
+            //             },
+            //             {
+            //               "display": "Viernes",
+            //               "value": "Viernes",
+            //             },
+            //             {
+            //               "display": "Sábado",
+            //               "value": "Sábado",
+            //             },
+            //             {
+            //               "display": "Domingo",
+            //               "value": "Domingo",
+            //             },
+            //           ],
+            //           textField: 'display',
+            //           valueField: 'value',
+            //           okButtonLabel: "OK",
+            //           cancelButtonLabel: "Cancelar",
+            //           hintWidget: const Text(
+            //               "Selecciona los días en los que se repitió esta conducta"),
+            //           initialValue: _daysWeek,
+            //           onSaved: (value) {
+            //             if (value == null) {
+            //               return;
+            //             }
+            //             setState(() {
+            //               _daysWeek = value;
+            //             });
+            //           },
+            //         ),
+            //       ],
+            //     )),
             const SizedBox(
               height: 16,
             ),
-            const Text(
-              "¿Cuántas veces sucedió en el día?",
-              style: TextStyle(fontSize: 20),
-            ),
+            // const Text(
+            //   "¿Cuántas veces sucedió en el día?",
+            //   style: TextStyle(fontSize: 20),
+            // ),
             const SizedBox(
               height: 16,
             ),
-            SizedBox(
-              height: 225,
+            Expanded(
               child: ListView.builder(
                 itemBuilder: ((context, index) {
-                  String day = _daysWeek![index];
                   return _daysWeek!.isNotEmpty
                       ? SizedBox(
                           child: Card(
@@ -255,7 +268,7 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
                                     size: 30,
                                   )),
                               title: Text(
-                                day,
+                                _daysWeek![index],
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -300,6 +313,8 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
             ),
             FormField(
               builder: ((state) {
+                print("Miercoles: $_miercoles");
+                print(_evaluacionConducta[index]);
                 return DropdownButton(
                   value: _conductaCantidad,
                   items: const [
@@ -328,7 +343,6 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
                   ],
                   onChanged: (value) {
                     setState(() {
-                      print(_conductaCantidad);
                       _conductaCantidad = value;
                       state.didChange(value);
                     });
@@ -351,10 +365,7 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
           ),
           TextButton(
             onPressed: () {
-              print(index);
-              print(_evaluacionConducta);
               _evaluacionConducta[index] = _conductaCantidad;
-
               context.router.pop();
             },
             style: TextButton.styleFrom(

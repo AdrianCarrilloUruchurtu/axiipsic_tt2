@@ -20,6 +20,7 @@ ProgresoData _$ProgresoDataFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ProgresoData {
+  int get colorId => throw _privateConstructorUsedError;
   String get conducta => throw _privateConstructorUsedError;
   List<double?> get lunes => throw _privateConstructorUsedError;
   List<double?> get martes => throw _privateConstructorUsedError;
@@ -43,7 +44,8 @@ abstract class $ProgresoDataCopyWith<$Res> {
       _$ProgresoDataCopyWithImpl<$Res, ProgresoData>;
   @useResult
   $Res call(
-      {String conducta,
+      {int colorId,
+      String conducta,
       List<double?> lunes,
       List<double?> martes,
       List<double?> miercoles,
@@ -67,6 +69,7 @@ class _$ProgresoDataCopyWithImpl<$Res, $Val extends ProgresoData>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? colorId = null,
     Object? conducta = null,
     Object? lunes = null,
     Object? martes = null,
@@ -78,6 +81,10 @@ class _$ProgresoDataCopyWithImpl<$Res, $Val extends ProgresoData>
     Object? id = null,
   }) {
     return _then(_value.copyWith(
+      colorId: null == colorId
+          ? _value.colorId
+          : colorId // ignore: cast_nullable_to_non_nullable
+              as int,
       conducta: null == conducta
           ? _value.conducta
           : conducta // ignore: cast_nullable_to_non_nullable
@@ -127,7 +134,8 @@ abstract class _$$_ProgresoDataCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String conducta,
+      {int colorId,
+      String conducta,
       List<double?> lunes,
       List<double?> martes,
       List<double?> miercoles,
@@ -149,6 +157,7 @@ class __$$_ProgresoDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? colorId = null,
     Object? conducta = null,
     Object? lunes = null,
     Object? martes = null,
@@ -160,6 +169,10 @@ class __$$_ProgresoDataCopyWithImpl<$Res>
     Object? id = null,
   }) {
     return _then(_$_ProgresoData(
+      null == colorId
+          ? _value.colorId
+          : colorId // ignore: cast_nullable_to_non_nullable
+              as int,
       null == conducta
           ? _value.conducta
           : conducta // ignore: cast_nullable_to_non_nullable
@@ -204,6 +217,7 @@ class __$$_ProgresoDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ProgresoData implements _ProgresoData {
   _$_ProgresoData(
+      this.colorId,
       this.conducta,
       final List<double?> lunes,
       final List<double?> martes,
@@ -224,6 +238,8 @@ class _$_ProgresoData implements _ProgresoData {
   factory _$_ProgresoData.fromJson(Map<String, dynamic> json) =>
       _$$_ProgresoDataFromJson(json);
 
+  @override
+  final int colorId;
   @override
   final String conducta;
   final List<double?> _lunes;
@@ -287,7 +303,7 @@ class _$_ProgresoData implements _ProgresoData {
 
   @override
   String toString() {
-    return 'ProgresoData(conducta: $conducta, lunes: $lunes, martes: $martes, miercoles: $miercoles, jueves: $jueves, viernes: $viernes, sabado: $sabado, domingo: $domingo, id: $id)';
+    return 'ProgresoData(colorId: $colorId, conducta: $conducta, lunes: $lunes, martes: $martes, miercoles: $miercoles, jueves: $jueves, viernes: $viernes, sabado: $sabado, domingo: $domingo, id: $id)';
   }
 
   @override
@@ -295,6 +311,7 @@ class _$_ProgresoData implements _ProgresoData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ProgresoData &&
+            (identical(other.colorId, colorId) || other.colorId == colorId) &&
             (identical(other.conducta, conducta) ||
                 other.conducta == conducta) &&
             const DeepCollectionEquality().equals(other._lunes, _lunes) &&
@@ -312,6 +329,7 @@ class _$_ProgresoData implements _ProgresoData {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      colorId,
       conducta,
       const DeepCollectionEquality().hash(_lunes),
       const DeepCollectionEquality().hash(_martes),
@@ -338,6 +356,7 @@ class _$_ProgresoData implements _ProgresoData {
 
 abstract class _ProgresoData implements ProgresoData {
   factory _ProgresoData(
+      final int colorId,
       final String conducta,
       final List<double?> lunes,
       final List<double?> martes,
@@ -351,6 +370,8 @@ abstract class _ProgresoData implements ProgresoData {
   factory _ProgresoData.fromJson(Map<String, dynamic> json) =
       _$_ProgresoData.fromJson;
 
+  @override
+  int get colorId;
   @override
   String get conducta;
   @override

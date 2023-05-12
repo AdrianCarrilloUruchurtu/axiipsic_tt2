@@ -8,6 +8,7 @@ part of 'progreso_model.dart';
 
 _$_ProgresoData _$$_ProgresoDataFromJson(Map<String, dynamic> json) =>
     _$_ProgresoData(
+      json['colorId'] as int,
       json['conducta'] as String,
       (json['lunes'] as List<dynamic>)
           .map((e) => (e as num?)?.toDouble())
@@ -35,6 +36,7 @@ _$_ProgresoData _$$_ProgresoDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_ProgresoDataToJson(_$_ProgresoData instance) =>
     <String, dynamic>{
+      'colorId': instance.colorId,
       'conducta': instance.conducta,
       'lunes': instance.lunes,
       'martes': instance.martes,

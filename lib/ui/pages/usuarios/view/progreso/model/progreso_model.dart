@@ -7,6 +7,7 @@ part 'progreso_model.g.dart';
 @freezed
 class ProgresoData with _$ProgresoData {
   factory ProgresoData(
+      int colorId,
       String conducta,
       List<double?> lunes,
       List<double?> martes,

@@ -39,6 +39,7 @@ class ProgresoRepo {
   }
 
   Future<DocumentReference<Map<String, dynamic>>> progresAdd(
+      int colorId,
       String conducta,
       List<double?> lunes,
       List<double?> martes,
@@ -59,6 +60,7 @@ class ProgresoRepo {
         .doc(sesId)
         .collection('progreso')
         .add({
+      'colorId': colorId,
       'userId': currentUser.uid,
       'conducta': conducta,
       "lunes": lunes,
@@ -76,6 +78,7 @@ class ProgresoRepo {
           .doc(pacienteSesId)
           .collection('progreso')
           .add({
+        'colorId': colorId,
         'userId': currentUser.uid,
         'conducta': conducta,
         "lunes": lunes,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/view-model/progresoMobx.dart';
@@ -5,6 +7,7 @@ import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_mode
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../../style/app_style.dart';
 import '../../../../../routes/router.gr.dart';
 import '../../widget/chart.dart';
 import 'conducta_item.dart';
@@ -13,11 +16,13 @@ class ProgressPage extends StatefulWidget {
   const ProgressPage({super.key, required this.docSes, required this.docPac});
   final SesionesData docSes;
   final UserData? docPac;
+
   @override
   State<ProgressPage> createState() => _ProgressPageState();
 }
 
 class _ProgressPageState extends State<ProgressPage> {
+  final int _colorId = Random().nextInt(AppStyle.conductaColors.length);
   final _conductaNombre = TextEditingController();
 
   late final _progresoMobx = ProgresoStore(widget.docSes.id);
@@ -83,6 +88,7 @@ class _ProgressPageState extends State<ProgressPage> {
           TextButton(
             onPressed: () {
               _progresoMobx.addProgreso(
+                  _colorId,
                   _conductaNombre.text,
                   [0, 0],
                   [0, 0],

@@ -23,9 +23,11 @@ mixin _$HistoriaData {
   String get edad => throw _privateConstructorUsedError;
   String get estadoCivil => throw _privateConstructorUsedError;
   String get escolaridad => throw _privateConstructorUsedError;
-  String get contacto => throw _privateConstructorUsedError;
+  String get nombreContacto => throw _privateConstructorUsedError;
+  String get telefonoContacto => throw _privateConstructorUsedError;
   String get motivo => throw _privateConstructorUsedError;
   String get antecedentes => throw _privateConstructorUsedError;
+  bool get isCompleted => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,9 +45,11 @@ abstract class $HistoriaDataCopyWith<$Res> {
       {String edad,
       String estadoCivil,
       String escolaridad,
-      String contacto,
+      String nombreContacto,
+      String telefonoContacto,
       String motivo,
-      String antecedentes});
+      String antecedentes,
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -64,9 +68,11 @@ class _$HistoriaDataCopyWithImpl<$Res, $Val extends HistoriaData>
     Object? edad = null,
     Object? estadoCivil = null,
     Object? escolaridad = null,
-    Object? contacto = null,
+    Object? nombreContacto = null,
+    Object? telefonoContacto = null,
     Object? motivo = null,
     Object? antecedentes = null,
+    Object? isCompleted = null,
   }) {
     return _then(_value.copyWith(
       edad: null == edad
@@ -81,9 +87,13 @@ class _$HistoriaDataCopyWithImpl<$Res, $Val extends HistoriaData>
           ? _value.escolaridad
           : escolaridad // ignore: cast_nullable_to_non_nullable
               as String,
-      contacto: null == contacto
-          ? _value.contacto
-          : contacto // ignore: cast_nullable_to_non_nullable
+      nombreContacto: null == nombreContacto
+          ? _value.nombreContacto
+          : nombreContacto // ignore: cast_nullable_to_non_nullable
+              as String,
+      telefonoContacto: null == telefonoContacto
+          ? _value.telefonoContacto
+          : telefonoContacto // ignore: cast_nullable_to_non_nullable
               as String,
       motivo: null == motivo
           ? _value.motivo
@@ -93,6 +103,10 @@ class _$HistoriaDataCopyWithImpl<$Res, $Val extends HistoriaData>
           ? _value.antecedentes
           : antecedentes // ignore: cast_nullable_to_non_nullable
               as String,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -109,9 +123,11 @@ abstract class _$$_HistoriaDataCopyWith<$Res>
       {String edad,
       String estadoCivil,
       String escolaridad,
-      String contacto,
+      String nombreContacto,
+      String telefonoContacto,
       String motivo,
-      String antecedentes});
+      String antecedentes,
+      bool isCompleted});
 }
 
 /// @nodoc
@@ -128,9 +144,11 @@ class __$$_HistoriaDataCopyWithImpl<$Res>
     Object? edad = null,
     Object? estadoCivil = null,
     Object? escolaridad = null,
-    Object? contacto = null,
+    Object? nombreContacto = null,
+    Object? telefonoContacto = null,
     Object? motivo = null,
     Object? antecedentes = null,
+    Object? isCompleted = null,
   }) {
     return _then(_$_HistoriaData(
       null == edad
@@ -145,9 +163,13 @@ class __$$_HistoriaDataCopyWithImpl<$Res>
           ? _value.escolaridad
           : escolaridad // ignore: cast_nullable_to_non_nullable
               as String,
-      null == contacto
-          ? _value.contacto
-          : contacto // ignore: cast_nullable_to_non_nullable
+      null == nombreContacto
+          ? _value.nombreContacto
+          : nombreContacto // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == telefonoContacto
+          ? _value.telefonoContacto
+          : telefonoContacto // ignore: cast_nullable_to_non_nullable
               as String,
       null == motivo
           ? _value.motivo
@@ -157,6 +179,10 @@ class __$$_HistoriaDataCopyWithImpl<$Res>
           ? _value.antecedentes
           : antecedentes // ignore: cast_nullable_to_non_nullable
               as String,
+      null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -164,8 +190,15 @@ class __$$_HistoriaDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_HistoriaData implements _HistoriaData {
-  _$_HistoriaData(this.edad, this.estadoCivil, this.escolaridad, this.contacto,
-      this.motivo, this.antecedentes);
+  _$_HistoriaData(
+      this.edad,
+      this.estadoCivil,
+      this.escolaridad,
+      this.nombreContacto,
+      this.telefonoContacto,
+      this.motivo,
+      this.antecedentes,
+      this.isCompleted);
 
   factory _$_HistoriaData.fromJson(Map<String, dynamic> json) =>
       _$$_HistoriaDataFromJson(json);
@@ -177,15 +210,19 @@ class _$_HistoriaData implements _HistoriaData {
   @override
   final String escolaridad;
   @override
-  final String contacto;
+  final String nombreContacto;
+  @override
+  final String telefonoContacto;
   @override
   final String motivo;
   @override
   final String antecedentes;
+  @override
+  final bool isCompleted;
 
   @override
   String toString() {
-    return 'HistoriaData(edad: $edad, estadoCivil: $estadoCivil, escolaridad: $escolaridad, contacto: $contacto, motivo: $motivo, antecedentes: $antecedentes)';
+    return 'HistoriaData(edad: $edad, estadoCivil: $estadoCivil, escolaridad: $escolaridad, nombreContacto: $nombreContacto, telefonoContacto: $telefonoContacto, motivo: $motivo, antecedentes: $antecedentes, isCompleted: $isCompleted)';
   }
 
   @override
@@ -198,17 +235,21 @@ class _$_HistoriaData implements _HistoriaData {
                 other.estadoCivil == estadoCivil) &&
             (identical(other.escolaridad, escolaridad) ||
                 other.escolaridad == escolaridad) &&
-            (identical(other.contacto, contacto) ||
-                other.contacto == contacto) &&
+            (identical(other.nombreContacto, nombreContacto) ||
+                other.nombreContacto == nombreContacto) &&
+            (identical(other.telefonoContacto, telefonoContacto) ||
+                other.telefonoContacto == telefonoContacto) &&
             (identical(other.motivo, motivo) || other.motivo == motivo) &&
             (identical(other.antecedentes, antecedentes) ||
-                other.antecedentes == antecedentes));
+                other.antecedentes == antecedentes) &&
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, edad, estadoCivil, escolaridad,
-      contacto, motivo, antecedentes);
+      nombreContacto, telefonoContacto, motivo, antecedentes, isCompleted);
 
   @JsonKey(ignore: true)
   @override
@@ -229,9 +270,11 @@ abstract class _HistoriaData implements HistoriaData {
       final String edad,
       final String estadoCivil,
       final String escolaridad,
-      final String contacto,
+      final String nombreContacto,
+      final String telefonoContacto,
       final String motivo,
-      final String antecedentes) = _$_HistoriaData;
+      final String antecedentes,
+      final bool isCompleted) = _$_HistoriaData;
 
   factory _HistoriaData.fromJson(Map<String, dynamic> json) =
       _$_HistoriaData.fromJson;
@@ -243,11 +286,15 @@ abstract class _HistoriaData implements HistoriaData {
   @override
   String get escolaridad;
   @override
-  String get contacto;
+  String get nombreContacto;
+  @override
+  String get telefonoContacto;
   @override
   String get motivo;
   @override
   String get antecedentes;
+  @override
+  bool get isCompleted;
   @override
   @JsonKey(ignore: true)
   _$$_HistoriaDataCopyWith<_$_HistoriaData> get copyWith =>

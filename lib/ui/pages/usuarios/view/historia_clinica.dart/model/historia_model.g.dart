@@ -11,9 +11,11 @@ _$_HistoriaData _$$_HistoriaDataFromJson(Map<String, dynamic> json) =>
       json['edad'] as String,
       json['estadoCivil'] as String,
       json['escolaridad'] as String,
-      json['contacto'] as String,
+      json['nombreContacto'] as String,
+      json['telefonoContacto'] as String,
       json['motivo'] as String,
       json['antecedentes'] as String,
+      json['isCompleted'] as bool,
     );
 
 Map<String, dynamic> _$$_HistoriaDataToJson(_$_HistoriaData instance) =>
@@ -21,7 +23,9 @@ Map<String, dynamic> _$$_HistoriaDataToJson(_$_HistoriaData instance) =>
       'edad': instance.edad,
       'estadoCivil': instance.estadoCivil,
       'escolaridad': instance.escolaridad,
-      'contacto': instance.contacto,
+      'nombreContacto': instance.nombreContacto,
+      'telefonoContacto': instance.telefonoContacto,
       'motivo': instance.motivo,
       'antecedentes': instance.antecedentes,
+      'isCompleted': instance.isCompleted,
     };

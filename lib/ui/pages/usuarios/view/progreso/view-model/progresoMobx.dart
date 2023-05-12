@@ -20,6 +20,7 @@ abstract class _ProgresoStoreBase with Store {
 
   @action
   addProgreso(
+    int colorId,
     String conducta,
     List<double?> lunes,
     List<double?> martes,
@@ -32,25 +33,24 @@ abstract class _ProgresoStoreBase with Store {
     String pacienteId,
     String pacienteSesId,
   ) {
-    _progresoRepo.progresAdd(conducta, lunes, martes, miercoles, jueves,
-        viernes, sabado, domingo, sesId, pacienteId, pacienteSesId);
+    _progresoRepo.progresAdd(colorId, conducta, lunes, martes, miercoles,
+        jueves, viernes, sabado, domingo, sesId, pacienteId, pacienteSesId);
   }
 
-    @action
+  @action
   editConducta(
-    String conducta,
-    List<double?> lunes,
-    List<double?> martes,
-    List<double?> miercoles,
-    List<double?> jueves,
-    List<double?> viernes,
-    List<double?> sabado,
-    List<double?> domingo,
-    String sesId,
-    String pacienteId,
-    String pacienteSesId,
-    String conductaId
-  ) {
+      String conducta,
+      List<double?> lunes,
+      List<double?> martes,
+      List<double?> miercoles,
+      List<double?> jueves,
+      List<double?> viernes,
+      List<double?> sabado,
+      List<double?> domingo,
+      String sesId,
+      String pacienteId,
+      String pacienteSesId,
+      String conductaId) {
     _progresoRepo.editProgreso(conducta, lunes, martes, miercoles, jueves,
         viernes, sabado, domingo, sesId, pacienteId, pacienteSesId, conductaId);
   }

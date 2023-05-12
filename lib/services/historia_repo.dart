@@ -27,11 +27,11 @@ class HistoriaRepo {
     }
   }
 
-  Stream<List<HistoriaData>> historiaChanges() {
+  Stream<List<HistoriaData>> historiaChanges(String id) {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
-        .doc(currentUser!.uid)
+        .doc(id)
         .collection('historia')
         .snapshots()
         .map((event) {
@@ -39,13 +39,41 @@ class HistoriaRepo {
     });
   }
 
+  Future<QuerySnapshot<Map<String, dynamic>>> historiaChangesOne(String id) {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(id)
+        .collection('historia')
+        .snapshots()
+        .first;
+  }
+
+  Future<HistoriaData?> getByPatientId(String id) async {
+    final uid = await _firestore
+        .collection('users')
+        .doc(id)
+        .collection('historia')
+        .doc()
+        .get();
+
+    final jsonUid = uid.data();
+    if (jsonUid != null) {
+      return HistoriaData.fromJson({...jsonUid, id: uid.id});
+    } else {
+      return null;
+    }
+  }
+
   Future<DocumentReference<Map<String, dynamic>>> addHistoria(
       String edad,
       String estadoCivil,
       String escolaridad,
-      String contacto,
+      String nombreContacto,
+      String telefonoContacto,
       String motivo,
-      String antecedentes) {
+      String antecedentes,
+      bool isCompleted) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -56,9 +84,11 @@ class HistoriaRepo {
       "edad": edad,
       "estadoCivil": estadoCivil,
       "escolaridad": escolaridad,
-      "contacto": contacto,
+      "nombreContacto": nombreContacto,
+      "telefonoContacto": telefonoContacto,
       "motivo": motivo,
-      "antecedentes": antecedentes
+      "antecedentes": antecedentes,
+      "isCompleted": isCompleted
     });
   }
 }

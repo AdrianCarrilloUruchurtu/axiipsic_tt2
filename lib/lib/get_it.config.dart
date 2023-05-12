@@ -58,7 +58,7 @@ extension GetItInjectableX on _i1.GetIt {
     gh.singleton<_i6.ChatRepo>(_i6.ChatRepo());
     gh.factory<_i7.ChatStore>(() => _i7.ChatStore());
     gh.singleton<_i8.HistoriaRepo>(_i8.HistoriaRepo());
-    gh.factory<_i9.HistoriaStore>(() => _i9.HistoriaStore());
+    gh.factory<_i9.HistoriaStore>(() => _i9.HistoriaStore(gh<String>()));
     gh.singleton<_i10.MessageRepo>(_i10.MessageRepo());
     gh.factory<_i11.MessageStore>(() => _i11.MessageStore(gh<String>()));
     gh.singleton<_i12.NotaRepo>(_i12.NotaRepo());

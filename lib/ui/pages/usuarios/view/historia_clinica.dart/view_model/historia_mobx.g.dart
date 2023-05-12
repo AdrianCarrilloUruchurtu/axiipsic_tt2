@@ -25,17 +25,40 @@ mixin _$HistoriaStore on _HistoriaStoreBase, Store {
     });
   }
 
+  late final _$historiaAtom =
+      Atom(name: '_HistoriaStoreBase.historia', context: context);
+
+  @override
+  HistoriaData? get historia {
+    _$historiaAtom.reportRead();
+    return super.historia;
+  }
+
+  @override
+  set historia(HistoriaData? value) {
+    _$historiaAtom.reportWrite(value, super.historia, () {
+      super.historia = value;
+    });
+  }
+
   late final _$_HistoriaStoreBaseActionController =
       ActionController(name: '_HistoriaStoreBase', context: context);
 
   @override
-  dynamic addHistoria(String edad, String estadoCivil, String escolaridad,
-      String contacto, String motivo, String antecedentes) {
+  dynamic addHistoria(
+      String edad,
+      String estadoCivil,
+      String escolaridad,
+      String nombreContacto,
+      String telefonoContacto,
+      String motivo,
+      String antecedentes,
+      bool isCompleted) {
     final _$actionInfo = _$_HistoriaStoreBaseActionController.startAction(
         name: '_HistoriaStoreBase.addHistoria');
     try {
-      return super.addHistoria(
-          edad, estadoCivil, escolaridad, contacto, motivo, antecedentes);
+      return super.addHistoria(edad, estadoCivil, escolaridad, nombreContacto,
+          telefonoContacto, motivo, antecedentes, isCompleted);
     } finally {
       _$_HistoriaStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -44,7 +67,8 @@ mixin _$HistoriaStore on _HistoriaStoreBase, Store {
   @override
   String toString() {
     return '''
-historiaList: ${historiaList}
+historiaList: ${historiaList},
+historia: ${historia}
     ''';
   }
 }
