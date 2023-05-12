@@ -121,8 +121,8 @@ Widget _body() {
               Container(
                   height: 50,
                   color: Colors.lightBlue.shade50,
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Icon(Icons.phone),
                       Center(child: Text('800 911 2000')),
                     ],
@@ -130,8 +130,8 @@ Widget _body() {
               Container(
                   height: 50,
                   color: Colors.lightBlue.shade50,
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Icon(Icons.facebook),
                       Center(child: Text('@LaLineaDeLaVidaMx')),
                     ],
@@ -139,8 +139,8 @@ Widget _body() {
               Container(
                   height: 50,
                   color: Colors.lightBlue.shade50,
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Icon(
                         FontAwesomeIcons.twitter,
                       ),
@@ -150,8 +150,8 @@ Widget _body() {
               Container(
                   height: 50,
                   color: Colors.lightBlue.shade50,
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Icon(
                         FontAwesomeIcons.calendarXmark,
                       ),
@@ -161,8 +161,8 @@ Widget _body() {
               Container(
                   height: 50,
                   color: Colors.lightBlue.shade50,
-                  child: Column(
-                    children: const [
+                  child: const Column(
+                    children: [
                       Icon(
                         FontAwesomeIcons.clock,
                       ),
@@ -172,9 +172,9 @@ Widget _body() {
               Container(
                   height: 150,
                   color: Colors.lightBlue.shade50,
-                  child: Column(
+                  child: const Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Icon(
                         FontAwesomeIcons.userGroup,
                       ),

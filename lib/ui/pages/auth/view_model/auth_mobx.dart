@@ -40,6 +40,11 @@ abstract class _AuthMobxBase with Store {
     _userRepo.getUserByFriendId(friendId);
   }
 
+  @action
+  saveToken(String? token) {
+    _userRepo.saveToken(token);
+  }
+
   @observable
   UserData? user;
 

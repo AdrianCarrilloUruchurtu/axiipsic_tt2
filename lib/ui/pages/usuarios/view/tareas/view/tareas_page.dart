@@ -42,9 +42,9 @@ class _TareasPageState extends State<TareasPage> {
               onPressed: () {
                 context.router.push(TareaAddRoute(doc: widget.doc));
               },
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.add),
                   Text(
                     "Añadir tarea",

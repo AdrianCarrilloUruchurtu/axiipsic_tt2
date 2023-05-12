@@ -14,6 +14,7 @@ _$_UserData _$$_UserDataFromJson(Map<String, dynamic> json) => _$_UserData(
       json['psicMail'] as String,
       json['psicCed'] as String,
       json['id'] as String,
+      json['token'] as String,
     );
 
 Map<String, dynamic> _$$_UserDataToJson(_$_UserData instance) =>
@@ -25,4 +26,5 @@ Map<String, dynamic> _$$_UserDataToJson(_$_UserData instance) =>
       'psicMail': instance.psicMail,
       'psicCed': instance.psicCed,
       'id': instance.id,
+      'token': instance.token,
     };

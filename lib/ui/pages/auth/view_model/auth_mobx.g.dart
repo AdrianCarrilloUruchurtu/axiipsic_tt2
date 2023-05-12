@@ -82,6 +82,17 @@ mixin _$AuthMobx on _AuthMobxBase, Store {
   }
 
   @override
+  dynamic saveToken(String? token) {
+    final _$actionInfo = _$_AuthMobxBaseActionController.startAction(
+        name: '_AuthMobxBase.saveToken');
+    try {
+      return super.saveToken(token);
+    } finally {
+      _$_AuthMobxBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 user: ${user},

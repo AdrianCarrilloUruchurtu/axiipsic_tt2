@@ -56,4 +56,12 @@ class UserRepo {
       String? friendId) {
     return _firestore.collection('users').doc(friendId).get();
   }
+
+  Future<void> saveToken(String? token) {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser?.uid)
+        .set({'token': token});
+  }
 }

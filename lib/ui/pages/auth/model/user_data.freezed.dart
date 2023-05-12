@@ -27,6 +27,7 @@ mixin _$UserData {
   String get psicMail => throw _privateConstructorUsedError;
   String get psicCed => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
+  String get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,7 +47,8 @@ abstract class $UserDataCopyWith<$Res> {
       String email,
       String psicMail,
       String psicCed,
-      String id});
+      String id,
+      String token});
 }
 
 /// @nodoc
@@ -69,6 +71,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? psicMail = null,
     Object? psicCed = null,
     Object? id = null,
+    Object? token = null,
   }) {
     return _then(_value.copyWith(
       nombre: null == nombre
@@ -99,6 +102,10 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      token: null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -117,7 +124,8 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       String email,
       String psicMail,
       String psicCed,
-      String id});
+      String id,
+      String token});
 }
 
 /// @nodoc
@@ -138,6 +146,7 @@ class __$$_UserDataCopyWithImpl<$Res>
     Object? psicMail = null,
     Object? psicCed = null,
     Object? id = null,
+    Object? token = null,
   }) {
     return _then(_$_UserData(
       null == nombre
@@ -168,6 +177,10 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
+      null == token
+          ? _value.token
+          : token // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -176,7 +189,7 @@ class __$$_UserDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserData implements _UserData {
   _$_UserData(this.nombre, this.apellido, this.ispsic, this.email,
-      this.psicMail, this.psicCed, this.id);
+      this.psicMail, this.psicCed, this.id, this.token);
 
   factory _$_UserData.fromJson(Map<String, dynamic> json) =>
       _$$_UserDataFromJson(json);
@@ -195,10 +208,12 @@ class _$_UserData implements _UserData {
   final String psicCed;
   @override
   final String id;
+  @override
+  final String token;
 
   @override
   String toString() {
-    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail, psicCed: $psicCed, id: $id)';
+    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail, psicCed: $psicCed, id: $id, token: $token)';
   }
 
   @override
@@ -214,13 +229,14 @@ class _$_UserData implements _UserData {
             (identical(other.psicMail, psicMail) ||
                 other.psicMail == psicMail) &&
             (identical(other.psicCed, psicCed) || other.psicCed == psicCed) &&
-            (identical(other.id, id) || other.id == id));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.token, token) || other.token == token));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, nombre, apellido, ispsic, email, psicMail, psicCed, id);
+  int get hashCode => Object.hash(runtimeType, nombre, apellido, ispsic, email,
+      psicMail, psicCed, id, token);
 
   @JsonKey(ignore: true)
   @override
@@ -244,7 +260,8 @@ abstract class _UserData implements UserData {
       final String email,
       final String psicMail,
       final String psicCed,
-      final String id) = _$_UserData;
+      final String id,
+      final String token) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
 
@@ -262,6 +279,8 @@ abstract class _UserData implements UserData {
   String get psicCed;
   @override
   String get id;
+  @override
+  String get token;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataCopyWith<_$_UserData> get copyWith =>

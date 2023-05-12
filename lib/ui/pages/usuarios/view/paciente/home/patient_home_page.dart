@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,6 +22,85 @@ class _PatHomePageState extends State<PatHomePage> {
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
   late final historiaMobx =
       HistoriaStore(FirebaseAuth.instance.currentUser!.uid);
+
+  String? mtoken = "";
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  @override
+  void initState() {
+    super.initState();
+    requestPermission();
+    initInfo();
+  }
+
+  initInfo() {
+    var androidInitialize = const AndroidInitializationSettings('@mipmap/logo');
+    var initializationSettings =
+        InitializationSettings(android: androidInitialize);
+
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (details) async {
+        try {
+          if (details.payload != null && details.payload!.isNotEmpty) {
+          } else {}
+        } catch (e) {}
+        return;
+      },
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      print('............onMessage.......');
+      print(
+          "onMessage: ${message.notification?.title}/${message.notification?.body}");
+
+      RemoteNotification notification = message.notification!;
+      AndroidNotification android = message.notification!.android!;
+
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+          message.notification!.body.toString(),
+          htmlFormatBigText: true,
+          contentTitle: notification.title,
+          htmlFormatContentTitle: true);
+
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails('testId', 'testname',
+              importance: Importance.high,
+              styleInformation: bigTextStyleInformation,
+              priority: Priority.high,
+              playSound: true);
+
+      NotificationDetails platformChannelSpecifics =
+          NotificationDetails(android: androidPlatformChannelSpecifics);
+      await flutterLocalNotificationsPlugin.show(
+        1, message.notification?.title, message.notification?.body,
+        platformChannelSpecifics,
+        //payload: message.data['body'] //esto es para navegar entre pantallas?
+      );
+    });
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or hasnt granted permission');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +147,16 @@ class _PatHomePageState extends State<PatHomePage> {
 
   // Drawer
   Widget _drawer() {
+    bool isCompleted = false;
+
+    if (historiaMobx.historia != null) {
+      if (historiaMobx.historia?.isCompleted == false) {
+        setState(() {
+          isCompleted = true;
+        });
+      }
+    }
+
     return Drawer(
       child: ListView(
         children: [
@@ -79,7 +170,7 @@ class _PatHomePageState extends State<PatHomePage> {
             ],
           )),
           Visibility(
-            visible: !historiaMobx.historia!.isCompleted,
+            visible: historiaMobx.historia!.isCompleted,
             child: ListTile(
               title: const Text(
                 "Completa tu perfil",
@@ -273,9 +364,9 @@ class _PatHomePageState extends State<PatHomePage> {
               backgroundColor: Colors.green.shade200,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12))),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text.rich(TextSpan(
                   text: "Progreso de Terapia\n",
                   style: TextStyle(
@@ -315,10 +406,10 @@ class _PatHomePageState extends State<PatHomePage> {
             backgroundColor: Colors.green.shade200,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               "Calendario",
               style: TextStyle(
@@ -348,19 +439,19 @@ class _PatHomePageState extends State<PatHomePage> {
 
 // Appbar de navegación inferior, su uso realmente es hacer espacio
   Widget _bottomAppBar() {
-    return BottomAppBar(
+    return const BottomAppBar(
       notchMargin: 5.0,
-      shape: const CircularNotchedRectangle(),
+      shape: CircularNotchedRectangle(),
       color: Colors.black,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(
                     Icons.home,
                     color: Colors.white,

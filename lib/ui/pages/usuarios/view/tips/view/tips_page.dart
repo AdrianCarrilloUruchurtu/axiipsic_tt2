@@ -30,9 +30,9 @@ class _TipsPageState extends State<TipsPage> {
             child: FloatingActionButton(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16)),
-              child: Row(
+              child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.add),
                   Text(
                     "Añadir tip",

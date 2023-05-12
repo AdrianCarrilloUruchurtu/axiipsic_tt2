@@ -128,13 +128,16 @@ class _NotesPageState extends State<NotesPage> {
     String nombre = _authMobx.user!.nombre;
     return AppBar(
       title: Container(
-        margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
-        child: nombre != "" ? Text(
-          "Notas de $nombre",
-          style:
-              const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ) : const Center(child: CircularProgressIndicator(),)
-      ),
+          margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+          child: nombre != ""
+              ? Text(
+                  "Notas de $nombre",
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                )),
       centerTitle: true,
       leading: Builder(
         builder: (BuildContext context) {
@@ -206,19 +209,19 @@ class _NotesPageState extends State<NotesPage> {
 
 // Appbar de navegación inferior, su uso realmente es hacer espacio
   Widget _bottomAppBar() {
-    return BottomAppBar(
+    return const BottomAppBar(
       notchMargin: 5.0,
-      shape: const CircularNotchedRectangle(),
+      shape: CircularNotchedRectangle(),
       color: Colors.black,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(
                     Icons.home,
                     color: Colors.white,

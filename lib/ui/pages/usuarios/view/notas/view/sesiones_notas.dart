@@ -205,19 +205,19 @@ class NotasSesionesPageState extends State<NotasSesionesPage> {
 
 // Appbar de navegación inferior, su uso realmente es hacer espacio
   Widget _bottomAppBar() {
-    return BottomAppBar(
+    return const BottomAppBar(
       notchMargin: 5.0,
-      shape: const CircularNotchedRectangle(),
+      shape: CircularNotchedRectangle(),
       color: Colors.black,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 10),
+              padding: EdgeInsets.only(left: 10),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const [
+                children: [
                   Icon(
                     Icons.home,
                     color: Colors.white,

@@ -19,7 +19,7 @@ class UserState extends StatelessWidget {
             if (userSnapshot.hasData) {
               return const PatHomePage();
             } else {
-              return LoginPage();
+              return const LoginPage();
             }
           } else if (userSnapshot.hasError) {
             return const Center(

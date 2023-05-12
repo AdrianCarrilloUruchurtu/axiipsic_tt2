@@ -1,11 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:table_calendar/table_calendar.dart';
+import '../../../../../../main.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
 
 class PsicHomePage extends StatefulWidget {
@@ -17,6 +22,85 @@ class PsicHomePage extends StatefulWidget {
 
 class _PsicHomePageState extends State<PsicHomePage> {
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
+
+  String? mtoken = "";
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  @override
+  void initState() {
+    super.initState();
+    requestPermission();
+    initInfo();
+  }
+
+  initInfo() {
+    var androidInitialize = const AndroidInitializationSettings('@mipmap/logo');
+    var initializationSettings =
+        InitializationSettings(android: androidInitialize);
+
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: (details) async {
+        try {
+          if (details.payload != null && details.payload!.isNotEmpty) {
+          } else {}
+        } catch (e) {}
+        return;
+      },
+    );
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+      print('............onMessage.......');
+      print(
+          "onMessage: ${message.notification?.title}/${message.notification?.body}");
+
+      RemoteNotification notification = message.notification!;
+      AndroidNotification android = message.notification!.android!;
+
+      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+          message.notification!.body.toString(),
+          htmlFormatBigText: true,
+          contentTitle: notification.title,
+          htmlFormatContentTitle: true);
+
+      AndroidNotificationDetails androidPlatformChannelSpecifics =
+          AndroidNotificationDetails('testId', 'testname',
+              importance: Importance.high,
+              styleInformation: bigTextStyleInformation,
+              priority: Priority.high,
+              playSound: true);
+
+      NotificationDetails platformChannelSpecifics =
+          NotificationDetails(android: androidPlatformChannelSpecifics);
+      await flutterLocalNotificationsPlugin.show(
+        1, message.notification?.title, message.notification?.body,
+        platformChannelSpecifics,
+        //payload: message.data['body'] //esto es para navegar entre pantallas?
+      );
+    });
+  }
+
+  void requestPermission() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true);
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus ==
+        AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or hasnt granted permission');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +245,6 @@ class _PsicHomePageState extends State<PsicHomePage> {
 
   //Widget para el cuerpo del Scaffold
   Widget _body() {
-    String nombre = _authMobx.user!.nombre;
     return SafeArea(
       child: Container(
         margin: const EdgeInsets.fromLTRB(32, 0, 32, 32),
@@ -170,9 +253,9 @@ class _PsicHomePageState extends State<PsicHomePage> {
           children: [
             Container(
                 margin: const EdgeInsets.fromLTRB(0, 0, 0, 4),
-                child: nombre != null
+                child: _authMobx.user?.nombre != null
                     ? Text(
-                        "Hola, $nombre",
+                        "Hola, ${_authMobx.user?.nombre}",
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 36),
                       )
@@ -211,10 +294,10 @@ class _PsicHomePageState extends State<PsicHomePage> {
                 backgroundColor: const Color(0xffC0EAE2),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20))),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Text.rich(
                   TextSpan(
                       text: "Lista de pacientes\n",
@@ -322,10 +405,10 @@ class _PsicHomePageState extends State<PsicHomePage> {
               backgroundColor: const Color(0xffC0EAE2),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20))),
-          child: Row(
+          child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
                 "Calendario",
                 style: TextStyle(

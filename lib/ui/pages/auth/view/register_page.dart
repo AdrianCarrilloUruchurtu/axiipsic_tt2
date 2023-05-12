@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/services/global_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -36,8 +37,9 @@ class _RegisterPageState extends State<RegisterPage> {
   String? _email = '';
   String? _isPsic = "";
   String? _password = '';
-  String? _psicMail = '';
+  final String _psicMail = '';
   String? _psicCed = '';
+  String? mtoken = "";
 
   final GlobalMethod _globalMethod = GlobalMethod();
 
@@ -46,6 +48,21 @@ class _RegisterPageState extends State<RegisterPage> {
   // Variables Firebase
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final dbRef = FirebaseDatabase.instance.ref().child('users');
+
+  @override
+  void initState() {
+    super.initState();
+    getToken();
+  }
+
+  void getToken() async {
+    return await FirebaseMessaging.instance.getToken().then((value) {
+      setState(() async {
+        mtoken = value;
+        print("El token del dispositivo del usuario actual es: $mtoken");
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -74,7 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 password: _password!.trim())
             .then((value) => {
                   addUserDetails(
-                      _nombre!, _apellido!, _isPsic!, _email!, _psicMail!)
+                      _nombre!, _apellido!, _isPsic!, _email!, _psicMail)
                 });
       } catch (error) {
         _globalMethod.authErrorHandle(
@@ -83,11 +100,12 @@ class _RegisterPageState extends State<RegisterPage> {
         setState(() {
           _isLoading = false;
         });
+        context.router.pop();
       }
     }
   }
 
-  Future addUserDetails(String nombre, String apellido, String isPsic,
+  Future<void> addUserDetails(String nombre, String apellido, String isPsic,
       String email, String psicMail) async {
     var user = _auth.currentUser;
     await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
@@ -96,7 +114,9 @@ class _RegisterPageState extends State<RegisterPage> {
       'ispsic': isPsic,
       'email': email,
       'psicMail': psicMail,
-      'id': user.uid
+      'id': user.uid,
+      'token': mtoken,
+      'psicCed': ""
     });
     // ignore: use_build_context_synchronously
     AutoRouter.of(context).push(const LoginRoute());
@@ -288,34 +308,34 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                         const SizedBox(height: 20),
 
-                        // Prueba para esconder el formfield si el usuario es paciente, para que ingrese el código del psicólogo
-                        Visibility(
-                          visible: _isPat,
-                          child: TextFormField(
-                            key: const ValueKey('psicMail'),
-                            focusNode: _linkFocusNode,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'El correo del psicólogo es requerido';
-                              } else {
-                                return null;
-                              }
-                            },
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(_psicCedFocusNode),
-                            decoration: const InputDecoration(
-                                icon: Icon(
-                                  Icons.supervised_user_circle_outlined,
-                                  color: Colors.blue,
-                                ),
-                                hintText: "Mail del psicólogo: "),
-                            onSaved: (value) {
-                              _psicMail = value;
-                            },
-                          ),
-                        ),
+                        // // Prueba para esconder el formfield si el usuario es paciente, para que ingrese el código del psicólogo
+                        // Visibility(
+                        //   visible: _isPat,
+                        //   child: TextFormField(
+                        //     key: const ValueKey('psicMail'),
+                        //     focusNode: _linkFocusNode,
+                        //     validator: (value) {
+                        //       if (value!.isEmpty) {
+                        //         return 'El correo del psicólogo es requerido';
+                        //       } else {
+                        //         return null;
+                        //       }
+                        //     },
+                        //     keyboardType: TextInputType.text,
+                        //     textInputAction: TextInputAction.next,
+                        //     onEditingComplete: () => FocusScope.of(context)
+                        //         .requestFocus(_psicCedFocusNode),
+                        //     decoration: const InputDecoration(
+                        //         icon: Icon(
+                        //           Icons.supervised_user_circle_outlined,
+                        //           color: Colors.blue,
+                        //         ),
+                        //         hintText: "Mail del psicólogo: "),
+                        //     onSaved: (value) {
+                        //       _psicMail = value;
+                        //     },
+                        //   ),
+                        // ),
 
                         // Prueba para esconder el formfield si el usuario es paciente, para que ingrese el código del psicólogo
                         Visibility(
