@@ -1,6 +1,6 @@
+import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/services/calendar_repo.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/calendar/model/calendar_model.dart';
-import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 part 'calendar_mobx.g.dart';
@@ -9,7 +9,7 @@ part 'calendar_mobx.g.dart';
 class CalendarStore = _CalendarStoreBase with _$CalendarStore;
 
 abstract class _CalendarStoreBase with Store {
-  final _calendarRepo = GetIt.instance.get<CalendarRepo>();
+  final _calendarRepo = getIt.get<CalendarRepo>();
 
   _CalendarStoreBase() {
     _calendarRepo.calendarChanges().listen((event) {
@@ -20,6 +20,12 @@ abstract class _CalendarStoreBase with Store {
   @action
   crearEvento(DateTime date, String title, String description, String time) {
     _calendarRepo.addEvent(date, title, description, time);
+  }
+
+  @action
+  crearEventoPaciente(DateTime date, String title, String description,
+      String time, String pacId) {
+    _calendarRepo.addEventPatient(date, title, description, time, pacId);
   }
 
   @action

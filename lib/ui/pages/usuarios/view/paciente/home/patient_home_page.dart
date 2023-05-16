@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
+import '../../calendar/view-model/calendar_mobx.dart';
 import '../../historia_clinica.dart/view_model/historia_mobx.dart';
 
 class PatHomePage extends StatefulWidget {
@@ -20,8 +21,10 @@ class PatHomePage extends StatefulWidget {
 
 class _PatHomePageState extends State<PatHomePage> {
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
+
+  final _calendarMobx = getIt.get<CalendarStore>();
   late final historiaMobx =
-      HistoriaStore(FirebaseAuth.instance.currentUser!.uid);
+      HistoriaStore(FirebaseAuth.instance.currentUser?.uid ?? '');
 
   String? mtoken = "";
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
@@ -30,55 +33,54 @@ class _PatHomePageState extends State<PatHomePage> {
   void initState() {
     super.initState();
     requestPermission();
-    initInfo();
   }
 
-  initInfo() {
-    var androidInitialize = const AndroidInitializationSettings('@mipmap/logo');
-    var initializationSettings =
-        InitializationSettings(android: androidInitialize);
+  // initInfo() {
+  //   var androidInitialize = const AndroidInitializationSettings('@mipmap/logo');
+  //   var initializationSettings =
+  //       InitializationSettings(android: androidInitialize);
 
-    flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-      onDidReceiveNotificationResponse: (details) async {
-        try {
-          if (details.payload != null && details.payload!.isNotEmpty) {
-          } else {}
-        } catch (e) {}
-        return;
-      },
-    );
+  //   flutterLocalNotificationsPlugin.initialize(
+  //     initializationSettings,
+  //     onDidReceiveNotificationResponse: (details) async {
+  //       try {
+  //         if (details.payload != null && details.payload!.isNotEmpty) {
+  //         } else {}
+  //       } catch (e) {}
+  //       return;
+  //     },
+  //   );
 
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('............onMessage.......');
-      print(
-          "onMessage: ${message.notification?.title}/${message.notification?.body}");
+  //   FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
+  //     print('............onMessage.......');
+  //     print(
+  //         "onMessage: ${message.notification?.title}/${message.notification?.body}");
 
-      RemoteNotification notification = message.notification!;
-      AndroidNotification android = message.notification!.android!;
+  //     RemoteNotification notification = message.notification!;
+  //     AndroidNotification android = message.notification!.android!;
 
-      BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
-          message.notification!.body.toString(),
-          htmlFormatBigText: true,
-          contentTitle: notification.title,
-          htmlFormatContentTitle: true);
+  //     BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
+  //         message.notification!.body.toString(),
+  //         htmlFormatBigText: true,
+  //         contentTitle: notification.title,
+  //         htmlFormatContentTitle: true);
 
-      AndroidNotificationDetails androidPlatformChannelSpecifics =
-          AndroidNotificationDetails('testId', 'testname',
-              importance: Importance.high,
-              styleInformation: bigTextStyleInformation,
-              priority: Priority.high,
-              playSound: true);
+  //     AndroidNotificationDetails androidPlatformChannelSpecifics =
+  //         AndroidNotificationDetails('testId', 'testname',
+  //             importance: Importance.high,
+  //             styleInformation: bigTextStyleInformation,
+  //             priority: Priority.high,
+  //             playSound: true);
 
-      NotificationDetails platformChannelSpecifics =
-          NotificationDetails(android: androidPlatformChannelSpecifics);
-      await flutterLocalNotificationsPlugin.show(
-        1, message.notification?.title, message.notification?.body,
-        platformChannelSpecifics,
-        //payload: message.data['body'] //esto es para navegar entre pantallas?
-      );
-    });
-  }
+  //     NotificationDetails platformChannelSpecifics =
+  //         NotificationDetails(android: androidPlatformChannelSpecifics);
+  //     await flutterLocalNotificationsPlugin.show(
+  //       1, message.notification?.title, message.notification?.body,
+  //       platformChannelSpecifics,
+  //       //payload: message.data['body'] //esto es para navegar entre pantallas?
+  //     );
+  //   });
+  // }
 
   void requestPermission() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -170,7 +172,20 @@ class _PatHomePageState extends State<PatHomePage> {
             ],
           )),
           Visibility(
-            visible: historiaMobx.historia!.isCompleted,
+            visible: true,
+            child: ListTile(
+              title: const Text(
+                "Psicólogos disponibles",
+                style: TextStyle(fontSize: 24, color: Colors.blueAccent),
+              ),
+              onTap: () {
+                context.router.push(const ListPsicRoute());
+              },
+              selected: true,
+            ),
+          ),
+          Visibility(
+            visible: true,
             child: ListTile(
               title: const Text(
                 "Completa tu perfil",
@@ -181,16 +196,6 @@ class _PatHomePageState extends State<PatHomePage> {
               },
               selected: true,
             ),
-          ),
-          ListTile(
-            title: const Text(
-              "Escoge tu psicólogo",
-              style: TextStyle(fontSize: 24, color: Colors.blueAccent),
-            ),
-            onTap: () {
-              context.router.push(const ListPsicRoute());
-            },
-            selected: true,
           ),
           ListTile(
             title: const Text(
@@ -247,37 +252,90 @@ class _PatHomePageState extends State<PatHomePage> {
 
 // Botones del gridview
   Widget _myButton(String texto, Icon icono, Function ruta) {
-    return Expanded(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.lightBlue.shade100,
-          alignment: Alignment.center,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text(
-              texto,
-              style: const TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black),
-            ),
-            icono
-          ],
-        ),
-        onPressed: () {
-          ruta();
-        },
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.lightBlue.shade100,
+        alignment: Alignment.center,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text(
+            texto,
+            style: const TextStyle(
+                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.black),
+          ),
+          icono
+        ],
+      ),
+      onPressed: () {
+        ruta();
+      },
+    );
+  }
+
+  Widget _myButtonDate() {
+    // CalendarData? closestEvent = _calendarMobx.eventList!.isNotEmpty ?
+    // _calendarMobx.eventList?.reduce(
+    //     (value, element) => value.date.compareTo(DateTime.now()) > 0 &&
+    //             value.date.difference(DateTime.now()).inMilliseconds <
+    //                 element.date.difference(DateTime.now()).inMilliseconds
+    //         ? value
+    //         : element) : ??;
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.lightBlue.shade100,
+        alignment: Alignment.center,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Text.rich(TextSpan(
+              text: "Próxima cita\n",
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  color: Colors.black),
+              children: <TextSpan>[
+                _calendarMobx.eventList?.isNotEmpty == true
+                    ? TextSpan(
+                        text:
+                            "${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).date.day.toString()}/${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).date.month.toString()}/${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).date.year.toString()}",
+                        children: [
+                          TextSpan(
+                              text:
+                                  " @ ${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).time.toString()}")
+                        ],
+                        style: const TextStyle(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black))
+                    : const TextSpan(
+                        text: "No hay ninguna cita próxima",
+                        style: TextStyle(
+                            fontStyle: FontStyle.normal,
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black))
+              ])),
+          const Icon(
+            FontAwesomeIcons.solidBell,
+            size: 56,
+            color: Colors.black,
+          ),
+        ],
+      ),
+      onPressed: () {},
     );
   }
 
 // Body del scaffold
   Widget _body() {
     String nombre = _authMobx.user?.nombre ?? '';
+
     return SafeArea(
       child: Container(
         //padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
@@ -330,14 +388,7 @@ class _PatHomePageState extends State<PatHomePage> {
                     ),
                     () =>
                         context.router.push(TareasRoute(doc: _authMobx.user))),
-                _myButton(
-                    'Próxima cita',
-                    const Icon(
-                      FontAwesomeIcons.solidBell,
-                      size: 56,
-                      color: Colors.black,
-                    ),
-                    () => '/citas'),
+                _myButtonDate(),
               ],
             ),
             SizedBox.fromSize(

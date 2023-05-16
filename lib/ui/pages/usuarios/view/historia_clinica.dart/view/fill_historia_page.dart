@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/historia_clinica.dart/view_model/historia_mobx.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class FillHistoriaPage extends StatefulWidget {
@@ -12,7 +13,7 @@ class FillHistoriaPage extends StatefulWidget {
 
 class _FillHistoriaPageState extends State<FillHistoriaPage> {
   final _formKey = GlobalKey<FormState>();
-  final _historiaMobx = getIt.get<HistoriaStore>();
+  final _historiaMobx = HistoriaStore(FirebaseAuth.instance.currentUser!.uid);
 
   //FocusNodes
   final FocusNode _edadFocusNode = FocusNode();
@@ -22,6 +23,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
   final FocusNode _telefonoContactoFocusNode = FocusNode();
   final FocusNode _motivoFocusNode = FocusNode();
   final FocusNode _antecedenteFocusNode = FocusNode();
+  final FocusNode _emailFocuseNode = FocusNode();
 
   //Campos
   String? _edad = "";
@@ -31,6 +33,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
   String? _telefonoContacto = "";
   String _motivo = '';
   String _antecedente = '';
+  String _email = '';
 
   @override
   void dispose() {
@@ -42,6 +45,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
     _telefonoContactoFocusNode.dispose();
     _motivoFocusNode.dispose();
     _antecedenteFocusNode.dispose();
+    _emailFocuseNode.dispose();
   }
 
   _submitForm() {
@@ -49,8 +53,12 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
     FocusScope.of(context).unfocus();
     if (isValid) {
       _historiaMobx.addHistoria(_edad!, _estadoCivil!, _escolaridad!,
-          _nombreContacto!,_telefonoContacto!, _motivo, _antecedente, true);
+          _nombreContacto!, _telefonoContacto!, _motivo, _antecedente, true);
       context.router.pop();
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(({'psicMail': _email}));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Llena los campos antes de continuar")));
@@ -93,6 +101,30 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    TextFormField(
+                      key: const ValueKey("psicmail"),
+                      focusNode: _emailFocuseNode,
+                      validator: (value) {
+                        if ((value!.isEmpty)) {
+                          return 'El email del psicólogo que escogiste es requerido';
+                        }
+                        return null;
+                      },
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () =>
+                          FocusScope.of(context).requestFocus(_edadFocusNode),
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                          hintText: "Correo del psicólogo: ",
+                          icon: Icon(
+                            Icons.perm_scan_wifi,
+                            color: Colors.blue,
+                          )),
+                      onChanged: (value) {
+                        _email = value;
+                      },
+                    ),
+                    const SizedBox(height: 20),
                     // Nombre FormField
                     TextFormField(
                       key: const ValueKey(0),

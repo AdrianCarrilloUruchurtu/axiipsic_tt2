@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/calendar/view-model/calendar_mobx.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../../../../main.dart';
+import '../../../../../../services/calendar_repo.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
+import '../../calendar/model/calendar_model.dart';
 
 class PsicHomePage extends StatefulWidget {
   const PsicHomePage({Key? key}) : super(key: key);
@@ -22,8 +25,8 @@ class PsicHomePage extends StatefulWidget {
 
 class _PsicHomePageState extends State<PsicHomePage> {
   final AuthMobx _authMobx = getIt.get<AuthMobx>();
+  final _calendarMobx = getIt.get<CalendarStore>();
 
-  String? mtoken = "";
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   @override
@@ -64,7 +67,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
           htmlFormatContentTitle: true);
 
       AndroidNotificationDetails androidPlatformChannelSpecifics =
-          AndroidNotificationDetails('testId', 'testname',
+          AndroidNotificationDetails('axiipsic', 'axiipsic',
               importance: Importance.high,
               styleInformation: bigTextStyleInformation,
               priority: Priority.high,
@@ -356,33 +359,50 @@ class _PsicHomePageState extends State<PsicHomePage> {
                   ),
                   Column(
                     children: [
-                      SizedBox(
-                        width: 50,
-                        height: 30,
-                        child: DecoratedBox(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                color: Colors.blueAccent,
-                                borderRadius: BorderRadius.circular(15)),
-                            child: const Icon(
-                              FontAwesomeIcons.solidBell,
-                              size: 16,
-                            )),
+                      Visibility(
+                        visible: true,
+                        child: SizedBox(
+                          width: 50,
+                          height: 30,
+                          child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Colors.blueAccent,
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: const Icon(
+                                FontAwesomeIcons.solidBell,
+                                size: 16,
+                              )),
+                        ),
                       ),
-                      const Text.rich(TextSpan(
+                      Text.rich(TextSpan(
                           text: "Próxima cita\n",
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
                               color: Colors.black),
                           children: <TextSpan>[
-                            TextSpan(
-                                text: "Jueves 07/Enero/2060",
-                                style: TextStyle(
-                                    fontStyle: FontStyle.normal,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.normal,
-                                    color: Colors.black)),
+                            _calendarMobx.eventList?.isNotEmpty == true
+                                ? TextSpan(
+                                    text:
+                                        "${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).date.day.toString()}/${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).date.month.toString()}/${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).date.year.toString()}",
+                                    children: [
+                                      TextSpan(
+                                          text:
+                                              " @ ${_calendarMobx.eventList?.reduce((value, element) => value.date.compareTo(DateTime.now()) > 0 && value.date.difference(DateTime.now()).inMilliseconds < element.date.difference(DateTime.now()).inMilliseconds ? value : element).time.toString()}")
+                                    ],
+                                    style: const TextStyle(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black))
+                                : const TextSpan(
+                                    text: "No hay ninguna cita próxima",
+                                    style: TextStyle(
+                                        fontStyle: FontStyle.normal,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.black))
                           ])),
                     ],
                   ),

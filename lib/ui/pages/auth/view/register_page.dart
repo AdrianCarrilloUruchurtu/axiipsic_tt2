@@ -6,8 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../../routes/router.gr.dart';
-
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
@@ -90,8 +88,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 email: _email!.toLowerCase().trim(),
                 password: _password!.trim())
             .then((value) => {
-                  addUserDetails(
-                      _nombre!, _apellido!, _isPsic!, _email!, _psicMail)
+                  addUserDetails(_nombre!, _apellido!, _isPsic!, _email!,
+                      _psicMail, _psicCed!)
                 });
       } catch (error) {
         _globalMethod.authErrorHandle(
@@ -106,20 +104,32 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> addUserDetails(String nombre, String apellido, String isPsic,
-      String email, String psicMail) async {
+      String email, String psicMail, String psicCed) async {
     var user = _auth.currentUser;
-    await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
-      'nombre': nombre,
-      'apellido': apellido,
-      'ispsic': isPsic,
-      'email': email,
-      'psicMail': psicMail,
-      'id': user.uid,
-      'token': mtoken,
-      'psicCed': ""
-    });
-    // ignore: use_build_context_synchronously
-    AutoRouter.of(context).push(const LoginRoute());
+
+    if (isPsic == "Paciente") {
+      await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+        'nombre': nombre,
+        'apellido': apellido,
+        'ispsic': isPsic,
+        'email': email,
+        'psicMail': psicMail,
+        'id': user.uid,
+        'token': mtoken,
+        'psicCed': ""
+      });
+    } else {
+      await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+        'nombre': nombre,
+        'apellido': apellido,
+        'ispsic': isPsic,
+        'email': email,
+        'psicMail': psicMail,
+        'id': user.uid,
+        'token': mtoken,
+        'psicCed': psicCed
+      });
+    }
   }
 
   checkIfLinkedPat() {

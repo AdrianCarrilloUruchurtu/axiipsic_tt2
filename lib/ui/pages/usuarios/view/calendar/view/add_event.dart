@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../view-model/calendar_mobx.dart';
 
 class AddEvent extends StatefulWidget {
@@ -25,6 +26,8 @@ class _AddEventState extends State<AddEvent> {
   final _descController = TextEditingController();
   final _calendarMobx = getIt.get<CalendarStore>();
   late String _selectedTime;
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   @override
   void initState() {

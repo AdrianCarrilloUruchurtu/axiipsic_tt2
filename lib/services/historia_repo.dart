@@ -27,11 +27,11 @@ class HistoriaRepo {
     }
   }
 
-  Stream<List<HistoriaData>> historiaChanges(String id) {
+  Stream<List<HistoriaData>> historiaChanges(String patientId) {
     final currentUser = _auth.currentUser;
     return _firestore
         .collection('users')
-        .doc(id)
+        .doc(patientId)
         .collection('historia')
         .snapshots()
         .map((event) {

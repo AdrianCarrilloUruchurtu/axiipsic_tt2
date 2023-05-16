@@ -11,8 +11,8 @@ class HistoriaStore = _HistoriaStoreBase with _$HistoriaStore;
 abstract class _HistoriaStoreBase with Store {
   final _historiaRepo = getIt.get<HistoriaRepo>();
 
-  _HistoriaStoreBase(String id) {
-    _historiaRepo.historiaChanges(id).listen((event) {
+  _HistoriaStoreBase(String patientId) {
+    _historiaRepo.historiaChanges(patientId).listen((event) {
       historia = event.single;
     });
   }

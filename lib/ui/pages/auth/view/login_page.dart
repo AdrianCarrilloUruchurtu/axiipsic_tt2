@@ -81,7 +81,7 @@ class _LoginState extends State<LoginPage> {
           ),
         ),
         Transform.translate(
-          offset: const Offset(0, -40),
+          offset: const Offset(0, -20),
           child: Center(
             child: SingleChildScrollView(
               child: Card(
@@ -192,6 +192,15 @@ class _LoginState extends State<LoginPage> {
                               onPressed: () {
                                 _showRegister(context);
                               },
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextButton(
+                              child: const Text("¿Olvidaste la contraseña?"),
+                              onPressed: () {},
                             )
                           ],
                         )

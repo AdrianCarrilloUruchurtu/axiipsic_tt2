@@ -317,6 +317,7 @@ class AppRouter extends _i32.RootStackRouter {
           user: args.user,
           friendId: args.friendId,
           friendName: args.friendName,
+          friendUser: args.friendUser,
         ),
       );
     },
@@ -1207,6 +1208,7 @@ class ChatRoute extends _i32.PageRouteInfo<ChatRouteArgs> {
     required _i38.UserData? user,
     required String friendId,
     required String friendName,
+    _i38.UserData? friendUser,
   }) : super(
           ChatRoute.name,
           path: '/chat-page',
@@ -1215,6 +1217,7 @@ class ChatRoute extends _i32.PageRouteInfo<ChatRouteArgs> {
             user: user,
             friendId: friendId,
             friendName: friendName,
+            friendUser: friendUser,
           ),
         );
 
@@ -1227,6 +1230,7 @@ class ChatRouteArgs {
     required this.user,
     required this.friendId,
     required this.friendName,
+    this.friendUser,
   });
 
   final _i33.Key? key;
@@ -1237,9 +1241,11 @@ class ChatRouteArgs {
 
   final String friendName;
 
+  final _i38.UserData? friendUser;
+
   @override
   String toString() {
-    return 'ChatRouteArgs{key: $key, user: $user, friendId: $friendId, friendName: $friendName}';
+    return 'ChatRouteArgs{key: $key, user: $user, friendId: $friendId, friendName: $friendName, friendUser: $friendUser}';
   }
 }
 

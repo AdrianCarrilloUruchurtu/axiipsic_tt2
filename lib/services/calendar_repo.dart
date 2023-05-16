@@ -43,6 +43,23 @@ class CalendarRepo {
     });
   }
 
+  Future<DocumentReference<Map<String, dynamic>>> addEventPatient(DateTime date,
+      String title, String description, String time, String pacId) {
+    final currentUser = _auth.currentUser;
+
+    return _firestore
+        .collection('users')
+        .doc(pacId)
+        .collection('calendar')
+        .add({
+      'userId': currentUser?.uid,
+      'title': title,
+      "date": date,
+      "description": description,
+      "time": time
+    });
+  }
+
   Future<void> deleteEvent(String id) async {
     final currentUser = _auth.currentUser;
     return _firestore

@@ -23,7 +23,7 @@ class _SesionesPageState extends State<SesionesPage> {
 
   bool _checkType() {
     bool isPsic = false;
-    if (_authMobx.user!.ispsic == "Psicologo") {
+    if (_authMobx.user?.ispsic == "Psicologo") {
       isPsic = true;
     }
     return isPsic;
