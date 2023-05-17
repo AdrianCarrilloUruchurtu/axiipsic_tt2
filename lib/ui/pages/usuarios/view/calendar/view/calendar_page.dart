@@ -29,7 +29,6 @@ class _CalendarPageState extends State<CalendarPage> {
     return key.day * 1000000 + key.month * 10000 + key.year;
   }
 
-// no va?
   @override
   void initState() {
     super.initState();
@@ -41,7 +40,6 @@ class _CalendarPageState extends State<CalendarPage> {
     //
   }
 
-  // Imagino que la implementación de cargar eventos ahora es con mobx
 
   List<CalendarData> _getEventsForTheDay(DateTime day) {
     return _calendarMobx.eventList

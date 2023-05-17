@@ -71,6 +71,17 @@ mixin _$AuthMobx on _AuthMobxBase, Store {
   }
 
   @override
+  dynamic addCampo(String? psicCampo) {
+    final _$actionInfo = _$_AuthMobxBaseActionController.startAction(
+        name: '_AuthMobxBase.addCampo');
+    try {
+      return super.addCampo(psicCampo);
+    } finally {
+      _$_AuthMobxBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic getUserById(String? friendId) {
     final _$actionInfo = _$_AuthMobxBaseActionController.startAction(
         name: '_AuthMobxBase.getUserById');

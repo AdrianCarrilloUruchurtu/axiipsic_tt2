@@ -18,14 +18,15 @@ abstract class _CalendarStoreBase with Store {
   }
 
   @action
-  crearEvento(DateTime date, String title, String description, String time) {
-    _calendarRepo.addEvent(date, title, description, time);
+  crearEvento(DateTime date, String title, String description, String time, String pacName) {
+    _calendarRepo.addEvent(date, title, description, time, pacName);
   }
 
   @action
   crearEventoPaciente(DateTime date, String title, String description,
-      String time, String pacId) {
-    _calendarRepo.addEventPatient(date, title, description, time, pacId);
+      String time, String pacId, String pacName) {
+    _calendarRepo.addEventPatient(
+        date, title, description, time, pacId, pacName);
   }
 
   @action

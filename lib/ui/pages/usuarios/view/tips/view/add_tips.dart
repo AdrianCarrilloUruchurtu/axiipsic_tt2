@@ -30,7 +30,7 @@ class _AddTipPageState extends State<AddTipPage> {
         onPressed: (() {
           // Corregir
           _tipMobx.crearTip(date, _contentController.text,
-              [widget.doc!.psicMail, widget.doc!.email]);
+              [widget.doc!.psicMail, widget.doc!.email], widget.doc!.id);
           context.popRoute();
         }),
         child: const Icon(Icons.save),

@@ -44,12 +44,11 @@ class TareasRepo {
   }
 
   Future<DocumentReference<Map<String, dynamic>>> tareasAdd(
-    String title,
-    String content,
-    List<String> owners,
-    String creationDate,
-    String pacienteId
-  ) {
+      String title,
+      String content,
+      List<String> owners,
+      String creationDate,
+      String pacienteId) {
     final currentUser = _auth.currentUser;
 
     return _firestore

@@ -202,6 +202,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
                     ),
                     const SizedBox(height: 20),
                     TextFormField(
+                      maxLines: 2,
                       focusNode: _nombreContactoFocusNode,
                       onEditingComplete: () => FocusScope.of(context)
                           .requestFocus(_telefonoContactoFocusNode),
@@ -219,6 +220,7 @@ class _FillHistoriaPageState extends State<FillHistoriaPage> {
 
                     const SizedBox(height: 20),
                     TextFormField(
+                      maxLines: 2,
                       keyboardType: TextInputType.phone,
                       onEditingComplete: () =>
                           FocusScope.of(context).requestFocus(_motivoFocusNode),

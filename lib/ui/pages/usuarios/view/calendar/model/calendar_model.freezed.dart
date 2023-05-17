@@ -25,6 +25,7 @@ mixin _$CalendarData {
   DateTime get date => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get time => throw _privateConstructorUsedError;
+  String get pacName => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $CalendarDataCopyWith<$Res> {
       String? description,
       DateTime date,
       String id,
-      String time});
+      String time,
+      String pacName});
 }
 
 /// @nodoc
@@ -64,6 +66,7 @@ class _$CalendarDataCopyWithImpl<$Res, $Val extends CalendarData>
     Object? date = null,
     Object? id = null,
     Object? time = null,
+    Object? pacName = null,
   }) {
     return _then(_value.copyWith(
       title: null == title
@@ -86,6 +89,10 @@ class _$CalendarDataCopyWithImpl<$Res, $Val extends CalendarData>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String,
+      pacName: null == pacName
+          ? _value.pacName
+          : pacName // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -103,7 +110,8 @@ abstract class _$$_CalendarDataCopyWith<$Res>
       String? description,
       DateTime date,
       String id,
-      String time});
+      String time,
+      String pacName});
 }
 
 /// @nodoc
@@ -122,6 +130,7 @@ class __$$_CalendarDataCopyWithImpl<$Res>
     Object? date = null,
     Object? id = null,
     Object? time = null,
+    Object? pacName = null,
   }) {
     return _then(_$_CalendarData(
       null == title
@@ -144,6 +153,10 @@ class __$$_CalendarDataCopyWithImpl<$Res>
           ? _value.time
           : time // ignore: cast_nullable_to_non_nullable
               as String,
+      null == pacName
+          ? _value.pacName
+          : pacName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -151,7 +164,8 @@ class __$$_CalendarDataCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_CalendarData implements _CalendarData {
-  _$_CalendarData(this.title, this.description, this.date, this.id, this.time);
+  _$_CalendarData(this.title, this.description, this.date, this.id, this.time,
+      this.pacName);
 
   factory _$_CalendarData.fromJson(Map<String, dynamic> json) =>
       _$$_CalendarDataFromJson(json);
@@ -166,10 +180,12 @@ class _$_CalendarData implements _CalendarData {
   final String id;
   @override
   final String time;
+  @override
+  final String pacName;
 
   @override
   String toString() {
-    return 'CalendarData(title: $title, description: $description, date: $date, id: $id, time: $time)';
+    return 'CalendarData(title: $title, description: $description, date: $date, id: $id, time: $time, pacName: $pacName)';
   }
 
   @override
@@ -182,13 +198,14 @@ class _$_CalendarData implements _CalendarData {
                 other.description == description) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.time, time) || other.time == time));
+            (identical(other.time, time) || other.time == time) &&
+            (identical(other.pacName, pacName) || other.pacName == pacName));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, title, description, date, id, time);
+      Object.hash(runtimeType, title, description, date, id, time, pacName);
 
   @JsonKey(ignore: true)
   @override
@@ -210,7 +227,8 @@ abstract class _CalendarData implements CalendarData {
       final String? description,
       final DateTime date,
       final String id,
-      final String time) = _$_CalendarData;
+      final String time,
+      final String pacName) = _$_CalendarData;
 
   factory _CalendarData.fromJson(Map<String, dynamic> json) =
       _$_CalendarData.fromJson;
@@ -225,6 +243,8 @@ abstract class _CalendarData implements CalendarData {
   String get id;
   @override
   String get time;
+  @override
+  String get pacName;
   @override
   @JsonKey(ignore: true)
   _$$_CalendarDataCopyWith<_$_CalendarData> get copyWith =>

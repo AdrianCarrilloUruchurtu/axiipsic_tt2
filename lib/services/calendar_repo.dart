@@ -26,8 +26,8 @@ class CalendarRepo {
     }
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> addEvent(
-      DateTime date, String title, String description, String time) {
+  Future<DocumentReference<Map<String, dynamic>>> addEvent(DateTime date,
+      String title, String description, String time, String pacName) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -39,12 +39,18 @@ class CalendarRepo {
       'title': title,
       "date": date,
       "description": description,
-      "time": time
+      "time": time,
+      "pacName": pacName
     });
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> addEventPatient(DateTime date,
-      String title, String description, String time, String pacId) {
+  Future<DocumentReference<Map<String, dynamic>>> addEventPatient(
+      DateTime date,
+      String title,
+      String description,
+      String time,
+      String pacId,
+      String pacName) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -56,7 +62,8 @@ class CalendarRepo {
       'title': title,
       "date": date,
       "description": description,
-      "time": time
+      "time": time,
+      "pacName": pacName
     });
   }
 

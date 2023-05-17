@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/view_model/auth_mobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/model/progreso_model.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/view-model/progresoMobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../style/app_style.dart';
@@ -22,6 +25,7 @@ class ConductaLectorPage extends StatefulWidget {
 }
 
 class _ConductaLectorPageState extends State<ConductaLectorPage> {
+  final _authMobx = getIt.get<AuthMobx>();
   late final _progresoMobx = ProgresoStore(widget.docSes.id);
   final _conductaController = TextEditingController();
   List? _daysWeek = [
@@ -106,6 +110,95 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _saveData() async {
+      if (_authMobx.user?.ispsic == "Psicologo") {
+        final snapPacSes = FirebaseFirestore.instance
+            .collection('users')
+            .doc(widget.docPac!.id)
+            .collection('sesiones');
+
+        snapPacSes
+            .where('titulo', isEqualTo: widget.docSes.titulo)
+            .get()
+            .then((value) {
+          var doc = value.docs[0];
+          var docSesPacId = doc.id;
+          final snap = FirebaseFirestore.instance
+              .collection('users')
+              .doc(widget.docPac?.id)
+              .collection('sesiones')
+              .doc(docSesPacId)
+              .collection('progreso');
+          snap
+              .where('conducta', isEqualTo: widget.docProg.conducta)
+              .get()
+              .then((value) {
+            var doc = value.docs[0];
+            var pacProgId = doc.id;
+            _progresoMobx.editConducta(
+                _conductaController.text,
+                _lunes,
+                _martes,
+                _miercoles,
+                _jueves,
+                _viernes,
+                _sabado,
+                _domingo,
+                widget.docSes.id,
+                widget.docPac!.id,
+                docSesPacId,
+                widget.docProg.id,
+                pacProgId);
+          });
+        });
+      } else {
+        final QuerySnapshot psic = await FirebaseFirestore.instance
+            .collection('users')
+            .where('email', isEqualTo: _authMobx.user?.psicMail)
+            .get();
+        final String psicId = psic.docs[0].id;
+        final snapPsicSes = FirebaseFirestore.instance
+            .collection('users')
+            .doc(psicId)
+            .collection('sesiones');
+
+        snapPsicSes
+            .where('titulo', isEqualTo: widget.docSes.titulo)
+            .get()
+            .then((value) {
+          var doc = value.docs[0];
+          var docPsicSesId = doc.id;
+          final snap = FirebaseFirestore.instance
+              .collection('users')
+              .doc(psicId)
+              .collection('sesiones')
+              .doc(docPsicSesId)
+              .collection('progreso');
+          snap
+              .where('conducta', isEqualTo: widget.docProg.conducta)
+              .get()
+              .then((value) {
+            var doc = value.docs[0];
+            var psicProgId = doc.id;
+            _progresoMobx.editConductaPac(
+                _conductaController.text,
+                _lunes,
+                _martes,
+                _miercoles,
+                _jueves,
+                _viernes,
+                _sabado,
+                _domingo,
+                widget.docSes.id,
+                psicId,
+                docPsicSesId,
+                widget.docProg.id,
+                psicProgId);
+          });
+        });
+      }
+    }
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -115,19 +208,7 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
             });
           }
           _saveDays();
-          _progresoMobx.editConducta(
-              _conductaController.text,
-              _lunes,
-              _martes,
-              _miercoles,
-              _jueves,
-              _viernes,
-              _sabado,
-              _domingo,
-              widget.docSes.id,
-              widget.docPac!.email,
-              widget.docProg.id,
-              widget.docProg.id);
+          _saveData();
 
           context.router.pop();
         },
@@ -339,6 +420,30 @@ class _ConductaLectorPageState extends State<ConductaLectorPage> {
                     DropdownMenuItem(
                       value: 5.0,
                       child: Text("5", style: TextStyle(fontSize: 30)),
+                    ),
+                    DropdownMenuItem(
+                      value: 6.0,
+                      child: Text("6", style: TextStyle(fontSize: 30)),
+                    ),
+                    DropdownMenuItem(
+                      value: 7.0,
+                      child: Text("7", style: TextStyle(fontSize: 30)),
+                    ),
+                    DropdownMenuItem(
+                      value: 8.0,
+                      child: Text("8", style: TextStyle(fontSize: 30)),
+                    ),
+                    DropdownMenuItem(
+                      value: 9.0,
+                      child: Text("9", style: TextStyle(fontSize: 30)),
+                    ),
+                    DropdownMenuItem(
+                      value: 10.0,
+                      child: Text("10", style: TextStyle(fontSize: 30)),
+                    ),
+                    DropdownMenuItem(
+                      value: 11.0,
+                      child: Text("+10", style: TextStyle(fontSize: 30)),
                     ),
                   ],
                   onChanged: (value) {

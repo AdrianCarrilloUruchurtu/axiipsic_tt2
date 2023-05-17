@@ -66,6 +66,19 @@ mixin _$NotaStore on _NotaStoreBase, Store {
   }
 
   @override
+  dynamic notaAddToPsicIfPatient(int colorId, String creationDate,
+      String noteContent, String noteTitle, String isses, String psicId) {
+    final _$actionInfo = _$_NotaStoreBaseActionController.startAction(
+        name: '_NotaStoreBase.notaAddToPsicIfPatient');
+    try {
+      return super.notaAddToPsicIfPatient(
+          colorId, creationDate, noteContent, noteTitle, isses, psicId);
+    } finally {
+      _$_NotaStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 notaList: ${notaList},

@@ -80,4 +80,23 @@ class NotaRepo {
       "isses": isses
     });
   }
+
+  Future<DocumentReference<Map<String, dynamic>>> notaAddToPsicIfPatient(
+      int colorId,
+      String creationDate,
+      String noteContent,
+      String noteTitle,
+      String isses,
+      String psicId) {
+    final currentUser = _auth.currentUser;
+
+    return _firestore.collection('users').doc(psicId).collection('notes').add({
+      'userId': currentUser?.uid,
+      'noteTitle': noteTitle,
+      "creationDate": creationDate,
+      "noteContent": noteContent,
+      "colorId": colorId,
+      "isses": isses
+    });
+  }
 }

@@ -200,7 +200,9 @@ class _LoginState extends State<LoginPage> {
                           children: [
                             TextButton(
                               child: const Text("¿Olvidaste la contraseña?"),
-                              onPressed: () {},
+                              onPressed: () {
+                                context.router.push(const ForgotRoute());
+                              },
                             )
                           ],
                         )

@@ -125,7 +125,8 @@ class _NotesPageState extends State<NotesPage> {
 
 // Appbar
   AppBar _appbar() {
-    String nombre = _authMobx.user!.nombre;
+    String nombre =
+        _authMobx.user?.nombre.isNotEmpty == true ? _authMobx.user!.nombre : '';
     return AppBar(
       title: Container(
           margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),

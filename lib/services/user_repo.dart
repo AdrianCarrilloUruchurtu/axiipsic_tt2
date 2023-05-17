@@ -57,6 +57,14 @@ class UserRepo {
     return _firestore.collection('users').doc(friendId).get();
   }
 
+  Future<void> addCampo(String? psicCampo) {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser?.uid)
+        .update({'psicCampo': psicCampo});
+  }
+
   Future<void> saveToken(String? token) {
     final currentUser = _auth.currentUser;
     return _firestore

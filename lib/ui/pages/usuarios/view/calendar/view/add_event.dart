@@ -123,7 +123,7 @@ class _AddEventState extends State<AddEvent> {
     print(widget.firstDate);
     print(widget.lastDate);
     print(_selectedDate);
-    _calendarMobx.crearEvento(_selectedDate, title, description, time);
+    _calendarMobx.crearEvento(_selectedDate, title, description, time, "");
     // Timestamp.fromDate(_selectedDate)
     if (mounted) {
       context.popRoute();

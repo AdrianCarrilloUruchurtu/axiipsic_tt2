@@ -116,7 +116,8 @@ class _RegisterPageState extends State<RegisterPage> {
         'psicMail': psicMail,
         'id': user.uid,
         'token': mtoken,
-        'psicCed': ""
+        'psicCed': "",
+        'psicCampo': ""
       });
     } else {
       await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
@@ -127,7 +128,8 @@ class _RegisterPageState extends State<RegisterPage> {
         'psicMail': psicMail,
         'id': user.uid,
         'token': mtoken,
-        'psicCed': psicCed
+        'psicCed': psicCed,
+        'psicCampo': ""
       });
     }
   }
@@ -424,6 +426,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                   onPressed: () {
                                     _submitForm();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                'Tu registro fue exitoso')));
                                   },
                                 ),
                         ),

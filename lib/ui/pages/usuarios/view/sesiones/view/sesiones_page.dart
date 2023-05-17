@@ -43,7 +43,6 @@ class _SesionesPageState extends State<SesionesPage> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16)),
               onPressed: () {
-                print(widget.doc!.email);
                 context.router.push(SesionesAdd(doc: widget.doc));
               },
               child: Row(

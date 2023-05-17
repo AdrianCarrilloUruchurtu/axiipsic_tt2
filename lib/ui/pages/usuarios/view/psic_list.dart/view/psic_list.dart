@@ -13,12 +13,29 @@ class ListPsicPage extends StatelessWidget {
     final authMobx = getIt.get<AuthMobx>();
     return Observer(
         builder: ((context) => Scaffold(
-              appBar: _appBar(() => context.router.pop()),
+              appBar: AppBar(
+                leading: Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: IconButton(
+                    onPressed: () {
+                      context.router.pop();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+              ),
               body: ListView.builder(
                 itemBuilder: ((context, index) =>
                     Builder(builder: (BuildContext context) {
                       return authMobx.psicList != null
-                          ?  PsicItem(psic: authMobx.psicList![index],)
+                          ? PsicItem(
+                              psic: authMobx.psicList![index],
+                            )
                           : const Center(
                               child: CircularProgressIndicator(),
                             );

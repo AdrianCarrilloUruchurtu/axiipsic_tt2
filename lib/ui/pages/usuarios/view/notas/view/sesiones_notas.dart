@@ -57,8 +57,8 @@ class NotasSesionesPageState extends State<NotasSesionesPage> {
                     backgroundColor: Colors.lightBlue.shade200,
                     foregroundColor: Colors.white,
                     heroTag: null,
-                    onPressed: () =>
-                        context.pushRoute(NotaEditRoute(isses: widget.doc.id)),
+                    onPressed: () => context.pushRoute(NotaEditRoute(
+                        isses: widget.doc.id, docSesTitulo: widget.doc.titulo)),
                     child: const Icon(
                       Icons.add,
                       size: 32,
@@ -125,7 +125,6 @@ class NotasSesionesPageState extends State<NotasSesionesPage> {
 
   // Appbar
   AppBar _appbar() {
-    String nombre = _authMobx.user!.nombre;
     return AppBar(
       title: Container(
         margin: const EdgeInsets.fromLTRB(0, 8, 0, 0),

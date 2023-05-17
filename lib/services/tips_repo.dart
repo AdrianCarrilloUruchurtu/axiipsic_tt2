@@ -44,11 +44,8 @@ class TipsRepo {
     });
   }
 
-  Future<DocumentReference<Map<String, dynamic>>> tipAdd(
-    String creationDate,
-    String tipContent,
-    List<String> owners,
-  ) {
+  Future<DocumentReference<Map<String, dynamic>>> tipAdd(String creationDate,
+      String tipContent, List<String> owners, String pacienteId) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -60,6 +57,17 @@ class TipsRepo {
       "creationDate": creationDate,
       "tipContent": tipContent,
       "owners": owners
+    }).then((value) {
+      return _firestore
+          .collection('users')
+          .doc(pacienteId)
+          .collection('tips')
+          .add({
+        'userId': currentUser.uid,
+        "creationDate": creationDate,
+        "tipContent": tipContent,
+        "owners": owners
+      });
     });
   }
 

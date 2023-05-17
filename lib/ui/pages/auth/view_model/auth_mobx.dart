@@ -36,6 +36,11 @@ abstract class _AuthMobxBase with Store {
   }
 
   @action
+  addCampo(String? psicCampo) {
+    _userRepo.addCampo(psicCampo);
+  }
+
+  @action
   getUserById(String? friendId) {
     _userRepo.getUserByFriendId(friendId);
   }

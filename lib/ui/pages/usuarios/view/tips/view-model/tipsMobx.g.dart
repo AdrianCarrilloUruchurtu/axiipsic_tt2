@@ -29,12 +29,12 @@ mixin _$TipsMobx on _TipsMobxBase, Store {
       ActionController(name: '_TipsMobxBase', context: context);
 
   @override
-  dynamic crearTip(
-      String creationDate, String tipContent, List<String> owners) {
+  dynamic crearTip(String creationDate, String tipContent, List<String> owners,
+      String pacienteId) {
     final _$actionInfo = _$_TipsMobxBaseActionController.startAction(
         name: '_TipsMobxBase.crearTip');
     try {
-      return super.crearTip(creationDate, tipContent, owners);
+      return super.crearTip(creationDate, tipContent, owners, pacienteId);
     } finally {
       _$_TipsMobxBaseActionController.endAction(_$actionInfo);
     }

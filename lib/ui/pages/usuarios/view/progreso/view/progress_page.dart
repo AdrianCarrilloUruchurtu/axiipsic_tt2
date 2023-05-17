@@ -1,9 +1,12 @@
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
+import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/model/user_data.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/view_model/auth_mobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/progreso/view-model/progresoMobx.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/sesiones/model/sesiones_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -24,6 +27,7 @@ class ProgressPage extends StatefulWidget {
 class _ProgressPageState extends State<ProgressPage> {
   final int _colorId = Random().nextInt(AppStyle.conductaColors.length);
   final _conductaNombre = TextEditingController();
+  final _authMobx = getIt.get<AuthMobx>();
 
   late final _progresoMobx = ProgresoStore(widget.docSes.id);
   @override
@@ -66,6 +70,59 @@ class _ProgressPageState extends State<ProgressPage> {
             ));
   }
 
+  Future<void> _onPressed() async {
+    if (_authMobx.user?.ispsic == "Psicologo") {
+      final snap = FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.docPac!.id)
+          .collection('sesiones');
+      snap.where('titulo', isEqualTo: widget.docSes.titulo).get().then((value) {
+        var doc = value.docs[0];
+        var docId = doc.id;
+        _progresoMobx.addProgreso(
+            _colorId,
+            _conductaNombre.text,
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            widget.docSes.id,
+            widget.docPac!.id,
+            docId);
+      });
+    } else {
+      final QuerySnapshot psic = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: _authMobx.user?.psicMail)
+          .get();
+      final String psicId = psic.docs[0].id;
+      final snap = FirebaseFirestore.instance
+          .collection('users')
+          .doc(psicId)
+          .collection('sesiones');
+      snap.where('titulo', isEqualTo: widget.docSes.titulo).get().then((value) {
+        var doc = value.docs[0];
+        var docId = doc.id;
+        _progresoMobx.addProgresoPac(
+            _colorId,
+            _conductaNombre.text,
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            [0, 0],
+            widget.docSes.id,
+            psicId,
+            docId);
+      });
+    }
+  }
+
   _conductaDialog() {
     int? evaluar = 0;
     final addConducta = showDialog<bool>(
@@ -87,21 +144,7 @@ class _ProgressPageState extends State<ProgressPage> {
           ),
           TextButton(
             onPressed: () {
-              _progresoMobx.addProgreso(
-                  _colorId,
-                  _conductaNombre.text,
-                  [0, 0],
-                  [0, 0],
-                  [0, 0],
-                  [0, 0],
-                  [0, 0],
-                  [0, 0],
-                  [0, 0],
-                  widget.docSes.id,
-                  widget.docPac!.id,
-                  widget.docSes
-                      .id); //El id de la sesión del paciente de donde lo saco?
-
+              _onPressed();
               context.router.pop();
             },
             style: TextButton.styleFrom(
@@ -155,7 +198,7 @@ class _ProgressPageState extends State<ProgressPage> {
         Card(
             margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             shadowColor: Colors.black,
-            child: _progresoMobx.progresoLista!.isNotEmpty
+            child: _progresoMobx.progresoLista?.isNotEmpty == true
                 ? ChartPage(conductaDoc: _progresoMobx.progresoLista)
                 : const Center(
                     child: Text(

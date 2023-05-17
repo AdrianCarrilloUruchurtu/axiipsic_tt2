@@ -28,6 +28,7 @@ mixin _$UserData {
   String get psicCed => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  String get psicCampo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $UserDataCopyWith<$Res> {
       String psicMail,
       String psicCed,
       String id,
-      String token});
+      String token,
+      String psicCampo});
 }
 
 /// @nodoc
@@ -72,6 +74,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? psicCed = null,
     Object? id = null,
     Object? token = null,
+    Object? psicCampo = null,
   }) {
     return _then(_value.copyWith(
       nombre: null == nombre
@@ -106,6 +109,10 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      psicCampo: null == psicCampo
+          ? _value.psicCampo
+          : psicCampo // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -125,7 +132,8 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       String psicMail,
       String psicCed,
       String id,
-      String token});
+      String token,
+      String psicCampo});
 }
 
 /// @nodoc
@@ -147,6 +155,7 @@ class __$$_UserDataCopyWithImpl<$Res>
     Object? psicCed = null,
     Object? id = null,
     Object? token = null,
+    Object? psicCampo = null,
   }) {
     return _then(_$_UserData(
       null == nombre
@@ -181,6 +190,10 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      null == psicCampo
+          ? _value.psicCampo
+          : psicCampo // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -189,7 +202,7 @@ class __$$_UserDataCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_UserData implements _UserData {
   _$_UserData(this.nombre, this.apellido, this.ispsic, this.email,
-      this.psicMail, this.psicCed, this.id, this.token);
+      this.psicMail, this.psicCed, this.id, this.token, this.psicCampo);
 
   factory _$_UserData.fromJson(Map<String, dynamic> json) =>
       _$$_UserDataFromJson(json);
@@ -210,10 +223,12 @@ class _$_UserData implements _UserData {
   final String id;
   @override
   final String token;
+  @override
+  final String psicCampo;
 
   @override
   String toString() {
-    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail, psicCed: $psicCed, id: $id, token: $token)';
+    return 'UserData(nombre: $nombre, apellido: $apellido, ispsic: $ispsic, email: $email, psicMail: $psicMail, psicCed: $psicCed, id: $id, token: $token, psicCampo: $psicCampo)';
   }
 
   @override
@@ -230,13 +245,15 @@ class _$_UserData implements _UserData {
                 other.psicMail == psicMail) &&
             (identical(other.psicCed, psicCed) || other.psicCed == psicCed) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.psicCampo, psicCampo) ||
+                other.psicCampo == psicCampo));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, nombre, apellido, ispsic, email,
-      psicMail, psicCed, id, token);
+      psicMail, psicCed, id, token, psicCampo);
 
   @JsonKey(ignore: true)
   @override
@@ -261,7 +278,8 @@ abstract class _UserData implements UserData {
       final String psicMail,
       final String psicCed,
       final String id,
-      final String token) = _$_UserData;
+      final String token,
+      final String psicCampo) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
 
@@ -281,6 +299,8 @@ abstract class _UserData implements UserData {
   String get id;
   @override
   String get token;
+  @override
+  String get psicCampo;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataCopyWith<_$_UserData> get copyWith =>

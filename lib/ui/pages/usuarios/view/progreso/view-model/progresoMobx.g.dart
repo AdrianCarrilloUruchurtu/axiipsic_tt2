@@ -53,6 +53,30 @@ mixin _$ProgresoStore on _ProgresoStoreBase, Store {
   }
 
   @override
+  dynamic addProgresoPac(
+      int colorId,
+      String conducta,
+      List<double?> lunes,
+      List<double?> martes,
+      List<double?> miercoles,
+      List<double?> jueves,
+      List<double?> viernes,
+      List<double?> sabado,
+      List<double?> domingo,
+      String sesId,
+      String psicId,
+      String psicSesId) {
+    final _$actionInfo = _$_ProgresoStoreBaseActionController.startAction(
+        name: '_ProgresoStoreBase.addProgresoPac');
+    try {
+      return super.addProgresoPac(colorId, conducta, lunes, martes, miercoles,
+          jueves, viernes, sabado, domingo, sesId, psicId, psicSesId);
+    } finally {
+      _$_ProgresoStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic editConducta(
       String conducta,
       List<double?> lunes,
@@ -65,7 +89,8 @@ mixin _$ProgresoStore on _ProgresoStoreBase, Store {
       String sesId,
       String pacienteId,
       String pacienteSesId,
-      String conductaId) {
+      String conductaId,
+      String conductaPacId) {
     final _$actionInfo = _$_ProgresoStoreBaseActionController.startAction(
         name: '_ProgresoStoreBase.editConducta');
     try {
@@ -81,7 +106,45 @@ mixin _$ProgresoStore on _ProgresoStoreBase, Store {
           sesId,
           pacienteId,
           pacienteSesId,
-          conductaId);
+          conductaId,
+          conductaPacId);
+    } finally {
+      _$_ProgresoStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic editConductaPac(
+      String conducta,
+      List<double?> lunes,
+      List<double?> martes,
+      List<double?> miercoles,
+      List<double?> jueves,
+      List<double?> viernes,
+      List<double?> sabado,
+      List<double?> domingo,
+      String sesId,
+      String psicId,
+      String psicSesId,
+      String conductaId,
+      String psicConductaId) {
+    final _$actionInfo = _$_ProgresoStoreBaseActionController.startAction(
+        name: '_ProgresoStoreBase.editConductaPac');
+    try {
+      return super.editConductaPac(
+          conducta,
+          lunes,
+          martes,
+          miercoles,
+          jueves,
+          viernes,
+          sabado,
+          domingo,
+          sesId,
+          psicId,
+          psicSesId,
+          conductaId,
+          psicConductaId);
     } finally {
       _$_ProgresoStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -18,14 +18,14 @@ abstract class _TareasStoreBase with Store {
   }
 
   @action
-  crearTarea(
-      String title, String content, List<String> owners, String creationDate, String pacienteId) {
+  crearTarea(String title, String content, List<String> owners,
+      String creationDate, String pacienteId) {
     _tareasRepo.tareasAdd(title, content, owners, creationDate, pacienteId);
   }
 
   @action
-  editarTarea(
-      String title, String content, List<String> owners, String creationDate, String id) {
+  editarTarea(String title, String content, List<String> owners,
+      String creationDate, String id) {
     _tareasRepo.editarTarea(title, content, owners, creationDate, id);
   }
 

@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:axiipsic_tt2/ui/pages/auth/view/forgot_pw_page.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_main_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_page.dart';
@@ -75,6 +76,7 @@ import 'guest_guard.dart';
     MaterialRoute(page: ListPsicPage), // MainPage
     MaterialRoute(page: HistoriaPage), // MainPage
     MaterialRoute(page: FillHistoriaPage), // MainPage
+    MaterialRoute(page: ForgotPage), // MainPage
     // MainPage
   ],
 )

@@ -45,12 +45,25 @@ mixin _$CalendarStore on _CalendarStoreBase, Store {
       ActionController(name: '_CalendarStoreBase', context: context);
 
   @override
-  dynamic crearEvento(
-      DateTime date, String title, String description, String time) {
+  dynamic crearEvento(DateTime date, String title, String description,
+      String time, String pacName) {
     final _$actionInfo = _$_CalendarStoreBaseActionController.startAction(
         name: '_CalendarStoreBase.crearEvento');
     try {
-      return super.crearEvento(date, title, description, time);
+      return super.crearEvento(date, title, description, time, pacName);
+    } finally {
+      _$_CalendarStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic crearEventoPaciente(DateTime date, String title, String description,
+      String time, String pacId, String pacName) {
+    final _$actionInfo = _$_CalendarStoreBaseActionController.startAction(
+        name: '_CalendarStoreBase.crearEventoPaciente');
+    try {
+      return super
+          .crearEventoPaciente(date, title, description, time, pacId, pacName);
     } finally {
       _$_CalendarStoreBaseActionController.endAction(_$actionInfo);
     }

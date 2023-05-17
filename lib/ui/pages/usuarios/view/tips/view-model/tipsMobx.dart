@@ -19,12 +19,9 @@ abstract class _TipsMobxBase with Store {
 
 // Falta creación y eliminación de los tips
   @action
-  crearTip(
-    String creationDate,
-    String tipContent,
-    List<String> owners,
-  ) {
-    _tipsRepo.tipAdd(creationDate, tipContent, owners);
+  crearTip(String creationDate, String tipContent, List<String> owners,
+      String pacienteId) {
+    _tipsRepo.tipAdd(creationDate, tipContent, owners, pacienteId);
   }
 
   @action

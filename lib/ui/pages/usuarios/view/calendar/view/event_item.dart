@@ -19,10 +19,11 @@ class EventItem extends StatelessWidget {
     String month = event.date.month.toString();
     String year = event.date.year.toString();
     String time = event.time;
+    String pacName = event.pacName;
 
     return ListTile(
       title: Text(event.title),
-      subtitle: Text("$day/$month/$year @ $time"),
+      subtitle: Text("$day/$month/$year @ $time con $pacName"),
       onTap: onTap,
       trailing: IconButton(
         icon: const Icon(Icons.delete),

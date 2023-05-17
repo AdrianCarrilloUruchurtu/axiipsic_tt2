@@ -239,9 +239,9 @@ class _SesionesAddState extends State<SesionesAdd> {
               widget.doc!.id,
               _selectedTime);
           _calendarMobx.crearEventoPaciente(_eventDate, _titleController.text,
-              _descriptionController.text, _selectedTime, widget.doc!.id);
+              _descriptionController.text, _selectedTime, widget.doc!.id, "");
           _calendarMobx.crearEvento(_eventDate, _titleController.text,
-              _descriptionController.text, _selectedTime);
+              _descriptionController.text, _selectedTime, widget.doc!.nombre);
           context.router.pop();
         }),
         child: const Icon(Icons.save),

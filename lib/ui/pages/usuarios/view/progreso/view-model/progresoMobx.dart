@@ -38,6 +38,25 @@ abstract class _ProgresoStoreBase with Store {
   }
 
   @action
+  addProgresoPac(
+    int colorId,
+    String conducta,
+    List<double?> lunes,
+    List<double?> martes,
+    List<double?> miercoles,
+    List<double?> jueves,
+    List<double?> viernes,
+    List<double?> sabado,
+    List<double?> domingo,
+    String sesId,
+    String psicId,
+    String psicSesId,
+  ) {
+    _progresoRepo.progresAdd(colorId, conducta, lunes, martes, miercoles,
+        jueves, viernes, sabado, domingo, sesId, psicId, psicSesId);
+  }
+
+  @action
   editConducta(
       String conducta,
       List<double?> lunes,
@@ -50,9 +69,53 @@ abstract class _ProgresoStoreBase with Store {
       String sesId,
       String pacienteId,
       String pacienteSesId,
-      String conductaId) {
-    _progresoRepo.editProgreso(conducta, lunes, martes, miercoles, jueves,
-        viernes, sabado, domingo, sesId, pacienteId, pacienteSesId, conductaId);
+      String conductaId,
+      String conductaPacId) {
+    _progresoRepo.editProgreso(
+        conducta,
+        lunes,
+        martes,
+        miercoles,
+        jueves,
+        viernes,
+        sabado,
+        domingo,
+        sesId,
+        pacienteId,
+        pacienteSesId,
+        conductaId,
+        conductaPacId);
+  }
+
+  @action
+  editConductaPac(
+      String conducta,
+      List<double?> lunes,
+      List<double?> martes,
+      List<double?> miercoles,
+      List<double?> jueves,
+      List<double?> viernes,
+      List<double?> sabado,
+      List<double?> domingo,
+      String sesId,
+      String psicId,
+      String psicSesId,
+      String conductaId,
+      String psicConductaId) {
+    _progresoRepo.editProgresoPac(
+        conducta,
+        lunes,
+        martes,
+        miercoles,
+        jueves,
+        viernes,
+        sabado,
+        domingo,
+        sesId,
+        psicId,
+        psicSesId,
+        conductaId,
+        psicConductaId);
   }
 
   @action

@@ -27,6 +27,13 @@ abstract class _NotaStoreBase with Store {
   }
 
   @action
+  notaAddToPsicIfPatient(int colorId, String creationDate, String noteContent,
+      String noteTitle, String isses, String psicId) {
+    _notaRepo.notaAddToPsicIfPatient(
+        colorId, creationDate, noteContent, noteTitle, isses, psicId);
+  }
+
+  @action
   eliminarNota(String id) async {
     return _notaRepo.deleteNota(id);
   }

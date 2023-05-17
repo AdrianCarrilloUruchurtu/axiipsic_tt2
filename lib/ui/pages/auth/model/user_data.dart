@@ -7,7 +7,7 @@ part 'user_data.g.dart';
 @freezed
 class UserData with _$UserData {
   factory UserData(String nombre, String apellido, String ispsic, String email,
-      String psicMail, String psicCed, String id, String token) = _UserData;
+      String psicMail, String psicCed, String id, String token, String psicCampo) = _UserData;
 
   factory UserData.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) =>
       _$UserDataFromJson(

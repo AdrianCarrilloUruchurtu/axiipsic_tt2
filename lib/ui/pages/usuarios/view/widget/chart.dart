@@ -101,7 +101,7 @@ class _ProgressChartPage extends State<ChartPage> {
     String text;
     switch (value.toInt()) {
       case 1:
-        text = 'Progreso del año';
+        text = 'Progreso de la conducta';
         break;
       default:
         return Container();
@@ -132,6 +132,24 @@ class _ProgressChartPage extends State<ChartPage> {
         break;
       case 5:
         text = '5';
+        break;
+      case 6:
+        text = '6';
+        break;
+      case 7:
+        text = '7';
+        break;
+      case 8:
+        text = '8';
+        break;
+      case 9:
+        text = '9';
+        break;
+      case 10:
+        text = '10';
+        break;
+      case 11:
+        text = '+10';
         break;
       default:
         return Container();
@@ -193,7 +211,7 @@ class _ProgressChartPage extends State<ChartPage> {
         minX: 0,
         maxX: 6,
         minY: 0,
-        maxY: 5,
+        maxY: 10,
         // Datos del gráfico
         lineBarsData: widget.conductaDoc
             ?.map(

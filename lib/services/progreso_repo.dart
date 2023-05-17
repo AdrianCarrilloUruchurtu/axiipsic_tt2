@@ -92,6 +92,60 @@ class ProgresoRepo {
     });
   }
 
+  Future<DocumentReference<Map<String, dynamic>>> progresAddPac(
+      int colorId,
+      String conducta,
+      List<double?> lunes,
+      List<double?> martes,
+      List<double?> miercoles,
+      List<double?> jueves,
+      List<double?> viernes,
+      List<double?> sabado,
+      List<double?> domingo,
+      String sesId,
+      String psicId,
+      String psicSesId) {
+    final currentUser = _auth.currentUser;
+
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('sesiones')
+        .doc(sesId)
+        .collection('progreso')
+        .add({
+      'colorId': colorId,
+      'userId': currentUser.uid,
+      'conducta': conducta,
+      "lunes": lunes,
+      'martes': martes,
+      "miercoles": miercoles,
+      'jueves': jueves,
+      "viernes": viernes,
+      'sabado': sabado,
+      'domingo': domingo
+    }).then((value) {
+      return _firestore
+          .collection('users')
+          .doc(psicId)
+          .collection('sesiones')
+          .doc(psicSesId)
+          .collection('progreso')
+          .add({
+        'colorId': colorId,
+        'userId': currentUser.uid,
+        'conducta': conducta,
+        "lunes": lunes,
+        'martes': martes,
+        "miercoles": miercoles,
+        'jueves': jueves,
+        "viernes": viernes,
+        'sabado': sabado,
+        'domingo': domingo
+      });
+    });
+  }
+
   Future<void> editProgreso(
       String conducta,
       List<double?> lunes,
@@ -104,7 +158,8 @@ class ProgresoRepo {
       String sesId,
       String pacienteId,
       String pacienteSesId,
-      String conductaId) {
+      String conductaId,
+      String conductaPacId) {
     final currentUser = _auth.currentUser;
 
     return _firestore
@@ -130,7 +185,60 @@ class ProgresoRepo {
           .collection('sesiones')
           .doc(pacienteSesId)
           .collection('progreso')
-          .doc(conductaId)
+          .doc(conductaPacId)
+          .update({
+        'conducta': conducta,
+        "lunes": lunes,
+        'martes': martes,
+        "miercoles": miercoles,
+        'jueves': jueves,
+        "viernes": viernes,
+        'sabado': sabado,
+        'domingo': domingo
+      });
+    });
+  }
+
+  Future<void> editProgresoPac(
+      String conducta,
+      List<double?> lunes,
+      List<double?> martes,
+      List<double?> miercoles,
+      List<double?> jueves,
+      List<double?> viernes,
+      List<double?> sabado,
+      List<double?> domingo,
+      String sesId,
+      String psicId,
+      String psicSesId,
+      String conductaId,
+      String psicConductaId) {
+    final currentUser = _auth.currentUser;
+
+    return _firestore
+        .collection('users')
+        .doc(currentUser!.uid)
+        .collection('sesiones')
+        .doc(sesId)
+        .collection('progreso')
+        .doc(conductaId)
+        .update({
+      'conducta': conducta,
+      "lunes": lunes,
+      'martes': martes,
+      "miercoles": miercoles,
+      'jueves': jueves,
+      "viernes": viernes,
+      'sabado': sabado,
+      'domingo': domingo
+    }).then((value) {
+      return _firestore
+          .collection('users')
+          .doc(psicId)
+          .collection('sesiones')
+          .doc(psicSesId)
+          .collection('progreso')
+          .doc(psicConductaId)
           .update({
         'conducta': conducta,
         "lunes": lunes,

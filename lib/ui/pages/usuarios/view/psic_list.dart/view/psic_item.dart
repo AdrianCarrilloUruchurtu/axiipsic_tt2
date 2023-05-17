@@ -54,14 +54,14 @@ class PsicItem extends StatelessWidget {
                             const SizedBox(
                               height: 9,
                             ),
-                            const Text("Cédula profesional: 9877985")
+                            Text("Cédula profesional: ${psic?.psicCed}")
                           ],
                         ),
                         // Add some spacing between the subtitle and the text
                         Container(height: 10),
                         // Add a text widget to display some text
                         Text(
-                          "Psicologo con experiencia en el tratamiento de la depresión e intervenciones",
+                          psic!.psicCampo,
                           maxLines: 2,
                           style: TextStyle(color: Colors.grey.shade700),
                         ),
