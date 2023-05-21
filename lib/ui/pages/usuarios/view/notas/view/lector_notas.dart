@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
 
-import 'package:axiipsic_tt2/lib/get_it.dart';
 import '../../../../../../style/app_style.dart';
 import '../model/note_model.dart';
 
@@ -14,7 +13,7 @@ class LectorPage extends StatefulWidget {
 }
 
 class _LectorPageState extends State<LectorPage> {
-  final _notaMobx = getIt.get<NotaStore>();
+  late final _notaMobx = NotaStore("");
   @override
   Widget build(BuildContext context) {
     return Scaffold(

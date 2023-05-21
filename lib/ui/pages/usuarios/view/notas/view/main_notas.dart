@@ -3,7 +3,6 @@ import 'package:axiipsic_tt2/lib/get_it.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view-model/notaMobx.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../routes/router.gr.dart';
 import '../../../../auth/view_model/auth_mobx.dart';
@@ -30,25 +29,25 @@ class _NotesPageState extends State<NotesPage> {
         floatingActionButton: Container(
           margin: const EdgeInsets.all(20),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  fit: BoxFit.fitHeight,
-                  child: FloatingActionButton(
-                    backgroundColor: flBtnColor,
-                    foregroundColor: Colors.white,
-                    heroTag: null,
-                    onPressed: () {},
-                    child: const Icon(
-                      FontAwesomeIcons.house,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   height: 40,
+              //   width: 40,
+              //   child: FittedBox(
+              //     fit: BoxFit.fitHeight,
+              //     child: FloatingActionButton(
+              //       backgroundColor: flBtnColor,
+              //       foregroundColor: Colors.white,
+              //       heroTag: null,
+              //       onPressed: () {},
+              //       child: const Icon(
+              //         FontAwesomeIcons.house,
+              //         size: 24,
+              //       ),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 40,
                 width: 40,
@@ -66,22 +65,22 @@ class _NotesPageState extends State<NotesPage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 40,
-                width: 40,
-                child: FittedBox(
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.lightBlue.shade200,
-                    foregroundColor: Colors.white,
-                    heroTag: null,
-                    onPressed: () {},
-                    child: const Icon(
-                      FontAwesomeIcons.noteSticky,
-                      size: 32,
-                    ),
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   height: 40,
+              //   width: 40,
+              //   child: FittedBox(
+              //     child: FloatingActionButton(
+              //       backgroundColor: Colors.lightBlue.shade200,
+              //       foregroundColor: Colors.white,
+              //       heroTag: null,
+              //       onPressed: () {},
+              //       child: const Icon(
+              //         FontAwesomeIcons.noteSticky,
+              //         size: 32,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -95,30 +94,28 @@ class _NotesPageState extends State<NotesPage> {
             children: [
               Expanded(
                 child: SizedBox(
-                  height: 200,
-                  child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
-                      itemBuilder: ((context, index) =>
-                          Builder(builder: (BuildContext context) {
-                            return _notaMobx.notaList?[index] != null
-                                ? NotaCard(_notaMobx.notaList![index],
-                                    onTap: () => context.router.push(
-                                          LectorRoute(
-                                              doc: _notaMobx.notaList![
-                                                  index]), // pedir ayuda
-                                        ))
-                                : const Center(
-                                    child: CircularProgressIndicator());
-                          })),
-                      itemCount: _notaMobx.notaList?.length.toInt()),
-                ),
+                    height: 200,
+                    child: _notaMobx.notaList?.isNotEmpty == true
+                        ? GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2),
+                            itemBuilder: ((context, index) =>
+                                Builder(builder: (BuildContext context) {
+                                  return NotaCard(_notaMobx.notaList![index],
+                                      onTap: () => context.router.push(
+                                            LectorRoute(
+                                                doc: _notaMobx.notaList![
+                                                    index]), // pedir ayuda
+                                          ));
+                                })),
+                            itemCount: _notaMobx.notaList?.length.toInt())
+                        : const Center(child: CircularProgressIndicator())),
               )
             ],
           ),
         ),
-        bottomNavigationBar: _bottomAppBar(),
+        //bottomNavigationBar: _bottomAppBar(),
       ),
     );
   }

@@ -15,6 +15,7 @@ import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:http/http.dart' as http;
 import '../view-model/message_mobx.dart';
 
@@ -165,20 +166,13 @@ class _ChatPageState extends State<ChatPage> {
               elevation: 0,
               title: Row(
                 children: [
-                  // ClipRRect(
-                  //   borderRadius: BorderRadius.circular(80),
-                  //   child: CachedNetworkImage(
-                  //     imageUrl: friendImage,
-                  //     placeholder: (conteext, url) =>
-                  //         const CircularProgressIndicator(),
-                  //     errorWidget: (context, url, error) => const Icon(
-                  //       Icons.error,
-                  //     ),
-                  //     height: 40,
-                  //   ),
-                  // ),
+                  ProfilePicture(
+                    name: widget.friendName,
+                    radius: 18,
+                    fontsize: 18,
+                  ),
                   const SizedBox(
-                    width: 5,
+                    width: 10,
                   ),
                   Text(
                     widget.friendName,

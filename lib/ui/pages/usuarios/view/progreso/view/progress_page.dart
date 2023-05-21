@@ -207,25 +207,24 @@ class _ProgressPageState extends State<ProgressPage> {
         //ConductaItem (¿Qué va a mostrar el item? El puro nombre?)
         Card(
           child: SizedBox(
-            height: 250,
-            child: ListView.builder(
-              itemBuilder: (((context, index) {
-                return _progresoMobx.progresoLista?[index] != null
-                    ? ConductaItem(
-                        conducta: _progresoMobx.progresoLista![index],
-                        onTap: () {
-                          context.router.push(ConductaLectorRoute(
-                              docProg: _progresoMobx.progresoLista![index],
-                              docSes: widget.docSes,
-                              docPac: widget.docPac));
-                        },
-                        docSes: widget.docSes,
-                      )
-                    : const Center(child: CircularProgressIndicator());
-              })),
-              itemCount: _progresoMobx.progresoLista?.length.toInt(),
-            ),
-          ),
+              height: 250,
+              child: _progresoMobx.progresoLista?.isNotEmpty == true
+                  ? ListView.builder(
+                      itemBuilder: (((context, index) {
+                        return ConductaItem(
+                          conducta: _progresoMobx.progresoLista![index],
+                          onTap: () {
+                            context.router.push(ConductaLectorRoute(
+                                docProg: _progresoMobx.progresoLista![index],
+                                docSes: widget.docSes,
+                                docPac: widget.docPac));
+                          },
+                          docSes: widget.docSes,
+                        );
+                      })),
+                      itemCount: _progresoMobx.progresoLista?.length.toInt(),
+                    )
+                  : const Center(child: CircularProgressIndicator())),
         )
       ],
     );

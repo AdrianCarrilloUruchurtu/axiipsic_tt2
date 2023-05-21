@@ -7,6 +7,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
@@ -32,6 +33,7 @@ class _PsicHomePageState extends State<PsicHomePage> {
   @override
   void initState() {
     super.initState();
+
     requestPermission();
     initInfo();
   }
@@ -209,19 +211,16 @@ class _PsicHomePageState extends State<PsicHomePage> {
   // Imagen del perfil del usuario
   Widget _profileImage(double? size) {
     return Container(
-      height: size,
-      margin: const EdgeInsets.all(8),
-      child: CircleAvatar(
-        radius: size,
-        backgroundColor: Colors.grey.shade800,
-        child: TextButton(
-          onPressed: () {
-            context.pushRoute(const ProfileRoute());
-          },
-          child: const Text(""),
-        ),
-      ),
-    );
+        height: size,
+        margin: const EdgeInsets.all(8),
+        child: InkWell(
+          onTap: () => context.router.push(const ProfileRoute()),
+          child: ProfilePicture(
+            name: '${_authMobx.user?.nombre} ${_authMobx.user?.apellido}',
+            radius: size!,
+            fontsize: size / 2,
+          ),
+        ));
   }
 
   // Botón obsoleto

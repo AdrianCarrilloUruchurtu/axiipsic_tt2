@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import '../../../auth/view_model/auth_mobx.dart';
 import 'package:axiipsic_tt2/lib/get_it.dart';
 
@@ -106,6 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           margin: const EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 25.0),
                           child: ListTile(
+                            contentPadding: const EdgeInsets.all(4),
                             leading: Icon(
                               Icons.mail,
                               color: Colors.teal[900],
@@ -162,16 +164,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   // Imagen del perfil del usuario
   Widget _profileImage(double? size) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-      child: CircleAvatar(
-        radius: size,
-        backgroundColor: Colors.grey.shade800,
-        child: TextButton(
-          onPressed: () {},
-          child: const Text(""),
-        ),
-      ),
+    return ProfilePicture(
+      name: '${_authMobx.user?.nombre} ${_authMobx.user?.apellido}',
+      radius: size!,
+      fontsize: size,
     );
   }
 

@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:axiipsic_tt2/lib/get_it.dart';
@@ -27,11 +28,15 @@ class _PatHomePageState extends State<PatHomePage> {
       HistoriaStore(FirebaseAuth.instance.currentUser?.uid ?? '');
 
   String? mtoken = "";
+
+  String? _email = '';
+
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
   @override
   void initState() {
     super.initState();
+
     requestPermission();
   }
 
@@ -147,17 +152,39 @@ class _PatHomePageState extends State<PatHomePage> {
     );
   }
 
+  void _updatePsic() {
+    showDialog(
+        context: context,
+        builder: ((context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Escribe el correo de tu nuevo psicólogo'),
+                TextFormField(
+                  key: const ValueKey('email'),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      filled: true,
+                      prefixIcon: Icon(Icons.email),
+                      labelText: "email: "),
+                  onSaved: (value) {
+                    _email = value;
+                  },
+                ),
+              ],
+            ),
+          );
+        }));
+    //_authMobx.updatePsicMail();
+  }
+
   // Drawer
   Widget _drawer() {
+    String? currentPsicMail = _authMobx.user?.psicMail;
     bool isCompleted = false;
-
-    if (historiaMobx.historia != null) {
-      if (historiaMobx.historia?.isCompleted == false) {
-        setState(() {
-          isCompleted = true;
-        });
-      }
-    }
 
     return Drawer(
       child: ListView(
@@ -172,7 +199,7 @@ class _PatHomePageState extends State<PatHomePage> {
             ],
           )),
           Visibility(
-            visible: true,
+            visible: _authMobx.user?.psicMail.isNotEmpty == true ? false : true,
             child: ListTile(
               title: const Text(
                 "Psicólogos disponibles",
@@ -185,7 +212,7 @@ class _PatHomePageState extends State<PatHomePage> {
             ),
           ),
           Visibility(
-            visible: true,
+            visible: _authMobx.user?.psicMail.isNotEmpty == true ? false : true,
             child: ListTile(
               title: const Text(
                 "Completa tu perfil",
@@ -193,6 +220,25 @@ class _PatHomePageState extends State<PatHomePage> {
               ),
               onTap: () {
                 context.router.push(const FillHistoriaRoute());
+              },
+              selected: true,
+            ),
+          ),
+          Visibility(
+            visible: !isCompleted,
+            child: ListTile(
+              title: _authMobx.user?.psicMail.isNotEmpty == true
+                  ? Text(
+                      "Tu psicólogo: ${_authMobx.psicList?.where((element) => element.email == currentPsicMail).map((e) => e.nombre.replaceAll(RegExp(r'[(\)]'), '')).toString().replaceAll(RegExp(r'[(\)]'), '')} ${_authMobx.psicList?.where((element) => element.email == currentPsicMail).map((e) => e.apellido.replaceAll(RegExp(r'[(\)]'), '')).toString().replaceAll(RegExp(r'[(\)]'), '')}",
+                      style: const TextStyle(
+                          fontSize: 24, color: Colors.blueAccent),
+                    )
+                  : const Text('No tienes un psicólogo',
+                      style: TextStyle(fontSize: 24, color: Colors.blueAccent)),
+              onTap: () {
+                _authMobx.user?.psicMail.isNotEmpty == true
+                    ? () {}
+                    : _updatePsic();
               },
               selected: true,
             ),
@@ -235,19 +281,16 @@ class _PatHomePageState extends State<PatHomePage> {
   // Imagen del perfil del usuario
   Widget _profileImage(double? size) {
     return Container(
-      height: size,
-      margin: const EdgeInsets.all(8),
-      child: CircleAvatar(
-        radius: size,
-        backgroundColor: Colors.grey.shade800,
-        child: TextButton(
-          onPressed: () {
-            context.pushRoute(const ProfileRoute());
-          },
-          child: const Text(""),
-        ),
-      ),
-    );
+        height: size,
+        margin: const EdgeInsets.all(8),
+        child: InkWell(
+          onTap: () => context.router.push(const ProfileRoute()),
+          child: ProfilePicture(
+            name: '${_authMobx.user?.nombre} ${_authMobx.user?.apellido}',
+            radius: size!,
+            fontsize: size / 2,
+          ),
+        ));
   }
 
 // Botones del gridview
@@ -338,9 +381,7 @@ class _PatHomePageState extends State<PatHomePage> {
 
     return SafeArea(
       child: Container(
-        //padding: const EdgeInsets.fromLTRB(20, 0, 20, 70),
         margin: const EdgeInsets.only(left: 20, right: 20),
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -348,15 +389,12 @@ class _PatHomePageState extends State<PatHomePage> {
               "Hola, $nombre",
               style: const TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
             ),
-            SizedBox.fromSize(
-              size: const Size.fromHeight(0),
-            ),
             _therapyBtn(),
             SizedBox.fromSize(
-              size: const Size.fromHeight(0),
+              size: const Size.fromHeight(10),
             ),
             GridView.count(
-              childAspectRatio: (1 / 0.7),
+              childAspectRatio: (1 / 0.9),
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               crossAxisCount: 2,
@@ -387,16 +425,16 @@ class _PatHomePageState extends State<PatHomePage> {
                       color: Colors.black,
                     ),
                     () =>
-                        context.router.push(TareasRoute(doc: _authMobx.user))),
+                        context.router.push(TareasRoute(doc: _authMobx.user!))),
                 _myButtonDate(),
               ],
             ),
             SizedBox.fromSize(
-              size: const Size.fromHeight(0),
+              size: const Size.fromHeight(10),
             ),
             _calendarBtn(),
             SizedBox.fromSize(
-              size: const Size.fromHeight(5),
+              size: const Size.fromHeight(0),
             ),
           ],
         ),

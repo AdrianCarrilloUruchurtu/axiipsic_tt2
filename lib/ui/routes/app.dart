@@ -15,6 +15,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
+  
   final appRouter = AppRouter(
       checkIfUserIsGuest: CheckIfUserIsGuest(),
       checkIfUserIsPsic: CheckIfUserIsPsic(),
@@ -24,6 +25,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    
     // void showNotification() {
     //   flutterLocalNotificationsPlugin.show(
     //       0,

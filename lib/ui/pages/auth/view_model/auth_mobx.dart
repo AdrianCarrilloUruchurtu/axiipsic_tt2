@@ -50,6 +50,11 @@ abstract class _AuthMobxBase with Store {
     _userRepo.saveToken(token);
   }
 
+  @action
+  linkPatToPsic(String? psicMail) {
+    _userRepo.linkPatToPsic(psicMail);
+  }
+
   @observable
   UserData? user;
 

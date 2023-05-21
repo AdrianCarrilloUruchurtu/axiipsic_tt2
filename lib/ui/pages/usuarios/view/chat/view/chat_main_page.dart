@@ -6,6 +6,7 @@ import 'package:axiipsic_tt2/ui/routes/router.gr.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 
 import '../../../../auth/model/user_data.dart';
 
@@ -33,6 +34,11 @@ class _ChatMainPageState extends State<ChatMainPage> {
                               margin: const EdgeInsets.all(4),
                               padding: const EdgeInsets.all(4),
                               child: ListTile(
+                                  leading: ProfilePicture(
+                                      name:
+                                          _chatMobx.chatList![index].friendName,
+                                      radius: 20,
+                                      fontsize: 15),
                                   title: Text(
                                       _chatMobx.chatList![index].friendName),
                                   subtitle: Text(
@@ -52,15 +58,18 @@ class _ChatMainPageState extends State<ChatMainPage> {
                             )
                           : const LinearProgressIndicator();
                     })),
-            floatingActionButton: FloatingActionButton(
-              child: const Icon(Icons.search),
-              onPressed: () {
-                context.router.push(SearchRoute(user: _authMobx.user));
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => SearchScreen(widget.user)));
-              },
+            floatingActionButton: Visibility(
+              visible: _authMobx.user?.ispsic == 'Paciente' ? false : true,
+              child: FloatingActionButton(
+                child: const Icon(Icons.search),
+                onPressed: () {
+                  context.router.push(SearchRoute(user: _authMobx.user));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => SearchScreen(widget.user)));
+                },
+              ),
             ),
           )),
     );

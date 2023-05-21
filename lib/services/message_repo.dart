@@ -77,23 +77,23 @@ class MessageRepo {
         .doc(friendId)
         .collection('chats')
         .doc(_auth.currentUser?.uid)
-        .collection("messages")
-        .add({
-      "senderId": _auth.currentUser?.uid,
-      "recieverId": friendId,
-      "message": message,
-      "type": "text",
-      "date": DateTime.now().toString(),
+        .set({
+      "last_msg": message,
+      'friendId': friendId,
+      'friendName': friendName
     }).then((value) {
       FirebaseFirestore.instance
           .collection('users')
           .doc(friendId)
-          .collection('messages')
+          .collection('chats')
           .doc(_auth.currentUser?.uid)
-          .set({
-        "last_msg": message,
-        'friendId': friendId,
-        'friendName': friendName
+          .collection("messages")
+          .add({
+        "senderId": _auth.currentUser?.uid,
+        "recieverId": friendId,
+        "message": message,
+        "type": "text",
+        "date": DateTime.now().toString(),
       });
     });
   }

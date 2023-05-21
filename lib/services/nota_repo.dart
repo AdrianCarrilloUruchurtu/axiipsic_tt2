@@ -58,7 +58,7 @@ class NotaRepo {
     return _firestore
         .collection('users')
         .doc(currentUser!.uid)
-        .collection('notas')
+        .collection('notes')
         .doc(id)
         .delete();
   }

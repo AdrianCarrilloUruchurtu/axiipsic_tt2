@@ -65,6 +65,14 @@ class UserRepo {
         .update({'psicCampo': psicCampo});
   }
 
+   Future<void> linkPatToPsic(String? psicMail) {
+    final currentUser = _auth.currentUser;
+    return _firestore
+        .collection('users')
+        .doc(currentUser?.uid)
+        .update({'psicMail': psicMail});
+  }
+
   Future<void> saveToken(String? token) {
     final currentUser = _auth.currentUser;
     return _firestore

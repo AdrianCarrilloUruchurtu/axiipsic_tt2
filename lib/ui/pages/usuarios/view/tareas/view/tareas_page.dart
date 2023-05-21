@@ -10,20 +10,20 @@ import '../../../../auth/model/user_data.dart';
 
 class TareasPage extends StatefulWidget {
   const TareasPage({super.key, required this.doc});
-  final UserData? doc;
+  final UserData doc;
   @override
   State<TareasPage> createState() => _TareasPageState();
 }
 
 class _TareasPageState extends State<TareasPage> {
-  late final TareasStore _tareaStore = TareasStore(widget.doc!.email);
+  late final TareasStore _tareaStore = TareasStore(widget.doc.email);
   final _authMobx = getIt.get<AuthMobx>();
 
   @override
   Widget build(BuildContext context) {
     bool _checkType() {
       bool isPsic = false;
-      if (_authMobx.user!.ispsic == "Psicologo") {
+      if (_authMobx.user?.ispsic == "Psicologo") {
         isPsic = true;
       }
       return isPsic;

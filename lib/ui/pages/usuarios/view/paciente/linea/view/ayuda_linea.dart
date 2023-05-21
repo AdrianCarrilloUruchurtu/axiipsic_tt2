@@ -8,65 +8,65 @@ class AyudaPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterDocked,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.all(20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                fit: BoxFit.fitHeight,
-                child: FloatingActionButton(
-                  backgroundColor: Colors.lightBlue.shade200,
-                  foregroundColor: Colors.white,
-                  heroTag: null,
-                  onPressed: () {},
-                  child: const Icon(
-                    FontAwesomeIcons.house,
-                    size: 24,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  backgroundColor: Colors.lightBlue.shade200,
-                  foregroundColor: Colors.white,
-                  heroTag: null,
-                  onPressed: () {},
-                  child: const Icon(
-                    Icons.add,
-                    size: 32,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-              width: 40,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  backgroundColor: Colors.lightBlue.shade200,
-                  foregroundColor: Colors.white,
-                  heroTag: null,
-                  onPressed: () {},
-                  child: const Icon(
-                    FontAwesomeIcons.noteSticky,
-                    size: 32,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      // floatingActionButtonLocation:
+      //     FloatingActionButtonLocation.miniCenterDocked,
+      // floatingActionButton: Container(
+      //   margin: const EdgeInsets.all(20),
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: [
+      //       SizedBox(
+      //         height: 40,
+      //         width: 40,
+      //         child: FittedBox(
+      //           fit: BoxFit.fitHeight,
+      //           child: FloatingActionButton(
+      //             backgroundColor: Colors.lightBlue.shade200,
+      //             foregroundColor: Colors.white,
+      //             heroTag: null,
+      //             onPressed: () {},
+      //             child: const Icon(
+      //               FontAwesomeIcons.house,
+      //               size: 24,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //       SizedBox(
+      //         height: 40,
+      //         width: 40,
+      //         child: FittedBox(
+      //           child: FloatingActionButton(
+      //             backgroundColor: Colors.lightBlue.shade200,
+      //             foregroundColor: Colors.white,
+      //             heroTag: null,
+      //             onPressed: () {},
+      //             child: const Icon(
+      //               Icons.add,
+      //               size: 32,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //       SizedBox(
+      //         height: 40,
+      //         width: 40,
+      //         child: FittedBox(
+      //           child: FloatingActionButton(
+      //             backgroundColor: Colors.lightBlue.shade200,
+      //             foregroundColor: Colors.white,
+      //             heroTag: null,
+      //             onPressed: () {},
+      //             child: const Icon(
+      //               FontAwesomeIcons.noteSticky,
+      //               size: 32,
+      //             ),
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       appBar: _appbar(),
       body: _body(),
     );

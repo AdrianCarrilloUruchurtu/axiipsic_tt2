@@ -14,6 +14,10 @@ class ListPsicPage extends StatelessWidget {
     return Observer(
         builder: ((context) => Scaffold(
               appBar: AppBar(
+                title: const Text(
+                  'Escoge un psicólogo',
+                  style: TextStyle(color: Colors.black),
+                ),
                 leading: Container(
                   margin: const EdgeInsets.all(8.0),
                   child: IconButton(

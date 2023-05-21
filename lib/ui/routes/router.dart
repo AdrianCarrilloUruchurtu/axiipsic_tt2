@@ -3,6 +3,7 @@ import 'package:axiipsic_tt2/ui/pages/auth/view/forgot_pw_page.dart';
 import 'package:axiipsic_tt2/ui/pages/auth/view/login_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_main_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/chat_page.dart';
+import 'package:axiipsic_tt2/ui/pages/usuarios/view/click_notification.dart/patient_request.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/psic_list.dart/view/psic_list.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/chat/view/search_page.dart';
 import 'package:axiipsic_tt2/ui/pages/usuarios/view/notas/view/sesiones_notas.dart';
@@ -38,6 +39,7 @@ import 'guest_guard.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <MaterialRoute>[
+    // MaterialRoute(page: OnboardingPage, initial: true, guards: [CheckIfUserIsGuest]),
     MaterialRoute(page: LoginPage, initial: true, guards: [CheckIfUserIsGuest]),
     MaterialRoute(page: RegisterPage),
     MaterialRoute(
@@ -49,6 +51,7 @@ import 'guest_guard.dart';
     MaterialRoute(page: PatHomePage, initial: true, guards: [
       CheckIfUserIsPat,
     ]),
+
     MaterialRoute(page: ListPage),
     MaterialRoute(page: ProgressPage),
     MaterialRoute(page: AyudaPage),
@@ -77,6 +80,7 @@ import 'guest_guard.dart';
     MaterialRoute(page: HistoriaPage), // MainPage
     MaterialRoute(page: FillHistoriaPage), // MainPage
     MaterialRoute(page: ForgotPage), // MainPage
+    MaterialRoute(page: PatientRequestPage), // MainPage
     // MainPage
   ],
 )
